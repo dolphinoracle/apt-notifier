@@ -1,8 +1,20 @@
+apt-notifier (1.1.5mx150+1) mx; urgency=medium
+
+  * add Apt History rightclick action 
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Wed, 11 Nov 2015 11:08:19 -0500
+
 apt-notifier (1.1.4mcr120+9) mepis; urgency=low
 
   * update apt-notifier help link
 
  -- Kent Mathern <maintainer@mepiscommunity.org>  Wed, 03 Jun 2015 18:37:08 -0400
+
+apt-notifier (1.1.4-0mx150+1) mx; urgency=medium
+
+  * Repackaged for MX 15..
+
+ -- Mike Purtell <mandbx@sbcglobal.net>  Sat, 30 May 2015 20:38:49 -0700
 
 apt-notifier (1.1.4mcr120+8) mepis; urgency=low
 

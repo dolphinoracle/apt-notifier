@@ -37,6 +37,7 @@ def set_translations():
     global Apt_Notifier_Help
     global Synaptic_Help
     global Apt_Notifier_Preferences    
+    global Apt_History
     global ignoreClick
     ignoreClick = '0'
 
@@ -54,7 +55,8 @@ def set_translations():
     Apt_Notifier_Help = u"Apt-Notifier Help"
     Synaptic_Help = u"Synaptic Help"
     Apt_Notifier_Preferences = u"Apt Notifier Preferences"
-
+    Apt_History = u"Apt History"
+    
     if locale == "ca":
         tooltip_0_updates_available = u"No hi ha actualitzacions disponibles"
         tooltip_1_new_update_available = u"1 actualització disponible"
@@ -70,6 +72,7 @@ def set_translations():
         Apt_Notifier_Help = u"Ajuda d'Apt-Notifier"
         Synaptic_Help = u"Ajuda de Synaptic"
         Apt_Notifier_Preferences = u"Preferències d'Apt Notifier"
+        Apt_History = u"Apt History"
 
     elif locale == "de":
         tooltip_0_updates_available = u"0 Updates verfügbar"
@@ -86,6 +89,7 @@ def set_translations():
         Apt_Notifier_Help = u"Apt-Notifier Hilfe"
         Synaptic_Help = u"Synaptic Hilfe"
         Apt_Notifier_Preferences = u"Apt Notifier Einstellungen"
+        Apt_History = u"Apt History"
 
     elif locale == "el":
         tooltip_0_updates_available = u"0 διαθέσιμες ενημερώσεις"
@@ -102,6 +106,7 @@ def set_translations():
         Apt_Notifier_Help = u"Apt-Notifier Βοήθεια"
         Synaptic_Help = u"Synaptic Βοήθεια"
         Apt_Notifier_Preferences = u"Apt Notifier Προτιμήσεις"
+        Apt_History = u"Apt History"
 
     elif locale == "es":
         tooltip_0_updates_available = u"0 actualizaciones disponibles"
@@ -118,6 +123,7 @@ def set_translations():
         Apt_Notifier_Help = u"Ayuda de Apt-Notifier"
         Synaptic_Help = u"Ayuda de Synaptic"
         Apt_Notifier_Preferences = u"Preferencias de Apt Notifier"
+        Apt_History = u"Apt History"
 
     elif locale == "fr":
         tooltip_0_updates_available = u"0 mises à jour disponibles"
@@ -134,6 +140,7 @@ def set_translations():
         Apt_Notifier_Help = u"Aide sur Apt-Notifier"
         Synaptic_Help = u"Aide sur Synaptic"
         Apt_Notifier_Preferences = u"Préferences pour Apt Notifier"
+        Apt_History = u"Apt History"
 
     elif locale == "it":
         tooltip_0_updates_available = u"0 aggiornamenti disponibili"
@@ -150,6 +157,7 @@ def set_translations():
         Apt_Notifier_Help = u"Aiuto su Apt-Notifier"
         Synaptic_Help = u"Aiuto su Synaptic"
         Apt_Notifier_Preferences = u"Preferenze per Apt Notifier"
+        Apt_History = u"Apt History"
 
     elif locale == "ja":
         tooltip_0_updates_available = u"0 新たな更新はありません"
@@ -166,6 +174,7 @@ def set_translations():
         Apt_Notifier_Help = u"Apt-Notifier ヘルプ"
         Synaptic_Help = u"Synaptic ヘルプ"
         Apt_Notifier_Preferences = u"Apt Notifier 設定"
+        Apt_History = u"Apt History"
 
     elif locale == "nl":
         tooltip_0_updates_available = u"0 updates available"
@@ -182,6 +191,7 @@ def set_translations():
         Apt_Notifier_Help = u"Apt-Notifier Help"
         Synaptic_Help = u"Synaptic Help"
         Apt_Notifier_Preferences = u"Apt Notifier Preferences"
+        Apt_History = u"Apt History"
 
     elif locale == "pl":
         tooltip_0_updates_available = u"0 Aktualizacje są dostępne"
@@ -198,6 +208,7 @@ def set_translations():
         Apt_Notifier_Help = u"Pomoc Apt-Notifier"
         Synaptic_Help = u"Pomoc Synaptic"
         Apt_Notifier_Preferences = u"Apt Notifier Ustawienia"
+        Apt_History = u"Apt History"
 
     elif locale == "sv":
         tooltip_0_updates_available = u"0 uppdateringar tillgängliga"
@@ -214,6 +225,7 @@ def set_translations():
         Apt_Notifier_Help = u"Apt-Notifier Hjälp"
         Synaptic_Help = u"Synaptic Hjälp"
         Apt_Notifier_Preferences = u"Apt Notifier Inställningar"
+        Apt_History = u"Apt History"
 
     else:
         pass
@@ -947,6 +959,38 @@ EOF
     script_file.close()
     check_updates()
 
+def apt_history():
+    script = '''#! /bin/bash
+    
+    TMP=$(mktemp -d /tmp/apt_history.XXXXXX)
+    
+    zgrep -EH ' install | upgrade | purge | remove ' /var/log/dpkg* | cut -f2- -d: | sort -r | \
+    sed 's/ remove / remove  /;s/ purge / purge   /' | \
+    sed 's/:all//;s/:i386//;s/:amd64//' | column -t > "$TMP"/APT_HISTORY
+    
+    yad --window-icon=/usr/share/icons/mnotify-some.png \
+        --width=$(xprop -root | grep _NET_DESKTOP_GEOMETRY\(CARDINAL\) | awk '{print $3*.75}') \
+        --height=480 \
+        --center \
+        --title "apt history" \
+        --text-info \
+        --filename="$TMP"/APT_HISTORY \
+        --fontname=mono \
+        --button=gtk-cancel \
+        --margins=7 \
+        --borders=5
+        
+    rm -rf "$TMP"    
+    
+    '''
+    script_file = tempfile.NamedTemporaryFile('wt')
+    script_file.write(script)
+    script_file.flush()
+    run = subprocess.Popen(['sh %s' % script_file.name],shell=True).wait()
+    script_file.close()
+    check_updates()
+    
+
 def re_enable_click():
     global ignoreClick
     ignoreClick = '0'
@@ -1019,6 +1063,7 @@ def add_rightclick_actions():
     else:
         process_updates_action = ActionsMenu.addAction(View_and_Upgrade)
         AptNotify.connect(process_updates_action, QtCore.SIGNAL("triggered()"), viewandupgrade0)
+    add_apt_history_action()        
     add_apt_notifier_help_action()
     add_synaptic_help_action()
     add_quit_action()
@@ -1029,6 +1074,7 @@ def add_hide_action():
     if icon_config == "show":
         hide_action = ActionsMenu.addAction(Hide_until_updates_available)
         AptNotify.connect(hide_action,QtCore.SIGNAL("triggered()"),set_noicon)
+    add_apt_history_action()    
     add_apt_notifier_help_action()
     add_synaptic_help_action()
     add_quit_action()
@@ -1072,6 +1118,11 @@ def add_aptnotifier_prefs_action():
     ActionsMenu.addSeparator()
     aptnotifier_prefs_action =  ActionsMenu.addAction(Apt_Notifier_Preferences)
     AptNotify.connect(aptnotifier_prefs_action,QtCore.SIGNAL("triggered()"), aptnotifier_prefs)
+
+def add_apt_history_action():
+    ActionsMenu.addSeparator()
+    apt_history_action =  ActionsMenu.addAction(Apt_History)
+    AptNotify.connect(apt_history_action,QtCore.SIGNAL("triggered()"), apt_history)
 
 # General application code	
 def main():
