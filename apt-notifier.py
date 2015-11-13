@@ -696,10 +696,10 @@ def initialize_aptnotifier_prefs():
       #
       #if a UpgradeType=* line not present,
       #or not equal to "upgrade" or "dist-upgrade"
-      #initially set it to "UpgradeType=upgrade"
+      #initially set it to "UpgradeType=dist-upgrade"
       #also delete multiple entries or what appears to be invalid entries
       sed -i '/.*UpgradeType.*/Id' ~/.config/apt-notifierrc 
-      echo "UpgradeType=upgrade">> ~/.config/apt-notifierrc
+      echo "UpgradeType=dist-upgrade">> ~/.config/apt-notifierrc
     fi
 
     #test if ~/.config/apt-notifierrc contains a UpgradeAssumeYes=* line and that it's a valid entry
