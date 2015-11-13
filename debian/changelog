@@ -1,3 +1,11 @@
+apt-notifier (1.1.5mx150+2) mx; urgency=medium
+
+  * fix width calculation (lop off decimal portion)
+  * change leftclick default to 'View and Upgrade'
+  * change UpgradeType default to 'dist-upgrade'
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Fri, 13 Nov 2015 13:34:11 -0500
+
 apt-notifier (1.1.5mx150+1) mx; urgency=medium
 
   * add Apt History rightclick action 
