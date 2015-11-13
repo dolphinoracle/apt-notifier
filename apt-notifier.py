@@ -744,10 +744,10 @@ def initialize_aptnotifier_prefs():
       #
       #if a LeftClick line not present,
       #or not equal to "ViewAndUpgrade" or "Synaptic"
-      #initially set it to "LeftClick=Synaptic"
+      #initially set it to "LeftClick=ViewAndUpgrade"
       #also delete multiple entries or what appears to be invalid entries
       sed -i '/.*LeftClick.*/Id' ~/.config/apt-notifierrc 
-      echo "LeftClick=Synaptic">> ~/.config/apt-notifierrc
+      echo "LeftClick=ViewAndUpgrade">> ~/.config/apt-notifierrc
     fi
 
     #cleanup any blank lines or lines with only whitespace
