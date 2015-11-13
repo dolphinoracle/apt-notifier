@@ -969,7 +969,7 @@ def apt_history():
     sed 's/:all//;s/:i386//;s/:amd64//' | column -t > "$TMP"/APT_HISTORY
     
     yad --window-icon=/usr/share/icons/mnotify-some.png \
-        --width=$(xprop -root | grep _NET_DESKTOP_GEOMETRY\(CARDINAL\) | awk '{print $3*.75}') \
+        --width=$(xprop -root | grep _NET_DESKTOP_GEOMETRY\(CARDINAL\) | awk '{print $3*.75}' | cut -f1 -d.) \
         --height=480 \
         --center \
         --title "apt history" \
