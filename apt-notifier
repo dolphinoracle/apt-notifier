@@ -25,10 +25,10 @@ if [ "$?" -eq 0 ]
   #
   #if a UpgradeType line not present,
   #or not equal to 'upgrade' or 'dist-upgrade'
-  #set it to 'UpgradeType=upgrade'
+  #set it to 'UpgradeType=dist-upgrade'
   #
   sed -i '/^UpgradeType/d' ~/.config/apt-notifierrc 
-  echo -e 'UpgradeType=upgrade\n'>> ~/.config/apt-notifierrc
+  echo -e 'UpgradeType=dist-upgrade\n'>> ~/.config/apt-notifierrc
 fi
 
 #cleanup any blank lines or lines with only whitespace
