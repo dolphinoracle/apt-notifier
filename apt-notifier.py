@@ -976,7 +976,7 @@ def apt_history():
         --text-info \
         --filename="$TMP"/APT_HISTORY \
         --fontname=mono \
-        --button=gtk-cancel \
+        --button=gtk-close \
         --margins=7 \
         --borders=5
         
