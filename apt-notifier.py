@@ -1058,11 +1058,13 @@ def add_rightclick_actions():
     command_string = "cat " + rc_file_name + " | grep -q LeftClick=ViewAndUpgrade"
     exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
     if exit_state == 0:
-        process_updates_action = ActionsMenu.addAction(Upgrade_using_Synaptic)
-        AptNotify.connect(process_updates_action, QtCore.SIGNAL("triggered()"), start_synaptic0)
+        AptNotify.connect(ActionsMenu.addAction(View_and_Upgrade), QtCore.SIGNAL("triggered()"), viewandupgrade0)
+        ActionsMenu.addSeparator()
+        AptNotify.connect(ActionsMenu.addAction(Upgrade_using_Synaptic), QtCore.SIGNAL("triggered()"), start_synaptic0)
     else:
-        process_updates_action = ActionsMenu.addAction(View_and_Upgrade)
-        AptNotify.connect(process_updates_action, QtCore.SIGNAL("triggered()"), viewandupgrade0)
+        AptNotify.connect(ActionsMenu.addAction(Upgrade_using_Synaptic), QtCore.SIGNAL("triggered()"), start_synaptic0)
+        ActionsMenu.addSeparator()
+        AptNotify.connect(ActionsMenu.addAction(View_and_Upgrade), QtCore.SIGNAL("triggered()"), viewandupgrade0)        
     add_apt_history_action()        
     add_apt_notifier_help_action()
     add_synaptic_help_action()
@@ -1074,6 +1076,8 @@ def add_hide_action():
     if icon_config == "show":
         hide_action = ActionsMenu.addAction(Hide_until_updates_available)
         AptNotify.connect(hide_action,QtCore.SIGNAL("triggered()"),set_noicon)
+        ActionsMenu.addSeparator()
+        AptNotify.connect(ActionsMenu.addAction(u"Synaptic"), QtCore.SIGNAL("triggered()"), start_synaptic0)        
     add_apt_history_action()    
     add_apt_notifier_help_action()
     add_synaptic_help_action()
