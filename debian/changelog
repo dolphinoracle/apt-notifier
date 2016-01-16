@@ -1,3 +1,9 @@
+apt-notifier (1.1.5mx150+4) mx; urgency=medium
+
+  * add Check for Updates rightclick action
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Sat, 16 Jan 2016 09:07:04 -0500
+
 apt-notifier (1.1.5mcr120+3) mepis; urgency=medium
 
   * Rebuild for Mepis 12 & MX-14

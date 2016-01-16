@@ -38,6 +38,7 @@ def set_translations():
     global Synaptic_Help
     global Apt_Notifier_Preferences    
     global Apt_History
+    global Check_for_Updates
     global ignoreClick
     ignoreClick = '0'
 
@@ -56,6 +57,7 @@ def set_translations():
     Synaptic_Help = u"Synaptic Help"
     Apt_Notifier_Preferences = u"Apt Notifier Preferences"
     Apt_History = u"Apt History"
+    Check_for_Updates = u"Check for Updates (apt-get update)"
     
     if locale == "ca":
         tooltip_0_updates_available = u"No hi ha actualitzacions disponibles"
@@ -73,7 +75,8 @@ def set_translations():
         Synaptic_Help = u"Ajuda de Synaptic"
         Apt_Notifier_Preferences = u"Preferències d'Apt Notifier"
         Apt_History = u"Apt History"
-
+        Check_for_Updates = u"Check for Updates (apt-get update)"
+        
     elif locale == "de":
         tooltip_0_updates_available = u"0 Updates verfügbar"
         tooltip_1_new_update_available = u"1 neues Update verfügbar"
@@ -90,6 +93,7 @@ def set_translations():
         Synaptic_Help = u"Synaptic Hilfe"
         Apt_Notifier_Preferences = u"Apt Notifier Einstellungen"
         Apt_History = u"Apt History"
+        Check_for_Updates = u"Check for Updates (apt-get update)"
 
     elif locale == "el":
         tooltip_0_updates_available = u"0 διαθέσιμες ενημερώσεις"
@@ -107,6 +111,7 @@ def set_translations():
         Synaptic_Help = u"Synaptic Βοήθεια"
         Apt_Notifier_Preferences = u"Apt Notifier Προτιμήσεις"
         Apt_History = u"Apt History"
+        Check_for_Updates = u"Check for Updates (apt-get update)"
 
     elif locale == "es":
         tooltip_0_updates_available = u"0 actualizaciones disponibles"
@@ -124,6 +129,7 @@ def set_translations():
         Synaptic_Help = u"Ayuda de Synaptic"
         Apt_Notifier_Preferences = u"Preferencias de Apt Notifier"
         Apt_History = u"Apt History"
+        Check_for_Updates = u"Check for Updates (apt-get update)"
 
     elif locale == "fr":
         tooltip_0_updates_available = u"0 mises à jour disponibles"
@@ -141,6 +147,7 @@ def set_translations():
         Synaptic_Help = u"Aide sur Synaptic"
         Apt_Notifier_Preferences = u"Préferences pour Apt Notifier"
         Apt_History = u"Apt History"
+        Check_for_Updates = u"Check for Updates (apt-get update)"
 
     elif locale == "it":
         tooltip_0_updates_available = u"0 aggiornamenti disponibili"
@@ -158,6 +165,7 @@ def set_translations():
         Synaptic_Help = u"Aiuto su Synaptic"
         Apt_Notifier_Preferences = u"Preferenze per Apt Notifier"
         Apt_History = u"Apt History"
+        Check_for_Updates = u"Check for Updates (apt-get update)"
 
     elif locale == "ja":
         tooltip_0_updates_available = u"0 新たな更新はありません"
@@ -175,6 +183,7 @@ def set_translations():
         Synaptic_Help = u"Synaptic ヘルプ"
         Apt_Notifier_Preferences = u"Apt Notifier 設定"
         Apt_History = u"Apt History"
+        Check_for_Updates = u"Check for Updates (apt-get update)"
 
     elif locale == "nl":
         tooltip_0_updates_available = u"0 updates available"
@@ -192,6 +201,7 @@ def set_translations():
         Synaptic_Help = u"Synaptic Help"
         Apt_Notifier_Preferences = u"Apt Notifier Preferences"
         Apt_History = u"Apt History"
+        Check_for_Updates = u"Check for Updates (apt-get update)"
 
     elif locale == "pl":
         tooltip_0_updates_available = u"0 Aktualizacje są dostępne"
@@ -209,6 +219,7 @@ def set_translations():
         Synaptic_Help = u"Pomoc Synaptic"
         Apt_Notifier_Preferences = u"Apt Notifier Ustawienia"
         Apt_History = u"Apt History"
+        Check_for_Updates = u"Check for Updates (apt-get update)"
 
     elif locale == "sv":
         tooltip_0_updates_available = u"0 uppdateringar tillgängliga"
@@ -226,6 +237,7 @@ def set_translations():
         Synaptic_Help = u"Synaptic Hjälp"
         Apt_Notifier_Preferences = u"Apt Notifier Inställningar"
         Apt_History = u"Apt History"
+        Check_for_Updates = u"Check for Updates (apt-get update)"
 
     else:
         pass
@@ -594,7 +606,7 @@ def viewandupgrade():
           --field="$use_apt_get_dash_dash_yes$UpgradeType":CHK $UpgradeAssumeYes \
           --field="$auto_close_term_window1$UpgradeType$auto_close_term_window2":CHK $UpgradeAutoClose \
         --button "$switch_to1$OtherUpgradeType'$switch_to2":4 \
-        --button gtk-ok\!\!apt-get\ $UpgradeType:0 \
+        --button gtk-ok:0!!apt-get\ $UpgradeType \
         --button gtk-cancel:2 \
         --buttons-layout=spread \
         2>/dev/null \
@@ -990,6 +1002,93 @@ def apt_history():
     script_file.close()
     check_updates()
     
+def apt_get_update():
+    script = '''#! /bin/bash
+    
+    #for MEPIS remove "MX" branding from the $window_title string
+    window_title=$(echo "$window_title"|sed 's/MX /'$(grep -o MX-[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
+
+    TermXOffset="$(xwininfo -root|awk '/Width/{print $2/4}')"
+    TermYOffset="$(xwininfo -root|awk '/Height/{print $2/4}')"
+    G=" --geometry=80x25+"$TermXOffset"+"$TermYOffset
+    #I=" --icon=mnotify-some"
+    #T=" --title='""$(grep -o MX-[1-9][0-9] /etc/issue|cut -c1-2)"" apt-notifier: apt-get update'"
+    if (xprop -root | grep -q -i kde)
+      then
+        # Running KDE
+        #
+        # Can't get su-to-root to work in newer KDE's, so use kdesu for authentication.
+        #  
+        # If x-terminal-emulator is set to xfce4-terminal.wrapper, use     
+        # xfce4-terminal instead because the --hold option doesn't work with
+        # the wrapper. Also need to enclose the apt-get command in single quotes.
+        #
+        # If x-terminal-emulator is set to xterm, use konsole instead, if it's available (it should be).
+
+        case $(readlink -e /usr/bin/x-terminal-emulator | xargs basename) in
+
+                         konsole) kdesu -c "konsole -e apt-get update"
+                                  sleep 5
+                                  ;;
+
+          xfce4-terminal.wrapper) kdesu -c "xfce4-terminal$G$I$T -e apt-get update"
+                                  ;;
+
+                           xterm) if [ -e /usr/bin/konsole ]
+                                    then
+                                      kdesu -c "konsole -e apt-get update"
+                                      sleep 5
+                                    else
+                                      kdesu -c "xterm -e apt-get update"
+                                  fi
+                                  ;;
+
+                               *) kdesu -c "x-terminal-emulator -e apt-get update"
+                                  ;;
+        esac
+
+      else
+        # Running a non KDE desktop
+        # 
+        # Use su-to-root for authentication, it should end up using gksu.
+        # 
+        # If x-terminal-emulator is set to xfce4-terminal.wrapper, use 
+        # xfce4-terminal instead because the --hold option doesn't work
+        # with the wrapper. Also need to enclose the apt-get command in
+        # single quotes.
+        #
+        # If x-terminal-emulator is set to xterm, use xfce4-terminal instead, if it's available (it is in MX)
+
+        case $(readlink -e /usr/bin/x-terminal-emulator | xargs basename) in
+
+                         konsole) su-to-root -X -c "konsole -e apt-get\ update"
+                                  sleep 5
+                                  ;;
+
+          xfce4-terminal.wrapper) su-to-root -X -c "xfce4-terminal$G$I$T -e apt-get\ update"
+                                  ;;
+
+                           xterm) if [ -e /usr/bin/xfce4-terminal ]
+                                    then
+                                      su-to-root -X -c "xfce4-terminal$G$I$T -e apt-get\ update"
+                                    else
+                                      su-to-root -X -c "xterm -e apt-get\ update"
+                                  fi
+                                  ;;
+
+                               *) su-to-root -X -c "x-terminal-emulator -e apt-get\ update"
+                                  ;;
+
+        esac
+    fi
+    
+    '''
+    script_file = tempfile.NamedTemporaryFile('wt')
+    script_file.write(script)
+    script_file.flush()
+    run = subprocess.Popen(['sh %s' % script_file.name],shell=True).wait()
+    script_file.close()
+    check_updates()
 
 def re_enable_click():
     global ignoreClick
@@ -1066,6 +1165,7 @@ def add_rightclick_actions():
         ActionsMenu.addSeparator()
         AptNotify.connect(ActionsMenu.addAction(View_and_Upgrade), QtCore.SIGNAL("triggered()"), viewandupgrade0)        
     add_apt_history_action()        
+    add_apt_get_update_action()
     add_apt_notifier_help_action()
     add_synaptic_help_action()
     add_quit_action()
@@ -1079,6 +1179,7 @@ def add_hide_action():
         ActionsMenu.addSeparator()
         AptNotify.connect(ActionsMenu.addAction(u"Synaptic"), QtCore.SIGNAL("triggered()"), start_synaptic0)        
     add_apt_history_action()    
+    add_apt_get_update_action()
     add_apt_notifier_help_action()
     add_synaptic_help_action()
     add_quit_action()
@@ -1127,6 +1228,11 @@ def add_apt_history_action():
     ActionsMenu.addSeparator()
     apt_history_action =  ActionsMenu.addAction(Apt_History)
     AptNotify.connect(apt_history_action,QtCore.SIGNAL("triggered()"), apt_history)
+
+def add_apt_get_update_action():
+    ActionsMenu.addSeparator()
+    apt_get_update_action =  ActionsMenu.addAction(Check_for_Updates)
+    AptNotify.connect(apt_get_update_action,QtCore.SIGNAL("triggered()"), apt_get_update)
 
 # General application code	
 def main():
