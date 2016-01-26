@@ -1023,12 +1023,25 @@ def apt_get_update():
         # xfce4-terminal instead because the --hold option doesn't work with
         # the wrapper. Also need to enclose the apt-get command in single quotes.
         #
-        # If x-terminal-emulator is set to xterm, use konsole instead, if it's available (it should be).
+        # If x-terminal-emulator is set to gnome-terminal.wrapper, use konsole instead, if it's available (it should be), if not do nothing.
+        # If x-terminal-emulator is set to xterm,                  use konsole instead, if it's available (it should be), if not use xterm.
 
         case $(readlink -e /usr/bin/x-terminal-emulator | xargs basename) in
+        
+          gnome-terminal.wrapper) if [ -e /usr/bin/konsole ]
+                                    then
+                                      kdesu -c "konsole -e apt-get update"
+                                      sleep 5
+                                    else
+                                      :
+                                  fi
+                                  ;;
 
                          konsole) kdesu -c "konsole -e apt-get update"
                                   sleep 5
+                                  ;;
+
+                         roxterm) kdesu -c "roxterm$G$T --separare -e apt-get update"
                                   ;;
 
           xfce4-terminal.wrapper) kdesu -c "xfce4-terminal$G$I$T -e 'apt-get update'"
@@ -1057,12 +1070,19 @@ def apt_get_update():
         # with the wrapper. Also need to enclose the apt-get command in
         # single quotes.
         #
-        # If x-terminal-emulator is set to xterm, use xfce4-terminal instead, if it's available (it is in MX)
+        # If x-terminal-emulator is set to gnome-terminal.wrapper, use xfce4-terminal instead, if it's available (it is in MX), if not use gnome-terminal.
+        # If x-terminal-emulator is set to xterm,                  use xfce4-terminal instead, if it's available (it is in MX), if not use xterm.
 
         case $(readlink -e /usr/bin/x-terminal-emulator | xargs basename) in
 
+          gnome-terminal.wrapper) su-to-root -X -c "gnome-terminal$G$T -e 'apt-get update'"
+                                  ;;
+
                          konsole) su-to-root -X -c "konsole -e apt-get update"
                                   sleep 5
+                                  ;;
+
+                         roxterm) su-to-root -X -c "roxterm$G$T --separate -e apt-get update"
                                   ;;
 
           xfce4-terminal.wrapper) su-to-root -X -c "xfce4-terminal$G$I$T -e 'apt-get update'"
