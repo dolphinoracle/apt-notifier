@@ -476,8 +476,20 @@ def viewandupgrade():
 
             case $(readlink -e /usr/bin/x-terminal-emulator | xargs basename) in
 
+              gnome-terminal.wrapper) if [ -e /usr/bin/konsole ]
+                                        then
+                                          kdesu -c "konsole -e $TMP/upgradeScript"
+                                          sleep 5
+                                        else
+                                          :
+                                      fi
+                                      ;;
+
                              konsole) kdesu -c "konsole -e $TMP/upgradeScript"
                                       sleep 5
+                                      ;;
+
+                             roxterm) kdesu -c "roxterm$G$T --separate -e $TMP/upgradeScript"
                                       ;;
 
               xfce4-terminal.wrapper) kdesu -c "xfce4-terminal$G$I$T -e $TMP/upgradeScript"
@@ -512,8 +524,14 @@ def viewandupgrade():
 
             case $(readlink -e /usr/bin/x-terminal-emulator | xargs basename) in
 
+              gnome-terminal.wrapper) su-to-root -X -c "gnome-terminal$G$T -e $TMP/upgradeScript"
+                                      ;;
+
                              konsole) su-to-root -X -c "konsole -e $TMP/upgradeScript"
                                       sleep 5
+                                      ;;
+
+                             roxterm) su-to-root -X -c "roxterm$G$T --separate -e $TMP/upgradeScript"
                                       ;;
 
               xfce4-terminal.wrapper) su-to-root -X -c "xfce4-terminal$G$I$T -e $TMP/upgradeScript"
