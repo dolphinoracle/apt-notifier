@@ -1031,7 +1031,7 @@ def apt_get_update():
                                   sleep 5
                                   ;;
 
-          xfce4-terminal.wrapper) kdesu -c "xfce4-terminal$G$I$T -e apt-get update"
+          xfce4-terminal.wrapper) kdesu -c "xfce4-terminal$G$I$T -e 'apt-get update'"
                                   ;;
 
                            xterm) if [ -e /usr/bin/konsole ]
@@ -1061,22 +1061,22 @@ def apt_get_update():
 
         case $(readlink -e /usr/bin/x-terminal-emulator | xargs basename) in
 
-                         konsole) su-to-root -X -c "konsole -e apt-get\ update"
+                         konsole) su-to-root -X -c "konsole -e apt-get update"
                                   sleep 5
                                   ;;
 
-          xfce4-terminal.wrapper) su-to-root -X -c "xfce4-terminal$G$I$T -e apt-get\ update"
+          xfce4-terminal.wrapper) su-to-root -X -c "xfce4-terminal$G$I$T -e 'apt-get update'"
                                   ;;
 
                            xterm) if [ -e /usr/bin/xfce4-terminal ]
                                     then
-                                      su-to-root -X -c "xfce4-terminal$G$I$T -e apt-get\ update"
+                                      su-to-root -X -c "xfce4-terminal$G$I$T -e 'apt-get update'"
                                     else
-                                      su-to-root -X -c "xterm -e apt-get\ update"
+                                      su-to-root -X -c "xterm -e apt-get update"
                                   fi
                                   ;;
 
-                               *) su-to-root -X -c "x-terminal-emulator -e apt-get\ update"
+                               *) su-to-root -X -c "x-terminal-emulator -e apt-get update"
                                   ;;
 
         esac
