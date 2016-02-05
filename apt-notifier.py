@@ -662,8 +662,14 @@ def viewandupgrade():
         # build a upgrade script to do the apt-get upgrade (or dist-upgrade)
         echo "#!/bin/bash"> "$TMP"/upgradeScript
         echo "echo 'apt-get '"$UpgradeType>> "$TMP"/upgradeScript
-        echo 'SynapticPins=$(mktemp /etc/apt/preferences.d/synaptic-XXXXXX-pins)'>> "$TMP"/upgradeScript
-        echo 'if [ -e /var/lib/synaptic/preferences ]; then ln -sf /var/lib/synaptic/preferences "$SynapticPins" 2>/dev/null; fi'>> "$TMP"/upgradeScript
+        echo 'find /etc/apt/preferences.d | grep -E synaptic-[0-9a-zA-Z]{6}-pins | xargs rm -f'>> "$TMP"/upgradeScript 
+        echo 'if [ -f /var/lib/synaptic/preferences -a -s /var/lib/synaptic/preferences ]'>> "$TMP"/upgradeScript
+        echo '  then '>> "$TMP"/upgradeScript
+        echo '    SynapticPins=$(mktemp /etc/apt/preferences.d/synaptic-XXXXXX-pins)'>> "$TMP"/upgradeScript
+        echo '    ln -sf /var/lib/synaptic/preferences "$SynapticPins" 2>/dev/null'>> "$TMP"/upgradeScript
+        echo 'fi'>> "$TMP"/upgradeScript
+        echo 'file "$SynapticPins" | cut -f2- -d" " | grep -e"broken symbolic link" -e"empty" -q '>> "$TMP"/upgradeScript
+        echo 'if [ $? -eq 0 ]; then find /etc/apt/preferences.d | grep -E synaptic-[0-9a-zA-Z]{6}-pins | xargs rm -f; fi'>> "$TMP"/upgradeScript
         if [ "$UpgradeAssumeYes" = "true" ];
           then
             echo "apt-get --assume-yes "$UpgradeType>> "$TMP"/upgradeScript
@@ -671,7 +677,7 @@ def viewandupgrade():
             echo "apt-get "$UpgradeType>> "$TMP"/upgradeScript
         fi 
         echo "echo">> "$TMP"/upgradeScript
-        echo 'rm -f "$SynapticPins"'>> "$TMP"/upgradeScript
+        echo 'find /etc/apt/preferences.d | grep -E synaptic-[0-9a-zA-Z]{6}-pins | xargs rm -f'>> "$TMP"/upgradeScript
         if [ "$UpgradeAutoClose" = "true" ];
           then
             echo 'echo "'$done0'apt-get '$UpgradeType$done1>> "$TMP"/upgradeScript

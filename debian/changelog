@@ -1,3 +1,15 @@
+apt-notifier (1.1.5mcr120+5) mepis; urgency=medium
+
+  * Rebuild for Mepis 12 & MX-14
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Thu, 04 Feb 2016 19:29:36 -0500
+
+apt-notifier (1.1.5mx150+5) mx; urgency=medium
+
+  * synaptic pinning fixes
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Thu, 04 Feb 2016 19:24:01 -0500
+
 apt-notifier (1.1.5mcr120+4) mepis; urgency=medium
 
   * Rebuild for Mepis 12 & MX-14
