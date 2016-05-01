@@ -1232,7 +1232,7 @@ def add_hide_action():
 def add_quit_action():
     ActionsMenu.addSeparator()
     quit_action = ActionsMenu.addAction(QuitIcon,Quit_Apt_Notifier)
-    AptNotify.connect(quit_action, QtCore.SIGNAL("triggered()"), AptNotify.exit)
+    AptNotify.connect(quit_action, QtCore.SIGNAL("triggered()"), exit)
 
 def add_apt_notifier_help_action():
     ActionsMenu.addSeparator()
