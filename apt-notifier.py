@@ -328,6 +328,8 @@ def viewandupgrade():
              done1=' complete (or was canceled)"' 
              done2="'this terminal window can now be closed '" 
              done3="'(press any key to close)'"
+             autoremovable_packages_msg1="Unneeded packages are installed that can be removed."
+             autoremovable_packages_msg2="'Running apt-get autoremove, if you are unsure type "'"'"n"'"'".'"
 
     case $(locale|grep ^LANG=|cut -f2 -d=|cut -f1 -d_) in
 
@@ -340,7 +342,10 @@ def viewandupgrade():
              done0="s'ha completat (o cancel·lat) "
              done1='"'
              done2="'ara podeu tancar la finestra '"
-             done3="'(prement qualsevol tecla)'" ;;
+             done3="'(prement qualsevol tecla)'"
+             autoremovable_packages_msg1="Unneeded packages are installed that can be removed."
+             autoremovable_packages_msg2="'Running apt-get autoremove, if you are unsure type "'"'"n"'"'".'"
+             ;;
 
       de)    window_title="MX Apt Notifier--Anschauen and aufrüsten, vorprüfend: apt-get "
              use_apt_get_dash_dash_yes="Option --yes von apt-get's benutzen bei "
@@ -351,7 +356,10 @@ def viewandupgrade():
              done0=""
              done1=' fertig (oder beendet)"'
              done2="'Dieses Shellfenster darf jetzt geschlossen werden '" 
-             done3="'(drücken Sie eine beliebige Taste zu schliessen)'" ;;
+             done3="'(drücken Sie eine beliebige Taste zu schliessen)'"
+             autoremovable_packages_msg1="Unneeded packages are installed that can be removed."
+             autoremovable_packages_msg2="'Running apt-get autoremove, if you are unsure type "'"'"n"'"'".'"
+             ;;
 
       el)    window_title="MX Apt Notifier--Προβολή και Αναβάθμιση, προεπισκόπηση: apt-get "
              use_apt_get_dash_dash_yes="χρησιμοποιήσετε την επιλογή του apt-get --yes option για την "
@@ -362,7 +370,10 @@ def viewandupgrade():
              done0="" 
              done1=' ολοκληρώθηκε (ή ακυρώθηκε)"' 
              done2="'Αυτό το παράθυρο τερματικού μπορεί να κλείσει '" 
-             done3="'(πατήστε οποιοδήποτε πλήκτρο να κλείσει)'" ;;
+             done3="'(πατήστε οποιοδήποτε πλήκτρο να κλείσει)'"
+             autoremovable_packages_msg1="Unneeded packages are installed that can be removed."
+             autoremovable_packages_msg2="'Running apt-get autoremove, if you are unsure type "'"'"n"'"'".'"
+             ;;
 
       es)    window_title="MX Apt Notifier--Ver y Actualizar, vista previa: apt-get "
              use_apt_get_dash_dash_yes="usar la opción --yes de apt-get para "
@@ -373,7 +384,10 @@ def viewandupgrade():
              done0="se completó "
              done1=' (o se canceló)"' 
              done2="'esta ventana de terminal ya puede cerrarse '" 
-             done3="'(oprima cualquier tecla para cerrarla)'"  ;;
+             done3="'(oprima cualquier tecla para cerrarla)'" 
+             autoremovable_packages_msg1="Unneeded packages are installed that can be removed."
+             autoremovable_packages_msg2="'Running apt-get autoremove, if you are unsure type "'"'"n"'"'".'"
+             ;;
 
       fr)    window_title="MX Apt Notifier--Voir et mettre à niveau, survol du programme apt-get "
              use_apt_get_dash_dash_yes="utiliser l'option --yes de apt-get pour "
@@ -384,7 +398,10 @@ def viewandupgrade():
              done0=""
              done1=" s'est terminé (ou a été annulé)"'"' 
              done2="'vous pouvez maintenant fermer cette fenêtre de terminal '" 
-             done3='"(appuyez sur n'"'"'importe quelle touche pour fermer)"' ;;
+             done3='"(appuyez sur n'"'"'importe quelle touche pour fermer)"'
+             autoremovable_packages_msg1="Unneeded packages are installed that can be removed."
+             autoremovable_packages_msg2="'Running apt-get autoremove, if you are unsure type "'"'"n"'"'".'"
+             ;;
 
       it)    window_title="MX Apt Notifier--Mostra e Aggiorna, presentazione di: apt-get "
              use_apt_get_dash_dash_yes="usare l'opzione --yes di apt-get per l' "
@@ -395,7 +412,10 @@ def viewandupgrade():
              done0=""
              done1=' ha terminato (o è stato annullato)"'
              done2="'Ora è possibile chiudere questa finestra del terminale '"
-             done3="'(premi un tasto qualsiasi per chiudere)'" ;;
+             done3="'(premi un tasto qualsiasi per chiudere)'"
+             autoremovable_packages_msg1="Unneeded packages are installed that can be removed."
+             autoremovable_packages_msg2="'Running apt-get autoremove, if you are unsure type "'"'"n"'"'".'"
+             ;;
 
       ja)    window_title="MX Apt Notifier--表示・更新 これを試す: apt-get "
              use_apt_get_dash_dash_yes="で apt-get's --yes オプションを使用する "
@@ -406,7 +426,10 @@ def viewandupgrade():
              done0="" 
              done1=' 完了 (またはキャンセル)時に"' 
              done2="'この端末ウインドウを閉じる '" 
-             done3="'(何かキーを押して閉じる)'" ;;
+             done3="'(何かキーを押して閉じる)'"
+             autoremovable_packages_msg1="Unneeded packages are installed that can be removed."
+             autoremovable_packages_msg2="'Running apt-get autoremove, if you are unsure type "'"'"n"'"'".'"
+             ;;
 
       nl)    window_title="MX Apt Notifier--View and Upgrade, previewing: apt-get "
              use_apt_get_dash_dash_yes="use apt-get --yes option for "
@@ -417,7 +440,10 @@ def viewandupgrade():
              done0="" 
              done1=' complete (or was canceled)"' 
              done2="'this terminal window can now be closed '" 
-             done3="'(press any key to close)'" ;;
+             done3="'(press any key to close)'"
+             autoremovable_packages_msg1="Unneeded packages are installed that can be removed."
+             autoremovable_packages_msg2="'Running apt-get autoremove, if you are unsure type "'"'"n"'"'".'"
+             ;;
 
       pl)    window_title="MX Apt Notifier--Przeglądaj i Aktualizować, podglądu: apt-get "
              use_apt_get_dash_dash_yes="stosować apt-get --yes opcję  dla "
@@ -428,7 +454,10 @@ def viewandupgrade():
              done0="Komenda " 
              done1=' została wykonana (lub przerwana)"' 
              done2="'Okno to można zamknąć teraz '" 
-             done3="'(naciśnij dowolny klawisz, aby zamknąć)'" ;;
+             done3="'(naciśnij dowolny klawisz, aby zamknąć)'"
+             autoremovable_packages_msg1="Unneeded packages are installed that can be removed."
+             autoremovable_packages_msg2="'Running apt-get autoremove, if you are unsure type "'"'"n"'"'".'"
+             ;;
 
       sv)    window_title="MX Apt Notifier--Granska och Uppgradera, förhandsgranskning: apt-get "
              use_apt_get_dash_dash_yes="använd apt-get's --yes möjlighet för "
@@ -439,7 +468,10 @@ def viewandupgrade():
              done0="" 
              done1=' färdig (eller stoppades)"' 
              done2="'detta terminalfönster kan nu stängas '" 
-             done3="'(tryck på valfri tangent för att stänga)'" ;;
+             done3="'(tryck på valfri tangent för att stänga)'"
+             autoremovable_packages_msg1="Unneeded packages are installed that can be removed."
+             autoremovable_packages_msg2="'Running apt-get autoremove, if you are unsure type "'"'"n"'"'".'"
+             ;;
 
        *)    : ;;
 
@@ -675,7 +707,23 @@ def viewandupgrade():
             echo "apt-get --assume-yes "$UpgradeType>> "$TMP"/upgradeScript
           else
             echo "apt-get "$UpgradeType>> "$TMP"/upgradeScript
-        fi 
+        fi
+        grep ^CheckForAutoRemoves=true ~/.config/apt-notifierrc -q
+        if [ $? -eq 0 ]
+          then
+            echo "echo">> "$TMP"/upgradeScript
+            echo 'apt-get autoremove -s | grep ^Remv -q'>> "$TMP"/upgradeScript
+            echo 'if [ $? -eq 0 ]; '>> "$TMP"/upgradeScript
+            echo '  then'>> "$TMP"/upgradeScript
+            echo 'echo '"$autoremovable_packages_msg1">> "$TMP"/upgradeScript
+            echo 'echo '"$autoremovable_packages_msg2">> "$TMP"/upgradeScript
+            echo 'apt-get autoremove -qV'>> "$TMP"/upgradeScript
+            echo '  else'>> "$TMP"/upgradeScript
+            echo '    :'>> "$TMP"/upgradeScript
+            echo 'fi'>> "$TMP"/upgradeScript
+          else
+            :
+        fi
         echo "echo">> "$TMP"/upgradeScript
         echo 'find /etc/apt/preferences.d | grep -E synaptic-[0-9a-zA-Z]{6}-pins | xargs rm -f'>> "$TMP"/upgradeScript
         if [ "$UpgradeAutoClose" = "true" ];
@@ -786,6 +834,22 @@ def initialize_aptnotifier_prefs():
       echo "LeftClick=ViewAndUpgrade">> ~/.config/apt-notifierrc
     fi
 
+    #test if ~/.config/apt-notifierrc contains a CheckForAutoRemoves=* line and that it's a valid entry
+    grep -q -e ^"CheckForAutoRemoves=true" -e^"CheckForAutoRemoves=false" ~/.config/apt-notifierrc
+    if [ "$?" -eq 0 ]
+      then
+      #contains a valid entry so do nothing
+        :
+      else
+      #
+      #if a CheckForAutoRemoves=* line not present,
+      #or not equal to "true" or "false"
+      #intially set it to "CheckForAutoRemoves=false"
+      #also delete multiple entries or what appears to be invalid entries
+      sed -i '/.*CheckForAutoRemoves.*/Id' ~/.config/apt-notifierrc 
+      echo "CheckForAutoRemoves=false">> ~/.config/apt-notifierrc
+    fi
+
     #cleanup any blank lines or lines with only whitespace
     sed -i '/^[[:space:]]*$/d' ~/.config/apt-notifierrc
 
@@ -808,6 +872,7 @@ def aptnotifier_prefs():
              left_click_ViewandUpgrade='opens MX Apt Notifier "View and Upgrade" window'
              use_apt_get_dash_dash_yes="use apt-get's --yes option for upgrade/dist-upgrade"
              auto_close_term_window_when_complete="automatically close terminal window when apt-get upgrade/dist-upgrade complete"
+             check_for_autoremoves="Check for autoremovable packages after apt-get upgrade/dist-upgrade"
 
     case $(locale|grep ^LANG=|cut -f2 -d=|cut -f1 -d_) in
 
@@ -817,7 +882,9 @@ def aptnotifier_prefs():
              left_click_Synaptic="obre Synaptic "
              left_click_ViewandUpgrade='obre la finestra de MX Apt Notifier "Veure i actualitzar"'
              use_apt_get_dash_dash_yes="usa l'opció d'apt-get --yes per a upgrade/dist-upgrade"
-             auto_close_term_window_when_complete="tanca automàticament la finestra del terminal quan s'ha completat apt-get upgrade/dist-upgrade" ;;
+             auto_close_term_window_when_complete="tanca automàticament la finestra del terminal quan s'ha completat apt-get upgrade/dist-upgrade"
+             check_for_autoremoves="Check for autoremovable packages after apt-get upgrade/dist-upgrade"
+             ;;
 
          de) window_title="MX Apt Notifier Einstellungen"
              frame_upgrade_behaviour="  Upgrade-Verhalten (beeinflusst auch die Zählung der Meldung)   "
@@ -825,7 +892,9 @@ def aptnotifier_prefs():
              left_click_Synaptic="startet Synaptic "
              left_click_ViewandUpgrade='öffnet das Fenster im MX Apt Notifier "Anschauen and Aufrüsten"'
              use_apt_get_dash_dash_yes="Option --yes von apt-get's benutzen bei upgrade/dist-upgrade"
-             auto_close_term_window_when_complete="Shellfenster automatiisch schliessen nach Ende von apt-get upgrade/dist-upgrade" ;;
+             auto_close_term_window_when_complete="Shellfenster automatiisch schliessen nach Ende von apt-get upgrade/dist-upgrade"
+             check_for_autoremoves="Check for autoremovable packages after apt-get upgrade/dist-upgrade"
+             ;;
 
          el) window_title="MX Apt Notifier προτιμήσεις"
              frame_upgrade_behaviour="  αναβάθμιση (επηρεάζει επίσης καταμέτρηση κοινοποίηση)   "
@@ -833,7 +902,9 @@ def aptnotifier_prefs():
              left_click_Synaptic="ανοίγει το  Synaptic "
              left_click_ViewandUpgrade='ανοίγει το παράθυρο "Προβολή και Αναβάθμιση" του MX Apt Notifier'
              use_apt_get_dash_dash_yes="χρησιμοποιήσετε την επιλογή του apt-get --yes option για την αναβάθμιση"
-             auto_close_term_window_when_complete="Να κλείσει αυτόματα το παράθυρο τερματικού όταν το apt-get upgrade/dist-upgrade έχει ολοκληρωθεί" ;;
+             auto_close_term_window_when_complete="Να κλείσει αυτόματα το παράθυρο τερματικού όταν το apt-get upgrade/dist-upgrade έχει ολοκληρωθεί"
+             check_for_autoremoves="Check for autoremovable packages after apt-get upgrade/dist-upgrade"
+             ;;
 
          es) window_title="MX preferencias de Apt Notifier"
              frame_upgrade_behaviour="  comportamiento de actualización (también afecta la cuenta de notificaciones)   "
@@ -841,7 +912,9 @@ def aptnotifier_prefs():
              left_click_Synaptic="abre Synaptic "
              left_click_ViewandUpgrade='abre la ventana "Ver y Actualizar" de MX Apt Notifier'
              use_apt_get_dash_dash_yes="usar la opción --yes de apt-get's para upgrade/dist-upgrade"
-             auto_close_term_window_when_complete="Cerrar automáticamente la terminal cuando se completa apt-get upgrade/dist-upgrade" ;;
+             auto_close_term_window_when_complete="Cerrar automáticamente la terminal cuando se completa apt-get upgrade/dist-upgrade"
+             check_for_autoremoves="Check for autoremovable packages after apt-get upgrade/dist-upgrade"
+             ;;
 
          fr) window_title="Préferences pour MX Apt Notifier"
              frame_upgrade_behaviour="  Comportement de la mise à niveau (influe aussi sur le compte dans la notification)   "
@@ -849,7 +922,9 @@ def aptnotifier_prefs():
              left_click_Synaptic="lance Synaptic "
              left_click_ViewandUpgrade='lance MX Apt Notifier "Voir et mettre à niveau" dans une fenêtre'
              use_apt_get_dash_dash_yes="utiliser l'option --yes de apt-get pour upgrade/dist-upgrade"
-             auto_close_term_window_when_complete="fermer automatiquement la fenêtre de terminal quand apt-get upgrade/dist-upgrade se termine" ;;
+             auto_close_term_window_when_complete="fermer automatiquement la fenêtre de terminal quand apt-get upgrade/dist-upgrade se termine"
+             check_for_autoremoves="Check for autoremovable packages after apt-get upgrade/dist-upgrade"
+             ;;
 
          it) window_title="Preferenze per MX Apt Notifier"
              frame_upgrade_behaviour="  Comportamento dell'aggiornamento (compresa la conta delle notifiche)   "
@@ -857,7 +932,9 @@ def aptnotifier_prefs():
              left_click_Synaptic="apre Synaptic "
              left_click_ViewandUpgrade='apre la finestra "Mostra e Aggiorna" di MX Apt Notifier'
              use_apt_get_dash_dash_yes="usare l'opzione --yes di apt-get per l' upgrade/dist-upgrade"
-             auto_close_term_window_when_complete="chiudere automaticamente la finestra del terminale quando apt-get upgrade/dist-upgrade ha terminato" ;;
+             auto_close_term_window_when_complete="chiudere automaticamente la finestra del terminale quando apt-get upgrade/dist-upgrade ha terminato"
+             check_for_autoremoves="Check for autoremovable packages after apt-get upgrade/dist-upgrade"
+             ;;
 
          ja) window_title="MX Apt Notifier 設定"
              frame_upgrade_behaviour="  更新の動作 (通知数に影響があります)   "
@@ -865,7 +942,9 @@ def aptnotifier_prefs():
              left_click_Synaptic="Synaptic を開く"
              left_click_ViewandUpgrade="MX Apt Notifier '表示・更新' ウインドウを開く"
              use_apt_get_dash_dash_yes="upgrade/dist-upgrade に apt-get's --yes オプションを使用する"
-             auto_close_term_window_when_complete="apt-get upgrade/dist-upgrade が完了した後自動的に端末ウインドウを閉じる" ;;
+             auto_close_term_window_when_complete="apt-get upgrade/dist-upgrade が完了した後自動的に端末ウインドウを閉じる"
+             check_for_autoremoves="Check for autoremovable packages after apt-get upgrade/dist-upgrade"
+             ;;
 
          nl) window_title="MX Apt Notifier preferences"
              frame_upgrade_behaviour="  upgrade behaviour   (also affects notification count)   "
@@ -873,7 +952,9 @@ def aptnotifier_prefs():
              left_click_Synaptic="opens Synaptic "
              left_click_ViewandUpgrade='opens MX Apt Notifier "View and Upgrade" window'
              use_apt_get_dash_dash_yes="use apt-get's --yes option for upgrade/dist-upgrade"
-             auto_close_term_window_when_complete="automatically close terminal window when apt-get upgrade/dist-upgrade complete" ;;
+             auto_close_term_window_when_complete="automatically close terminal window when apt-get upgrade/dist-upgrade complete"
+             check_for_autoremoves="Check for autoremovable packages after apt-get upgrade/dist-upgrade"
+             ;;
 
          pl) window_title="MX Apt Notifier Ustawienia"
              frame_upgrade_behaviour="  zachowanie aktualizacji   (również wpływ na liczbę powiadomień)   "
@@ -881,7 +962,9 @@ def aptnotifier_prefs():
              left_click_Synaptic="otwiera Synaptic "
              left_click_ViewandUpgrade='otwiera MX Apt Notifier "Przeglądaj i Aktualizować" okno'
              use_apt_get_dash_dash_yes="stosować apt-get's --yes opcję  dla upgrade/dist-upgrade"
-             auto_close_term_window_when_complete="zostały automatycznie zamknięte okno terminalu przy upgrade/dist-upgrade gotowy" ;;
+             auto_close_term_window_when_complete="zostały automatycznie zamknięte okno terminalu przy upgrade/dist-upgrade gotowy"
+             check_for_autoremoves="Check for autoremovable packages after apt-get upgrade/dist-upgrade"
+             ;;
 
          sv) window_title="MX Apt Notifier inställningar"
              frame_upgrade_behaviour="  uppgraderingsbeteende (påverkar också antalet i meddelandena)   "
@@ -889,7 +972,9 @@ def aptnotifier_prefs():
              left_click_Synaptic="öppnar Synaptic "
              left_click_ViewandUpgrade='öppnar MX Apt Notifier "Granska och uppgradera"-fönster'
              use_apt_get_dash_dash_yes="använd apt-get's --yes möjlighet för upgrade/dist-upgrade"
-             auto_close_term_window_when_complete="stäng automatiskt terminalfönstret när apt-get upgrade/dist-upgrade är slutfört" ;;
+             auto_close_term_window_when_complete="stäng automatiskt terminalfönstret när apt-get upgrade/dist-upgrade är slutfört"
+             check_for_autoremoves="Check for autoremovable packages after apt-get upgrade/dist-upgrade"
+             ;;
 
           *) : ;;
     esac
@@ -941,6 +1026,13 @@ def aptnotifier_prefs():
             <action>:</action>
           </checkbox>
         </frame>
+        <frame>
+          <checkbox active="@CheckForAutoRemoves@">
+            <label>@check_for_autoremoves@</label>
+            <variable>CheckForAutoRemoves</variable>
+            <action>:</action>
+          </checkbox>
+        </frame>
       <hbox>
         <button ok> </button>
         <button cancel> </button>
@@ -957,6 +1049,7 @@ EOF
     sed -i 's/@opens_View_and_Upgrade@/'"$left_click_ViewandUpgrade"'/' "$TMP"/DIALOG
     sed -i 's|@use_apt_get_yes@|'"$use_apt_get_dash_dash_yes"'|' "$TMP"/DIALOG
     sed -i 's|@auto_close_term_window@|'"$auto_close_term_window_when_complete"'|' "$TMP"/DIALOG
+    sed -i 's|@check_for_autoremoves@|'"$check_for_autoremoves"'|' "$TMP"/DIALOG
 
     # edit placeholders in "$TMP"/DIALOG to set initial settings of the radiobuttons & checkboxes 
     sed -i 's/@UpgradeBehaviourAptGetUpgrade@/'$(if [ $(grep UpgradeType=upgrade ~/.config/apt-notifierrc) ]; then echo -n true; else echo -n false; fi)'/' "$TMP"/DIALOG
@@ -965,6 +1058,7 @@ EOF
     sed -i 's/@LeftClickBehaviourViewAndUpgrade@/'$(if [ $(grep LeftClick=ViewAndUpgrade ~/.config/apt-notifierrc) ]; then echo -n true; else echo -n false; fi)'/' "$TMP"/DIALOG
     sed -i 's/@UpgradeAssumeYes@/'$(grep UpgradeAssumeYes ~/.config/apt-notifierrc | cut -f2 -d=)'/' "$TMP"/DIALOG
     sed -i 's/@UpgradeAutoClose@/'$(grep UpgradeAutoClose ~/.config/apt-notifierrc | cut -f2 -d=)'/' "$TMP"/DIALOG
+    sed -i 's/@CheckForAutoRemoves@/'$(grep CheckForAutoRemoves ~/.config/apt-notifierrc | cut -f2 -d=)'/' "$TMP"/DIALOG
 
 
     gtkdialog --file="$TMP"/DIALOG >> "$TMP"/output
@@ -973,15 +1067,17 @@ EOF
 
     if [ "$?" -eq 0 ];
       then
-        if [ $(grep UpgradeType_upgrade=.*true.*      "$TMP"/output) ]; then sed -i 's/UpgradeType=dist-upgrade/UpgradeType=upgrade/' ~/.config/apt-notifierrc; fi
-        if [ $(grep UpgradeType_dist-upgrade=.*true.* "$TMP"/output) ]; then sed -i 's/UpgradeType=upgrade/UpgradeType=dist-upgrade/' ~/.config/apt-notifierrc; fi
-        if [ $(grep LeftClickViewAndUpgrade=.*true.*  "$TMP"/output) ]; then sed -i 's/LeftClick=Synaptic/LeftClick=ViewAndUpgrade/'  ~/.config/apt-notifierrc; fi
-        if [ $(grep LeftClickSynaptic=.*true.*        "$TMP"/output) ]; then sed -i 's/LeftClick=ViewAndUpgrade/LeftClick=Synaptic/'  ~/.config/apt-notifierrc; fi
-        if [ $(grep UpgradeAssumeYes=.*false.*        "$TMP"/output) ]; then sed -i 's/UpgradeAssumeYes=true/UpgradeAssumeYes=false/' ~/.config/apt-notifierrc; fi
-        if [ $(grep UpgradeAssumeYes=.*true.*         "$TMP"/output) ]; then sed -i 's/UpgradeAssumeYes=false/UpgradeAssumeYes=true/' ~/.config/apt-notifierrc; fi
-        if [ $(grep UpgradeAutoClose=.*false.*        "$TMP"/output) ]; then sed -i 's/UpgradeAutoClose=true/UpgradeAutoClose=false/' ~/.config/apt-notifierrc; fi
-        if [ $(grep UpgradeAutoClose=.*true.*         "$TMP"/output) ]; then sed -i 's/UpgradeAutoClose=false/UpgradeAutoClose=true/' ~/.config/apt-notifierrc; fi
-      else
+        if [ $(grep UpgradeType_upgrade=.*true.*      "$TMP"/output) ]; then sed -i 's/UpgradeType=dist-upgrade/UpgradeType=upgrade/'       ~/.config/apt-notifierrc; fi
+        if [ $(grep UpgradeType_dist-upgrade=.*true.* "$TMP"/output) ]; then sed -i 's/UpgradeType=upgrade/UpgradeType=dist-upgrade/'       ~/.config/apt-notifierrc; fi
+        if [ $(grep LeftClickViewAndUpgrade=.*true.*  "$TMP"/output) ]; then sed -i 's/LeftClick=Synaptic/LeftClick=ViewAndUpgrade/'        ~/.config/apt-notifierrc; fi
+        if [ $(grep LeftClickSynaptic=.*true.*        "$TMP"/output) ]; then sed -i 's/LeftClick=ViewAndUpgrade/LeftClick=Synaptic/'        ~/.config/apt-notifierrc; fi
+        if [ $(grep UpgradeAssumeYes=.*false.*        "$TMP"/output) ]; then sed -i 's/UpgradeAssumeYes=true/UpgradeAssumeYes=false/'       ~/.config/apt-notifierrc; fi
+        if [ $(grep UpgradeAssumeYes=.*true.*         "$TMP"/output) ]; then sed -i 's/UpgradeAssumeYes=false/UpgradeAssumeYes=true/'       ~/.config/apt-notifierrc; fi
+        if [ $(grep UpgradeAutoClose=.*false.*        "$TMP"/output) ]; then sed -i 's/UpgradeAutoClose=true/UpgradeAutoClose=false/'       ~/.config/apt-notifierrc; fi
+        if [ $(grep UpgradeAutoClose=.*true.*         "$TMP"/output) ]; then sed -i 's/UpgradeAutoClose=false/UpgradeAutoClose=true/'       ~/.config/apt-notifierrc; fi
+        if [ $(grep CheckForAutoRemoves=.*false.*     "$TMP"/output) ]; then sed -i 's/CheckForAutoRemoves=true/CheckForAutoRemoves=false/' ~/.config/apt-notifierrc; fi
+        if [ $(grep CheckForAutoRemoves=.*true.*      "$TMP"/output) ]; then sed -i 's/CheckForAutoRemoves=false/CheckForAutoRemoves=true/' ~/.config/apt-notifierrc; fi
+     else
         :
     fi
 
