@@ -1,3 +1,9 @@
+apt-notifier (1.2.0mx150+1) mx; urgency=medium
+
+  * added option - check for autoremoves after upgrades
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Sun, 01 May 2016 19:53:05 -0400
+
 apt-notifier (1.1.5mcr120+5) mepis; urgency=medium
 
   * Rebuild for Mepis 12 & MX-14
