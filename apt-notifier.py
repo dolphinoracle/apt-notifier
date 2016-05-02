@@ -469,8 +469,8 @@ def viewandupgrade():
              done1=' färdig (eller stoppades)"' 
              done2="'detta terminalfönster kan nu stängas '" 
              done3="'(tryck på valfri tangent för att stänga)'"
-             autoremovable_packages_msg1="Unneeded packages are installed that can be removed."
-             autoremovable_packages_msg2="'Running apt-get autoremove, if you are unsure type "'"'"n"'"'".'"
+             autoremovable_packages_msg1="Onödiga paket som är installerade och kan tas bort."
+             autoremovable_packages_msg2="'Kör apt-get autoremove, om du är osäker skriv "'"'"n"'"'".'"
              ;;
 
        *)    : ;;
@@ -973,7 +973,7 @@ def aptnotifier_prefs():
              left_click_ViewandUpgrade='öppnar MX Apt Notifier "Granska och uppgradera"-fönster'
              use_apt_get_dash_dash_yes="använd apt-get's --yes möjlighet för upgrade/dist-upgrade"
              auto_close_term_window_when_complete="stäng automatiskt terminalfönstret när apt-get upgrade/dist-upgrade är slutfört"
-             check_for_autoremoves="Check for autoremovable packages after apt-get upgrade/dist-upgrade"
+             check_for_autoremoves="Sök efter automatiskt borttagbara paket efter apt-get upgrade/dist-upgrade"
              ;;
 
           *) : ;;
