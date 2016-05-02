@@ -371,8 +371,8 @@ def viewandupgrade():
              done1=' ολοκληρώθηκε (ή ακυρώθηκε)"' 
              done2="'Αυτό το παράθυρο τερματικού μπορεί να κλείσει '" 
              done3="'(πατήστε οποιοδήποτε πλήκτρο να κλείσει)'"
-             autoremovable_packages_msg1="Unneeded packages are installed that can be removed."
-             autoremovable_packages_msg2="'Running apt-get autoremove, if you are unsure type "'"'"n"'"'".'"
+             autoremovable_packages_msg1="Περιττά εγκαταστημένα πακέτα που μπορεί να αφαιρεθούν"
+             autoremovable_packages_msg2="'Εκτέλεση του apt-get autoremove, αν δεν είστε σίγουροι, πληκτρολογήστε "'"'"ο"'"'".'"
              ;;
 
       es)    window_title="MX Apt Notifier--Ver y Actualizar, vista previa: apt-get "
@@ -441,8 +441,8 @@ def viewandupgrade():
              done1=' complete (or was canceled)"' 
              done2="'this terminal window can now be closed '" 
              done3="'(press any key to close)'"
-             autoremovable_packages_msg1="Unneeded packages are installed that can be removed."
-             autoremovable_packages_msg2="'Running apt-get autoremove, if you are unsure type "'"'"n"'"'".'"
+             autoremovable_packages_msg1="Onnodige pakketten die zijn geïnstalleerd en kunnen worden verwijderd."
+             autoremovable_packages_msg2="'Uitvoeren apt-get autoremove, als je niet zeker bent tik "'"'"n"'"'".'"
              ;;
 
       pl)    window_title="MX Apt Notifier--Przeglądaj i Aktualizować, podglądu: apt-get "
@@ -903,7 +903,7 @@ def aptnotifier_prefs():
              left_click_ViewandUpgrade='ανοίγει το παράθυρο "Προβολή και Αναβάθμιση" του MX Apt Notifier'
              use_apt_get_dash_dash_yes="χρησιμοποιήσετε την επιλογή του apt-get --yes option για την αναβάθμιση"
              auto_close_term_window_when_complete="Να κλείσει αυτόματα το παράθυρο τερματικού όταν το apt-get upgrade/dist-upgrade έχει ολοκληρωθεί"
-             check_for_autoremoves="Check for autoremovable packages after apt-get upgrade/dist-upgrade"
+             check_for_autoremoves="Έλεγχος για αυτόματα αφαιρούμενα πακέτα μετά το apt-get upgrade/dist-upgrade"
              ;;
 
          es) window_title="MX preferencias de Apt Notifier"
@@ -953,7 +953,7 @@ def aptnotifier_prefs():
              left_click_ViewandUpgrade='opens MX Apt Notifier "View and Upgrade" window'
              use_apt_get_dash_dash_yes="use apt-get's --yes option for upgrade/dist-upgrade"
              auto_close_term_window_when_complete="automatically close terminal window when apt-get upgrade/dist-upgrade complete"
-             check_for_autoremoves="Check for autoremovable packages after apt-get upgrade/dist-upgrade"
+             check_for_autoremoves="Controleer voor automatisch verwijderbare pakketten na apt-get upgrade/dist-upgrade"
              ;;
 
          pl) window_title="MX Apt Notifier Ustawienia"
