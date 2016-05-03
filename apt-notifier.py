@@ -385,8 +385,8 @@ def viewandupgrade():
              done1=' (o se canceló)"' 
              done2="'esta ventana de terminal ya puede cerrarse '" 
              done3="'(oprima cualquier tecla para cerrarla)'" 
-             autoremovable_packages_msg1="Paquetes instalados pero no necesitadas, pueden ser removido."
-             autoremovable_packages_msg2="'Ejecutará apt-get autoremove, si no esta seguro, entra "'"'"n"'"'".'"
+             autoremovable_packages_msg1="Los paquetes instalados pero no necesitados pueden ser removidos."
+             autoremovable_packages_msg2="'Ejecutando apt-get autoremove; si no está seguro, ingrese "'"'"n"'"'".'"
              ;;
 
       fr)    window_title="MX Apt Notifier--Voir et mettre à niveau, survol du programme apt-get "
@@ -913,7 +913,7 @@ def aptnotifier_prefs():
              left_click_ViewandUpgrade='abre la ventana "Ver y Actualizar" de MX Apt Notifier'
              use_apt_get_dash_dash_yes="usar la opción --yes de apt-get's para upgrade/dist-upgrade"
              auto_close_term_window_when_complete="Cerrar automáticamente la terminal cuando se completa apt-get upgrade/dist-upgrade"
-             check_for_autoremoves="Buscará paquetes autodesprendible después del apt-get upgrade/dist-upgrade"
+             check_for_autoremoves="Buscar los paquetes autoremovibles después del apt-get upgrade/dist-upgrade"
              ;;
 
          fr) window_title="Préferences pour MX Apt Notifier"
