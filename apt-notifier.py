@@ -487,6 +487,8 @@ def viewandupgrade():
              done1=' Выполнено (или было отменено)"' 
              done2="'Это окно терминала теперь может быть закрыто '" 
              done3="'(нажмите любую клавишу, чтобы закрыть)'"
+             autoremovable_packages_msg1="Более ненужные установленные пакеты могут быть удалены."
+             autoremovable_packages_msg2="'Запуск apt-get autoremove, если вы не уверены, нажмите "'"'"n"'"'".'" 
              ;;
 
       sv)    window_title="MX Apt Notifier--Granska och Uppgradera, förhandsgranskning: apt-get "
@@ -1003,6 +1005,7 @@ def aptnotifier_prefs():
              left_click_ViewandUpgrade='Открыть окно MX Apt Notifier "Просмотр и обновление"'
              use_apt_get_dash_dash_yes="Использовать опцию apt-get's --yes для upgrade/dist-upgrade"
              auto_close_term_window_when_complete="Автоматически закрыть окно терминала после выполнения apt-get upgrade/dist-upgrade"
+             check_for_autoremoves="Проверка наличия автоудаляемых пакетов после apt-get upgrade/dist-upgrade"
              ;;
 
          sv) window_title="MX Apt Notifier inställningar"
