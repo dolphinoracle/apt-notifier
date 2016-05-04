@@ -221,6 +221,24 @@ def set_translations():
         Apt_History = u"Apt History"
         Check_for_Updates = u"Check for Updates (apt-get update)"
 
+    elif locale == "ru":
+        tooltip_0_updates_available = u"Нет доступных обновлений"
+        tooltip_1_new_update_available = u"1 обновление доступно"
+        tooltip_multiple_new_updates_available = u" обновлений доступно"
+        popup_title = u"Обновления"
+        popup_msg_1_new_update_available = u"Имеется одно доступное обновление"
+        popup_msg_multiple_new_updates_available_begin = u"Имеется "
+        popup_msg_multiple_new_updates_available_end = u" доступных обновлений"
+        Upgrade_using_Synaptic = u"Обновить, используя Synaptic"
+        View_and_Upgrade = u"Просмотр и обновление"
+        Hide_until_updates_available = u"Не показывать, если нет обновлений"
+        Quit_Apt_Notifier = u"Выйти из Apt-Notifier"
+        Apt_Notifier_Help = u"Apt Notifier Помощь"
+        Synaptic_Help = u"Synaptic Помощь"
+        Apt_Notifier_Preferences = u"Настройки Apt Notifier"
+        Apt_History = u"Apt History"
+        Check_for_Updates = u"Check for Updates (apt-get update)"
+
     elif locale == "sv":
         tooltip_0_updates_available = u"0 uppdateringar tillgängliga"
         tooltip_1_new_update_available = u"1 ny updatering tillgänglig"
@@ -457,6 +475,18 @@ def viewandupgrade():
              done3="'(naciśnij dowolny klawisz, aby zamknąć)'"
              autoremovable_packages_msg1="Unneeded packages are installed that can be removed."
              autoremovable_packages_msg2="'Running apt-get autoremove, if you are unsure type "'"'"n"'"'".'"
+             ;;
+
+      ru)    window_title="MX Apt Notifier--Просмотр и обновление, предпросмотр: apt-get "
+             use_apt_get_dash_dash_yes="Использовать опцию apt-get's --yes для "
+             auto_close_term_window1="Автоматически закрыть окно терминала после выполнения apt-get "
+             auto_close_term_window2=""
+             switch_to1="Перейти к 'apt-get "
+             switch_to2=""
+             done0="" 
+             done1=' Выполнено (или было отменено)"' 
+             done2="'Это окно терминала теперь может быть закрыто '" 
+             done3="'(нажмите любую клавишу, чтобы закрыть)'"
              ;;
 
       sv)    window_title="MX Apt Notifier--Granska och Uppgradera, förhandsgranskning: apt-get "
@@ -964,6 +994,15 @@ def aptnotifier_prefs():
              use_apt_get_dash_dash_yes="stosować apt-get's --yes opcję  dla upgrade/dist-upgrade"
              auto_close_term_window_when_complete="zostały automatycznie zamknięte okno terminalu przy upgrade/dist-upgrade gotowy"
              check_for_autoremoves="Check for autoremovable packages after apt-get upgrade/dist-upgrade"
+             ;;
+
+         ru) window_title="MX Apt Notifier Настройки"
+             frame_upgrade_behaviour="  Обновить поведение (также влияет на количество уведомлений)   "
+             frame_left_click_behaviour="  Поведение при нажатии ЛКМ (при наличии обновлений)   "
+             left_click_Synaptic="Открыть Synaptic "
+             left_click_ViewandUpgrade='Открыть окно MX Apt Notifier "Просмотр и обновление"'
+             use_apt_get_dash_dash_yes="Использовать опцию apt-get's --yes для upgrade/dist-upgrade"
+             auto_close_term_window_when_complete="Автоматически закрыть окно терминала после выполнения apt-get upgrade/dist-upgrade"
              ;;
 
          sv) window_title="MX Apt Notifier inställningar"
