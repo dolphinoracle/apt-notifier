@@ -186,20 +186,20 @@ def set_translations():
         Check_for_Updates = u"Check for Updates (apt-get update)"
 
     elif locale == "nl":
-        tooltip_0_updates_available = u"0 updates available"
-        tooltip_1_new_update_available = u"1 new update available"
-        tooltip_multiple_new_updates_available = u" new updates available"
+        tooltip_0_updates_available = u"0 updates beschikbaar"
+        tooltip_1_new_update_available = u"1 nieuwe update beschikbaar"
+        tooltip_multiple_new_updates_available = u" nieuwe updates beschikbaar"
         popup_title = u"Updates"
-        popup_msg_1_new_update_available = u"You have 1 new update available"
-        popup_msg_multiple_new_updates_available_begin = u"You have "
-        popup_msg_multiple_new_updates_available_end = u" new updates available"
-        Upgrade_using_Synaptic = u"Upgrade using Synaptic"
-        View_and_Upgrade = u"View and Upgrade"
-        Hide_until_updates_available = u"Hide until updates available"
-        Quit_Apt_Notifier = u"Quit Apt-Notifier"
+        popup_msg_1_new_update_available = u"U heeft 1 nieuwe update beschikbaar"
+        popup_msg_multiple_new_updates_available_begin = u"U heeft "
+        popup_msg_multiple_new_updates_available_end = u" nieuwe updates beschikbaar"
+        Upgrade_using_Synaptic = u"Upgrade met gebruik van Synaptic"
+        View_and_Upgrade = u"Bekijk en Upgrade"
+        Hide_until_updates_available = u"Verberg totdat updates beschikbaar zijn"
+        Quit_Apt_Notifier = u"Beëindig Apt-Notifier"
         Apt_Notifier_Help = u"Apt-Notifier Help"
         Synaptic_Help = u"Synaptic Help"
-        Apt_Notifier_Preferences = u"Apt Notifier Preferences"
+        Apt_Notifier_Preferences = u"Apt Notifier Voorkeuren"
         Apt_History = u"Apt History"
         Check_for_Updates = u"Check for Updates (apt-get update)"
 
@@ -449,16 +449,16 @@ def viewandupgrade():
              autoremovable_packages_msg2="'Running apt-get autoremove, if you are unsure type "'"'"n"'"'".'"
              ;;
 
-      nl)    window_title="MX Apt Notifier--View and Upgrade, previewing: apt-get "
-             use_apt_get_dash_dash_yes="use apt-get --yes option for "
-             auto_close_term_window1="automatically close terminal window when apt-get "
-             auto_close_term_window2=" complete"
-             switch_to1="switch to 'apt-get "
+      nl)    window_title="MX Apt Notifier--Bekijk en Upgrade, voorbeeld: apt-get "
+             use_apt_get_dash_dash_yes="gebruik apt-get's --yes optie voor "
+             auto_close_term_window1="automatisch terminal scherm sluiten wanneer apt-get "
+             auto_close_term_window2=" klaar is"
+             switch_to1="wijzig naar 'apt-get "
              switch_to2=""
              done0="" 
-             done1=' complete (or was canceled)"' 
-             done2="'this terminal window can now be closed '" 
-             done3="'(press any key to close)'"
+             done1=' klaar (of was geannuleerd)"' 
+             done2="'dit terminal scherm kan nu gesloten worden '" 
+             done3="'(druk op een toets om te sluiten)'"
              autoremovable_packages_msg1="Onnodige pakketten die zijn geïnstalleerd en kunnen worden verwijderd."
              autoremovable_packages_msg2="'Uitvoeren apt-get autoremove, als je niet zeker bent tik "'"'"n"'"'".'"
              ;;
@@ -978,13 +978,13 @@ def aptnotifier_prefs():
              check_for_autoremoves="Check for autoremovable packages after apt-get upgrade/dist-upgrade"
              ;;
 
-         nl) window_title="MX Apt Notifier preferences"
-             frame_upgrade_behaviour="  upgrade behaviour   (also affects notification count)   "
-             frame_left_click_behaviour="  left-click behaviour   (when updates are available)   "
-             left_click_Synaptic="opens Synaptic "
-             left_click_ViewandUpgrade='opens MX Apt Notifier "View and Upgrade" window'
-             use_apt_get_dash_dash_yes="use apt-get's --yes option for upgrade/dist-upgrade"
-             auto_close_term_window_when_complete="automatically close terminal window when apt-get upgrade/dist-upgrade complete"
+         nl) window_title="MX Apt Notifier voorkeuren"
+             frame_upgrade_behaviour="  upgrade gedrag (beïnvloedt ook notificatie aantal)   "
+             frame_left_click_behaviour="  links-klik gedrag (wanneer updates beschikbaar zijn)   "
+             left_click_Synaptic="opent Synaptic "
+             left_click_ViewandUpgrade='opent MX Apt Notifier "Bekijk en Upgrade" scherm'
+             use_apt_get_dash_dash_yes="gebruik apt-get's --yes optie voor upgrade/dist-upgrade"
+             auto_close_term_window_when_complete="automatisch terminal scherm sluiten wanneer apt-get upgrade/dist-upgrade klaar is"
              check_for_autoremoves="Controleer voor automatisch verwijderbare pakketten na apt-get upgrade/dist-upgrade"
              ;;
 
