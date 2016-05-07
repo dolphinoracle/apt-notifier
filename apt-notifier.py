@@ -431,8 +431,8 @@ def viewandupgrade():
              done1=' ha terminato (o è stato annullato)"'
              done2="'Ora è possibile chiudere questa finestra del terminale '"
              done3="'(premi un tasto qualsiasi per chiudere)'"
-             autoremovable_packages_msg1="Unneeded packages are installed that can be removed."
-             autoremovable_packages_msg2="'Running apt-get autoremove, if you are unsure type "'"'"n"'"'".'"
+             autoremovable_packages_msg1="I pacchetti installati non necessari possono essere rimossi."
+             autoremovable_packages_msg2="'Si sta per avviare apt-get autoremove, se non sei sicuro digita "'"'"n"'"'".'"
              ;;
 
       ja)    window_title="MX Apt Notifier--表示・更新 これを試す: apt-get "
@@ -965,7 +965,7 @@ def aptnotifier_prefs():
              left_click_ViewandUpgrade='apre la finestra "Mostra e Aggiorna" di MX Apt Notifier'
              use_apt_get_dash_dash_yes="usare l'opzione --yes di apt-get per l' upgrade/dist-upgrade"
              auto_close_term_window_when_complete="chiudere automaticamente la finestra del terminale quando apt-get upgrade/dist-upgrade ha terminato"
-             check_for_autoremoves="Check for autoremovable packages after apt-get upgrade/dist-upgrade"
+             check_for_autoremoves="Verificare la presenza di pacchetti auto-rimovibili dopo aver eseguito apt-get upgrade/dist-upgrade"
              ;;
 
          ja) window_title="MX Apt Notifier 設定"
