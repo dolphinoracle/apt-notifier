@@ -1138,9 +1138,7 @@ def apt_history():
     
     TMP=$(mktemp -d /tmp/apt_history.XXXXXX)
     
-    zgrep -EH ' install | upgrade | purge | remove ' /var/log/dpkg* | cut -f2- -d: | sort -r | \
-    sed 's/ remove / remove  /;s/ purge / purge   /' | \
-    sed 's/:all//;s/:i386//;s/:amd64//' | column -t > "$TMP"/APT_HISTORY
+    dpkg-hist | sed 's/:all//;s/:i386//;s/:amd64//' | column -t > "$TMP"/APT_HISTORY
     
     yad --window-icon=/usr/share/icons/mnotify-some.png \
         --width=$(xprop -root | grep _NET_DESKTOP_GEOMETRY\(CARDINAL\) | awk '{print $3*.75}' | cut -f1 -d.) \
