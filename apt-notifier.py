@@ -375,8 +375,8 @@ def viewandupgrade():
              done1=' fertig (oder beendet)"'
              done2="'Dieses Shellfenster darf jetzt geschlossen werden '" 
              done3="'(drücken Sie eine beliebige Taste zu schliessen)'"
-             autoremovable_packages_msg1="Unneeded packages are installed that can be removed."
-             autoremovable_packages_msg2="'Running apt-get autoremove, if you are unsure type "'"'"n"'"'".'"
+             autoremovable_packages_msg1="Unnötige Pakete sind installiert, die entfernt werden können"
+             autoremovable_packages_msg2="'Apt-get autoremove wird ausgeführt, tippen Sie "'"'"n"'"'" wenn unsicher.'"
              ;;
 
       el)    window_title="MX Apt Notifier--Προβολή και Αναβάθμιση, προεπισκόπηση: apt-get "
@@ -925,7 +925,7 @@ def aptnotifier_prefs():
              left_click_ViewandUpgrade='öffnet das Fenster im MX Apt Notifier "Anschauen and Aufrüsten"'
              use_apt_get_dash_dash_yes="Option --yes von apt-get's benutzen bei upgrade/dist-upgrade"
              auto_close_term_window_when_complete="Shellfenster automatiisch schliessen nach Ende von apt-get upgrade/dist-upgrade"
-             check_for_autoremoves="Check for autoremovable packages after apt-get upgrade/dist-upgrade"
+             check_for_autoremoves="Nach apt-get upgrade/dist-upgrade überprüfen, ob autoremove Pakete vorhanden sind."
              ;;
 
          el) window_title="MX Apt Notifier προτιμήσεις"
