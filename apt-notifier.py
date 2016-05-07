@@ -417,8 +417,8 @@ def viewandupgrade():
              done1=" s'est terminé (ou a été annulé)"'"' 
              done2="'vous pouvez maintenant fermer cette fenêtre de terminal '" 
              done3='"(appuyez sur n'"'"'importe quelle touche pour fermer)"'
-             autoremovable_packages_msg1="Unneeded packages are installed that can be removed."
-             autoremovable_packages_msg2="'Running apt-get autoremove, if you are unsure type "'"'"n"'"'".'"
+             autoremovable_packages_msg1="Il existe des paquets installés superflus; on peut les mettre au rebut."
+             autoremovable_packages_msg2="'On lancera apt-get autoremove; si vous n'êtes pas certain, tapez le "'"'"n"'"'".'"
              ;;
 
       it)    window_title="MX Apt Notifier--Mostra e Aggiorna, presentazione di: apt-get "
@@ -955,7 +955,7 @@ def aptnotifier_prefs():
              left_click_ViewandUpgrade='lance MX Apt Notifier "Voir et mettre à niveau" dans une fenêtre'
              use_apt_get_dash_dash_yes="utiliser l'option --yes de apt-get pour upgrade/dist-upgrade"
              auto_close_term_window_when_complete="fermer automatiquement la fenêtre de terminal quand apt-get upgrade/dist-upgrade se termine"
-             check_for_autoremoves="Check for autoremovable packages after apt-get upgrade/dist-upgrade"
+             check_for_autoremoves="Chercher des paquets superflus apres apt-get upgrade/dist-upgrade"
              ;;
 
          it) window_title="Preferenze per MX Apt Notifier"
