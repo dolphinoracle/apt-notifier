@@ -3,6 +3,7 @@
 %:
 	dh $@ 
 
+override_dh_usrlocal:
 
 override_dh_builddeb:
 	dh_builddeb -- -Z xz
