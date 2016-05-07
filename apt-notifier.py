@@ -955,7 +955,7 @@ def aptnotifier_prefs():
              left_click_ViewandUpgrade='lance MX Apt Notifier "Voir et mettre à niveau" dans une fenêtre'
              use_apt_get_dash_dash_yes="utiliser l'option --yes de apt-get pour upgrade/dist-upgrade"
              auto_close_term_window_when_complete="fermer automatiquement la fenêtre de terminal quand apt-get upgrade/dist-upgrade se termine"
-             check_for_autoremoves="Chercher des paquets superflus apres apt-get upgrade/dist-upgrade"
+             check_for_autoremoves="Chercher des paquets superflus après apt-get upgrade/dist-upgrade"
              ;;
 
          it) window_title="Preferenze per MX Apt Notifier"
