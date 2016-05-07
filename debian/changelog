@@ -1,3 +1,16 @@
+apt-notifier (1.2.0mcr120+2) mepis; urgency=medium
+
+  * Rebuild for Mepis 12 & MX-14
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Sat, 07 May 2016 17:58:28 -0400
+
+apt-notifier (1.2.0mx150+2) mx; urgency=medium
+
+  * added autoremove translations
+  * have Apt History use a separate apt-history script 
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Sat, 07 May 2016 17:52:39 -0400
+
 apt-notifier (1.2.0mx150+1) mx; urgency=medium
 
   * added option - check for autoremoves after upgrades
