@@ -1138,7 +1138,7 @@ def apt_history():
     
     TMP=$(mktemp -d /tmp/apt_history.XXXXXX)
     
-    dpkg-hist | sed 's/:all/ all/;s/:i386/ i386/;s/:amd64/ amd64/' | column -t > "$TMP"/APT_HISTORY
+    apt-history | sed 's/:all/ all/;s/:i386/ i386/;s/:amd64/ amd64/' | column -t > "$TMP"/APT_HISTORY
     
     yad --window-icon=/usr/share/icons/mnotify-some.png \
         --width=$(xprop -root | grep _NET_DESKTOP_GEOMETRY\(CARDINAL\) | awk '{print $3*.75}' | cut -f1 -d.) \
