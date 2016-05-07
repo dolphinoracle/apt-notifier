@@ -5,7 +5,7 @@ apt-notifier.py usr/bin
 apt-notifier-unhide-Icon usr/bin
 apt-notifier-autostart.desktop usr/share/autostart
 apt-notifier-menu.desktop usr/share/applications
-dpkg-hist usr/local/bin
+apt-history usr/local/bin
 mx-apt-notifier-menu.desktop usr/share/applications
 mnotify-none.png usr/share/icons
 mnotify-some.png usr/share/icons
