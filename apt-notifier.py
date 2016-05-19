@@ -882,8 +882,16 @@ def initialize_aptnotifier_prefs():
       echo "CheckForAutoRemoves=false">> ~/.config/apt-notifierrc
     fi
 
-    #cleanup any blank lines or lines with only whitespace
-    sed -i '/^[[:space:]]*$/d' ~/.config/apt-notifierrc
+    #test to see if ~/.config/apt-notifierrc contains any blank lines or lines with only whitespace
+    diff <(sed '/^[[:space:]]*$/d' ~/.config/apt-notifierrc) ~/.config/apt-notifierrc 1>/dev/null
+    if [ "$?" -eq 0 ]
+      then
+      #no blank lines or lines with only whitespace so do nothing
+        :
+      else
+      #cleanup any blank lines or lines with only whitespace
+        sed -i '/^[[:space:]]*$/d' ~/.config/apt-notifierrc
+    fi
 
     '''
 
