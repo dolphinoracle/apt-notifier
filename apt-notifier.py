@@ -509,19 +509,15 @@ def viewandupgrade():
 
     esac
 
+    RunAptScriptInTerminal(){
     #for MEPIS remove "MX" branding from the $window_title string
-    window_title=$(echo "$window_title"|sed 's/MX /'$(grep -o MX-[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
+    window_title=$(echo "$1"|sed 's/MX /'$(grep -o MX-[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
 
-    DoUpgrade(){
-      case $1 in
-        0)
-        BP="1"
-        chmod +x $TMP/upgradeScript
         TermXOffset="$(xwininfo -root|awk '/Width/{print $2/4}')"
         TermYOffset="$(xwininfo -root|awk '/Height/{print $2/4}')"
         G=" --geometry=80x25+"$TermXOffset"+"$TermYOffset
         I=" --icon=mnotify-some"
-        T=" --title='""$(grep -o MX-[1-9][0-9] /etc/issue|cut -c1-2)"" apt-notifier: apt-get "$UpgradeType"'"
+        if [ "$2" = "" ]; then T=""; I=""; else T=" --title='""$(grep -o MX-[1-9][0-9] /etc/issue|cut -c1-2)"" apt-notifier: apt-get "$2"'"; fi
         if (xprop -root | grep -q -i kde)
           then
 
@@ -542,33 +538,33 @@ def viewandupgrade():
 
               gnome-terminal.wrapper) if [ -e /usr/bin/konsole ]
                                         then
-                                          kdesu -c "konsole -e $TMP/upgradeScript"
+                                          kdesu -c "konsole -e $3"
                                           sleep 5
                                         else
                                           :
                                       fi
                                       ;;
 
-                             konsole) kdesu -c "konsole -e $TMP/upgradeScript"
+                             konsole) kdesu -c "konsole -e $3"
                                       sleep 5
                                       ;;
 
-                             roxterm) kdesu -c "roxterm$G$T --separate -e $TMP/upgradeScript"
+                             roxterm) kdesu -c "roxterm$G$T --separate -e $3"
                                       ;;
 
-              xfce4-terminal.wrapper) kdesu -c "xfce4-terminal$G$I$T -e $TMP/upgradeScript"
+              xfce4-terminal.wrapper) kdesu -c "xfce4-terminal$G$I$T -e $3"
                                       ;;
 
                                xterm) if [ -e /usr/bin/konsole ]
                                         then
-                                          kdesu -c "konsole -e $TMP/upgradeScript"
+                                          kdesu -c "konsole -e $3"
                                           sleep 5
                                         else
-                                          kdesu -c "xterm -e $TMP/upgradeScript"
+                                          kdesu -c "xterm -e $3"
                                       fi
                                       ;;
 
-                                   *) kdesu -c "x-terminal-emulator -e $TMP/upgradeScript"
+                                   *) kdesu -c "x-terminal-emulator -e $3"
                                       ;;
             esac
 
@@ -588,34 +584,42 @@ def viewandupgrade():
 
             case $(readlink -e /usr/bin/x-terminal-emulator | xargs basename) in
 
-              gnome-terminal.wrapper) su-to-root -X -c "gnome-terminal$G$T -e $TMP/upgradeScript"
+              gnome-terminal.wrapper) su-to-root -X -c "gnome-terminal$G$T -e $3"
                                       ;;
 
-                             konsole) su-to-root -X -c "konsole -e $TMP/upgradeScript"
+                             konsole) su-to-root -X -c "konsole -e $3"
                                       sleep 5
                                       ;;
 
-                             roxterm) su-to-root -X -c "roxterm$G$T --separate -e $TMP/upgradeScript"
+                             roxterm) su-to-root -X -c "roxterm$G$T --separate -e $3"
                                       ;;
 
-              xfce4-terminal.wrapper) su-to-root -X -c "xfce4-terminal$G$I$T -e $TMP/upgradeScript"
+              xfce4-terminal.wrapper) su-to-root -X -c "xfce4-terminal$G$I$T -e $3"
                                       ;;
 
                                xterm) if [ -e /usr/bin/xfce4-terminal ]
                                         then
-                                          su-to-root -X -c "xfce4-terminal$G$I$T -e $TMP/upgradeScript"
+                                          su-to-root -X -c "xfce4-terminal$G$I$T -e $3"
                                         else
-                                          su-to-root -X -c "xterm -e $TMP/upgradeScript"
+                                          su-to-root -X -c "xterm -e $3"
                                       fi
                                       ;;
 
-                                   *) su-to-root -X -c "x-terminal-emulator -e $TMP/upgradeScript"
+                                   *) su-to-root -X -c "x-terminal-emulator -e $3"
                                       ;;
 
             esac
         fi
-        ;;
+    }    
         
+    DoUpgrade(){
+      case $1 in
+        0)
+        BP="1"
+        chmod +x $TMP/upgradeScript
+        RunAptScriptInTerminal "$window_title" "$UpgradeType" "$TMP/upgradeScript"
+        ;;
+
         2)
         BP="1"
         ;;
@@ -623,6 +627,13 @@ def viewandupgrade():
         4)
         BP="0"
         sed -i 's/UpgradeType='$UpgradeType'/UpgradeType='$OtherUpgradeType'/' ~/.config/apt-notifierrc
+        ;;
+        
+        8)
+        BP="0"
+        #chmod +x $TMP/upgradeScript
+        RunAptScriptInTerminal "" "" "'apt-get update'"
+        sleep 1
         ;;
         
         *)
@@ -688,7 +699,8 @@ def viewandupgrade():
           --field="$use_apt_get_dash_dash_yes$UpgradeType":CHK $UpgradeAssumeYes \
           --field="$auto_close_term_window1$UpgradeType$auto_close_term_window2":CHK $UpgradeAutoClose \
         --button "$switch_to1$OtherUpgradeType'$switch_to2":4 \
-        --button gtk-ok:0!!apt-get\ $UpgradeType \
+        --button 'apt-get '"$UpgradeType"!gtk-ok!:0 \
+        --button 'apt-get update'!reload!Reload\ repos:8 \
         --button gtk-cancel:2 \
         --buttons-layout=spread \
         2>/dev/null \
@@ -696,12 +708,13 @@ def viewandupgrade():
 
         echo $?>>"$TMP"/results
 
-        # if the View and Upgrade yad window was closed by one of it's 3 buttons, 
+        # if the View and Upgrade yad window was closed by one of it's 4 buttons, 
         # then update the UpgradeAssumeYes & UpgradeAutoClose flags in the 
         # ~/.config/apt-notifierrc file to match the checkboxes
         if [ $(tail -n1 "$TMP"/results) -eq 0 ]||\
            [ $(tail -n1 "$TMP"/results) -eq 2 ]||\
-           [ $(tail -n1 "$TMP"/results) -eq 4 ];
+           [ $(tail -n1 "$TMP"/results) -eq 4 ]||\
+           [ $(tail -n1 "$TMP"/results) -eq 8 ];
           then
             if [ "$(head -n1 "$TMP"/results | rev | awk -F \| '{ print $3}' | rev)" = "TRUE" ];
               then
@@ -722,55 +735,64 @@ def viewandupgrade():
         # refresh UpgradeAssumeYes & UpgradeAutoClose 
         UpgradeAssumeYes=$(grep ^UpgradeAssumeYes ~/.config/apt-notifierrc | cut -f2 -d=)
         UpgradeAutoClose=$(grep ^UpgradeAutoClose ~/.config/apt-notifierrc | cut -f2 -d=)
+        
+        if [ $(tail -n1 "$TMP"/results) -eq 8 ];
+          then
+            # build a upgrade script to do a apt-get update
+            echo "#!/bin/bash"> "$TMP"/upgradeScript
+            echo "echo 'apt-get update'">> "$TMP"/upgradeScript
+            echo "apt-get update">> "$TMP"/upgradeScript
 
-        # build a upgrade script to do the apt-get upgrade (or dist-upgrade)
-        echo "#!/bin/bash"> "$TMP"/upgradeScript
-        echo "echo 'apt-get '"$UpgradeType>> "$TMP"/upgradeScript
-        echo 'find /etc/apt/preferences.d | grep -E synaptic-[0-9a-zA-Z]{6}-pins | xargs rm -f'>> "$TMP"/upgradeScript 
-        echo 'if [ -f /var/lib/synaptic/preferences -a -s /var/lib/synaptic/preferences ]'>> "$TMP"/upgradeScript
-        echo '  then '>> "$TMP"/upgradeScript
-        echo '    SynapticPins=$(mktemp /etc/apt/preferences.d/synaptic-XXXXXX-pins)'>> "$TMP"/upgradeScript
-        echo '    ln -sf /var/lib/synaptic/preferences "$SynapticPins" 2>/dev/null'>> "$TMP"/upgradeScript
-        echo 'fi'>> "$TMP"/upgradeScript
-        echo 'file "$SynapticPins" | cut -f2- -d" " | grep -e"broken symbolic link" -e"empty" -q '>> "$TMP"/upgradeScript
-        echo 'if [ $? -eq 0 ]; then find /etc/apt/preferences.d | grep -E synaptic-[0-9a-zA-Z]{6}-pins | xargs rm -f; fi'>> "$TMP"/upgradeScript
-        if [ "$UpgradeAssumeYes" = "true" ];
-          then
-            echo "apt-get --assume-yes "$UpgradeType>> "$TMP"/upgradeScript
           else
-            echo "apt-get "$UpgradeType>> "$TMP"/upgradeScript
-        fi
-        grep ^CheckForAutoRemoves=true ~/.config/apt-notifierrc -q
-        if [ $? -eq 0 ]
-          then
-            echo "echo">> "$TMP"/upgradeScript
-            echo 'apt-get autoremove -s | grep ^Remv -q'>> "$TMP"/upgradeScript
-            echo 'if [ $? -eq 0 ]; '>> "$TMP"/upgradeScript
-            echo '  then'>> "$TMP"/upgradeScript
-            echo 'echo '"$autoremovable_packages_msg1">> "$TMP"/upgradeScript
-            echo 'echo '"$autoremovable_packages_msg2">> "$TMP"/upgradeScript
-            echo 'apt-get autoremove -qV'>> "$TMP"/upgradeScript
-            echo '  else'>> "$TMP"/upgradeScript
-            echo '    :'>> "$TMP"/upgradeScript
+            # build a upgrade script to do the apt-get upgrade (or dist-upgrade)
+            echo "#!/bin/bash"> "$TMP"/upgradeScript
+            echo "echo 'apt-get '"$UpgradeType>> "$TMP"/upgradeScript
+            echo 'find /etc/apt/preferences.d | grep -E synaptic-[0-9a-zA-Z]{6}-pins | xargs rm -f'>> "$TMP"/upgradeScript 
+            echo 'if [ -f /var/lib/synaptic/preferences -a -s /var/lib/synaptic/preferences ]'>> "$TMP"/upgradeScript
+            echo '  then '>> "$TMP"/upgradeScript
+            echo '    SynapticPins=$(mktemp /etc/apt/preferences.d/synaptic-XXXXXX-pins)'>> "$TMP"/upgradeScript
+            echo '    ln -sf /var/lib/synaptic/preferences "$SynapticPins" 2>/dev/null'>> "$TMP"/upgradeScript
             echo 'fi'>> "$TMP"/upgradeScript
-          else
-            :
-        fi
-        echo "echo">> "$TMP"/upgradeScript
-        echo 'find /etc/apt/preferences.d | grep -E synaptic-[0-9a-zA-Z]{6}-pins | xargs rm -f'>> "$TMP"/upgradeScript
-        if [ "$UpgradeAutoClose" = "true" ];
-          then
-            echo 'echo "'$done0'apt-get '$UpgradeType$done1>> "$TMP"/upgradeScript
+            echo 'file "$SynapticPins" | cut -f2- -d" " | grep -e"broken symbolic link" -e"empty" -q '>> "$TMP"/upgradeScript
+            echo 'if [ $? -eq 0 ]; then find /etc/apt/preferences.d | grep -E synaptic-[0-9a-zA-Z]{6}-pins | xargs rm -f; fi'>> "$TMP"/upgradeScript
+            if [ "$UpgradeAssumeYes" = "true" ];
+              then
+                echo "apt-get --assume-yes "$UpgradeType>> "$TMP"/upgradeScript
+              else
+                echo "apt-get "$UpgradeType>> "$TMP"/upgradeScript
+            fi
+            grep ^CheckForAutoRemoves=true ~/.config/apt-notifierrc -q
+            if [ $? -eq 0 ]
+              then
+                echo "echo">> "$TMP"/upgradeScript
+                echo 'apt-get autoremove -s | grep ^Remv -q'>> "$TMP"/upgradeScript
+                echo 'if [ $? -eq 0 ]; '>> "$TMP"/upgradeScript
+                echo '  then'>> "$TMP"/upgradeScript
+                echo 'echo '"$autoremovable_packages_msg1">> "$TMP"/upgradeScript
+                echo 'echo '"$autoremovable_packages_msg2">> "$TMP"/upgradeScript
+                echo 'apt-get autoremove -qV'>> "$TMP"/upgradeScript
+                echo '  else'>> "$TMP"/upgradeScript
+                echo '    :'>> "$TMP"/upgradeScript
+                echo 'fi'>> "$TMP"/upgradeScript
+              else
+                :
+            fi
             echo "echo">> "$TMP"/upgradeScript
-            echo "sleep 1">> "$TMP"/upgradeScript
-            echo "exit 0">> "$TMP"/upgradeScript
-          else
-            echo 'echo "'$done0'apt-get '$UpgradeType$done1>> "$TMP"/upgradeScript
-            echo "echo">> "$TMP"/upgradeScript
-            echo "echo -n $done2">> "$TMP"/upgradeScript
-            echo "read -sn 1 -p $done3 -t 999999999">> "$TMP"/upgradeScript
-            echo "echo">> "$TMP"/upgradeScript
-            echo "exit 0">> "$TMP"/upgradeScript
+            echo 'find /etc/apt/preferences.d | grep -E synaptic-[0-9a-zA-Z]{6}-pins | xargs rm -f'>> "$TMP"/upgradeScript
+            if [ "$UpgradeAutoClose" = "true" ];
+              then
+                echo 'echo "'$done0'apt-get '$UpgradeType$done1>> "$TMP"/upgradeScript
+                echo "echo">> "$TMP"/upgradeScript
+                echo "sleep 1">> "$TMP"/upgradeScript
+                echo "exit 0">> "$TMP"/upgradeScript
+              else
+                echo 'echo "'$done0'apt-get '$UpgradeType$done1>> "$TMP"/upgradeScript
+                echo "echo">> "$TMP"/upgradeScript
+                echo "echo -n $done2">> "$TMP"/upgradeScript
+                echo "read -sn 1 -p $done3 -t 999999999">> "$TMP"/upgradeScript
+                echo "echo">> "$TMP"/upgradeScript
+                echo "exit 0">> "$TMP"/upgradeScript
+            fi
         fi
 
         DoUpgrade $(tail -n1 "$TMP"/results)
