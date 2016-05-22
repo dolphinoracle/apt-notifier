@@ -883,8 +883,8 @@ def initialize_aptnotifier_prefs():
     fi
 
     #test to see if ~/.config/apt-notifierrc contains any blank lines or lines with only whitespace
-    diff <(sed '/^[[:space:]]*$/d' ~/.config/apt-notifierrc) ~/.config/apt-notifierrc 1>/dev/null
-    if [ "$?" -eq 0 ]
+    # assuming sha256sums will differ if blank lines and/or lines with only whitespace are present 
+    if [ "$(sed '/^[[:space:]]*$/d' ~/.config/apt-notifierrc | sha256sum)" = "$(cat  ~/.config/apt-notifierrc | sha256sum)" ]
       then
       #no blank lines or lines with only whitespace so do nothing
         :
