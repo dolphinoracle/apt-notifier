@@ -540,6 +540,11 @@ def viewandupgrade():
                                         then
                                           $(kde4-config --path libexec)kdesu -c "konsole -e $3"
                                           sleep 5
+                                          while [ "$(ps aux | grep [0-9]' konsole -e apt-get update')" != "" ]
+                                            do
+                                              sleep 1
+                                            done
+                                          sleep 1 
                                         else
                                           :
                                       fi
@@ -547,6 +552,11 @@ def viewandupgrade():
 
                              konsole) $(kde4-config --path libexec)kdesu -c "konsole -e $3"
                                       sleep 5
+                                      while [ "$(ps aux | grep [0-9]' konsole -e apt-get update')" != "" ]
+                                        do
+                                          sleep 1
+                                        done
+                                      sleep 1 
                                       ;;
 
                              roxterm) $(kde4-config --path libexec)kdesu -c "roxterm$G$T --separate -e $3"
@@ -559,12 +569,23 @@ def viewandupgrade():
                                         then
                                           $(kde4-config --path libexec)kdesu -c "konsole -e $3"
                                           sleep 5
+                                          while [ "$(ps aux | grep [0-9]' konsole -e apt-get update')" != "" ]
+                                            do
+                                              sleep 1
+                                            done
+                                          sleep 1 
                                         else
                                           $(kde4-config --path libexec)kdesu -c "xterm -e $3"
                                       fi
                                       ;;
 
                                    *) $(kde4-config --path libexec)kdesu -c "x-terminal-emulator -e $3"
+                                      sleep 5
+                                      while [ "$(ps aux | grep [0-9]' konsole -e apt-get update')" != "" ]
+                                        do
+                                          sleep 1
+                                        done
+                                      sleep 1 
                                       ;;
             esac
 
@@ -589,6 +610,11 @@ def viewandupgrade():
 
                              konsole) su-to-root -X -c "konsole -e $3"
                                       sleep 5
+                                      while [ "$(ps aux | grep [0-9]' konsole -e apt-get update')" != "" ]
+                                        do
+                                          sleep 1
+                                        done
+                                      sleep 1 
                                       ;;
 
                              roxterm) su-to-root -X -c "roxterm$G$T --separate -e $3"
