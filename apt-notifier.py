@@ -538,33 +538,33 @@ def viewandupgrade():
 
               gnome-terminal.wrapper) if [ -e /usr/bin/konsole ]
                                         then
-                                          kdesu -c "konsole -e $3"
+                                          $(kde4-config --path libexec)kdesu -c "konsole -e $3"
                                           sleep 5
                                         else
                                           :
                                       fi
                                       ;;
 
-                             konsole) kdesu -c "konsole -e $3"
+                             konsole) $(kde4-config --path libexec)kdesu -c "konsole -e $3"
                                       sleep 5
                                       ;;
 
-                             roxterm) kdesu -c "roxterm$G$T --separate -e $3"
+                             roxterm) $(kde4-config --path libexec)kdesu -c "roxterm$G$T --separate -e $3"
                                       ;;
 
-              xfce4-terminal.wrapper) kdesu -c "xfce4-terminal$G$I$T -e $3"
+              xfce4-terminal.wrapper) $(kde4-config --path libexec)kdesu -c "xfce4-terminal$G$I$T -e $3"
                                       ;;
 
                                xterm) if [ -e /usr/bin/konsole ]
                                         then
-                                          kdesu -c "konsole -e $3"
+                                          $(kde4-config --path libexec)kdesu -c "konsole -e $3"
                                           sleep 5
                                         else
-                                          kdesu -c "xterm -e $3"
+                                          $(kde4-config --path libexec)kdesu -c "xterm -e $3"
                                       fi
                                       ;;
 
-                                   *) kdesu -c "x-terminal-emulator -e $3"
+                                   *) $(kde4-config --path libexec)kdesu -c "x-terminal-emulator -e $3"
                                       ;;
             esac
 
@@ -1220,33 +1220,33 @@ def apt_get_update():
         
           gnome-terminal.wrapper) if [ -e /usr/bin/konsole ]
                                     then
-                                      kdesu -c "konsole -e apt-get update"
+                                      $(kde4-config --path libexec)kdesu -c "konsole -e apt-get update"
                                       sleep 5
                                     else
                                       :
                                   fi
                                   ;;
 
-                         konsole) kdesu -c "konsole -e apt-get update"
+                         konsole) $(kde4-config --path libexec)kdesu -c "konsole -e apt-get update"
                                   sleep 5
                                   ;;
 
-                         roxterm) kdesu -c "roxterm$G$T --separare -e apt-get update"
+                         roxterm) $(kde4-config --path libexec)kdesu -c "roxterm$G$T --separare -e apt-get update"
                                   ;;
 
-          xfce4-terminal.wrapper) kdesu -c "xfce4-terminal$G$I$T -e 'apt-get update'"
+          xfce4-terminal.wrapper) $(kde4-config --path libexec)kdesu -c "xfce4-terminal$G$I$T -e 'apt-get update'"
                                   ;;
 
                            xterm) if [ -e /usr/bin/konsole ]
                                     then
-                                      kdesu -c "konsole -e apt-get update"
+                                      $(kde4-config --path libexec)kdesu -c "konsole -e apt-get update"
                                       sleep 5
                                     else
-                                      kdesu -c "xterm -e apt-get update"
+                                      $(kde4-config --path libexec)kdesu -c "xterm -e apt-get update"
                                   fi
                                   ;;
 
-                               *) kdesu -c "x-terminal-emulator -e apt-get update"
+                               *) $(kde4-config --path libexec)kdesu -c "x-terminal-emulator -e apt-get update"
                                   ;;
         esac
 
