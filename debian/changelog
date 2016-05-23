@@ -1,3 +1,17 @@
+apt-notifier (1.3.0mcr120+1) mepis; urgency=medium
+
+  * Rebuild for Mepis 12 & MX-14
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Sun, 22 May 2016 20:56:07 -0400
+
+apt-notifier (1.3.0mx150+1) mx; urgency=medium
+
+  * 'View and Upgrade' apt-get update button added
+  * kdesu and konsole fixes
+  * only sed edit apt-notifierrc when whitespace and/or blank lines are present
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Sun, 22 May 2016 20:43:06 -0400
+
 apt-notifier (1.2.0mcr120+2) mepis; urgency=medium
 
   * Rebuild for Mepis 12 & MX-14
