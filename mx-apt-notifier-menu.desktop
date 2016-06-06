@@ -25,5 +25,5 @@ GenericName=unhide/start
 Exec=/usr/bin/apt-notifier-unhide-Icon
 Icon=mnotify-some
 StartupNotify=false
-Categories=Qt;KDE;Utility;X-KDE-Utilities-Desktop;
+Categories=Qt;KDE;Utility;X-KDE-Utilities-Desktop;MX-Utilities
 NotShowIn=KDE;
