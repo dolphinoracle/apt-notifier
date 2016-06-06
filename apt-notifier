@@ -31,8 +31,16 @@ if [ "$?" -eq 0 ]
   echo -e 'UpgradeType=dist-upgrade\n'>> ~/.config/apt-notifierrc
 fi
 
-#cleanup any blank lines or lines with only whitespace
-sed -i '/^[[:space:]]*$/d' ~/.config/apt-notifierrc
+#test to see if ~/.config/apt-notifierrc contains any blank lines or lines with only whitespace
+# assuming sha256sums will differ if blank lines and/or lines with only whitespace are present 
+if [ "$(sed '/^[[:space:]]*$/d' ~/.config/apt-notifierrc | sha256sum)" = "$(cat  ~/.config/apt-notifierrc | sha256sum)" ]
+  then
+    #no blank lines or lines with only whitespace so do nothing
+    :
+  else
+    #cleanup any blank lines or lines with only whitespace
+    sed -i '/^[[:space:]]*$/d' ~/.config/apt-notifierrc
+fi
 
 # start the notifier
 python /usr/bin/apt-notifier.py& disown -h
