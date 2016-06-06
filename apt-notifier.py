@@ -342,6 +342,7 @@ def viewandupgrade():
              auto_close_term_window2=" complete"
              switch_to1="switch to 'apt-get "
              switch_to2=""
+             reload="Reload"
              done0="" 
              done1=' complete (or was canceled)"' 
              done2="'this terminal window can now be closed '" 
@@ -357,6 +358,7 @@ def viewandupgrade():
              auto_close_term_window2=""
              switch_to1="canvia a 'apt-get "
              switch_to2=""
+             reload="Refresca"
              done0="s'ha completat (o cancel·lat) "
              done1='"'
              done2="'ara podeu tancar la finestra '"
@@ -371,6 +373,7 @@ def viewandupgrade():
              auto_close_term_window2=""
              switch_to1="Zu 'apt-get "
              switch_to2=" wechseln"
+             reload="Neu laden"
              done0=""
              done1=' fertig (oder beendet)"'
              done2="'Dieses Shellfenster darf jetzt geschlossen werden '" 
@@ -385,6 +388,7 @@ def viewandupgrade():
              auto_close_term_window2=" έχει ολοκληρωθεί"
              switch_to1="αλλαγή σε 'apt-get "
              switch_to2=""
+             reload="Ανανέωση"
              done0="" 
              done1=' ολοκληρώθηκε (ή ακυρώθηκε)"' 
              done2="'Αυτό το παράθυρο τερματικού μπορεί να κλείσει '" 
@@ -399,6 +403,7 @@ def viewandupgrade():
              auto_close_term_window2=""
              switch_to1="cambiar a 'apt-get "
              switch_to2=""
+             reload="Recargar"
              done0="se completó "
              done1=' (o se canceló)"' 
              done2="'esta ventana de terminal ya puede cerrarse '" 
@@ -413,6 +418,7 @@ def viewandupgrade():
              auto_close_term_window2=" se termine"
              switch_to1="passer à apt-get "
              switch_to2=""
+             reload="Recharger"
              done0=""
              done1=" s'est terminé (ou a été annulé)"'"' 
              done2="'vous pouvez maintenant fermer cette fenêtre de terminal '" 
@@ -427,6 +433,7 @@ def viewandupgrade():
              auto_close_term_window2=" ha terminato"
              switch_to1="passare a 'apt-get upgrade"
              switch_to2=""
+             reload="Aggiorna"
              done0=""
              done1=' ha terminato (o è stato annullato)"'
              done2="'Ora è possibile chiudere questa finestra del terminale '"
@@ -441,6 +448,7 @@ def viewandupgrade():
              auto_close_term_window2=" が完了した後自動的に端末ウインドウを閉じる"
              switch_to1="'apt-get "
              switch_to2=" へ切り替える"
+             reload="再読込"
              done0="" 
              done1=' 完了 (またはキャンセル)時に"' 
              done2="'この端末ウインドウを閉じる '" 
@@ -455,6 +463,7 @@ def viewandupgrade():
              auto_close_term_window2=" klaar is"
              switch_to1="wijzig naar 'apt-get "
              switch_to2=""
+             reload="Herladen"
              done0="" 
              done1=' klaar (of was geannuleerd)"' 
              done2="'dit terminal scherm kan nu gesloten worden '" 
@@ -469,6 +478,7 @@ def viewandupgrade():
              auto_close_term_window2=" gotowy"
              switch_to1="Przełącz na 'apt-get "
              switch_to2=""
+             reload="Odśwież"
              done0="Komenda " 
              done1=' została wykonana (lub przerwana)"' 
              done2="'Okno to można zamknąć teraz '" 
@@ -483,6 +493,7 @@ def viewandupgrade():
              auto_close_term_window2=""
              switch_to1="Перейти к 'apt-get "
              switch_to2=""
+             reload="Обновить"
              done0="" 
              done1=' Выполнено (или было отменено)"' 
              done2="'Это окно терминала теперь может быть закрыто '" 
@@ -497,6 +508,7 @@ def viewandupgrade():
              auto_close_term_window2=" är slutförd"
              switch_to1="byt till 'apt-get "
              switch_to2=""
+             reload="Läs om"
              done0="" 
              done1=' färdig (eller stoppades)"' 
              done2="'detta terminalfönster kan nu stängas '" 
@@ -726,7 +738,7 @@ def viewandupgrade():
           --field="$auto_close_term_window1$UpgradeType$auto_close_term_window2":CHK $UpgradeAutoClose \
         --button "$switch_to1$OtherUpgradeType'$switch_to2":4 \
         --button 'apt-get '"$UpgradeType"!mnotify-some!:0 \
-        --button 'apt-get update'!reload!:8 \
+        --button "$reload"!reload!:8 \
         --button gtk-cancel:2 \
         --buttons-layout=spread \
         2>/dev/null \
