@@ -1,3 +1,18 @@
+apt-notifier (1.3.1mcr120+1) mepis; urgency=medium
+
+  * Rebuild for Mepis 12 & MX-14
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Mon, 06 Jun 2016 19:59:39 -0400
+
+apt-notifier (1.3.1mx150+1) mx; urgency=medium
+
+  * 'apt-get update' button renamed to 'Reload'
+  * /usr/bin/apt-notifier - only modify apt-notifierrc if
+    whitespace lines/blank lines are present
+  * mx-apt-notifier-menu.desktop - add MX-Utilities category
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Mon, 06 Jun 2016 19:49:21 -0400
+
 apt-notifier (1.3.0mcr120+2) mepis; urgency=medium
 
   * Rebuild for Mepis 12 & MX-14
