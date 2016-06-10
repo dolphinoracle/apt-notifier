@@ -272,6 +272,10 @@ def check_updates():
         LC_ALL=en_US apt-get -o 'Debug::NoLocking=true' --trivial-only -V $(grep ^UpgradeType ~/.config/apt-notifierrc | cut -f2 -d=) 2>/dev/null \
         |  sed -n '/upgraded:/,$p' | grep ^'  ' | awk '{ print $1 }' | sort
     }
+    
+    #suppress updates available indication if 2 or more Release.reverify entries found
+    #if [ $(ls -1 /var/lib/apt/lists/partial/ | grep Release.reverify$ | wc -l) -ge 2 ]; then echo 0; exit; fi 
+    
     if [ -s /var/lib/synaptic/preferences ]; 
         then 
             #/var/lib/synaptic/preferences is a non-zero size file, which means there are packages pinned in Synaptic. 
@@ -335,6 +339,10 @@ def start_synaptic():
 def viewandupgrade():
     initialize_aptnotifier_prefs()
     script = '''#!/bin/bash
+    
+    #cancel updates available indication if 2 or more Release.reverify entries found
+    #if [ $(ls -1 /var/lib/apt/lists/partial/ | grep Release.reverify$ | wc -l) -ge 2 ]; then exit; fi 
+
 
              window_title="MX Apt Notifier--View and Upgrade, previewing: apt-get "
              use_apt_get_dash_dash_yes="use apt-get's --yes option for "
