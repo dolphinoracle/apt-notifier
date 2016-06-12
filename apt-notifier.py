@@ -986,39 +986,43 @@ def aptnotifier_prefs():
     script = '''#! /bin/bash
 
              window_title="MX Apt Notifier preferences"
-             frame_upgrade_behaviour="  upgrade behaviour   (also affects notification count)   "
-             frame_left_click_behaviour="  left-click behaviour   (when updates are available)   "
+             frame_upgrade_behaviour="Upgrade behaviour   (also affects notification count)   "
+             frame_left_click_behaviour="Left-click behaviour   (when updates are available)   "
+             frame_other_options="Other options"
              left_click_Synaptic="opens Synaptic "
              left_click_ViewandUpgrade='opens MX Apt Notifier "View and Upgrade" window'
              use_apt_get_dash_dash_yes="use apt-get's --yes option for upgrade/dist-upgrade"
              auto_close_term_window_when_complete="automatically close terminal window when apt-get upgrade/dist-upgrade complete"
-             check_for_autoremoves="Check for autoremovable packages after apt-get upgrade/dist-upgrade"
+             check_for_autoremoves="check for autoremovable packages after apt-get upgrade/dist-upgrade"
 
     case $(locale|grep ^LANG=|cut -f2 -d=|cut -f1 -d_) in
 
          ca) window_title="Preferències de MX Apt Notifier"
-             frame_upgrade_behaviour="  comportament d'actualitzacions (també afecta el compte d'actualitzacions)   "
-             frame_left_click_behaviour="  comportament del clic esquerre (quan hi ha actualitzacions)   "
+             frame_upgrade_behaviour="Comportament d'actualitzacions (també afecta el compte d'actualitzacions)   "
+             frame_left_click_behaviour="Comportament del clic esquerre (quan hi ha actualitzacions)   "
+             frame_other_options="Other options"
              left_click_Synaptic="obre Synaptic "
              left_click_ViewandUpgrade='obre la finestra de MX Apt Notifier "Veure i actualitzar"'
              use_apt_get_dash_dash_yes="usa l'opció d'apt-get --yes per a upgrade/dist-upgrade"
              auto_close_term_window_when_complete="tanca automàticament la finestra del terminal quan s'ha completat apt-get upgrade/dist-upgrade"
-             check_for_autoremoves="Check for autoremovable packages after apt-get upgrade/dist-upgrade"
+             check_for_autoremoves="check for autoremovable packages after apt-get upgrade/dist-upgrade"
              ;;
 
          de) window_title="MX Apt Notifier Einstellungen"
-             frame_upgrade_behaviour="  Upgrade-Verhalten (beeinflusst auch die Zählung der Meldung)   "
-             frame_left_click_behaviour="  Linksklick-Verhalten (wenn Updates verfügbar sind)   "
+             frame_upgrade_behaviour="Upgrade-Verhalten (beeinflusst auch die Zählung der Meldung)   "
+             frame_left_click_behaviour="Linksklick-Verhalten (wenn Updates verfügbar sind)   "
+             frame_other_options="Other options"
              left_click_Synaptic="startet Synaptic "
              left_click_ViewandUpgrade='öffnet das Fenster im MX Apt Notifier "Anschauen and Aufrüsten"'
              use_apt_get_dash_dash_yes="Option --yes von apt-get's benutzen bei upgrade/dist-upgrade"
              auto_close_term_window_when_complete="Shellfenster automatiisch schliessen nach Ende von apt-get upgrade/dist-upgrade"
-             check_for_autoremoves="Nach apt-get upgrade/dist-upgrade überprüfen, ob autoremove Pakete vorhanden sind."
+             check_for_autoremoves="nach apt-get upgrade/dist-upgrade überprüfen, ob autoremove Pakete vorhanden sind."
              ;;
 
          el) window_title="MX Apt Notifier προτιμήσεις"
-             frame_upgrade_behaviour="  αναβάθμιση (επηρεάζει επίσης καταμέτρηση κοινοποίηση)   "
-             frame_left_click_behaviour="  αριστερό κλικ (όταν υπάρχουν διαθέσιμες ενημερώσεις)   "
+             frame_upgrade_behaviour="αναβάθμιση (επηρεάζει επίσης καταμέτρηση κοινοποίηση)   "
+             frame_left_click_behaviour="αριστερό κλικ (όταν υπάρχουν διαθέσιμες ενημερώσεις)   "
+             frame_other_options="Other options"
              left_click_Synaptic="ανοίγει το  Synaptic "
              left_click_ViewandUpgrade='ανοίγει το παράθυρο "Προβολή και Αναβάθμιση" του MX Apt Notifier'
              use_apt_get_dash_dash_yes="χρησιμοποιήσετε την επιλογή του apt-get --yes option για την αναβάθμιση"
@@ -1027,68 +1031,75 @@ def aptnotifier_prefs():
              ;;
 
          es) window_title="MX preferencias de Apt Notifier"
-             frame_upgrade_behaviour="  comportamiento de actualización (también afecta la cuenta de notificaciones)   "
-             frame_left_click_behaviour="  comportamiento del clic izquierdo (cuando hay actualizaciones disponibles)   "
+             frame_upgrade_behaviour="Comportamiento de actualización (también afecta la cuenta de notificaciones)   "
+             frame_left_click_behaviour="Comportamiento del clic izquierdo (cuando hay actualizaciones disponibles)   "
+             frame_other_options="Other options"
              left_click_Synaptic="abre Synaptic "
              left_click_ViewandUpgrade='abre la ventana "Ver y Actualizar" de MX Apt Notifier'
              use_apt_get_dash_dash_yes="usar la opción --yes de apt-get's para upgrade/dist-upgrade"
              auto_close_term_window_when_complete="Cerrar automáticamente la terminal cuando se completa apt-get upgrade/dist-upgrade"
-             check_for_autoremoves="Buscar los paquetes autoremovibles después del apt-get upgrade/dist-upgrade"
+             check_for_autoremoves="buscar los paquetes autoremovibles después del apt-get upgrade/dist-upgrade"
              ;;
 
          fr) window_title="Préferences pour MX Apt Notifier"
-             frame_upgrade_behaviour="  Comportement de la mise à niveau (influe aussi sur le compte dans la notification)   "
-             frame_left_click_behaviour="  Comportement du clic gauche (quand des mises à jour sont disponibles)   "
+             frame_upgrade_behaviour="Comportement de la mise à niveau (influe aussi sur le compte dans la notification)   "
+             frame_left_click_behaviour="Comportement du clic gauche (quand des mises à jour sont disponibles)   "
+             frame_other_options="Other options"
              left_click_Synaptic="lance Synaptic "
              left_click_ViewandUpgrade='lance MX Apt Notifier "Voir et mettre à niveau" dans une fenêtre'
              use_apt_get_dash_dash_yes="utiliser l'option --yes de apt-get pour upgrade/dist-upgrade"
              auto_close_term_window_when_complete="fermer automatiquement la fenêtre de terminal quand apt-get upgrade/dist-upgrade se termine"
-             check_for_autoremoves="Chercher des paquets superflus après apt-get upgrade/dist-upgrade"
+             check_for_autoremoves="chercher des paquets superflus après apt-get upgrade/dist-upgrade"
              ;;
 
          it) window_title="Preferenze per MX Apt Notifier"
-             frame_upgrade_behaviour="  Comportamento dell'aggiornamento (compresa la conta delle notifiche)   "
-             frame_left_click_behaviour="  Comportemento click sinistro (quando sono disponibili aggiornamenti)   "
+             frame_upgrade_behaviour="Comportamento dell'aggiornamento (compresa la conta delle notifiche)   "
+             frame_left_click_behaviour="Comportemento click sinistro (quando sono disponibili aggiornamenti)   "
+             frame_other_options="Other options"
              left_click_Synaptic="apre Synaptic "
              left_click_ViewandUpgrade='apre la finestra "Mostra e Aggiorna" di MX Apt Notifier'
              use_apt_get_dash_dash_yes="usare l'opzione --yes di apt-get per l' upgrade/dist-upgrade"
              auto_close_term_window_when_complete="chiudere automaticamente la finestra del terminale quando apt-get upgrade/dist-upgrade ha terminato"
-             check_for_autoremoves="Verificare la presenza di pacchetti auto-rimovibili dopo aver eseguito apt-get upgrade/dist-upgrade"
+             check_for_autoremoves="verificare la presenza di pacchetti auto-rimovibili dopo aver eseguito apt-get upgrade/dist-upgrade"
              ;;
 
          ja) window_title="MX Apt Notifier 設定"
-             frame_upgrade_behaviour="  更新の動作 (通知数に影響があります)   "
-             frame_left_click_behaviour="  左クリックの動作 (更新が可能な場合)   "
+             frame_upgrade_behaviour="更新の動作 (通知数に影響があります)   "
+             frame_left_click_behaviour="左クリックの動作 (更新が可能な場合)   "
+             frame_other_options="Other options"
              left_click_Synaptic="Synaptic を開く"
              left_click_ViewandUpgrade="MX Apt Notifier '表示・更新' ウインドウを開く"
              use_apt_get_dash_dash_yes="upgrade/dist-upgrade に apt-get's --yes オプションを使用する"
              auto_close_term_window_when_complete="apt-get upgrade/dist-upgrade が完了した後自動的に端末ウインドウを閉じる"
-             check_for_autoremoves="Check for autoremovable packages after apt-get upgrade/dist-upgrade"
+             check_for_autoremoves="check for autoremovable packages after apt-get upgrade/dist-upgrade"
              ;;
 
          nl) window_title="MX Apt Notifier voorkeuren"
-             frame_upgrade_behaviour="  upgrade gedrag (beïnvloedt ook notificatie aantal)   "
-             frame_left_click_behaviour="  links-klik gedrag (wanneer updates beschikbaar zijn)   "
+             frame_upgrade_behaviour="Upgrade gedrag (beïnvloedt ook notificatie aantal)   "
+             frame_left_click_behaviour="Links-klik gedrag (wanneer updates beschikbaar zijn)   "
+             frame_other_options="Other options"
              left_click_Synaptic="opent Synaptic "
              left_click_ViewandUpgrade='opent MX Apt Notifier "Bekijk en Upgrade" scherm'
              use_apt_get_dash_dash_yes="gebruik apt-get's --yes optie voor upgrade/dist-upgrade"
              auto_close_term_window_when_complete="automatisch terminal scherm sluiten wanneer apt-get upgrade/dist-upgrade klaar is"
-             check_for_autoremoves="Controleer voor automatisch verwijderbare pakketten na apt-get upgrade/dist-upgrade"
+             check_for_autoremoves="controleer voor automatisch verwijderbare pakketten na apt-get upgrade/dist-upgrade"
              ;;
 
          pl) window_title="MX Apt Notifier Ustawienia"
-             frame_upgrade_behaviour="  zachowanie aktualizacji   (również wpływ na liczbę powiadomień)   "
-             frame_left_click_behaviour="  Zachowanie lewego przycisku myszy   (gdy dostępne są nowe aktualizacje)   "
+             frame_upgrade_behaviour="Zachowanie aktualizacji   (również wpływ na liczbę powiadomień)   "
+             frame_left_click_behaviour="Zachowanie lewego przycisku myszy   (gdy dostępne są nowe aktualizacje)   "
+             frame_other_options="Other options"
              left_click_Synaptic="otwiera Synaptic "
              left_click_ViewandUpgrade='otwiera MX Apt Notifier "Przeglądaj i Aktualizować" okno'
              use_apt_get_dash_dash_yes="stosować apt-get's --yes opcję  dla upgrade/dist-upgrade"
              auto_close_term_window_when_complete="zostały automatycznie zamknięte okno terminalu przy upgrade/dist-upgrade gotowy"
-             check_for_autoremoves="Check for autoremovable packages after apt-get upgrade/dist-upgrade"
+             check_for_autoremoves="check for autoremovable packages after apt-get upgrade/dist-upgrade"
              ;;
 
          ru) window_title="MX Apt Notifier Настройки"
-             frame_upgrade_behaviour="  Обновить поведение (также влияет на количество уведомлений)   "
-             frame_left_click_behaviour="  Поведение при нажатии ЛКМ (при наличии обновлений)   "
+             frame_upgrade_behaviour="Обновить поведение (также влияет на количество уведомлений)   "
+             frame_left_click_behaviour="Поведение при нажатии ЛКМ (при наличии обновлений)   "
+             frame_other_options="Other options"
              left_click_Synaptic="Открыть Synaptic "
              left_click_ViewandUpgrade='Открыть окно MX Apt Notifier "Просмотр и обновление"'
              use_apt_get_dash_dash_yes="Использовать опцию apt-get's --yes для upgrade/dist-upgrade"
@@ -1097,13 +1108,14 @@ def aptnotifier_prefs():
              ;;
 
          sv) window_title="MX Apt Notifier inställningar"
-             frame_upgrade_behaviour="  uppgraderingsbeteende (påverkar också antalet i meddelandena)   "
-             frame_left_click_behaviour="  vänster-klicks beteende (när uppdateringar är tillgängliga)   "
+             frame_upgrade_behaviour="Uppgraderingsbeteende (påverkar också antalet i meddelandena)   "
+             frame_left_click_behaviour="Vänster-klicks beteende (när uppdateringar är tillgängliga)   "
+             frame_other_options="Other options"
              left_click_Synaptic="öppnar Synaptic "
              left_click_ViewandUpgrade='öppnar MX Apt Notifier "Granska och uppgradera"-fönster'
              use_apt_get_dash_dash_yes="använd apt-get's --yes möjlighet för upgrade/dist-upgrade"
              auto_close_term_window_when_complete="stäng automatiskt terminalfönstret när apt-get upgrade/dist-upgrade är slutfört"
-             check_for_autoremoves="Sök efter automatiskt borttagbara paket efter apt-get upgrade/dist-upgrade"
+             check_for_autoremoves="sök efter automatiskt borttagbara paket efter apt-get upgrade/dist-upgrade"
              ;;
 
           *) : ;;
@@ -1119,29 +1131,35 @@ def aptnotifier_prefs():
     <window title="@title@" icon-name="mnotify-some">
       <vbox>
         <frame @upgrade_behaviour@>
-          <radiobutton active="@UpgradeBehaviourAptGetUpgrade@">
-            <label>apt-get upgrade</label>
-            <variable>UpgradeType_upgrade</variable>
-            <action>:</action>
-          </radiobutton>
-          <radiobutton active="@UpgradeBehaviourAptGetDistUpgrade@">
-            <label>apt-get dist-upgrade</label>
-            <variable>UpgradeType_dist-upgrade</variable>
-            <action>:</action>
-          </radiobutton>
+          <frame>
+            <radiobutton active="@UpgradeBehaviourAptGetUpgrade@">
+              <label>apt-get upgrade</label>
+              <variable>UpgradeType_upgrade</variable>
+              <action>:</action>
+            </radiobutton>
+            <radiobutton active="@UpgradeBehaviourAptGetDistUpgrade@">
+              <label>apt-get dist-upgrade</label>
+              <variable>UpgradeType_dist-upgrade</variable>
+              <action>:</action>
+            </radiobutton>
+          </frame>
         </frame>
+        <vseparator></vseparator>
         <frame @leftclick_behaviour@>
-          <radiobutton active="@LeftClickBehaviourSynaptic@">
-            <label>@opens_Synaptic@</label>
-            <variable>LeftClickSynaptic</variable>
-            <action>:</action>
-          </radiobutton>
-          <radiobutton active="@LeftClickBehaviourViewAndUpgrade@">
-            <label>@opens_View_and_Upgrade@</label>
-            <variable>LeftClickViewAndUpgrade</variable>
-            <action>:</action>
-          </radiobutton>
+          <frame>
+            <radiobutton active="@LeftClickBehaviourSynaptic@">
+              <label>@opens_Synaptic@</label>
+              <variable>LeftClickSynaptic</variable>
+              <action>:</action>
+            </radiobutton>
+            <radiobutton active="@LeftClickBehaviourViewAndUpgrade@">
+              <label>@opens_View_and_Upgrade@</label>
+              <variable>LeftClickViewAndUpgrade</variable>
+              <action>:</action>
+            </radiobutton>
+          </frame>
         </frame>
+        <frame @Other_options@>
         <frame>
           <checkbox active="@UpgradeAssumeYes@">
             <label>@use_apt_get_yes@</label>
@@ -1163,6 +1181,7 @@ def aptnotifier_prefs():
             <action>:</action>
           </checkbox>
         </frame>
+        </frame>
       <hbox>
         <button ok> </button>
         <button cancel> </button>
@@ -1175,6 +1194,7 @@ EOF
     sed -i 's/@title@/'"$window_title"'/' "$TMP"/DIALOG
     sed -i 's/@upgrade_behaviour@/'"$frame_upgrade_behaviour"'/' "$TMP"/DIALOG
     sed -i 's/@leftclick_behaviour@/'"$frame_left_click_behaviour"'/' "$TMP"/DIALOG
+    sed -i 's/@Other_options@/'"$frame_other_options"'/' "$TMP"/DIALOG
     sed -i 's/@opens_Synaptic@/'"$left_click_Synaptic"'/' "$TMP"/DIALOG
     sed -i 's/@opens_View_and_Upgrade@/'"$left_click_ViewandUpgrade"'/' "$TMP"/DIALOG
     sed -i 's|@use_apt_get_yes@|'"$use_apt_get_dash_dash_yes"'|' "$TMP"/DIALOG
