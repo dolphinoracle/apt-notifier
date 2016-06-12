@@ -350,6 +350,7 @@ def viewandupgrade():
              auto_close_term_window2=" complete"
              switch_to1="switch to 'apt-get "
              switch_to2=""
+             switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
              reload="Reload"
              reload_tooltip="Reload the package information to become informed about new, removed or upgraded software packages. \n(apt-get update)"
              done0="" 
@@ -367,6 +368,7 @@ def viewandupgrade():
              auto_close_term_window2=""
              switch_to1="canvia a 'apt-get "
              switch_to2=""
+             switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
              reload="Refresca"
              reload_tooltip="Refresqueu la informació dels paquets per a informar-vos de paquets de programari nous, eliminats o actualitzats. \n(apt-get update)"
              done0="s'ha completat (o cancel·lat) "
@@ -383,6 +385,7 @@ def viewandupgrade():
              auto_close_term_window2=""
              switch_to1="Zu 'apt-get "
              switch_to2=" wechseln"
+             switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
              reload="Neu laden"
              reload_tooltip="Die Paketinformationen neu laden, um über neue, entfernte oder aktualisierte Softwarepakete informiert zu werden. \n(apt-get update)"
              done0=""
@@ -399,6 +402,7 @@ def viewandupgrade():
              auto_close_term_window2=" έχει ολοκληρωθεί"
              switch_to1="αλλαγή σε 'apt-get "
              switch_to2=""
+             switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
              reload="Ανανέωση"
              reload_tooltip="Ανανέωση των πληροφοριών του πακέτου ώστε να γίνει ενημέρωση για νέα, αναβαθμισμένα ή απομακρυθέντα πακέτα λογισμικού. \n(apt-get update)"
              done0="" 
@@ -415,6 +419,7 @@ def viewandupgrade():
              auto_close_term_window2=""
              switch_to1="cambiar a 'apt-get "
              switch_to2=""
+             switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
              reload="Recargar"
              reload_tooltip="Recargar la información de los paquetes para informarse acerca de los paquetes de software nuevos, eliminados o actualizados. \n(apt-get update)"
              done0="se completó "
@@ -431,6 +436,7 @@ def viewandupgrade():
              auto_close_term_window2=" se termine"
              switch_to1="passer à apt-get "
              switch_to2=""
+             switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
              reload="Recharger"
              reload_tooltip="Recharger les informations des paquets pour être informé des nouveaux paquets, des suppressions de paquets ou des paquets mis à jour. \n(apt-get update)"
              done0=""
@@ -447,6 +453,7 @@ def viewandupgrade():
              auto_close_term_window2=" ha terminato"
              switch_to1="passare a 'apt-get upgrade"
              switch_to2=""
+             switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
              reload="Aggiorna"
              reload_tooltip="Aggiorna le informazioni sui pacchetti per informare di pacchetti nuovi, rimossi o aggiornati. \n(apt-get update)"
              done0=""
@@ -463,6 +470,7 @@ def viewandupgrade():
              auto_close_term_window2=" が完了した後自動的に端末ウインドウを閉じる"
              switch_to1="'apt-get "
              switch_to2=" へ切り替える"
+             switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
              reload="再読込"
              reload_tooltip="新規、削除あるいはアップグレードされたパッケージについて情報が得られるように、パッケージ情報を再読込してください。 \n(apt-get update)"
              done0="" 
@@ -479,6 +487,7 @@ def viewandupgrade():
              auto_close_term_window2=" klaar is"
              switch_to1="wijzig naar 'apt-get "
              switch_to2=""
+             switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
              reload="Herladen"
              reload_tooltip="Ververs de pakketinformatie om ingelicht te worden over nieuwe, verwijderde of opgewaardeerde pakketten. \n(apt-get update)"
              done0="" 
@@ -495,6 +504,7 @@ def viewandupgrade():
              auto_close_term_window2=" gotowy"
              switch_to1="Przełącz na 'apt-get "
              switch_to2=""
+             switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
              reload="Odśwież"
              reload_tooltip="Odświeża bazę informacji o pakietach, aby otrzymać informacje o nowych, usuniętych, zaktualizowanych pakietach oprogramowania. \n(apt-get update)"
              done0="Komenda " 
@@ -511,6 +521,7 @@ def viewandupgrade():
              auto_close_term_window2=""
              switch_to1="Перейти к 'apt-get "
              switch_to2=""
+             switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
              reload="Обновить"
              reload_tooltip="Обновление сведений о пакетах информирует о новых, удалённых или обновлённых пакетах программ \n(apt-get update)"
              done0="" 
@@ -527,6 +538,7 @@ def viewandupgrade():
              auto_close_term_window2=" är slutförd"
              switch_to1="byt till 'apt-get "
              switch_to2=""
+             switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
              reload="Läs om"
              reload_tooltip="Läs om paketinformationen för att få information om nya, borttagna eller uppgraderade programpaket. \n(apt-get update)"
              done0="" 
@@ -756,7 +768,7 @@ def viewandupgrade():
           --field :TXT "$(cat "$TMP"/upgrades)" \
           --field="$use_apt_get_dash_dash_yes$UpgradeType":CHK $UpgradeAssumeYes \
           --field="$auto_close_term_window1$UpgradeType$auto_close_term_window2":CHK $UpgradeAutoClose \
-        --button "$switch_to1$OtherUpgradeType'$switch_to2":4 \
+        --button "$switch_to1$OtherUpgradeType'$switch_to2"!!"$switch_tooltip":4 \
         --button 'apt-get '"$UpgradeType"!mnotify-some!:0 \
         --button "$reload"!reload!"$reload_tooltip":8 \
         --button gtk-cancel:2 \
