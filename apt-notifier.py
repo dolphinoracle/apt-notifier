@@ -730,33 +730,52 @@ def viewandupgrade():
       
         TMP=$(mktemp -d /tmp/apt-notifier.XXXXXX)
         echo "apt-get $UpgradeType" > "$TMP"/upgrades
-        apt-get -o Debug::NoLocking=true --trivial-only -V $UpgradeType 2>/dev/null >> "$TMP"/upgrades
         
-        #remove Synaptic pinned packages from "$TMP"/upgrades, so they don't get displayed in the 'View and Upgrade' window -- original method
-        #for i in $(grep ^Package: /var/lib/synaptic/preferences 2>/dev/null | awk '{print $2}' 2>/dev/null); do sed -i '/'$i' (.*=>.*)/d' "$TMP"/upgrades 2>/dev/null; done
+        #The following 40 or so lines (down to the "APT_CONFIG" line) create a temporary etc/apt folder and subfolders
+        #that for the most part match the root owned /etc/apt folder and it's subfolders.
+        #
+        #A symlink to /var/synaptic/preferences symlink ("$TMP"/etc/apt/preferences.d/synaptic-pins) will be created
+        #if there isn't one already (note: the non-root user wouldn't be to create one in /etc/apt/preferences.d/).
+        #
+        #With a /var/synaptic/preferences symlink in place, no longer need to remove the lines with Synaptic pinned packages
+        #from the "$TMP"/upgrades file to keep them from being displayed in the 'View and Upgrade' window, also no longer
+        #need to correct the upgrades count after removing the lines with the pinned updates.
         
-        #remove Synaptic pinned packages from "$TMP"/upgrades, so they don't get displayed in the 'View and Upgrade' window -- new method
-        for i in $(grep -A1 Package: /var/lib/synaptic/preferences 2>/dev/null | sed 's/Package: //; s/Pin: version /@/; /--/d' | awk 'ORS=" "' | sed 's/ @/_/g');\
-          do \
-            j="$(echo $i | sed 's/_/ /' | sed 's/[0-9]*[:]//' | awk '{print $1" ("$2" =>"}')";\
-            sed -i '/'"$j"'/d' "$TMP"/upgrades 2>/dev/null;\
-          done
+        #create the etc/apt/*.d subdirectories in the temporary directory ("$TMP")
+        for i in $(find /etc/apt -name *.d); do mkdir -p "$TMP"/$(echo $i | cut -f2- -d/); done
 
-        #correct upgrades count -- original method
-        #PossiblyWrongNumberOfUpgrades=$(grep ^[0-9]*' upgraded,' -o "$TMP"/upgrades | awk '{print $1}')
-        #CorrectedNumberOfUpgrades=$(sed -n '/upgraded:$/,$p' "$TMP"/upgrades | grep ^'  ' | wc -l)
-        #sed -i 's/^'$PossiblyWrongNumberOfUpgrades' upgraded, /'$CorrectedNumberOfUpgrades' upgraded, /' "$TMP"/upgrades
-        
-        #correct upgrades count -- revision 1
-        #PossiblyWrongNumberOfUpgrades=$(tac "$TMP"/upgrades|sed '1,2d'|head -n1|awk '{print $1,$2,$3}'|grep -o -e^[1-9][0-9]* -e.[1-9][0-9]*|sed 's/^[[:space:]]//')
-        #CorrectedNumberOfUpgrades=$(sed -n '/upgraded:$/,$p' "$TMP"/upgrades | grep ^'  ' | wc -l)
-        #sed -i 's/^'$PossiblyWrongNumberOfUpgrades' upgraded, /'$CorrectedNumberOfUpgrades' upgraded, /' "$TMP"/upgrades        
+        #create symlinks to the files in /etc/apt and it's subdirectories with exception of /etc/apt and /etc/apt/apt.conf  
+        for i in $(find /etc/apt | grep -v -e .d$ -e apt.conf$ -e apt$); do ln -s $i "$TMP"/$(echo $i | cut -f2- -d/) 2>/dev/null; done
 
-        #correct upgrades count -- revision 2 (attempts to do a better job of correcting the upgrades count for non-english users)
-        #CorrectedNumberOfUpgrades=$(grep '=>' $TMP/upgrades | wc -l)
-        CorrectedNumberOfUpgrades=$(tac "$TMP"/upgrades | grep -e:$ -e：$ -m1 -B99999 | grep '=>'| wc -l) 
-        tac "$TMP"/upgrades | sed '3s/[1-9][0-9]*/'$CorrectedNumberOfUpgrades'/' | tac >> "$TMP"/upgrades
-        sed -i "1,$(echo -n $(echo $(cat "$TMP"/upgrades | wc -l)/2 | bc))d" "$TMP"/upgrades
+        #in etc/preferences test to see if there's a symlink to /var/lib/synaptic/preferences
+        ls -l /etc/apt/preferences* | grep ^l | grep -m1 /var/lib/synaptic/preferences$ -q
+
+        #if there isn't, create one if there are synaptic pinned packages
+        if [ $? -eq 1 ]
+          then
+            if [ -s /var/lib/synaptic/preferences ]
+              then ln -s /var/lib/synaptic/preferences "$TMP"/etc/apt/preferences.d/synaptic-pins 2>/dev/null
+            fi
+        fi
+
+        #create a apt.conf in the temp directory by copying existing /etc/apt/apt.conf to it
+        [ ! -e /etc/apt/apt.conf ] || cp /etc/apt/apt.conf "$TMP"/apt.conf
+
+        #in apt.conf file set Dir to the path of the temp directory
+        echo 'Dir "'"$TMP"'/";' >> "$TMP"/apt.conf
+        #set Dir::State::* and Dir::Cache::* to the existing ones in /var/lib/apt, /var/lib/dpkg and /var/cache/apt
+        echo 'Dir::State "/var/lib/apt/";' >> "$TMP"/apt.conf
+        echo 'Dir::State::Lists "/var/lib/apt/lists/";' >> "$TMP"/apt.conf
+        echo 'Dir::State::status "/var/lib/dpkg/status";' >> "$TMP"/apt.conf
+        echo 'Dir::State::extended_states "/var/lib/apt/extended_states";' >> "$TMP"/apt.conf
+        echo 'Dir::Cache "/var/cache/apt/";' >> "$TMP"/apt.conf
+        echo 'Dir::Cache::Archives "/var/cache/apt/archives";' >> "$TMP"/apt.conf
+        echo 'Dir::Cache::srcpkgcache "/var/cache/apt/srcpkgcache.bin";' >> "$TMP"/apt.conf
+        echo 'Dir::Cache::pkgcache "/var/cache/apt/pkgcache.bin";' >> "$TMP"/apt.conf
+
+
+        APT_CONFIG="$TMP"/apt.conf apt-get -o Debug::NoLocking=true --trivial-only -V $UpgradeType 2>/dev/null >> "$TMP"/upgrades
+
 
         yad \
         --window-icon=/usr/share/icons/mnotify-some.png \
