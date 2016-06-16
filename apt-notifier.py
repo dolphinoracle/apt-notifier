@@ -735,7 +735,7 @@ def viewandupgrade():
         #that for the most part match the root owned /etc/apt folder and it's subfolders.
         #
         #A symlink to /var/synaptic/preferences symlink ("$TMP"/etc/apt/preferences.d/synaptic-pins) will be created
-        #if there isn't one already (note: the non-root user wouldn't be to create one in /etc/apt/preferences.d/).
+        #if there isn't one already (note: the non-root user wouldn't be able to create one in /etc/apt/preferences.d/).
         #
         #With a /var/synaptic/preferences symlink in place, no longer need to remove the lines with Synaptic pinned packages
         #from the "$TMP"/upgrades file to keep them from being displayed in the 'View and Upgrade' window, also no longer
