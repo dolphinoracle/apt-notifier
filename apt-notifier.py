@@ -773,9 +773,18 @@ def viewandupgrade():
         echo 'Dir::Cache::srcpkgcache "/var/cache/apt/srcpkgcache.bin";' >> "$TMP"/apt.conf
         echo 'Dir::Cache::pkgcache "/var/cache/apt/pkgcache.bin";' >> "$TMP"/apt.conf
 
-
         APT_CONFIG="$TMP"/apt.conf apt-get -o Debug::NoLocking=true --trivial-only -V $UpgradeType 2>/dev/null >> "$TMP"/upgrades
 
+        #fix to display epochs
+        for i in $(grep [[:space:]]'=>'[[:space:]] "$TMP"/upgrades | awk '{print $1}')
+        do
+          withoutEpoch="$(grep [[:space:]]$i[[:space:]] "$TMP"/upgrades | awk '{print $2}')"
+          withEpoch="(""$(apt-cache policy $i | head -2 | tail -1 | awk '{print $NF}')"
+          sed -i 's/'"$withoutEpoch"'/'"$withEpoch"'/' "$TMP"/upgrades
+          withoutEpoch="$(grep [[:space:]]$i[[:space:]] "$TMP"/upgrades | awk '{print $4}')"
+          withEpoch="$(apt-cache policy $i | head -3 | tail -1 | awk '{print $NF}')"")"
+          sed -i 's/'"$withoutEpoch"'/'"$withEpoch"'/' "$TMP"/upgrades
+        done
 
         yad \
         --window-icon=/usr/share/icons/mnotify-some.png \
