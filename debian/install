@@ -1,4 +1,5 @@
 #15periodic-update etc/apt/apt.conf.d
+1-quick-live-update etc/cron.daily
 apt-notifier-autostart-xdg.desktop etc/xdg/autostart
 apt-notifier usr/bin
 apt-notifier.py usr/bin
