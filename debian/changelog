@@ -1,3 +1,17 @@
+apt-notifier (1.3.4mcr120+1) mepis; urgency=medium
+
+  * Rebuild for Mepis 12 & MX-14
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Sat, 30 Jul 2016 18:25:33 -0400
+
+apt-notifier (1.3.4mx150+1) mx; urgency=medium
+
+  * clean up gksu message
+  * add cron.daily job to do live update sooner
+  * disable epoch fix
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Sat, 30 Jul 2016 18:17:33 -0400
+
 apt-notifier (1.3.3mcr120+1) mepis; urgency=medium
 
   * Rebuild for Mepis 12 & MX-14
