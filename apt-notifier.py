@@ -353,6 +353,7 @@ def viewandupgrade():
              switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
              reload="Reload"
              reload_tooltip="Reload the package information to become informed about new, removed or upgraded software packages. \n(apt-get update)"
+             rootPasswordRequestMsg="The action you requested needs <b>root privileges</b>. Please enter <b>root's</b> password below."
              done0="" 
              done1=' complete (or was canceled)"' 
              done2="'this terminal window can now be closed '" 
@@ -371,6 +372,7 @@ def viewandupgrade():
              switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
              reload="Refresca"
              reload_tooltip="Refresqueu la informació dels paquets per a informar-vos de paquets de programari nous, eliminats o actualitzats. \n(apt-get update)"
+             rootPasswordRequestMsg="A l'acció que heu demanat li calen <b>privilegis de root</b>. Si us plau, introduïu la contrasenya de <b>root</b> tot seguit."
              done0="s'ha completat (o cancel·lat) "
              done1='"'
              done2="'ara podeu tancar la finestra '"
@@ -388,6 +390,7 @@ def viewandupgrade():
              switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
              reload="Neu laden"
              reload_tooltip="Die Paketinformationen neu laden, um über neue, entfernte oder aktualisierte Softwarepakete informiert zu werden. \n(apt-get update)"
+             rootPasswordRequestMsg="Die Aktion benötigt <b>Systemverwalterrechte</b>. Bitte geben Sie das Passwort des Benutzers <b>root</b> ein."
              done0=""
              done1=' fertig (oder beendet)"'
              done2="'Dieses Shellfenster darf jetzt geschlossen werden '" 
@@ -405,6 +408,7 @@ def viewandupgrade():
              switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
              reload="Ανανέωση"
              reload_tooltip="Ανανέωση των πληροφοριών του πακέτου ώστε να γίνει ενημέρωση για νέα, αναβαθμισμένα ή απομακρυθέντα πακέτα λογισμικού. \n(apt-get update)"
+             rootPasswordRequestMsg="Η ενέργεια που ζητήσατε απαιτεί <b>προνόμια root</b>. Παρακαλώ εισάγετε τον κωδικό πρόσβασης του <b>root</b> παρακάτω."
              done0="" 
              done1=' ολοκληρώθηκε (ή ακυρώθηκε)"' 
              done2="'Αυτό το παράθυρο τερματικού μπορεί να κλείσει '" 
@@ -422,6 +426,7 @@ def viewandupgrade():
              switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
              reload="Recargar"
              reload_tooltip="Recargar la información de los paquetes para informarse acerca de los paquetes de software nuevos, eliminados o actualizados. \n(apt-get update)"
+             rootPasswordRequestMsg="La acción que solicitó necesita <b>privilegios de superusuario</b> («root»). Introduzca la contraseña del <b>superusuario</b>."
              done0="se completó "
              done1=' (o se canceló)"' 
              done2="'esta ventana de terminal ya puede cerrarse '" 
@@ -439,6 +444,7 @@ def viewandupgrade():
              switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
              reload="Recharger"
              reload_tooltip="Recharger les informations des paquets pour être informé des nouveaux paquets, des suppressions de paquets ou des paquets mis à jour. \n(apt-get update)"
+             rootPasswordRequestMsg="L'action requise nécessite <b>les droits du superutilisateur</b>. Veuillez saisir ci-dessous le mot de passe du <b>superutilisateur</b>."
              done0=""
              done1=" s'est terminé (ou a été annulé)"'"' 
              done2="'vous pouvez maintenant fermer cette fenêtre de terminal '" 
@@ -456,6 +462,7 @@ def viewandupgrade():
              switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
              reload="Aggiorna"
              reload_tooltip="Aggiorna le informazioni sui pacchetti per informare di pacchetti nuovi, rimossi o aggiornati. \n(apt-get update)"
+             rootPasswordRequestMsg="L'azione che hai richiesto richiede i <b>privilegi di root</b>. Per piacere, inserisci la password di <b>root</b>."
              done0=""
              done1=' ha terminato (o è stato annullato)"'
              done2="'Ora è possibile chiudere questa finestra del terminale '"
@@ -473,6 +480,7 @@ def viewandupgrade():
              switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
              reload="再読込"
              reload_tooltip="新規、削除あるいはアップグレードされたパッケージについて情報が得られるように、パッケージ情報を再読込してください。 \n(apt-get update)"
+             rootPasswordRequestMsg="実行には <b>root</b> 権限が必要です。下に <b>root</b> のパスワードを入力してください。"
              done0="" 
              done1=' 完了 (またはキャンセル)時に"' 
              done2="'この端末ウインドウを閉じる '" 
@@ -490,6 +498,7 @@ def viewandupgrade():
              switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
              reload="Herladen"
              reload_tooltip="Ververs de pakketinformatie om ingelicht te worden over nieuwe, verwijderde of opgewaardeerde pakketten. \n(apt-get update)"
+             rootPasswordRequestMsg="Voor de handeling die u wilt verrichten hebt u <b>root-privileges</b> nodig. Voer hieronder het <b>root-wachtwoord</b> in."
              done0="" 
              done1=' klaar (of was geannuleerd)"' 
              done2="'dit terminal scherm kan nu gesloten worden '" 
@@ -507,6 +516,7 @@ def viewandupgrade():
              switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
              reload="Odśwież"
              reload_tooltip="Odświeża bazę informacji o pakietach, aby otrzymać informacje o nowych, usuniętych, zaktualizowanych pakietach oprogramowania. \n(apt-get update)"
+             rootPasswordRequestMsg="Polecenie, które chcesz wykonać, wymaga <b>uprawnień administratora</b>. Wpisz poniżej <b>hasło administratora</b>."
              done0="Komenda " 
              done1=' została wykonana (lub przerwana)"' 
              done2="'Okno to można zamknąć teraz '" 
@@ -524,6 +534,7 @@ def viewandupgrade():
              switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
              reload="Обновить"
              reload_tooltip="Обновление сведений о пакетах информирует о новых, удалённых или обновлённых пакетах программ \n(apt-get update)"
+             rootPasswordRequestMsg="Для выполнения данного действия необходимы <b>привилегии пользователя «root»</b>. Введите его пароль."
              done0="" 
              done1=' Выполнено (или было отменено)"' 
              done2="'Это окно терминала теперь может быть закрыто '" 
@@ -541,6 +552,7 @@ def viewandupgrade():
              switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
              reload="Läs om"
              reload_tooltip="Läs om paketinformationen för att få information om nya, borttagna eller uppgraderade programpaket. \n(apt-get update)"
+             rootPasswordRequestMsg="Åtgärden du har begärt kräver <b>administratörsbehörighet</b>. Ange lösenordet för <b>root</b>nedan."
              done0="" 
              done1=' färdig (eller stoppades)"' 
              done2="'detta terminalfönster kan nu stängas '" 
@@ -606,7 +618,7 @@ def viewandupgrade():
                              roxterm) $(kde4-config --path libexec)kdesu -c "roxterm$G$T --separate -e $3"
                                       ;;
 
-              xfce4-terminal.wrapper) $(kde4-config --path libexec)kdesu -c "xfce4-terminal$G$I$T -e $3"
+              xfce4-terminal.wrapper) $(kde4-config --path libexec)kdesu -n --noignorebutton -d -c "xfce4-terminal$G$I$T -e $3"
                                       ;;
 
                                xterm) if [ -e /usr/bin/konsole ]
@@ -664,7 +676,12 @@ def viewandupgrade():
                              roxterm) su-to-root -X -c "roxterm$G$T --separate -e $3"
                                       ;;
 
-              xfce4-terminal.wrapper) su-to-root -X -c "xfce4-terminal$G$I$T -e $3"
+              xfce4-terminal.wrapper) if [ -x $(whereis gksu | awk '{print $2}') ]
+                                        then
+                                          gksu -m "$rootPasswordRequestMsg""\n\n'apt-get $2'" "xfce4-terminal$G$I$T -e $3"
+                                        else
+                                          su-to-root -X -c "xfce4-terminal$G$I$T -e $3"
+                                      fi                                      
                                       ;;
 
                                xterm) if [ -e /usr/bin/xfce4-terminal ]
@@ -702,7 +719,7 @@ def viewandupgrade():
         8)
         BP="0"
         #chmod +x $TMP/upgradeScript
-        RunAptScriptInTerminal "" "" "'apt-get update'"
+        RunAptScriptInTerminal "" "update" "'apt-get update'"
         sleep 1
         ;;
         
@@ -1312,6 +1329,46 @@ def apt_history():
     
 def apt_get_update():
     script = '''#! /bin/bash
+    rootPasswordRequestMsg="The action you requested needs <b>root privileges</b>. Please enter <b>root's</b> password below."
+    case $(locale|grep ^LANG=|cut -f2 -d=|cut -f1 -d_) in
+
+      ca)    rootPasswordRequestMsg="A l'acció que heu demanat li calen <b>privilegis de root</b>. Si us plau, introduïu la contrasenya de <b>root</b> tot seguit."
+             ;;
+
+      de)    rootPasswordRequestMsg="Die Aktion benötigt <b>Systemverwalterrechte</b>. Bitte geben Sie das Passwort des Benutzers <b>root</b> ein."
+             ;;
+
+      el)    rootPasswordRequestMsg="Η ενέργεια που ζητήσατε απαιτεί <b>προνόμια root</b>. Παρακαλώ εισάγετε τον κωδικό πρόσβασης του <b>root</b> παρακάτω."
+             ;;
+
+      es)    rootPasswordRequestMsg="La acción que solicitó necesita <b>privilegios de superusuario</b> («root»). Introduzca la contraseña del <b>superusuario</b>."
+             ;;
+
+      fr)    rootPasswordRequestMsg="L'action requise nécessite <b>les droits du superutilisateur</b>. Veuillez saisir ci-dessous le mot de passe du <b>superutilisateur</b>."
+             ;;
+
+      it)    rootPasswordRequestMsg="L'azione che hai richiesto richiede i <b>privilegi di root</b>. Per piacere, inserisci la password di <b>root</b>."
+             ;;
+
+      ja)    rootPasswordRequestMsg="実行には <b>root</b> 権限が必要です。下に <b>root</b> のパスワードを入力してください。"
+             ;;
+
+      nl)    rootPasswordRequestMsg="Voor de handeling die u wilt verrichten hebt u <b>root-privileges</b> nodig. Voer hieronder het <b>root-wachtwoord</b> in."
+             ;;
+
+      pl)    rootPasswordRequestMsg="Polecenie, które chcesz wykonać, wymaga <b>uprawnień administratora</b>. Wpisz poniżej <b>hasło administratora</b>."
+             ;;
+
+      ru)    rootPasswordRequestMsg="Для выполнения данного действия необходимы <b>привилегии пользователя «root»</b>. Введите его пароль."
+             ;;
+
+      sv)    rootPasswordRequestMsg="Åtgärden du har begärt kräver <b>administratörsbehörighet</b>. Ange lösenordet för <b>root</b>nedan."
+             ;;
+
+       *)    : ;;
+
+    esac
+    
     
     #for MEPIS remove "MX" branding from the $window_title string
     window_title=$(echo "$window_title"|sed 's/MX /'$(grep -o MX-[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
@@ -1393,7 +1450,12 @@ def apt_get_update():
                          roxterm) su-to-root -X -c "roxterm$G$T --separate -e apt-get update"
                                   ;;
 
-          xfce4-terminal.wrapper) su-to-root -X -c "xfce4-terminal$G$I$T -e 'apt-get update'"
+          xfce4-terminal.wrapper) if [ -x $(whereis gksu | awk '{print $2}') ]
+                                    then
+                                      gksu -m "$rootPasswordRequestMsg""\n\n'apt-get update'" "xfce4-terminal$G$I$T -e 'apt-get update'"
+                                    else
+                                      su-to-root -X -c "xfce4-terminal$G$I$T -e 'apt-get update"
+                                  fi                                      
                                   ;;
 
                            xterm) if [ -e /usr/bin/xfce4-terminal ]
