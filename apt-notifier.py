@@ -872,9 +872,9 @@ def viewandupgrade():
             echo 'if [ $? -eq 0 ]; then find /etc/apt/preferences.d | grep -E synaptic-[0-9a-zA-Z]{6}-pins | xargs rm -f; fi'>> "$TMP"/upgradeScript
             if [ "$UpgradeAssumeYes" = "true" ];
               then
-                echo "apt-get --assume-yes "$UpgradeType>> "$TMP"/upgradeScript
+                echo "apt-get --assume-yes -V "$UpgradeType>> "$TMP"/upgradeScript
               else
-                echo "apt-get "$UpgradeType>> "$TMP"/upgradeScript
+                echo "apt-get -V "$UpgradeType>> "$TMP"/upgradeScript
             fi
             grep ^CheckForAutoRemoves=true ~/.config/apt-notifierrc -q
             if [ $? -eq 0 ]
