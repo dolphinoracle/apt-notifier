@@ -810,7 +810,7 @@ def viewandupgrade():
         --center \
         --title "$window_title$UpgradeType" \
         --form \
-          --field :TXT "$(cat "$TMP"/upgrades)" \
+          --field :TXT "$(sed 's/^/  /' "$TMP"/upgrades)" \
           --field="$use_apt_get_dash_dash_yes$UpgradeType":CHK $UpgradeAssumeYes \
           --field="$auto_close_term_window1$UpgradeType$auto_close_term_window2":CHK $UpgradeAutoClose \
         --button "$switch_to1$OtherUpgradeType'$switch_to2"!!"$switch_tooltip":4 \
