@@ -1722,9 +1722,9 @@ def open_apt_notifier_help():
     command_string = "test -e /usr/bin/mx-viewer"
     exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
     if exit_state == 0:
-        subprocess.Popen(['mx-viewer http://mepiscommunity.org/wiki/help-files/help-mx-apt-notifier'],shell=True)
+        subprocess.Popen(['mx-viewer https://mxlinux.org/wiki/help-files/help-mx-apt-notifier'],shell=True)
     else:
-        subprocess.Popen(['xdg-open  http://mepiscommunity.org/wiki/help-files/help-mx-apt-notifier'],shell=True) 
+        subprocess.Popen(['xdg-open  https://mxlinux.org/wiki/help-files/help-mx-apt-notifier'],shell=True) 
 
     
 def add_synaptic_help_action():
@@ -1737,9 +1737,9 @@ def open_synaptic_help():
     command_string = "test -e /usr/bin/mx-viewer"
     exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
     if exit_state == 0:
-        subprocess.Popen(['mx-viewer http://www.mepiscommunity.org/user_manual_mx15/mxum.html#toc-Subsection-5.3'],shell=True)
+        subprocess.Popen(['mx-viewer https://mxlinux.org/user_manual_mx15/mxum.html#toc-Subsection-5.3'],shell=True)
     else:
-        subprocess.Popen(['xdg-open  http://www.mepiscommunity.org/user_manual_mx15/mxum.html#toc-Subsection-5.3'],shell=True)
+        subprocess.Popen(['xdg-open  https://mxlinux.org/user_manual_mx15/mxum.html#toc-Subsection-5.3'],shell=True)
 
 def add_aptnotifier_prefs_action():
     ActionsMenu.addSeparator()
