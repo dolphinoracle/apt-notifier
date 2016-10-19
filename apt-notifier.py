@@ -39,8 +39,24 @@ def set_translations():
     global Apt_Notifier_Preferences    
     global Apt_History
     global Check_for_Updates
+    global Check_for_Updates_by_User
+    Check_for_Updates_by_User = 'false'
     global ignoreClick
     ignoreClick = '0'
+    global RepoListsHashNow
+    RepoListsHashNow = ''
+    global RepoListsHashPrevious
+    RepoListsHashPrevious= ''
+    global AptConfsAndPrefsNow
+    AptConfsAndPrefsNow = ''
+    global AptConfsAndPrefsPrevious
+    AptConfsAndPrefsPrevious = ''
+    global AptPkgCacheHashNow
+    AptPkgCacheHashNow = ''
+    global AptPkgCacheHashPrevious
+    AptPkgCacheHashPrevious = ''
+    global text
+    text = ''
 
     tooltip_0_updates_available = u"0 updates available"
     tooltip_1_new_update_available = u"1 new update available"
@@ -264,6 +280,112 @@ def set_translations():
 def check_updates():
     global message_status
     global text
+    global RepoListsHashNow
+    global RepoListsHashPrevious
+    global AptConfsAndPrefsNow
+    global AptConfsAndPrefsPrevious
+    global AptPkgCacheHashNow
+    global AptPkgCacheHashPrevious
+    global Check_for_Updates_by_User
+    
+    """
+    Don't bother checking for updates when /var/lib/apt/periodic/update-stamp
+    isn't present. This should only happen in a Live session before the repository
+    lists have been loaded for the first time.
+    """ 
+    command_string = "[ ! -e /var/lib/apt/periodic/update-stamp ]"
+    exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
+    if exit_state == 0:
+        if text == '':
+            text = '0'
+        message_status = "not displayed"  # Resets flag once there are no more updates
+        add_hide_action()
+        if icon_config != "show":
+            AptIcon.hide()
+        else:
+            AptIcon.setIcon(NoUpdatesIcon)
+            AptIcon.setToolTip(tooltip_0_updates_available)
+        return
+    
+    """
+    Don't bother checking for updates if processes for other package management tools
+    appear to be runninng.
+    """ 
+    command_string = "ps aux | grep -v grep | grep -E 'apt-get|aptitude|dpkg|gdebi|synaptic' -q"
+    exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
+    if exit_state == 0:
+        return
+    
+    """
+    Get a hash of the /var/lib/apt/lists folder.
+    """
+    script = '''#!/bin/sh
+    find /var/lib/apt/lists/* 2>/dev/null | xargs md5sum 2>/dev/null | md5sum
+    '''
+    script_file = tempfile.NamedTemporaryFile('wt')
+    script_file.write(script)
+    script_file.flush()
+    run = subprocess.Popen(["echo -n `bash %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
+    RepoListsHashNow = run.stdout.read(128)
+    script_file.close()
+
+    """
+    Get a hash of the /etc/apt/conf file and files in the .d folder,
+    and /etc/apt/preferences file and files in the .d folder.
+    """    
+    script = '''#!/bin/sh
+    find /etc/apt/{apt.conf*,preferences*} 2>/dev/null | grep -v .d$ | xargs md5sum  2>/dev/null | md5sum
+    '''
+    script_file = tempfile.NamedTemporaryFile('wt')
+    script_file.write(script)
+    script_file.flush()
+    run = subprocess.Popen(["echo -n `bash %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
+    AptConfsAndPrefsNow = run.stdout.read(128)
+    script_file.close()
+    
+    """
+    Get a hash of /var/cache/apt/pkgcache.bin.
+    """    
+    script = '''#!/bin/sh
+    md5sum  /var/cache/apt/pkgcache.bin 2>/dev/null | md5sum
+    '''
+    script_file = tempfile.NamedTemporaryFile('wt')
+    script_file.write(script)
+    script_file.flush()
+    run = subprocess.Popen(["echo -n `bash %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
+    AptPkgCacheHashNow = run.stdout.read(128)
+    script_file.close()
+
+    """
+    If
+        no changes in the Repo List hashes since last checked
+            AND 
+        the Apt Conf & Apt Preferences hashes same since last checked
+            AND
+        pkgcache.bin same since last checked
+            AND
+        the call to check_updates wasn't initiated by user   
+    then don't bother checking for updates.
+    """
+    if RepoListsHashNow == RepoListsHashPrevious:
+        if AptConfsAndPrefsNow == AptConfsAndPrefsPrevious:
+            if AptPkgCacheHashNow == AptPkgCacheHashPrevious:
+                if Check_for_Updates_by_User == 'false':
+                    if text == '':
+                        text = '0'
+                    return
+
+    RepoListsHashPrevious = RepoListsHashNow
+    RepoListsHashNow = ''
+
+    AptConfsAndPrefsPrevious = AptConfsAndPrefsNow
+    AptConfsAndPrefsNow = ''
+    
+    AptPkgCacheHashPrevious = AptPkgCacheHashNow
+    AptPkgCacheHashNow = ''
+    
+    Check_for_Updates_by_User = 'false'
+    
     #Create an inline script (what used to be /usr/bin/apt-notifier-check-Updates) and then run it to get the number of updates.
     script = '''#!/bin/sh
     sorted_list_of_upgrades() 
@@ -333,10 +455,13 @@ def check_updates():
                 message_status = "displayed"
    
 def start_synaptic():
+    global Check_for_Updates_by_User
     run = subprocess.Popen(['/usr/bin/su-to-root -X -c synaptic'],shell=True).wait()
+    Check_for_Updates_by_User = 'true'
     check_updates()
 
 def viewandupgrade():
+    global Check_for_Updates_by_User
     initialize_aptnotifier_prefs()
     script = '''#!/bin/bash
     
@@ -929,6 +1054,7 @@ def viewandupgrade():
     script_file.flush()
     run = subprocess.Popen(['sh %s' % script_file.name],shell=True).wait()
     script_file.close()
+    Check_for_Updates_by_User = 'true'
     check_updates()
 
 def initialize_aptnotifier_prefs():
@@ -1039,6 +1165,7 @@ def initialize_aptnotifier_prefs():
     script_file.close()
 
 def aptnotifier_prefs():
+    global Check_for_Updates_by_User
     initialize_aptnotifier_prefs()
     script = '''#! /bin/bash
 
@@ -1296,9 +1423,11 @@ EOF
     script_file.flush()
     run = subprocess.Popen(['sh %s' % script_file.name],shell=True).wait()
     script_file.close()
+    Check_for_Updates_by_User = 'true'
     check_updates()
 
 def apt_history():
+    global Check_for_Updates_by_User
     script = '''#! /bin/bash
     
     TMP=$(mktemp -d /tmp/apt_history.XXXXXX)
@@ -1325,9 +1454,11 @@ def apt_history():
     script_file.flush()
     run = subprocess.Popen(['sh %s' % script_file.name],shell=True).wait()
     script_file.close()
+    Check_for_Updates_by_User = 'true'
     check_updates()
     
 def apt_get_update():
+    global Check_for_Updates_by_User
     script = '''#! /bin/bash
     rootPasswordRequestMsg="The action you requested needs <b>root privileges</b>. Please enter <b>root's</b> password below."
     case $(locale|grep ^LANG=|cut -f2 -d=|cut -f1 -d_) in
@@ -1478,6 +1609,7 @@ def apt_get_update():
     script_file.flush()
     run = subprocess.Popen(['sh %s' % script_file.name],shell=True).wait()
     script_file.close()
+    Check_for_Updates_by_User = 'true'
     check_updates()
 
 def re_enable_click():
@@ -1653,12 +1785,12 @@ def main():
     ActionsMenu = QtGui.QMenu()
     AptIcon.connect( AptIcon, QtCore.SIGNAL( "activated(QSystemTrayIcon::ActivationReason)" ), left_click_activated)
     AptNotify.connect(Timer, QtCore.SIGNAL("timeout()"), check_updates)
-    # Integrate it together,apply checking of updated packages and set timer to every 5 minutes (1 second = 1000)
+    # Integrate it together,apply checking of updated packages and set timer to every 1 minute(s) (1 second = 1000)
     check_updates()
     AptIcon.setContextMenu(ActionsMenu)
     if icon_config == "show":
         AptIcon.show()
-    Timer.start(300000)
+    Timer.start(60000)
     if AptNotify.isSessionRestored():
         sys.exit(1)
     sys.exit(AptNotify.exec_())
