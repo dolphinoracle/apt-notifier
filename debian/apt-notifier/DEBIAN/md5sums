@@ -1,0 +1,11 @@
+69551774d13da35e5a5677966cf04423  usr/bin/apt-notifier
+1ce29bce045934aa5b964bb0a735d153  usr/bin/apt-notifier-unhide-Icon
+ece45588e7af9a12a946eb322c7f8869  usr/bin/apt-notifier.py
+2211ed3a0a11de35267fe41dbc1aa9a5  usr/local/bin/apt-history
+c144a3ea591cc1398411d0209b13c4dc  usr/share/applications/apt-notifier-menu.desktop
+1ce3b0000d3db82ed25618ee1ffe5bc2  usr/share/applications/mx-apt-notifier-menu.desktop
+e7eb97bd8399b73d925342b51dc8880c  usr/share/autostart/apt-notifier-autostart.desktop
+1761e8094ad922d0bb7dfe421541cc71  usr/share/doc/apt-notifier/changelog.gz
+059bd9a77ffca9ad1b1cc18690d9863f  usr/share/doc/apt-notifier/copyright
+ca2e5423255e63a6328e5f3ef90bc50a  usr/share/icons/mnotify-none.png
+65337055a24716cf9b614082026c88a2  usr/share/icons/mnotify-some.png

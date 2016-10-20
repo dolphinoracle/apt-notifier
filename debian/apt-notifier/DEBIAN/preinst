@@ -1,0 +1,22 @@
+#!/bin/bash
+
+
+
+# preinst script for apt-notifier
+
+set -e
+
+case "$1" in
+  install|upgrade)
+    grep -q ^.* /etc/apt/apt.conf.d/15periodic-update 2>/dev/null||\
+    echo -ne 'APT::Periodic::Update-Package-Lists "1";'\\n\
+    'APT::Periodic::Download-Upgradeable-Packages "0";'\\n\
+    'APT::Periodic::AutocleanInterval "0";'\\n\
+    |sed 's/^ //'>/etc/apt/apt.conf.d/15periodic-update
+  ;;
+  *)
+    :
+  ;;  
+esac
+exit 0
+
