@@ -697,7 +697,7 @@ def viewandupgrade():
         TermXOffset="$(xwininfo -root|awk '/Width/{print $2/4}')"
         TermYOffset="$(xwininfo -root|awk '/Height/{print $2/4}')"
         G=" --geometry=80x25+"$TermXOffset"+"$TermYOffset
-        I=" --icon=mnotify-some"
+        I=" --icon=mnotify-some-""$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
         if [ "$2" = "" ]; then T=""; I=""; else T=" --title='""$(grep -o MX-[1-9][0-9] /etc/issue|cut -c1-2)"" apt-notifier: apt-get "$2"'"; fi
         if (xprop -root | grep -q -i kde)
           then
@@ -929,7 +929,7 @@ def viewandupgrade():
         #done
 
         yad \
-        --window-icon=/usr/share/icons/mnotify-some.png \
+        --window-icon=/usr/share/icons/mnotify-some-"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)".png \
         --width=640 \
         --height=480 \
         --center \
@@ -939,7 +939,7 @@ def viewandupgrade():
           --field="$use_apt_get_dash_dash_yes$UpgradeType":CHK $UpgradeAssumeYes \
           --field="$auto_close_term_window1$UpgradeType$auto_close_term_window2":CHK $UpgradeAutoClose \
         --button "$switch_to1$OtherUpgradeType'$switch_to2"!!"$switch_tooltip":4 \
-        --button 'apt-get '"$UpgradeType"!mnotify-some!:0 \
+        --button 'apt-get '"$UpgradeType"!mnotify-some-"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"!:0 \
         --button "$reload"!reload!"$reload_tooltip":8 \
         --button gtk-cancel:2 \
         --buttons-layout=spread \
@@ -1145,6 +1145,22 @@ def initialize_aptnotifier_prefs():
       echo "CheckForAutoRemoves=false">> ~/.config/apt-notifierrc
     fi
 
+    #test if ~/.config/apt-notifierrc contains a IconLook=* line and that it's a valid entry
+    grep -q -e ^"IconLook=mx16" -e^"IconLook=classic" ~/.config/apt-notifierrc
+    if [ "$?" -eq 0 ]
+      then
+      #contains a valid entry so do nothing
+        :
+      else
+      #
+      #if a IconLook=mx16=* line not present,
+      #or not equal to "mx16" or "classic"
+      #intially set it to "CheckForAutoRemoves=mx16"
+      #also delete multiple entries or what appears to be invalid entries
+      sed -i '/.*IconLook.*/Id' ~/.config/apt-notifierrc 
+      echo "IconLook=mx16">> ~/.config/apt-notifierrc
+    fi
+
     #test to see if ~/.config/apt-notifierrc contains any blank lines or lines with only whitespace
     grep -q ^[[:space:]]*$ ~/.config/apt-notifierrc 
     if [ "$?" = "0" ]
@@ -1155,6 +1171,16 @@ def initialize_aptnotifier_prefs():
       #no blank lines or lines with only whitespace so do nothing
         :
     fi
+
+    [ -e ~/.local/share/applications/apt-notifier-menu.desktop ] || cp /usr/share/applications/apt-notifier-menu.desktop ~/.local/share/applications/apt-notifier-menu.desktop
+
+    grep $(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) ~/.local/share/applications/apt-notifier-menu.desktop -q
+    [ $? -eq 0 ] || sed -i 's/mnotify-some.*/mnotify-some-'"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"'/' ~/.local/share/applications/apt-notifier-menu.desktop
+
+    [ -e ~/.local/share/applications/mx-apt-notifier-menu.desktop ] || cp /usr/share/applications/mx-apt-notifier-menu.desktop ~/.local/share/applications/mx-apt-notifier-menu.desktop
+
+    grep $(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) ~/.local/share/applications/mx-apt-notifier-menu.desktop -q 
+    [ $? -eq 0 ] || sed -i 's/mnotify-some.*/mnotify-some-'"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"'/' ~/.local/share/applications/mx-apt-notifier-menu.desktop
 
     '''
 
@@ -1308,11 +1334,11 @@ def aptnotifier_prefs():
     #for MEPIS remove "MX" branding from the $window_title and $left_click_ViewandUpgrade strings
     window_title=$(echo "$window_title"|sed 's/MX /'$(grep -o MX-[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
     left_click_ViewandUpgrade=$(echo "$left_click_ViewandUpgrade"|sed 's/MX /'$(grep -o MX-[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
-
+    IconLookBegin=$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)
     TMP=$(mktemp -d /tmp/apt_notifier_preferences_dialog.XXXXXX)
     touch "$TMP"/output
     cat << EOF > "$TMP"/DIALOG
-    <window title="@title@" icon-name="mnotify-some">
+    <window title="@title@" icon-name="@mnotify-some@">
       <vbox>
         <frame @upgrade_behaviour@>
           <frame>
@@ -1365,7 +1391,33 @@ def aptnotifier_prefs():
             <action>:</action>
           </checkbox>
         </frame>
+        <vseparator></vseparator>
         </frame>
+        <frame Icons>
+          <hbox homogeneous="true">
+          <vbox>
+            <radiobutton active="@IconLookMx16@">
+              <label>mx16   </label>
+              <variable>IconLook_mx16</variable>
+              <action>:</action>
+            </radiobutton>
+            <radiobutton active="@IconLookClassic@">
+              <label>classic</label>
+              <variable>IconLook_classic</variable>
+              <action>:</action>
+            </radiobutton>
+          </vbox>
+          <vbox>
+            <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-some-mx16.png"</input></pixmap>
+            <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-some-classic.png"</input></pixmap>
+          </vbox>
+          <vbox>
+            <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-none-mx16.png"</input></pixmap>
+            <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-none-classic.png"</input></pixmap>
+          </vbox>
+          </hbox>
+        </frame>
+      <vseparator></vseparator>
       <hbox>
         <button ok> </button>
         <button cancel> </button>
@@ -1393,7 +1445,11 @@ EOF
     sed -i 's/@UpgradeAssumeYes@/'$(grep UpgradeAssumeYes ~/.config/apt-notifierrc | cut -f2 -d=)'/' "$TMP"/DIALOG
     sed -i 's/@UpgradeAutoClose@/'$(grep UpgradeAutoClose ~/.config/apt-notifierrc | cut -f2 -d=)'/' "$TMP"/DIALOG
     sed -i 's/@CheckForAutoRemoves@/'$(grep CheckForAutoRemoves ~/.config/apt-notifierrc | cut -f2 -d=)'/' "$TMP"/DIALOG
+    sed -i 's/@IconLookMx16@/'$(if [ $(grep IconLook=mx16 ~/.config/apt-notifierrc) ]; then echo -n true; else echo -n false; fi)'/' "$TMP"/DIALOG
+    sed -i 's/@IconLookClassic@/'$(if [ $(grep IconLook=classic ~/.config/apt-notifierrc) ]; then echo -n true; else echo -n false; fi)'/' "$TMP"/DIALOG
 
+    # edit placeholder for window icon placeholder in "$TMP"/DIALOG
+    sed -i 's/@mnotify-some@/mnotify-some-'$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d= | xargs echo -n)'/' "$TMP"/DIALOG
 
     gtkdialog --file="$TMP"/DIALOG >> "$TMP"/output
 
@@ -1411,11 +1467,27 @@ EOF
         if [ $(grep UpgradeAutoClose=.*true.*         "$TMP"/output) ]; then sed -i 's/UpgradeAutoClose=false/UpgradeAutoClose=true/'       ~/.config/apt-notifierrc; fi
         if [ $(grep CheckForAutoRemoves=.*false.*     "$TMP"/output) ]; then sed -i 's/CheckForAutoRemoves=true/CheckForAutoRemoves=false/' ~/.config/apt-notifierrc; fi
         if [ $(grep CheckForAutoRemoves=.*true.*      "$TMP"/output) ]; then sed -i 's/CheckForAutoRemoves=false/CheckForAutoRemoves=true/' ~/.config/apt-notifierrc; fi
+        if [ $(grep IconLook_mx16=.*true.*            "$TMP"/output) ]; then sed -i 's/IconLook=classic/IconLook=mx16/'                     ~/.config/apt-notifierrc; fi
+        if [ $(grep IconLook_classic=.*true.*         "$TMP"/output) ]; then sed -i 's/IconLook=mx16/IconLook=classic/'                     ~/.config/apt-notifierrc; fi
      else
         :
     fi
 
     rm -rf "$TMP"
+
+    #update Icon= line in .local apt-notifier-menu.desktop file if icon not same as IconLook config setting in ~/.config/apt-notifierrc file
+    grep $(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) ~/.local/share/applications/apt-notifier-menu.desktop -q
+    [ $? -eq 0 ] || sed -i 's/mnotify-some.*/mnotify-some-'"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"'/' ~/.local/share/applications/apt-notifier-menu.desktop
+
+    #update Icon= line in .local mx-apt-notifier-menu.desktop file if icon not same as IconLook config setting in ~/.config/apt-notifierrc file
+    grep $(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) ~/.local/share/applications/mx-apt-notifier-menu.desktop -q 
+    [ $? -eq 0 ] || sed -i 's/mnotify-some.*/mnotify-some-'"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"'/' ~/.local/share/applications/mx-apt-notifier-menu.desktop
+
+    #restart apt-notifier if IconLook setting has been changed 
+    if [ "$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)" != "$IconLookBegin" ]
+      then
+        apt-notifier-unhide-Icon
+    fi
 
     '''
     script_file = tempfile.NamedTemporaryFile('wt')
@@ -1434,7 +1506,7 @@ def apt_history():
     
     apt-history | sed 's/:all/ all/;s/:i386/ i386/;s/:amd64/ amd64/' | column -t > "$TMP"/APT_HISTORY
     
-    yad --window-icon=/usr/share/icons/mnotify-some.png \
+    yad --window-icon=/usr/share/icons/mnotify-some-"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)".png \
         --width=$(xprop -root | grep _NET_DESKTOP_GEOMETRY\(CARDINAL\) | awk '{print $3*.75}' | cut -f1 -d.) \
         --height=480 \
         --center \
@@ -1507,7 +1579,7 @@ def apt_get_update():
     TermXOffset="$(xwininfo -root|awk '/Width/{print $2/4}')"
     TermYOffset="$(xwininfo -root|awk '/Height/{print $2/4}')"
     G=" --geometry=80x25+"$TermXOffset"+"$TermYOffset
-    #I=" --icon=mnotify-some"
+    #I=" --icon=mnotify-some-""$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
     #T=" --title='""$(grep -o MX-[1-9][0-9] /etc/issue|cut -c1-2)"" apt-notifier: apt-get update'"
     if (xprop -root | grep -q -i kde)
       then
@@ -1661,6 +1733,19 @@ def read_icon_config():
     if exit_state != 0:
         return "show"
 
+def read_icon_look():
+    script = '''#! /bin/bash
+    grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=
+    '''
+    script_file = tempfile.NamedTemporaryFile('wt')
+    script_file.write(script)
+    script_file.flush()
+    run = subprocess.Popen(["echo -n `sh %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
+    # Read the output into a text string
+    iconLook = run.stdout.read(128)
+    return iconLook
+    script_file.close()
+    
 def set_noicon():
     """Reads ~/.config/apt-notifierrc. If "DontShowIcon blah blah blah" is already there, don't write it again"""
     command_string = "cat " + rc_file_name + " | grep -q DontShowIcon"
@@ -1766,6 +1851,7 @@ def main():
     global quit_action    
     global Timer
     global initialize_aptnotifier_prefs
+    global read_icon_look
     set_translations()
     initialize_aptnotifier_prefs()
     AptNotify = QtGui.QApplication(sys.argv)
@@ -1776,8 +1862,8 @@ def main():
     global NoUpdatesIcon
     global NewUpdatesIcon
     global HelpIcon
-    NoUpdatesIcon = QtGui.QIcon("/usr/share/icons/mnotify-none.png")
-    NewUpdatesIcon  = QtGui.QIcon("/usr/share/icons/mnotify-some.png")
+    NoUpdatesIcon = QtGui.QIcon("/usr/share/icons/mnotify-none-" + read_icon_look() + ".png")
+    NewUpdatesIcon  = QtGui.QIcon("/usr/share/icons/mnotify-some-" + read_icon_look() + ".png")
     HelpIcon = QtGui.QIcon("/usr/share/icons/oxygen/22x22/apps/help-browser.png")
     QuitIcon = QtGui.QIcon("/usr/share/icons/oxygen/22x22/actions/system-shutdown.png")
     # Create the right-click menu and add the Tooltip text
