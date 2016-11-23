@@ -8,7 +8,7 @@ apt-notifier-autostart.desktop usr/share/autostart
 apt-notifier-menu.desktop usr/share/applications
 apt-history usr/local/bin
 mx-apt-notifier-menu.desktop usr/share/applications
-mnotify-none.png usr/share/icons
-mnotify-some.png usr/share/icons
-
-
+mnotify-none-classic.png usr/share/icons
+mnotify-some-classic.png usr/share/icons
+mnotify-none-mx16.png usr/share/icons
+mnotify-some-mx16.png usr/share/icons
