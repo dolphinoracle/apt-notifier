@@ -1,3 +1,12 @@
+apt-notifier (16.11mx16) mx; urgency=medium
+
+  * include both classic and mx16 icons in package
+  * IconLook config setting added
+  * preferences dialog updated to allow icon changes
+  * change to Adrian's version numbering 
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Wed, 23 Nov 2016 18:01:32 -0500
+
 apt-notifier (1.3.4mx160+1) mepis; urgency=medium
 
   * new icons, mx16
