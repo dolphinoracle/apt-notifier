@@ -1153,12 +1153,19 @@ def initialize_aptnotifier_prefs():
         :
       else
       #
-      #if a IconLook=mx16=* line not present,
-      #or not equal to "mx16" or "classic"
-      #intially set it to "CheckForAutoRemoves=mx16"
-      #also delete multiple entries or what appears to be invalid entries
+      #delete multiple entries or what appears to be invalid entries
       sed -i '/.*IconLook.*/Id' ~/.config/apt-notifierrc 
-      echo "IconLook=mx16">> ~/.config/apt-notifierrc
+      #
+      #if a IconLook=* line not present,
+      #or not equal to "mx16" or "classic", then have default as follows for the various MX releases
+      #
+       case $(grep DISTRIB_RELEASE /etc/lsb-release | grep -Eo [0-9]+) in
+         14) IconDefault="classic" ;;
+         15) IconDefault="classic" ;;
+         16) IconDefault="mx16"    ;;
+          *) IconDefault="classic" ;;
+       esac
+       echo "IconLook=$IconDefault">> ~/.config/apt-notifierrc
     fi
 
     #test to see if ~/.config/apt-notifierrc contains any blank lines or lines with only whitespace
