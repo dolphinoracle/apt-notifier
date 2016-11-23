@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Test to see if the apt-notifierrc file has the "DontShowIcon blah blah" line in it
+grep  -q ^\\[DontShowIcon ~/.config/apt-notifierrc
+
+if [ "$?" = "0" ]
+  then
+    #It does, so delete the "DontShowIcon blah blah" line to make the icon visible.
+    sed -i '/^\[DontShowIcon/d' ~/.config/apt-notifierrc
+  else 
+    #It doesn't, so do nothing.
+    :
+fi
+
+# start the notifier from the startup script
+/usr/bin/apt-notifier

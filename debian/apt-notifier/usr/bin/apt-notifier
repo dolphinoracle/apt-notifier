@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# Kill any notifier(s) running
+pkill -f 'python /usr/bin/apt-notifier.py'
+
+# Remove any previously created /tmp/tmp****** files owned by current user,
+# that have -rw------ permissions, and contain the pattern "sorted_list_of_upgrades()".
+for i in $(cd /tmp; find . -user $USER -perm 600 -regextype posix-egrep -regex '\./tmp[[:print:]]{6}' 2>/dev/null | cut -c3-);
+  do
+    grep -q "sorted_list_of_upgrades()" /tmp/$i;[ $? -ne 0 ]||rm /tmp/$i
+  done
+
+# create the apt-notifierrc file if it doesn't already exist
+if ! [ -f ~/.config/apt-notifierrc ]; 
+then 
+  echo -e '[General]\nAutoStart=true\n'> ~/.config/apt-notifierrc
+  chmod 644 ~/.config/apt-notifierrc
+fi
+
+grep -q -e ^UpgradeType=upgrade -e ^UpgradeType=dist-upgrade ~/.config/apt-notifierrc
+if [ "$?" -eq 0 ]
+  then
+  :
+  else
+  #
+  #if a UpgradeType line not present,
+  #or not equal to 'upgrade' or 'dist-upgrade'
+  #set it to 'UpgradeType=dist-upgrade'
+  #
+  sed -i '/^UpgradeType/d' ~/.config/apt-notifierrc 
+  echo -e 'UpgradeType=dist-upgrade\n'>> ~/.config/apt-notifierrc
+fi
+
+#test to see if ~/.config/apt-notifierrc contains any blank lines or lines with only whitespace
+grep -q ^[[:space:]]*$ ~/.config/apt-notifierrc 
+if [ "$?" = "0" ]
+  then
+  #cleanup any blank lines or lines with only whitespace
+    sed -i '/^[[:space:]]*$/d' ~/.config/apt-notifierrc
+  else
+  #no blank lines or lines with only whitespace so do nothing
+    :
+fi
+
+# start the notifier
+python /usr/bin/apt-notifier.py& disown -h
+
+exit 0
+
