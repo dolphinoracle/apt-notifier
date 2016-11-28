@@ -743,7 +743,7 @@ def viewandupgrade():
                              roxterm) $(kde4-config --path libexec)kdesu -c "roxterm$G$T --separate -e $3"
                                       ;;
 
-              xfce4-terminal.wrapper) $(kde4-config --path libexec)kdesu -n --noignorebutton -d -c "xfce4-terminal$G$I$T -e $3"
+              xfce4-terminal.wrapper) $(kde4-config --path libexec)kdesu --noignorebutton -d -c "xfce4-terminal$G$I$T -e $3"
                                       ;;
 
                                xterm) if [ -e /usr/bin/konsole ]
