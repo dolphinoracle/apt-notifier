@@ -1,3 +1,21 @@
+apt-notifier (16.11mcr120+1) mepis; urgency=medium
+
+  * Rebuild for Mepis 12 & MX-14
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Mon, 28 Nov 2016 15:29:10 -0500
+
+apt-notifier (16.11mx15+1) mx; urgency=medium
+
+  * Rebuild for MX-15
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Mon, 28 Nov 2016 15:26:26 -0500
+
+apt-notifier (16.11mx16+1) mx; urgency=medium
+
+  * Stop using kdesu '-n' option
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Mon, 28 Nov 2016 15:20:43 -0500
+
 apt-notifier (16.11mx16) mx; urgency=medium
 
   * include both classic and mx16 icons in package
