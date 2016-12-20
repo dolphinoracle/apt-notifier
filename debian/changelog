@@ -1,3 +1,21 @@
+apt-notifier (16.12mcr120+1) mepis; urgency=medium
+
+  * Rebuild for MX14 -- w/classic icons
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Tue, 20 Dec 2016 14:14:45 -0500
+
+apt-notifier (16.12mx15+1) mx; urgency=medium
+
+  * Rebuild for MX15 -- w/classic icons
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Tue, 20 Dec 2016 14:12:15 -0500
+
+apt-notifier (16.12mx16+1) mx; urgency=medium
+
+  * Rollback to just mx16 icons and remove icon selection dialog
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Tue, 20 Dec 2016 13:43:08 -0500
+
 apt-notifier (16.11mcr120+1) mepis; urgency=medium
 
   * Rebuild for Mepis 12 & MX-14
