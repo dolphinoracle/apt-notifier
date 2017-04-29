@@ -73,7 +73,7 @@ def set_translations():
     Synaptic_Help = u"Synaptic Help"
     Apt_Notifier_Preferences = u"Apt Notifier Preferences"
     Apt_History = u"Apt History"
-    Check_for_Updates = u"Check for Updates (apt-get update)"
+    Check_for_Updates = u"Check for Updates"
     
     if locale == "ca":
         tooltip_0_updates_available = u"No hi ha actualitzacions disponibles"
@@ -91,7 +91,7 @@ def set_translations():
         Synaptic_Help = u"Ajuda de Synaptic"
         Apt_Notifier_Preferences = u"Preferències d'Apt Notifier"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
         
     elif locale == "de":
         tooltip_0_updates_available = u"0 Updates verfügbar"
@@ -109,7 +109,7 @@ def set_translations():
         Synaptic_Help = u"Synaptic Hilfe"
         Apt_Notifier_Preferences = u"Apt Notifier Einstellungen"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
 
     elif locale == "el":
         tooltip_0_updates_available = u"0 διαθέσιμες ενημερώσεις"
@@ -127,7 +127,7 @@ def set_translations():
         Synaptic_Help = u"Synaptic Βοήθεια"
         Apt_Notifier_Preferences = u"Apt Notifier Προτιμήσεις"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
 
     elif locale == "es":
         tooltip_0_updates_available = u"0 actualizaciones disponibles"
@@ -145,7 +145,7 @@ def set_translations():
         Synaptic_Help = u"Ayuda de Synaptic"
         Apt_Notifier_Preferences = u"Preferencias de Apt Notifier"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
 
     elif locale == "fr":
         tooltip_0_updates_available = u"0 mises à jour disponibles"
@@ -163,7 +163,7 @@ def set_translations():
         Synaptic_Help = u"Aide sur Synaptic"
         Apt_Notifier_Preferences = u"Préferences pour Apt Notifier"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
 
     elif locale == "it":
         tooltip_0_updates_available = u"0 aggiornamenti disponibili"
@@ -181,7 +181,7 @@ def set_translations():
         Synaptic_Help = u"Aiuto su Synaptic"
         Apt_Notifier_Preferences = u"Preferenze per Apt Notifier"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
 
     elif locale == "ja":
         tooltip_0_updates_available = u"0 新たな更新はありません"
@@ -199,7 +199,7 @@ def set_translations():
         Synaptic_Help = u"Synaptic ヘルプ"
         Apt_Notifier_Preferences = u"Apt Notifier 設定"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
 
     elif locale == "nl":
         tooltip_0_updates_available = u"0 updates beschikbaar"
@@ -217,7 +217,7 @@ def set_translations():
         Synaptic_Help = u"Synaptic Help"
         Apt_Notifier_Preferences = u"Apt Notifier Voorkeuren"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
 
     elif locale == "pl":
         tooltip_0_updates_available = u"0 Aktualizacje są dostępne"
@@ -235,7 +235,7 @@ def set_translations():
         Synaptic_Help = u"Pomoc Synaptic"
         Apt_Notifier_Preferences = u"Apt Notifier Ustawienia"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
 
     elif locale == "ru":
         tooltip_0_updates_available = u"Нет доступных обновлений"
@@ -253,7 +253,7 @@ def set_translations():
         Synaptic_Help = u"Synaptic Помощь"
         Apt_Notifier_Preferences = u"Настройки Apt Notifier"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
 
     elif locale == "sv":
         tooltip_0_updates_available = u"0 uppdateringar tillgängliga"
@@ -271,7 +271,7 @@ def set_translations():
         Synaptic_Help = u"Synaptic Hjälp"
         Apt_Notifier_Preferences = u"Apt Notifier Inställningar"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
 
     else:
         pass
