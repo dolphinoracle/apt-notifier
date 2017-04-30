@@ -929,7 +929,7 @@ def viewandupgrade():
         #done
 
         yad \
-        --window-icon=/usr/share/icons/mnotify-some-"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)".png \
+        --window-icon=/usr/share/icons/mnotify-some-"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)".svg \
         --width=640 \
         --height=480 \
         --center \
@@ -1415,12 +1415,12 @@ def aptnotifier_prefs():
             </radiobutton>
           </vbox>
           <vbox>
-            <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-some-mx16.png"</input></pixmap>
-            <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-some-classic.png"</input></pixmap>
+            <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-some-mx16.svg"</input></pixmap>
+            <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-some-classic.svg"</input></pixmap>
           </vbox>
           <vbox>
-            <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-none-mx16.png"</input></pixmap>
-            <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-none-classic.png"</input></pixmap>
+            <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-none-mx16.svg"</input></pixmap>
+            <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-none-classic.svg"</input></pixmap>
           </vbox>
           </hbox>
         </frame>
@@ -1513,7 +1513,7 @@ def apt_history():
     
     apt-history | sed 's/:all/ all/;s/:i386/ i386/;s/:amd64/ amd64/' | column -t > "$TMP"/APT_HISTORY
     
-    yad --window-icon=/usr/share/icons/mnotify-some-"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)".png \
+    yad --window-icon=/usr/share/icons/mnotify-some-"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)".svg \
         --width=$(xprop -root | grep _NET_DESKTOP_GEOMETRY\(CARDINAL\) | awk '{print $3*.75}' | cut -f1 -d.) \
         --height=480 \
         --center \
@@ -1750,8 +1750,8 @@ def read_icon_look():
     run = subprocess.Popen(["echo -n `sh %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
     # Read the output into a text string
     iconLook = run.stdout.read(128)
-    script_file.close()
     return iconLook
+    script_file.close()
     
 def set_noicon():
     """Reads ~/.config/apt-notifierrc. If "DontShowIcon blah blah blah" is already there, don't write it again"""
@@ -1859,8 +1859,6 @@ def main():
     global Timer
     global initialize_aptnotifier_prefs
     global read_icon_look
-    global icon_set
-    
     set_translations()
     initialize_aptnotifier_prefs()
     AptNotify = QtGui.QApplication(sys.argv)
@@ -1871,12 +1869,8 @@ def main():
     global NoUpdatesIcon
     global NewUpdatesIcon
     global HelpIcon
-    
-    # read in icon look into a variable
-    icon_set = read_icon_look()
-    
-    NoUpdatesIcon = QtGui.QIcon("/usr/share/icons/mnotify-none-" + icon_set + ".png")
-    NewUpdatesIcon  = QtGui.QIcon("/usr/share/icons/mnotify-some-" + icon_set + ".png")
+    NoUpdatesIcon = QtGui.QIcon("/usr/share/icons/mnotify-none-" + read_icon_look() + ".svg")
+    NewUpdatesIcon  = QtGui.QIcon("/usr/share/icons/mnotify-some-" + read_icon_look() + ".svg")
     HelpIcon = QtGui.QIcon("/usr/share/icons/oxygen/22x22/apps/help-browser.png")
     QuitIcon = QtGui.QIcon("/usr/share/icons/oxygen/22x22/actions/system-shutdown.png")
     # Create the right-click menu and add the Tooltip text
