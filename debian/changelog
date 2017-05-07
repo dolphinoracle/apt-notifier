@@ -1,9 +1,36 @@
 apt-notifier (17.05mx16) mx; urgency=medium
 
-  * resized icons
-  * brought back resizable icons
+  * dolphin_oracle changes:
+  *
+  * undid 16.12 rollback to re-enable icon selection in Preferences dialog
+  * removed "(apt-get update)" from 'Check for Updates' context menu entry
+  * new icons on larger canvas, then resized to 32x32
+  * apt-notifier.py code tweaks
 
- -- Kent Mathern <maintainer@mepiscommunity.org>  Sat, 29 Apr 2017 15:20:43 -0500
+  * kmathern changes:
+  *
+  * removed "Apt Notifier" wording from Quit and Preferences context menu entries
+  * Swap context menu's Quit and Preference entries so 'Quit' is last menu item 
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Sun, 07 May 2017 17:11:15 -0400
+
+apt-notifier (16.12mcr120+1) mepis; urgency=medium
+
+  * Rebuild for MX14 -- w/classic icons
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Tue, 20 Dec 2016 14:14:45 -0500
+
+apt-notifier (16.12mx15+1) mx; urgency=medium
+
+  * Rebuild for MX15 -- w/classic icons
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Tue, 20 Dec 2016 14:12:15 -0500
+
+apt-notifier (16.12mx16+1) mx; urgency=medium
+
+  * Rollback to just mx16 icons and remove icon selection dialog
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Tue, 20 Dec 2016 13:43:08 -0500
 
 apt-notifier (16.11mcr120+1) mepis; urgency=medium
 
