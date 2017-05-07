@@ -1885,10 +1885,11 @@ def main():
     AptIcon.connect( AptIcon, QtCore.SIGNAL( "activated(QSystemTrayIcon::ActivationReason)" ), left_click_activated)
     AptNotify.connect(Timer, QtCore.SIGNAL("timeout()"), check_updates)
     # Integrate it together,apply checking of updated packages and set timer to every 1 minute(s) (1 second = 1000)
-    check_updates()
+    AptIcon.setIcon(NoUpdatesIcon)
     AptIcon.setContextMenu(ActionsMenu)
     if icon_config == "show":
         AptIcon.show()
+    check_updates()
     Timer.start(60000)
     if AptNotify.isSessionRestored():
         sys.exit(1)
