@@ -1782,8 +1782,8 @@ def add_rightclick_actions():
     add_apt_get_update_action()
     add_apt_notifier_help_action()
     add_synaptic_help_action()
-    add_quit_action()
     add_aptnotifier_prefs_action()
+    add_quit_action()
 
 def add_hide_action():
     ActionsMenu.clear()
@@ -1796,8 +1796,8 @@ def add_hide_action():
     add_apt_get_update_action()
     add_apt_notifier_help_action()
     add_synaptic_help_action()
-    add_quit_action()
     add_aptnotifier_prefs_action()
+    add_quit_action()
 
 def add_quit_action():
     ActionsMenu.addSeparator()
