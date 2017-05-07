@@ -1,3 +1,10 @@
+apt-notifier (17.05mx16) mx; urgency=medium
+
+  * resized icons
+  * brought back resizable icons
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Sat, 29 Apr 2017 15:20:43 -0500
+
 apt-notifier (16.11mcr120+1) mepis; urgency=medium
 
   * Rebuild for Mepis 12 & MX-14

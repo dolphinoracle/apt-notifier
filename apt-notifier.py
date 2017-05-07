@@ -73,7 +73,7 @@ def set_translations():
     Synaptic_Help = u"Synaptic Help"
     Apt_Notifier_Preferences = u"Apt Notifier Preferences"
     Apt_History = u"Apt History"
-    Check_for_Updates = u"Check for Updates (apt-get update)"
+    Check_for_Updates = u"Check for Updates"
     
     if locale == "ca":
         tooltip_0_updates_available = u"No hi ha actualitzacions disponibles"
@@ -91,7 +91,7 @@ def set_translations():
         Synaptic_Help = u"Ajuda de Synaptic"
         Apt_Notifier_Preferences = u"Preferències d'Apt Notifier"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
         
     elif locale == "de":
         tooltip_0_updates_available = u"0 Updates verfügbar"
@@ -109,7 +109,7 @@ def set_translations():
         Synaptic_Help = u"Synaptic Hilfe"
         Apt_Notifier_Preferences = u"Apt Notifier Einstellungen"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
 
     elif locale == "el":
         tooltip_0_updates_available = u"0 διαθέσιμες ενημερώσεις"
@@ -127,7 +127,7 @@ def set_translations():
         Synaptic_Help = u"Synaptic Βοήθεια"
         Apt_Notifier_Preferences = u"Apt Notifier Προτιμήσεις"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
 
     elif locale == "es":
         tooltip_0_updates_available = u"0 actualizaciones disponibles"
@@ -145,7 +145,7 @@ def set_translations():
         Synaptic_Help = u"Ayuda de Synaptic"
         Apt_Notifier_Preferences = u"Preferencias de Apt Notifier"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
 
     elif locale == "fr":
         tooltip_0_updates_available = u"0 mises à jour disponibles"
@@ -163,7 +163,7 @@ def set_translations():
         Synaptic_Help = u"Aide sur Synaptic"
         Apt_Notifier_Preferences = u"Préferences pour Apt Notifier"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
 
     elif locale == "it":
         tooltip_0_updates_available = u"0 aggiornamenti disponibili"
@@ -181,7 +181,7 @@ def set_translations():
         Synaptic_Help = u"Aiuto su Synaptic"
         Apt_Notifier_Preferences = u"Preferenze per Apt Notifier"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
 
     elif locale == "ja":
         tooltip_0_updates_available = u"0 新たな更新はありません"
@@ -199,7 +199,7 @@ def set_translations():
         Synaptic_Help = u"Synaptic ヘルプ"
         Apt_Notifier_Preferences = u"Apt Notifier 設定"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
 
     elif locale == "nl":
         tooltip_0_updates_available = u"0 updates beschikbaar"
@@ -217,7 +217,7 @@ def set_translations():
         Synaptic_Help = u"Synaptic Help"
         Apt_Notifier_Preferences = u"Apt Notifier Voorkeuren"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
 
     elif locale == "pl":
         tooltip_0_updates_available = u"0 Aktualizacje są dostępne"
@@ -235,7 +235,7 @@ def set_translations():
         Synaptic_Help = u"Pomoc Synaptic"
         Apt_Notifier_Preferences = u"Apt Notifier Ustawienia"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
 
     elif locale == "ru":
         tooltip_0_updates_available = u"Нет доступных обновлений"
@@ -253,7 +253,7 @@ def set_translations():
         Synaptic_Help = u"Synaptic Помощь"
         Apt_Notifier_Preferences = u"Настройки Apt Notifier"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
 
     elif locale == "sv":
         tooltip_0_updates_available = u"0 uppdateringar tillgängliga"
@@ -271,7 +271,7 @@ def set_translations():
         Synaptic_Help = u"Synaptic Hjälp"
         Apt_Notifier_Preferences = u"Apt Notifier Inställningar"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
 
     else:
         pass
@@ -1750,8 +1750,8 @@ def read_icon_look():
     run = subprocess.Popen(["echo -n `sh %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
     # Read the output into a text string
     iconLook = run.stdout.read(128)
-    return iconLook
     script_file.close()
+    return iconLook
     
 def set_noicon():
     """Reads ~/.config/apt-notifierrc. If "DontShowIcon blah blah blah" is already there, don't write it again"""
@@ -1859,6 +1859,8 @@ def main():
     global Timer
     global initialize_aptnotifier_prefs
     global read_icon_look
+    global icon_set
+    
     set_translations()
     initialize_aptnotifier_prefs()
     AptNotify = QtGui.QApplication(sys.argv)
@@ -1869,8 +1871,12 @@ def main():
     global NoUpdatesIcon
     global NewUpdatesIcon
     global HelpIcon
-    NoUpdatesIcon = QtGui.QIcon("/usr/share/icons/mnotify-none-" + read_icon_look() + ".png")
-    NewUpdatesIcon  = QtGui.QIcon("/usr/share/icons/mnotify-some-" + read_icon_look() + ".png")
+    
+    # read in icon look into a variable
+    icon_set = read_icon_look()
+    
+    NoUpdatesIcon = QtGui.QIcon("/usr/share/icons/mnotify-none-" + icon_set + ".png")
+    NewUpdatesIcon  = QtGui.QIcon("/usr/share/icons/mnotify-some-" + icon_set + ".png")
     HelpIcon = QtGui.QIcon("/usr/share/icons/oxygen/22x22/apps/help-browser.png")
     QuitIcon = QtGui.QIcon("/usr/share/icons/oxygen/22x22/actions/system-shutdown.png")
     # Create the right-click menu and add the Tooltip text
@@ -1879,10 +1885,11 @@ def main():
     AptIcon.connect( AptIcon, QtCore.SIGNAL( "activated(QSystemTrayIcon::ActivationReason)" ), left_click_activated)
     AptNotify.connect(Timer, QtCore.SIGNAL("timeout()"), check_updates)
     # Integrate it together,apply checking of updated packages and set timer to every 1 minute(s) (1 second = 1000)
-    check_updates()
+    AptIcon.setIcon(NoUpdatesIcon)
     AptIcon.setContextMenu(ActionsMenu)
     if icon_config == "show":
         AptIcon.show()
+    check_updates()
     Timer.start(60000)
     if AptNotify.isSessionRestored():
         sys.exit(1)
