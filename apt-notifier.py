@@ -9,8 +9,25 @@ from os import environ
 from PyQt4 import QtGui
 from PyQt4 import QtCore
 
+#import gettext
+#gettext.bindtextdomain('apt-notifier', '/usr/share/locale')
+#gettext.textdomain('apt-notifier')
+#_ = gettext.gettext
+#gettext.install('/usr/bin/apt-notifier.py')
+
 rc_file_name = environ.get('HOME') + '/.config/apt-notifierrc'
 message_status = "not displayed"
+
+# ~~~ Localize 0 ~~~
+
+# Use gettext and specify translation file locations
+import gettext
+gettext.bindtextdomain('apt-notifier', '/usr/share/locale')
+gettext.textdomain('apt-notifier')
+_ = gettext.gettext
+gettext.install('/usr/bin/apt-notifier.py')
+
+from string import Template	# for simple string substitution (popup_msg...)
 
 def set_translations():
     script = '''#!/bin/sh
@@ -28,8 +45,7 @@ def set_translations():
     global tooltip_multiple_new_updates_available
     global popup_title
     global popup_msg_1_new_update_available
-    global popup_msg_multiple_new_updates_available_begin
-    global popup_msg_multiple_new_updates_available_end
+    global popup_msg_multiple_new_updates_available
     global Upgrade_using_Synaptic
     global View_and_Upgrade
     global Hide_until_updates_available
@@ -58,225 +74,24 @@ def set_translations():
     global text
     text = ''
 
-    tooltip_0_updates_available = u"0 updates available"
-    tooltip_1_new_update_available = u"1 new update available"
-    tooltip_multiple_new_updates_available = u" new updates available"
-    popup_title = u"Updates"
-    popup_msg_1_new_update_available = u"You have 1 new update available"
-    popup_msg_multiple_new_updates_available_begin = u"You have "
-    popup_msg_multiple_new_updates_available_end = u" new updates available"
-    Upgrade_using_Synaptic = u"Upgrade using Synaptic"
-    View_and_Upgrade = u"View and Upgrade"
-    Hide_until_updates_available = u"Hide until updates available"
-    Quit_Apt_Notifier = u"Quit"
-    Apt_Notifier_Help = u"Apt-Notifier Help"
-    Synaptic_Help = u"Synaptic Help"
-    Apt_Notifier_Preferences = u"Preferences"
-    Apt_History = u"Apt History"
-    Check_for_Updates = u"Check for Updates"
+    # ~~~ Localize 1 ~~~
     
-    if locale == "ca":
-        tooltip_0_updates_available = u"No hi ha actualitzacions disponibles"
-        tooltip_1_new_update_available = u"1 actualització disponible"
-        tooltip_multiple_new_updates_available = u" noves actualitzacions disponibles"
-        popup_title = u"Actualitzacions"
-        popup_msg_1_new_update_available = u"Teniu 1 actualització disponible"
-        popup_msg_multiple_new_updates_available_begin = u"Teniu "
-        popup_msg_multiple_new_updates_available_end = u" noves actualitzacions disponibles"
-        Upgrade_using_Synaptic = u"Actualitza usant Synaptic"
-        View_and_Upgrade = u"Veure i actualitzar"
-        Hide_until_updates_available = u"Amagar fins que hi hagi actualitzacions disponibles"
-        Quit_Apt_Notifier = u"Surt"
-        Apt_Notifier_Help = u"Ajuda d'Apt-Notifier"
-        Synaptic_Help = u"Ajuda de Synaptic"
-        Apt_Notifier_Preferences = u"Preferències"
-        Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates"
-        
-    elif locale == "de":
-        tooltip_0_updates_available = u"0 Updates verfügbar"
-        tooltip_1_new_update_available = u"1 neues Update verfügbar"
-        tooltip_multiple_new_updates_available = u" neue Updates verfügbar"
-        popup_title = u"Updates"
-        popup_msg_1_new_update_available = u"Sie haben ein neues Update verfügbar"
-        popup_msg_multiple_new_updates_available_begin = u"Sie haben "
-        popup_msg_multiple_new_updates_available_end = u" neue Updates verfügbar"
-        Upgrade_using_Synaptic = u"Durch Synaptic aufrüsten"
-        View_and_Upgrade = u"Anschauen and aufrüsten"
-        Hide_until_updates_available = u"Verstercken bis Updates verfügbar"
-        Quit_Apt_Notifier = u"Abbrechen"
-        Apt_Notifier_Help = u"Apt-Notifier Hilfe"
-        Synaptic_Help = u"Synaptic Hilfe"
-        Apt_Notifier_Preferences = u"Einstellungen"
-        Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates"
-
-    elif locale == "el":
-        tooltip_0_updates_available = u"0 διαθέσιμες ενημερώσεις"
-        tooltip_1_new_update_available = u"0 διαθέσιμες ενημερώσεις"
-        tooltip_multiple_new_updates_available = u" νέες διαθέσιμες ενημερώσεις"
-        popup_title = u"Ενημερώσεις"
-        popup_msg_1_new_update_available = u"Έχετε 1 νέα διαθέσιμη ενημέρωση"
-        popup_msg_multiple_new_updates_available_begin = u"Έχετε "
-        popup_msg_multiple_new_updates_available_end = u" νέες διαθέσιμες ενημερώσεις"
-        Upgrade_using_Synaptic = u"Αναβάθμιση χρησιμοποιώντας το Synaptic"
-        View_and_Upgrade = u"Προβολή και Αναβάθμιση"
-        Hide_until_updates_available = u"Απόκρυψη μέχρι διαθέσιμες ενημερώσεις"
-        Quit_Apt_Notifier = u"Κλείστε"
-        Apt_Notifier_Help = u"Apt-Notifier Βοήθεια"
-        Synaptic_Help = u"Synaptic Βοήθεια"
-        Apt_Notifier_Preferences = u"Προτιμήσεις"
-        Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates"
-
-    elif locale == "es":
-        tooltip_0_updates_available = u"0 actualizaciones disponibles"
-        tooltip_1_new_update_available = u"1 nueva actualización disponible"
-        tooltip_multiple_new_updates_available = u" nuevas actualizaciones disponibles"
-        popup_title = u"Updates"
-        popup_msg_1_new_update_available = u"Tiene 1 nueva actualización disponible"
-        popup_msg_multiple_new_updates_available_begin = u"Tiene "
-        popup_msg_multiple_new_updates_available_end = u" nuevas actualizaciones disponibles"
-        Upgrade_using_Synaptic = u"Actualizar usando Synaptic"
-        View_and_Upgrade = u"Ver y Actualizar"
-        Hide_until_updates_available = u"Ocultar hasta que haya actualizaciones"
-        Quit_Apt_Notifier = u"Salir"
-        Apt_Notifier_Help = u"Ayuda de Apt-Notifier"
-        Synaptic_Help = u"Ayuda de Synaptic"
-        Apt_Notifier_Preferences = u"Preferencias"
-        Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates"
-
-    elif locale == "fr":
-        tooltip_0_updates_available = u"0 mises à jour disponibles"
-        tooltip_1_new_update_available = u"1 nouvelle mise à jour disponible"
-        tooltip_multiple_new_updates_available = u" nouvelles mises à jour disponibles"
-        popup_title = u"Mises à jour"
-        popup_msg_1_new_update_available = u"Vous avez une nouvelle mise à jour disponible"
-        popup_msg_multiple_new_updates_available_begin = u"Vous avez "
-        popup_msg_multiple_new_updates_available_end = u" nouvelles mises à jour disponibles"
-        Upgrade_using_Synaptic = u"Mettre à niveau avec Synaptic"
-        View_and_Upgrade = u"Voir et mettre à niveau"
-        Hide_until_updates_available = u"Cacher jusqu'à ce que des mises à niveau soient disponibles"
-        Quit_Apt_Notifier = u"Annuler"
-        Apt_Notifier_Help = u"Aide sur Apt-Notifier"
-        Synaptic_Help = u"Aide sur Synaptic"
-        Apt_Notifier_Preferences = u"Préferences"
-        Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates"
-
-    elif locale == "it":
-        tooltip_0_updates_available = u"0 aggiornamenti disponibili"
-        tooltip_1_new_update_available = u"1 nuovo aggiornamento disponibile"
-        tooltip_multiple_new_updates_available = u" nuovi aggiornamenti disponibili"
-        popup_title = u"Aggiornamenti"
-        popup_msg_1_new_update_available = u"Hai 1 nuovo aggiornamento disponibile"
-        popup_msg_multiple_new_updates_available_begin = u"Hai "
-        popup_msg_multiple_new_updates_available_end = u" nuovi aggiornamenti disponibili"
-        Upgrade_using_Synaptic = u"Aggiornare tramite Synaptic"
-        View_and_Upgrade = u"Mostra e aggiorna"
-        Hide_until_updates_available = u"Nascondi finchè non hai aggiornamenti disponibili"
-        Quit_Apt_Notifier = u"Chiudi"
-        Apt_Notifier_Help = u"Aiuto su Apt-Notifier"
-        Synaptic_Help = u"Aiuto su Synaptic"
-        Apt_Notifier_Preferences = u"Preferenze"
-        Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates"
-
-    elif locale == "ja":
-        tooltip_0_updates_available = u"0 新たな更新はありません"
-        tooltip_1_new_update_available = u"1 つの新たな更新が入手可能です"
-        tooltip_multiple_new_updates_available = u"つの新たな更新が入手可能です"
-        popup_title = u"更新"
-        popup_msg_1_new_update_available = u"1 つの新たな更新が入手可能です"
-        popup_msg_multiple_new_updates_available_begin = u""
-        popup_msg_multiple_new_updates_available_end = u"つの新たな更新が入手可能です"
-        Upgrade_using_Synaptic = u"更新に Synaptic を使用する"
-        View_and_Upgrade = u"表示・更新"
-        Hide_until_updates_available = u"入手可能な更新の非表示"
-        Quit_Apt_Notifier = u"を終了"
-        Apt_Notifier_Help = u"Apt-Notifier ヘルプ"
-        Synaptic_Help = u"Synaptic ヘルプ"
-        Apt_Notifier_Preferences = u"設定"
-        Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates"
-
-    elif locale == "nl":
-        tooltip_0_updates_available = u"0 updates beschikbaar"
-        tooltip_1_new_update_available = u"1 nieuwe update beschikbaar"
-        tooltip_multiple_new_updates_available = u" nieuwe updates beschikbaar"
-        popup_title = u"Updates"
-        popup_msg_1_new_update_available = u"U heeft 1 nieuwe update beschikbaar"
-        popup_msg_multiple_new_updates_available_begin = u"U heeft "
-        popup_msg_multiple_new_updates_available_end = u" nieuwe updates beschikbaar"
-        Upgrade_using_Synaptic = u"Upgrade met gebruik van Synaptic"
-        View_and_Upgrade = u"Bekijk en Upgrade"
-        Hide_until_updates_available = u"Verberg totdat updates beschikbaar zijn"
-        Quit_Apt_Notifier = u"Beëindig"
-        Apt_Notifier_Help = u"Apt-Notifier Help"
-        Synaptic_Help = u"Synaptic Help"
-        Apt_Notifier_Preferences = u"Voorkeuren"
-        Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates"
-
-    elif locale == "pl":
-        tooltip_0_updates_available = u"0 Aktualizacje są dostępne"
-        tooltip_1_new_update_available = u"1 Aktualizacja dostępna"
-        tooltip_multiple_new_updates_available = u" Dostępne nowe aktualizacje"
-        popup_title = u"Aktualizacje"
-        popup_msg_1_new_update_available = u"Dostępna jest nowa aktualizacja"
-        popup_msg_multiple_new_updates_available_begin = u"Masz dostępnych "
-        popup_msg_multiple_new_updates_available_end = u" nowych aktualizacji"
-        Upgrade_using_Synaptic = u"Aktualizuj korzystając z Synaptic"
-        View_and_Upgrade = u"Przeglądaj i Aktualizować"
-        Hide_until_updates_available = u"Ukryj aż będą dostępne aktualizacje"
-        Quit_Apt_Notifier = u"Wyjdź"
-        Apt_Notifier_Help = u"Pomoc Apt-Notifier"
-        Synaptic_Help = u"Pomoc Synaptic"
-        Apt_Notifier_Preferences = u"Ustawienia"
-        Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates"
-
-    elif locale == "ru":
-        tooltip_0_updates_available = u"Нет доступных обновлений"
-        tooltip_1_new_update_available = u"1 обновление доступно"
-        tooltip_multiple_new_updates_available = u" обновлений доступно"
-        popup_title = u"Обновления"
-        popup_msg_1_new_update_available = u"Имеется одно доступное обновление"
-        popup_msg_multiple_new_updates_available_begin = u"Имеется "
-        popup_msg_multiple_new_updates_available_end = u" доступных обновлений"
-        Upgrade_using_Synaptic = u"Обновить, используя Synaptic"
-        View_and_Upgrade = u"Просмотр и обновление"
-        Hide_until_updates_available = u"Не показывать, если нет обновлений"
-        Quit_Apt_Notifier = u"Выйти"
-        Apt_Notifier_Help = u"Apt Notifier Помощь"
-        Synaptic_Help = u"Synaptic Помощь"
-        Apt_Notifier_Preferences = u"Настройки"
-        Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates"
-
-    elif locale == "sv":
-        tooltip_0_updates_available = u"0 uppdateringar tillgängliga"
-        tooltip_1_new_update_available = u"1 ny updatering tillgänglig"
-        tooltip_multiple_new_updates_available = u" nya uppdateringar tillgängliga"
-        popup_title = u"Updateringar"
-        popup_msg_1_new_update_available = u"Du har 1 ny uppdatering tillgänglig"
-        popup_msg_multiple_new_updates_available_begin = u"Du har "
-        popup_msg_multiple_new_updates_available_end = u" nya uppdatering tillgänglig"
-        Upgrade_using_Synaptic = u"Uppgradera med Synaptic"
-        View_and_Upgrade = u"Granska och Uppgradera"
-        Hide_until_updates_available = u"Göm tills uppdateringar är tillgängliga"
-        Quit_Apt_Notifier = u"Avsluta"
-        Apt_Notifier_Help = u"Apt-Notifier Hjälp"
-        Synaptic_Help = u"Synaptic Hjälp"
-        Apt_Notifier_Preferences = u"Inställningar"
-        Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates"
-
-    else:
-        pass
-
-# Check for updates, using subprocess.Popen
+    tooltip_0_updates_available				= _(u"0 updates available")
+    tooltip_1_new_update_available			= _(u"1 new update available")
+    tooltip_multiple_new_updates_available		= _(u" new updates available")
+    popup_title						= _(u"Updates")
+    popup_msg_1_new_update_available			= _(u"You have 1 new update available")
+    popup_msg_multiple_new_updates_available		= _(u"You have $count new updates available")
+    Upgrade_using_Synaptic				= _(u"Upgrade using Synaptic")
+    View_and_Upgrade					= _(u"View and Upgrade")
+    Hide_until_updates_available			= _(u"Hide until updates available")
+    Quit_Apt_Notifier					= _(u"Quit")
+    Apt_Notifier_Help					= _(u"Apt-Notifier Help")
+    Synaptic_Help					= _(u"Synaptic Help")
+    Apt_Notifier_Preferences				= _(u"Preferences")
+    Apt_History						= _(u"Apt History")
+    Check_for_Updates					= _(u"Check for Updates")
+  
 def check_updates():
     global message_status
     global text
@@ -391,7 +206,7 @@ def check_updates():
     sorted_list_of_upgrades() 
     {
         #Create a sorted list of the names of the packages that are upgradeable.
-        LC_ALL=en_US apt-get -o 'Debug::NoLocking=true' --trivial-only -V $(grep ^UpgradeType ~/.config/apt-notifierrc | cut -f2 -d=) 2>/dev/null \
+        LC_ALL=en_US apt-get -o 'Debug::NoLocking=true' --trivial-only -V $(grep ^UpgradeType ~/.config/apt-notifierrc | cut -f2 -d=) 2>/dev/null \\
         |  sed -n '/upgraded:/,$p' | grep ^'  ' | awk '{ print $1 }' | sort
     }
     
@@ -449,8 +264,13 @@ def check_updates():
             add_rightclick_actions()
             # Shows the pop up message only if not displayed before 
             if message_status == "not displayed":
+                # ~~~ Localize 1b ~~~
+                # Use embedded count placeholder.
+                popup_template=Template(popup_msg_multiple_new_updates_available)
+                popup_with_count=popup_template.substitute(count=text)
                 def show_message():
-                    AptIcon.showMessage(popup_title, popup_msg_multiple_new_updates_available_begin + text + popup_msg_multiple_new_updates_available_end)
+                    #AptIcon.showMessage(popup_title, popup_msg_multiple_new_updates_available_begin + text + popup_msg_multiple_new_updates_available_end)
+                    AptIcon.showMessage(popup_title, popup_with_count)
                 Timer.singleShot(1000, show_message)
                 message_status = "displayed"
    
@@ -463,232 +283,51 @@ def start_synaptic():
 def viewandupgrade():
     global Check_for_Updates_by_User
     initialize_aptnotifier_prefs()
+    
+    # ~~~ Localize 2 ~~~
+
+    # Accommodations for transformation from Python literals to Bash literals:
+    #	t05: \\n will convert to \n
+    #   t07: \\n will convert to \n
+    #   t11: '( and )' moved outside of translatable string to protect from potential translator's typo
+    #   t13: \\\"n\\\" will convert to \"n\" which will become "n" in shell (to avoid concatenating shell strings)
+
+    t01 = _("MX Apt Notifier--View and Upgrade, previewing: apt-get ")
+    t02 = _("use apt-get's --yes option for ")
+    t03 = _("automatically close terminal window when apt-get %s complete")
+    t04 = _("switch to %s")
+    t05 = _("Switches the type of Upgrade that will be performed, alternating back and forth between \\n'apt-get upgrade' and 'apt-get dist-upgrade'")
+    t06 = _("Reload")
+    t07 = _("Reload the package information to become informed about new, removed or upgraded software packages. \\n(apt-get update)")
+    t08 = _("The action you requested needs <b>root privileges</b>. Please enter <b>root's</b> password below.")
+    t09 = _("%s complete (or was canceled)")
+    t10 = _("'this terminal window can now be closed '")
+    t11 = "'(" + _("press any key to close") + ")'"
+    t12 = _("Unneeded packages are installed that can be removed.")
+    t13 = _("'Running apt-get autoremove, if you are unsure type \\\"n\\\".'")
+
+    shellvar = (
+	'    window_title="'			+ t01 + '"\n'
+	'    use_apt_get_dash_dash_yes="'	+ t02 + '"\n'
+	'    auto_close_window="'		+ t03 + '"\n'
+	'    switch_to="'			+ t04 + '"\n'
+	'    switch_tooltip="'			+ t05 + '"\n'
+	'    reload="'				+ t06 + '"\n'
+	'    reload_tooltip="'			+ t07 + '"\n'
+	'    rootPasswordRequestMsg="'		+ t08 + '"\n'
+	'    done1="'				+ t09 + '"\n'
+	'    done2="'				+ t10 + '"\n'
+	'    done3="'				+ t11 + '"\n'
+	'    autoremovable_packages_msg1="'	+ t12 + '"\n'
+	'    autoremovable_packages_msg2="'	+ t13 + '"\n'
+	)
+    
     script = '''#!/bin/bash
     
     #cancel updates available indication if 2 or more Release.reverify entries found
     #if [ $(ls -1 /var/lib/apt/lists/partial/ | grep Release.reverify$ | wc -l) -ge 2 ]; then exit; fi 
 
-
-             window_title="MX Apt Notifier--View and Upgrade, previewing: apt-get "
-             use_apt_get_dash_dash_yes="use apt-get's --yes option for "
-             auto_close_term_window1="automatically close terminal window when apt-get "
-             auto_close_term_window2=" complete"
-             switch_to1="switch to 'apt-get "
-             switch_to2=""
-             switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
-             reload="Reload"
-             reload_tooltip="Reload the package information to become informed about new, removed or upgraded software packages. \n(apt-get update)"
-             rootPasswordRequestMsg="The action you requested needs <b>root privileges</b>. Please enter <b>root's</b> password below."
-             done0="" 
-             done1=' complete (or was canceled)"' 
-             done2="'this terminal window can now be closed '" 
-             done3="'(press any key to close)'"
-             autoremovable_packages_msg1="Unneeded packages are installed that can be removed."
-             autoremovable_packages_msg2="'Running apt-get autoremove, if you are unsure type "'"'"n"'"'".'"
-
-    case $(locale|grep ^LANG=|cut -f2 -d=|cut -f1 -d_) in
-
-      ca)    window_title="MX Apt Notifier--Veure i actualitzar, vista prèvia: apt-get "
-             use_apt_get_dash_dash_yes="usa l'opció d'apt-get --yes per a "
-             auto_close_term_window1="tanca automàticament la finestra del terminal quan s'ha completat apt-get "
-             auto_close_term_window2=""
-             switch_to1="canvia a 'apt-get "
-             switch_to2=""
-             switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
-             reload="Refresca"
-             reload_tooltip="Refresqueu la informació dels paquets per a informar-vos de paquets de programari nous, eliminats o actualitzats. \n(apt-get update)"
-             rootPasswordRequestMsg="A l'acció que heu demanat li calen <b>privilegis de root</b>. Si us plau, introduïu la contrasenya de <b>root</b> tot seguit."
-             done0="s'ha completat (o cancel·lat) "
-             done1='"'
-             done2="'ara podeu tancar la finestra '"
-             done3="'(prement qualsevol tecla)'"
-             autoremovable_packages_msg1="Unneeded packages are installed that can be removed."
-             autoremovable_packages_msg2="'Running apt-get autoremove, if you are unsure type "'"'"n"'"'".'"
-             ;;
-
-      de)    window_title="MX Apt Notifier--Anschauen and aufrüsten, vorprüfend: apt-get "
-             use_apt_get_dash_dash_yes="Option --yes von apt-get's benutzen bei "
-             auto_close_term_window1="Shellfenster automatiisch schliessen nach Ende von apt-get "
-             auto_close_term_window2=""
-             switch_to1="Zu 'apt-get "
-             switch_to2=" wechseln"
-             switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
-             reload="Neu laden"
-             reload_tooltip="Die Paketinformationen neu laden, um über neue, entfernte oder aktualisierte Softwarepakete informiert zu werden. \n(apt-get update)"
-             rootPasswordRequestMsg="Die Aktion benötigt <b>Systemverwalterrechte</b>. Bitte geben Sie das Passwort des Benutzers <b>root</b> ein."
-             done0=""
-             done1=' fertig (oder beendet)"'
-             done2="'Dieses Shellfenster darf jetzt geschlossen werden '" 
-             done3="'(drücken Sie eine beliebige Taste zu schliessen)'"
-             autoremovable_packages_msg1="Unnötige Pakete sind installiert, die entfernt werden können"
-             autoremovable_packages_msg2="'Apt-get autoremove wird ausgeführt, tippen Sie "'"'"n"'"'" wenn unsicher.'"
-             ;;
-
-      el)    window_title="MX Apt Notifier--Προβολή και Αναβάθμιση, προεπισκόπηση: apt-get "
-             use_apt_get_dash_dash_yes="χρησιμοποιήσετε την επιλογή του apt-get --yes option για την "
-             auto_close_term_window1="Να κλείσει αυτόματα το παράθυρο τερματικού όταν το apt-get "
-             auto_close_term_window2=" έχει ολοκληρωθεί"
-             switch_to1="αλλαγή σε 'apt-get "
-             switch_to2=""
-             switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
-             reload="Ανανέωση"
-             reload_tooltip="Ανανέωση των πληροφοριών του πακέτου ώστε να γίνει ενημέρωση για νέα, αναβαθμισμένα ή απομακρυθέντα πακέτα λογισμικού. \n(apt-get update)"
-             rootPasswordRequestMsg="Η ενέργεια που ζητήσατε απαιτεί <b>προνόμια root</b>. Παρακαλώ εισάγετε τον κωδικό πρόσβασης του <b>root</b> παρακάτω."
-             done0="" 
-             done1=' ολοκληρώθηκε (ή ακυρώθηκε)"' 
-             done2="'Αυτό το παράθυρο τερματικού μπορεί να κλείσει '" 
-             done3="'(πατήστε οποιοδήποτε πλήκτρο να κλείσει)'"
-             autoremovable_packages_msg1="Περιττά εγκαταστημένα πακέτα που μπορεί να αφαιρεθούν"
-             autoremovable_packages_msg2="'Εκτέλεση του apt-get autoremove, αν δεν είστε σίγουροι, πληκτρολογήστε "'"'"ο"'"'".'"
-             ;;
-
-      es)    window_title="MX Apt Notifier--Ver y Actualizar, vista previa: apt-get "
-             use_apt_get_dash_dash_yes="usar la opción --yes de apt-get para "
-             auto_close_term_window1="Cerrar automáticamente la terminal cuando se completa apt-get "
-             auto_close_term_window2=""
-             switch_to1="cambiar a 'apt-get "
-             switch_to2=""
-             switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
-             reload="Recargar"
-             reload_tooltip="Recargar la información de los paquetes para informarse acerca de los paquetes de software nuevos, eliminados o actualizados. \n(apt-get update)"
-             rootPasswordRequestMsg="La acción que solicitó necesita <b>privilegios de superusuario</b> («root»). Introduzca la contraseña del <b>superusuario</b>."
-             done0="se completó "
-             done1=' (o se canceló)"' 
-             done2="'esta ventana de terminal ya puede cerrarse '" 
-             done3="'(oprima cualquier tecla para cerrarla)'" 
-             autoremovable_packages_msg1="Los paquetes instalados pero no necesitados pueden ser removidos."
-             autoremovable_packages_msg2="'Ejecutando apt-get autoremove; si no está seguro, ingrese "'"'"n"'"'".'"
-             ;;
-
-      fr)    window_title="MX Apt Notifier--Voir et mettre à niveau, survol du programme apt-get "
-             use_apt_get_dash_dash_yes="utiliser l'option --yes de apt-get pour "
-             auto_close_term_window1="fermer automatiquement la fenêtre de terminal quand apt-get "
-             auto_close_term_window2=" se termine"
-             switch_to1="passer à apt-get "
-             switch_to2=""
-             switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
-             reload="Recharger"
-             reload_tooltip="Recharger les informations des paquets pour être informé des nouveaux paquets, des suppressions de paquets ou des paquets mis à jour. \n(apt-get update)"
-             rootPasswordRequestMsg="L'action requise nécessite <b>les droits du superutilisateur</b>. Veuillez saisir ci-dessous le mot de passe du <b>superutilisateur</b>."
-             done0=""
-             done1=" s'est terminé (ou a été annulé)"'"' 
-             done2="'vous pouvez maintenant fermer cette fenêtre de terminal '" 
-             done3='"(appuyez sur n'"'"'importe quelle touche pour fermer)"'
-             autoremovable_packages_msg1="Il existe des paquets installés superflus; on peut les mettre au rebut."
-             autoremovable_packages_msg2="'On lancera apt-get autoremove; si vous n'êtes pas certain, tapez le "'"'"n"'"'".'"
-             ;;
-
-      it)    window_title="MX Apt Notifier--Mostra e Aggiorna, presentazione di: apt-get "
-             use_apt_get_dash_dash_yes="usare l'opzione --yes di apt-get per l' "
-             auto_close_term_window1="chiudere automaticamente la finestra del terminale quando apt-get "
-             auto_close_term_window2=" ha terminato"
-             switch_to1="passare a 'apt-get upgrade"
-             switch_to2=""
-             switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
-             reload="Aggiorna"
-             reload_tooltip="Aggiorna le informazioni sui pacchetti per informare di pacchetti nuovi, rimossi o aggiornati. \n(apt-get update)"
-             rootPasswordRequestMsg="L'azione che hai richiesto richiede i <b>privilegi di root</b>. Per piacere, inserisci la password di <b>root</b>."
-             done0=""
-             done1=' ha terminato (o è stato annullato)"'
-             done2="'Ora è possibile chiudere questa finestra del terminale '"
-             done3="'(premi un tasto qualsiasi per chiudere)'"
-             autoremovable_packages_msg1="I pacchetti installati non necessari possono essere rimossi."
-             autoremovable_packages_msg2="'Si sta per avviare apt-get autoremove, se non sei sicuro digita "'"'"n"'"'".'"
-             ;;
-
-      ja)    window_title="MX Apt Notifier--表示・更新 これを試す: apt-get "
-             use_apt_get_dash_dash_yes="で apt-get's --yes オプションを使用する "
-             auto_close_term_window1="apt-get "
-             auto_close_term_window2=" が完了した後自動的に端末ウインドウを閉じる"
-             switch_to1="'apt-get "
-             switch_to2=" へ切り替える"
-             switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
-             reload="再読込"
-             reload_tooltip="新規、削除あるいはアップグレードされたパッケージについて情報が得られるように、パッケージ情報を再読込してください。 \n(apt-get update)"
-             rootPasswordRequestMsg="実行には <b>root</b> 権限が必要です。下に <b>root</b> のパスワードを入力してください。"
-             done0="" 
-             done1=' 完了 (またはキャンセル)時に"' 
-             done2="'この端末ウインドウを閉じる '" 
-             done3="'(何かキーを押して閉じる)'"
-             autoremovable_packages_msg1="Unneeded packages are installed that can be removed."
-             autoremovable_packages_msg2="'Running apt-get autoremove, if you are unsure type "'"'"n"'"'".'"
-             ;;
-
-      nl)    window_title="MX Apt Notifier--Bekijk en Upgrade, voorbeeld: apt-get "
-             use_apt_get_dash_dash_yes="gebruik apt-get's --yes optie voor "
-             auto_close_term_window1="automatisch terminal scherm sluiten wanneer apt-get "
-             auto_close_term_window2=" klaar is"
-             switch_to1="wijzig naar 'apt-get "
-             switch_to2=""
-             switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
-             reload="Herladen"
-             reload_tooltip="Ververs de pakketinformatie om ingelicht te worden over nieuwe, verwijderde of opgewaardeerde pakketten. \n(apt-get update)"
-             rootPasswordRequestMsg="Voor de handeling die u wilt verrichten hebt u <b>root-privileges</b> nodig. Voer hieronder het <b>root-wachtwoord</b> in."
-             done0="" 
-             done1=' klaar (of was geannuleerd)"' 
-             done2="'dit terminal scherm kan nu gesloten worden '" 
-             done3="'(druk op een toets om te sluiten)'"
-             autoremovable_packages_msg1="Onnodige pakketten die zijn geïnstalleerd en kunnen worden verwijderd."
-             autoremovable_packages_msg2="'Uitvoeren apt-get autoremove, als je niet zeker bent tik "'"'"n"'"'".'"
-             ;;
-
-      pl)    window_title="MX Apt Notifier--Przeglądaj i Aktualizować, podglądu: apt-get "
-             use_apt_get_dash_dash_yes="stosować apt-get --yes opcję  dla "
-             auto_close_term_window1="zostały automatycznie zamknięte okno terminalu przy apt-get "
-             auto_close_term_window2=" gotowy"
-             switch_to1="Przełącz na 'apt-get "
-             switch_to2=""
-             switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
-             reload="Odśwież"
-             reload_tooltip="Odświeża bazę informacji o pakietach, aby otrzymać informacje o nowych, usuniętych, zaktualizowanych pakietach oprogramowania. \n(apt-get update)"
-             rootPasswordRequestMsg="Polecenie, które chcesz wykonać, wymaga <b>uprawnień administratora</b>. Wpisz poniżej <b>hasło administratora</b>."
-             done0="Komenda " 
-             done1=' została wykonana (lub przerwana)"' 
-             done2="'Okno to można zamknąć teraz '" 
-             done3="'(naciśnij dowolny klawisz, aby zamknąć)'"
-             autoremovable_packages_msg1="Unneeded packages are installed that can be removed."
-             autoremovable_packages_msg2="'Running apt-get autoremove, if you are unsure type "'"'"n"'"'".'"
-             ;;
-
-      ru)    window_title="MX Apt Notifier--Просмотр и обновление, предпросмотр: apt-get "
-             use_apt_get_dash_dash_yes="Использовать опцию apt-get's --yes для "
-             auto_close_term_window1="Автоматически закрыть окно терминала после выполнения apt-get "
-             auto_close_term_window2=""
-             switch_to1="Перейти к 'apt-get "
-             switch_to2=""
-             switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
-             reload="Обновить"
-             reload_tooltip="Обновление сведений о пакетах информирует о новых, удалённых или обновлённых пакетах программ \n(apt-get update)"
-             rootPasswordRequestMsg="Для выполнения данного действия необходимы <b>привилегии пользователя «root»</b>. Введите его пароль."
-             done0="" 
-             done1=' Выполнено (или было отменено)"' 
-             done2="'Это окно терминала теперь может быть закрыто '" 
-             done3="'(нажмите любую клавишу, чтобы закрыть)'"
-             autoremovable_packages_msg1="Более ненужные установленные пакеты могут быть удалены."
-             autoremovable_packages_msg2="'Запуск apt-get autoremove, если вы не уверены, нажмите "'"'"n"'"'".'" 
-             ;;
-
-      sv)    window_title="MX Apt Notifier--Granska och Uppgradera, förhandsgranskning: apt-get "
-             use_apt_get_dash_dash_yes="använd apt-get's --yes möjlighet för "
-             auto_close_term_window1="stäng automatiskt terminalfönstret när apt-get "
-             auto_close_term_window2=" är slutförd"
-             switch_to1="byt till 'apt-get "
-             switch_to2=""
-             switch_tooltip="Switches the type of Upgrade that will be performed, alternating back and forth between \n'apt-get upgrade' and 'apt-get dist-upgrade'"
-             reload="Läs om"
-             reload_tooltip="Läs om paketinformationen för att få information om nya, borttagna eller uppgraderade programpaket. \n(apt-get update)"
-             rootPasswordRequestMsg="Åtgärden du har begärt kräver <b>administratörsbehörighet</b>. Ange lösenordet för <b>root</b>nedan."
-             done0="" 
-             done1=' färdig (eller stoppades)"' 
-             done2="'detta terminalfönster kan nu stängas '" 
-             done3="'(tryck på valfri tangent för att stänga)'"
-             autoremovable_packages_msg1="Onödiga paket som är installerade och kan tas bort."
-             autoremovable_packages_msg2="'Kör apt-get autoremove, om du är osäker skriv "'"'"n"'"'".'"
-             ;;
-
-       *)    : ;;
-
-    esac
+''' + shellvar + '''
 
     RunAptScriptInTerminal(){
     #for MEPIS remove "MX" branding from the $window_title string
@@ -928,22 +567,35 @@ def viewandupgrade():
         #  sed -i 's/'"$withoutEpoch"'/'"$withEpoch"'/' "$TMP"/upgrades
         #done
 
-        yad \
-        --window-icon=/usr/share/icons/mnotify-some-"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)".png \
-        --width=640 \
-        --height=480 \
-        --center \
-        --title "$window_title$UpgradeType" \
-        --form \
-          --field :TXT "$(sed 's/^/  /' "$TMP"/upgrades)" \
-          --field="$use_apt_get_dash_dash_yes$UpgradeType":CHK $UpgradeAssumeYes \
-          --field="$auto_close_term_window1$UpgradeType$auto_close_term_window2":CHK $UpgradeAutoClose \
-        --button "$switch_to1$OtherUpgradeType'$switch_to2"!!"$switch_tooltip":4 \
-        --button 'apt-get '"$UpgradeType"!mnotify-some-"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"!:0 \
-        --button "$reload"!reload!"$reload_tooltip":8 \
-        --button gtk-cancel:2 \
-        --buttons-layout=spread \
-        2>/dev/null \
+        # ~~~ Localize 2a ~~~
+        # Format switch label. switch_to contains %s. eg "switch to %s" or "zu %s wechseln"
+        # Result output to switch_label could be eg "switch to 'apt-get upgrade'"
+        # or "zu 'apt-get dist-upgrade' wechseln'"
+        # Should be able to use statement like:
+        #      printf -v switch_label "$switch_to" "$switch_type"
+        # But fails, so use sed instead.
+        # Format auto close message in same way.
+
+        switch_type="'apt-get ""$OtherUpgradeType""'"
+        switch_label=$(echo "$switch_to" | sed 's/%s/'"$switch_type"'/')
+        auto_close_label=$(echo "$auto_close_window" | sed 's/%s/'"$UpgradeType"'/')
+
+        yad \\
+        --window-icon=/usr/share/icons/mnotify-some-"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)".png \\
+        --width=640 \\
+        --height=480 \\
+        --center \\
+        --title "$window_title$UpgradeType" \\
+        --form \\
+          --field :TXT "$(sed 's/^/  /' "$TMP"/upgrades)" \\
+          --field="$use_apt_get_dash_dash_yes$UpgradeType":CHK $UpgradeAssumeYes \\
+          --field="$auto_close_label":CHK $UpgradeAutoClose \\
+        --button "$switch_label"!!"$switch_tooltip":4 \\
+        --button 'apt-get '"$UpgradeType"!mnotify-some-"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"!:0 \\
+        --button "$reload"!reload!"$reload_tooltip":8 \\
+        --button gtk-cancel:2 \\
+        --buttons-layout=spread \\
+        2>/dev/null \\
         > "$TMP"/results 
 
         echo $?>>"$TMP"/results
@@ -1019,15 +671,19 @@ def viewandupgrade():
             fi
             echo "echo">> "$TMP"/upgradeScript
             echo 'find /etc/apt/preferences.d | grep -E synaptic-[0-9a-zA-Z]{6}-pins | xargs rm -f'>> "$TMP"/upgradeScript
+            
+            # ~~~ Localize 2b ~~~
+
+            donetype="apt-get $UpgradeType"
+            donetext=$(echo "$done1" | sed 's/%s/'"$donetype"'/')
+            echo 'echo "'"$donetext"'"'>> "$TMP"/upgradeScript
+            echo "echo">> "$TMP"/upgradeScript
+
             if [ "$UpgradeAutoClose" = "true" ];
               then
-                echo 'echo "'$done0'apt-get '$UpgradeType$done1>> "$TMP"/upgradeScript
-                echo "echo">> "$TMP"/upgradeScript
                 echo "sleep 1">> "$TMP"/upgradeScript
                 echo "exit 0">> "$TMP"/upgradeScript
               else
-                echo 'echo "'$done0'apt-get '$UpgradeType$done1>> "$TMP"/upgradeScript
-                echo "echo">> "$TMP"/upgradeScript
                 echo "echo -n $done2">> "$TMP"/upgradeScript
                 echo "read -sn 1 -p $done3 -t 999999999">> "$TMP"/upgradeScript
                 echo "echo">> "$TMP"/upgradeScript
@@ -1200,143 +856,33 @@ def initialize_aptnotifier_prefs():
 def aptnotifier_prefs():
     global Check_for_Updates_by_User
     initialize_aptnotifier_prefs()
+    
+    # ~~~ Localize 3 ~~~
+
+    t01 = _("MX Apt Notifier preferences")
+    t02 = _("Upgrade behaviour   (also affects notification count)   ")
+    t03 = _("Left-click behaviour   (when updates are available)   ")
+    t04 = _("Other options")
+    t05 = _("opens Synaptic ")
+    t06 = _('opens MX Apt Notifier "View and Upgrade" window')
+    t07 = _("use apt-get's --yes option for upgrade/dist-upgrade")
+    t08 = _("automatically close terminal window when apt-get upgrade/dist-upgrade complete")
+    t09 = _("check for autoremovable packages after apt-get upgrade/dist-upgrade")
+ 
+    shellvar = (
+	'    window_title="'				+ t01 + '"\n'
+	'    frame_upgrade_behaviour="'			+ t02 + '"\n'
+	'    frame_left_click_behaviour="'		+ t03 + '"\n'
+	'    frame_other_options="'			+ t04 + '"\n'
+	'    left_click_Synaptic="'			+ t05 + '"\n'
+	"    left_click_ViewandUpgrade='"		+ t06 + "'\n"
+	'    use_apt_get_dash_dash_yes="'		+ t07 + '"\n'
+	'    auto_close_term_window_when_complete="' 	+ t08 + '"\n'
+	'    check_for_autoremoves="'			+ t09 + '"\n'
+	)
+    
     script = '''#! /bin/bash
-
-             window_title="MX Apt Notifier preferences"
-             frame_upgrade_behaviour="Upgrade behaviour   (also affects notification count)   "
-             frame_left_click_behaviour="Left-click behaviour   (when updates are available)   "
-             frame_other_options="Other options"
-             left_click_Synaptic="opens Synaptic "
-             left_click_ViewandUpgrade='opens MX Apt Notifier "View and Upgrade" window'
-             use_apt_get_dash_dash_yes="use apt-get's --yes option for upgrade/dist-upgrade"
-             auto_close_term_window_when_complete="automatically close terminal window when apt-get upgrade/dist-upgrade complete"
-             check_for_autoremoves="check for autoremovable packages after apt-get upgrade/dist-upgrade"
-
-    case $(locale|grep ^LANG=|cut -f2 -d=|cut -f1 -d_) in
-
-         ca) window_title="Preferències de MX Apt Notifier"
-             frame_upgrade_behaviour="Comportament d'actualitzacions (també afecta el compte d'actualitzacions)   "
-             frame_left_click_behaviour="Comportament del clic esquerre (quan hi ha actualitzacions)   "
-             frame_other_options="Other options"
-             left_click_Synaptic="obre Synaptic "
-             left_click_ViewandUpgrade='obre la finestra de MX Apt Notifier "Veure i actualitzar"'
-             use_apt_get_dash_dash_yes="usa l'opció d'apt-get --yes per a upgrade/dist-upgrade"
-             auto_close_term_window_when_complete="tanca automàticament la finestra del terminal quan s'ha completat apt-get upgrade/dist-upgrade"
-             check_for_autoremoves="check for autoremovable packages after apt-get upgrade/dist-upgrade"
-             ;;
-
-         de) window_title="MX Apt Notifier Einstellungen"
-             frame_upgrade_behaviour="Upgrade-Verhalten (beeinflusst auch die Zählung der Meldung)   "
-             frame_left_click_behaviour="Linksklick-Verhalten (wenn Updates verfügbar sind)   "
-             frame_other_options="Other options"
-             left_click_Synaptic="startet Synaptic "
-             left_click_ViewandUpgrade='öffnet das Fenster im MX Apt Notifier "Anschauen and Aufrüsten"'
-             use_apt_get_dash_dash_yes="Option --yes von apt-get's benutzen bei upgrade/dist-upgrade"
-             auto_close_term_window_when_complete="Shellfenster automatiisch schliessen nach Ende von apt-get upgrade/dist-upgrade"
-             check_for_autoremoves="nach apt-get upgrade/dist-upgrade überprüfen, ob autoremove Pakete vorhanden sind."
-             ;;
-
-         el) window_title="MX Apt Notifier προτιμήσεις"
-             frame_upgrade_behaviour="αναβάθμιση (επηρεάζει επίσης καταμέτρηση κοινοποίηση)   "
-             frame_left_click_behaviour="αριστερό κλικ (όταν υπάρχουν διαθέσιμες ενημερώσεις)   "
-             frame_other_options="Other options"
-             left_click_Synaptic="ανοίγει το  Synaptic "
-             left_click_ViewandUpgrade='ανοίγει το παράθυρο "Προβολή και Αναβάθμιση" του MX Apt Notifier'
-             use_apt_get_dash_dash_yes="χρησιμοποιήσετε την επιλογή του apt-get --yes option για την αναβάθμιση"
-             auto_close_term_window_when_complete="Να κλείσει αυτόματα το παράθυρο τερματικού όταν το apt-get upgrade/dist-upgrade έχει ολοκληρωθεί"
-             check_for_autoremoves="Έλεγχος για αυτόματα αφαιρούμενα πακέτα μετά το apt-get upgrade/dist-upgrade"
-             ;;
-
-         es) window_title="MX preferencias de Apt Notifier"
-             frame_upgrade_behaviour="Comportamiento de actualización (también afecta la cuenta de notificaciones)   "
-             frame_left_click_behaviour="Comportamiento del clic izquierdo (cuando hay actualizaciones disponibles)   "
-             frame_other_options="Other options"
-             left_click_Synaptic="abre Synaptic "
-             left_click_ViewandUpgrade='abre la ventana "Ver y Actualizar" de MX Apt Notifier'
-             use_apt_get_dash_dash_yes="usar la opción --yes de apt-get's para upgrade/dist-upgrade"
-             auto_close_term_window_when_complete="Cerrar automáticamente la terminal cuando se completa apt-get upgrade/dist-upgrade"
-             check_for_autoremoves="buscar los paquetes autoremovibles después del apt-get upgrade/dist-upgrade"
-             ;;
-
-         fr) window_title="Préferences pour MX Apt Notifier"
-             frame_upgrade_behaviour="Comportement de la mise à niveau (influe aussi sur le compte dans la notification)   "
-             frame_left_click_behaviour="Comportement du clic gauche (quand des mises à jour sont disponibles)   "
-             frame_other_options="Other options"
-             left_click_Synaptic="lance Synaptic "
-             left_click_ViewandUpgrade='lance MX Apt Notifier "Voir et mettre à niveau" dans une fenêtre'
-             use_apt_get_dash_dash_yes="utiliser l'option --yes de apt-get pour upgrade/dist-upgrade"
-             auto_close_term_window_when_complete="fermer automatiquement la fenêtre de terminal quand apt-get upgrade/dist-upgrade se termine"
-             check_for_autoremoves="chercher des paquets superflus après apt-get upgrade/dist-upgrade"
-             ;;
-
-         it) window_title="Preferenze per MX Apt Notifier"
-             frame_upgrade_behaviour="Comportamento dell'aggiornamento (compresa la conta delle notifiche)   "
-             frame_left_click_behaviour="Comportemento click sinistro (quando sono disponibili aggiornamenti)   "
-             frame_other_options="Other options"
-             left_click_Synaptic="apre Synaptic "
-             left_click_ViewandUpgrade='apre la finestra "Mostra e Aggiorna" di MX Apt Notifier'
-             use_apt_get_dash_dash_yes="usare l'opzione --yes di apt-get per l' upgrade/dist-upgrade"
-             auto_close_term_window_when_complete="chiudere automaticamente la finestra del terminale quando apt-get upgrade/dist-upgrade ha terminato"
-             check_for_autoremoves="verificare la presenza di pacchetti auto-rimovibili dopo aver eseguito apt-get upgrade/dist-upgrade"
-             ;;
-
-         ja) window_title="MX Apt Notifier 設定"
-             frame_upgrade_behaviour="更新の動作 (通知数に影響があります)   "
-             frame_left_click_behaviour="左クリックの動作 (更新が可能な場合)   "
-             frame_other_options="Other options"
-             left_click_Synaptic="Synaptic を開く"
-             left_click_ViewandUpgrade="MX Apt Notifier '表示・更新' ウインドウを開く"
-             use_apt_get_dash_dash_yes="upgrade/dist-upgrade に apt-get's --yes オプションを使用する"
-             auto_close_term_window_when_complete="apt-get upgrade/dist-upgrade が完了した後自動的に端末ウインドウを閉じる"
-             check_for_autoremoves="check for autoremovable packages after apt-get upgrade/dist-upgrade"
-             ;;
-
-         nl) window_title="MX Apt Notifier voorkeuren"
-             frame_upgrade_behaviour="Upgrade gedrag (beïnvloedt ook notificatie aantal)   "
-             frame_left_click_behaviour="Links-klik gedrag (wanneer updates beschikbaar zijn)   "
-             frame_other_options="Other options"
-             left_click_Synaptic="opent Synaptic "
-             left_click_ViewandUpgrade='opent MX Apt Notifier "Bekijk en Upgrade" scherm'
-             use_apt_get_dash_dash_yes="gebruik apt-get's --yes optie voor upgrade/dist-upgrade"
-             auto_close_term_window_when_complete="automatisch terminal scherm sluiten wanneer apt-get upgrade/dist-upgrade klaar is"
-             check_for_autoremoves="controleer voor automatisch verwijderbare pakketten na apt-get upgrade/dist-upgrade"
-             ;;
-
-         pl) window_title="MX Apt Notifier Ustawienia"
-             frame_upgrade_behaviour="Zachowanie aktualizacji   (również wpływ na liczbę powiadomień)   "
-             frame_left_click_behaviour="Zachowanie lewego przycisku myszy   (gdy dostępne są nowe aktualizacje)   "
-             frame_other_options="Other options"
-             left_click_Synaptic="otwiera Synaptic "
-             left_click_ViewandUpgrade='otwiera MX Apt Notifier "Przeglądaj i Aktualizować" okno'
-             use_apt_get_dash_dash_yes="stosować apt-get's --yes opcję  dla upgrade/dist-upgrade"
-             auto_close_term_window_when_complete="zostały automatycznie zamknięte okno terminalu przy upgrade/dist-upgrade gotowy"
-             check_for_autoremoves="check for autoremovable packages after apt-get upgrade/dist-upgrade"
-             ;;
-
-         ru) window_title="MX Apt Notifier Настройки"
-             frame_upgrade_behaviour="Обновить поведение (также влияет на количество уведомлений)   "
-             frame_left_click_behaviour="Поведение при нажатии ЛКМ (при наличии обновлений)   "
-             frame_other_options="Other options"
-             left_click_Synaptic="Открыть Synaptic "
-             left_click_ViewandUpgrade='Открыть окно MX Apt Notifier "Просмотр и обновление"'
-             use_apt_get_dash_dash_yes="Использовать опцию apt-get's --yes для upgrade/dist-upgrade"
-             auto_close_term_window_when_complete="Автоматически закрыть окно терминала после выполнения apt-get upgrade/dist-upgrade"
-             check_for_autoremoves="Проверка наличия автоудаляемых пакетов после apt-get upgrade/dist-upgrade"
-             ;;
-
-         sv) window_title="MX Apt Notifier inställningar"
-             frame_upgrade_behaviour="Uppgraderingsbeteende (påverkar också antalet i meddelandena)   "
-             frame_left_click_behaviour="Vänster-klicks beteende (när uppdateringar är tillgängliga)   "
-             frame_other_options="Other options"
-             left_click_Synaptic="öppnar Synaptic "
-             left_click_ViewandUpgrade='öppnar MX Apt Notifier "Granska och uppgradera"-fönster'
-             use_apt_get_dash_dash_yes="använd apt-get's --yes möjlighet för upgrade/dist-upgrade"
-             auto_close_term_window_when_complete="stäng automatiskt terminalfönstret när apt-get upgrade/dist-upgrade är slutfört"
-             check_for_autoremoves="sök efter automatiskt borttagbara paket efter apt-get upgrade/dist-upgrade"
-             ;;
-
-          *) : ;;
-    esac
+''' + shellvar + '''    
 
     #for MEPIS remove "MX" branding from the $window_title and $left_click_ViewandUpgrade strings
     window_title=$(echo "$window_title"|sed 's/MX /'$(grep -o MX-[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
@@ -1513,16 +1059,16 @@ def apt_history():
     
     apt-history | sed 's/:all/ all/;s/:i386/ i386/;s/:amd64/ amd64/' | column -t > "$TMP"/APT_HISTORY
     
-    yad --window-icon=/usr/share/icons/mnotify-some-"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)".png \
-        --width=$(xprop -root | grep _NET_DESKTOP_GEOMETRY\(CARDINAL\) | awk '{print $3*.75}' | cut -f1 -d.) \
-        --height=480 \
-        --center \
-        --title "apt history" \
-        --text-info \
-        --filename="$TMP"/APT_HISTORY \
-        --fontname=mono \
-        --button=gtk-close \
-        --margins=7 \
+    yad --window-icon=/usr/share/icons/mnotify-some-"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)".png \\
+        --width=$(xprop -root | grep _NET_DESKTOP_GEOMETRY\(CARDINAL\) | awk '{print $3*.75}' | cut -f1 -d.) \\
+        --height=480 \\
+        --center \\
+        --title "apt history" \\
+        --text-info \\
+        --filename="$TMP"/APT_HISTORY \\
+        --fontname=mono \\
+        --button=gtk-close \\
+        --margins=7 \\
         --borders=5
         
     rm -rf "$TMP"    
@@ -1538,48 +1084,15 @@ def apt_history():
     
 def apt_get_update():
     global Check_for_Updates_by_User
+    
+    # ~~~ Localize 4 ~~~
+
+    t01 = _("The action you requested needs <b>root privileges</b>. Please enter <b>root's</b> password below.")
+    shellvar = '    rootPasswordRequestMsg="' + t01 + '"\n'
+    
     script = '''#! /bin/bash
-    rootPasswordRequestMsg="The action you requested needs <b>root privileges</b>. Please enter <b>root's</b> password below."
-    case $(locale|grep ^LANG=|cut -f2 -d=|cut -f1 -d_) in
+''' + shellvar + '''
 
-      ca)    rootPasswordRequestMsg="A l'acció que heu demanat li calen <b>privilegis de root</b>. Si us plau, introduïu la contrasenya de <b>root</b> tot seguit."
-             ;;
-
-      de)    rootPasswordRequestMsg="Die Aktion benötigt <b>Systemverwalterrechte</b>. Bitte geben Sie das Passwort des Benutzers <b>root</b> ein."
-             ;;
-
-      el)    rootPasswordRequestMsg="Η ενέργεια που ζητήσατε απαιτεί <b>προνόμια root</b>. Παρακαλώ εισάγετε τον κωδικό πρόσβασης του <b>root</b> παρακάτω."
-             ;;
-
-      es)    rootPasswordRequestMsg="La acción que solicitó necesita <b>privilegios de superusuario</b> («root»). Introduzca la contraseña del <b>superusuario</b>."
-             ;;
-
-      fr)    rootPasswordRequestMsg="L'action requise nécessite <b>les droits du superutilisateur</b>. Veuillez saisir ci-dessous le mot de passe du <b>superutilisateur</b>."
-             ;;
-
-      it)    rootPasswordRequestMsg="L'azione che hai richiesto richiede i <b>privilegi di root</b>. Per piacere, inserisci la password di <b>root</b>."
-             ;;
-
-      ja)    rootPasswordRequestMsg="実行には <b>root</b> 権限が必要です。下に <b>root</b> のパスワードを入力してください。"
-             ;;
-
-      nl)    rootPasswordRequestMsg="Voor de handeling die u wilt verrichten hebt u <b>root-privileges</b> nodig. Voer hieronder het <b>root-wachtwoord</b> in."
-             ;;
-
-      pl)    rootPasswordRequestMsg="Polecenie, które chcesz wykonać, wymaga <b>uprawnień administratora</b>. Wpisz poniżej <b>hasło administratora</b>."
-             ;;
-
-      ru)    rootPasswordRequestMsg="Для выполнения данного действия необходимы <b>привилегии пользователя «root»</b>. Введите его пароль."
-             ;;
-
-      sv)    rootPasswordRequestMsg="Åtgärden du har begärt kräver <b>administratörsbehörighet</b>. Ange lösenordet för <b>root</b>nedan."
-             ;;
-
-       *)    : ;;
-
-    esac
-    
-    
     #for MEPIS remove "MX" branding from the $window_title string
     window_title=$(echo "$window_title"|sed 's/MX /'$(grep -o MX-[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
 
