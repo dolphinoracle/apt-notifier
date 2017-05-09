@@ -92,6 +92,7 @@ def set_translations():
     Apt_History						= _(u"Apt History")
     Check_for_Updates					= _(u"Check for Updates")
   
+# Check for updates, using subprocess.Popen
 def check_updates():
     global message_status
     global text
