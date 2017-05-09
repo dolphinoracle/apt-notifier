@@ -68,12 +68,12 @@ def set_translations():
     Upgrade_using_Synaptic = u"Upgrade using Synaptic"
     View_and_Upgrade = u"View and Upgrade"
     Hide_until_updates_available = u"Hide until updates available"
-    Quit_Apt_Notifier = u"Quit Apt-Notifier"
+    Quit_Apt_Notifier = u"Quit"
     Apt_Notifier_Help = u"Apt-Notifier Help"
     Synaptic_Help = u"Synaptic Help"
-    Apt_Notifier_Preferences = u"Apt Notifier Preferences"
+    Apt_Notifier_Preferences = u"Preferences"
     Apt_History = u"Apt History"
-    Check_for_Updates = u"Check for Updates (apt-get update)"
+    Check_for_Updates = u"Check for Updates"
     
     if locale == "ca":
         tooltip_0_updates_available = u"No hi ha actualitzacions disponibles"
@@ -86,12 +86,12 @@ def set_translations():
         Upgrade_using_Synaptic = u"Actualitza usant Synaptic"
         View_and_Upgrade = u"Veure i actualitzar"
         Hide_until_updates_available = u"Amagar fins que hi hagi actualitzacions disponibles"
-        Quit_Apt_Notifier = u"Surt d'Apt-Notifier"
+        Quit_Apt_Notifier = u"Surt"
         Apt_Notifier_Help = u"Ajuda d'Apt-Notifier"
         Synaptic_Help = u"Ajuda de Synaptic"
-        Apt_Notifier_Preferences = u"Preferències d'Apt Notifier"
+        Apt_Notifier_Preferences = u"Preferències"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
         
     elif locale == "de":
         tooltip_0_updates_available = u"0 Updates verfügbar"
@@ -104,12 +104,12 @@ def set_translations():
         Upgrade_using_Synaptic = u"Durch Synaptic aufrüsten"
         View_and_Upgrade = u"Anschauen and aufrüsten"
         Hide_until_updates_available = u"Verstercken bis Updates verfügbar"
-        Quit_Apt_Notifier = u"Apt-Notifier abbrechen "
+        Quit_Apt_Notifier = u"Abbrechen"
         Apt_Notifier_Help = u"Apt-Notifier Hilfe"
         Synaptic_Help = u"Synaptic Hilfe"
-        Apt_Notifier_Preferences = u"Apt Notifier Einstellungen"
+        Apt_Notifier_Preferences = u"Einstellungen"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
 
     elif locale == "el":
         tooltip_0_updates_available = u"0 διαθέσιμες ενημερώσεις"
@@ -122,12 +122,12 @@ def set_translations():
         Upgrade_using_Synaptic = u"Αναβάθμιση χρησιμοποιώντας το Synaptic"
         View_and_Upgrade = u"Προβολή και Αναβάθμιση"
         Hide_until_updates_available = u"Απόκρυψη μέχρι διαθέσιμες ενημερώσεις"
-        Quit_Apt_Notifier = u"Κλείστε το Apt-Notifier"
+        Quit_Apt_Notifier = u"Κλείστε"
         Apt_Notifier_Help = u"Apt-Notifier Βοήθεια"
         Synaptic_Help = u"Synaptic Βοήθεια"
-        Apt_Notifier_Preferences = u"Apt Notifier Προτιμήσεις"
+        Apt_Notifier_Preferences = u"Προτιμήσεις"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
 
     elif locale == "es":
         tooltip_0_updates_available = u"0 actualizaciones disponibles"
@@ -140,12 +140,12 @@ def set_translations():
         Upgrade_using_Synaptic = u"Actualizar usando Synaptic"
         View_and_Upgrade = u"Ver y Actualizar"
         Hide_until_updates_available = u"Ocultar hasta que haya actualizaciones"
-        Quit_Apt_Notifier = u"Salir de Apt-Notifier"
+        Quit_Apt_Notifier = u"Salir"
         Apt_Notifier_Help = u"Ayuda de Apt-Notifier"
         Synaptic_Help = u"Ayuda de Synaptic"
-        Apt_Notifier_Preferences = u"Preferencias de Apt Notifier"
+        Apt_Notifier_Preferences = u"Preferencias"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
 
     elif locale == "fr":
         tooltip_0_updates_available = u"0 mises à jour disponibles"
@@ -158,12 +158,12 @@ def set_translations():
         Upgrade_using_Synaptic = u"Mettre à niveau avec Synaptic"
         View_and_Upgrade = u"Voir et mettre à niveau"
         Hide_until_updates_available = u"Cacher jusqu'à ce que des mises à niveau soient disponibles"
-        Quit_Apt_Notifier = u"Annuler Apt-Notifier"
+        Quit_Apt_Notifier = u"Annuler"
         Apt_Notifier_Help = u"Aide sur Apt-Notifier"
         Synaptic_Help = u"Aide sur Synaptic"
-        Apt_Notifier_Preferences = u"Préferences pour Apt Notifier"
+        Apt_Notifier_Preferences = u"Préferences"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
 
     elif locale == "it":
         tooltip_0_updates_available = u"0 aggiornamenti disponibili"
@@ -176,12 +176,12 @@ def set_translations():
         Upgrade_using_Synaptic = u"Aggiornare tramite Synaptic"
         View_and_Upgrade = u"Mostra e aggiorna"
         Hide_until_updates_available = u"Nascondi finchè non hai aggiornamenti disponibili"
-        Quit_Apt_Notifier = u"Chiudi Apt-Notifier"
+        Quit_Apt_Notifier = u"Chiudi"
         Apt_Notifier_Help = u"Aiuto su Apt-Notifier"
         Synaptic_Help = u"Aiuto su Synaptic"
-        Apt_Notifier_Preferences = u"Preferenze per Apt Notifier"
+        Apt_Notifier_Preferences = u"Preferenze"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
 
     elif locale == "ja":
         tooltip_0_updates_available = u"0 新たな更新はありません"
@@ -194,12 +194,12 @@ def set_translations():
         Upgrade_using_Synaptic = u"更新に Synaptic を使用する"
         View_and_Upgrade = u"表示・更新"
         Hide_until_updates_available = u"入手可能な更新の非表示"
-        Quit_Apt_Notifier = u"Apt-Notifier を終了"
+        Quit_Apt_Notifier = u"を終了"
         Apt_Notifier_Help = u"Apt-Notifier ヘルプ"
         Synaptic_Help = u"Synaptic ヘルプ"
-        Apt_Notifier_Preferences = u"Apt Notifier 設定"
+        Apt_Notifier_Preferences = u"設定"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
 
     elif locale == "nl":
         tooltip_0_updates_available = u"0 updates beschikbaar"
@@ -212,12 +212,12 @@ def set_translations():
         Upgrade_using_Synaptic = u"Upgrade met gebruik van Synaptic"
         View_and_Upgrade = u"Bekijk en Upgrade"
         Hide_until_updates_available = u"Verberg totdat updates beschikbaar zijn"
-        Quit_Apt_Notifier = u"Beëindig Apt-Notifier"
+        Quit_Apt_Notifier = u"Beëindig"
         Apt_Notifier_Help = u"Apt-Notifier Help"
         Synaptic_Help = u"Synaptic Help"
-        Apt_Notifier_Preferences = u"Apt Notifier Voorkeuren"
+        Apt_Notifier_Preferences = u"Voorkeuren"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
 
     elif locale == "pl":
         tooltip_0_updates_available = u"0 Aktualizacje są dostępne"
@@ -230,12 +230,12 @@ def set_translations():
         Upgrade_using_Synaptic = u"Aktualizuj korzystając z Synaptic"
         View_and_Upgrade = u"Przeglądaj i Aktualizować"
         Hide_until_updates_available = u"Ukryj aż będą dostępne aktualizacje"
-        Quit_Apt_Notifier = u"Wyjdź z Apt-Notifier"
+        Quit_Apt_Notifier = u"Wyjdź"
         Apt_Notifier_Help = u"Pomoc Apt-Notifier"
         Synaptic_Help = u"Pomoc Synaptic"
-        Apt_Notifier_Preferences = u"Apt Notifier Ustawienia"
+        Apt_Notifier_Preferences = u"Ustawienia"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
 
     elif locale == "ru":
         tooltip_0_updates_available = u"Нет доступных обновлений"
@@ -248,12 +248,12 @@ def set_translations():
         Upgrade_using_Synaptic = u"Обновить, используя Synaptic"
         View_and_Upgrade = u"Просмотр и обновление"
         Hide_until_updates_available = u"Не показывать, если нет обновлений"
-        Quit_Apt_Notifier = u"Выйти из Apt-Notifier"
+        Quit_Apt_Notifier = u"Выйти"
         Apt_Notifier_Help = u"Apt Notifier Помощь"
         Synaptic_Help = u"Synaptic Помощь"
-        Apt_Notifier_Preferences = u"Настройки Apt Notifier"
+        Apt_Notifier_Preferences = u"Настройки"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
 
     elif locale == "sv":
         tooltip_0_updates_available = u"0 uppdateringar tillgängliga"
@@ -266,12 +266,12 @@ def set_translations():
         Upgrade_using_Synaptic = u"Uppgradera med Synaptic"
         View_and_Upgrade = u"Granska och Uppgradera"
         Hide_until_updates_available = u"Göm tills uppdateringar är tillgängliga"
-        Quit_Apt_Notifier = u"Avsluta Apt-Notifier"
+        Quit_Apt_Notifier = u"Avsluta"
         Apt_Notifier_Help = u"Apt-Notifier Hjälp"
         Synaptic_Help = u"Synaptic Hjälp"
-        Apt_Notifier_Preferences = u"Apt Notifier Inställningar"
+        Apt_Notifier_Preferences = u"Inställningar"
         Apt_History = u"Apt History"
-        Check_for_Updates = u"Check for Updates (apt-get update)"
+        Check_for_Updates = u"Check for Updates"
 
     else:
         pass
@@ -697,7 +697,7 @@ def viewandupgrade():
         TermXOffset="$(xwininfo -root|awk '/Width/{print $2/4}')"
         TermYOffset="$(xwininfo -root|awk '/Height/{print $2/4}')"
         G=" --geometry=80x25+"$TermXOffset"+"$TermYOffset
-        I=" --icon=mnotify-some"
+        I=" --icon=mnotify-some-""$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
         if [ "$2" = "" ]; then T=""; I=""; else T=" --title='""$(grep -o MX-[1-9][0-9] /etc/issue|cut -c1-2)"" apt-notifier: apt-get "$2"'"; fi
         if (xprop -root | grep -q -i kde)
           then
@@ -743,7 +743,7 @@ def viewandupgrade():
                              roxterm) $(kde4-config --path libexec)kdesu -c "roxterm$G$T --separate -e $3"
                                       ;;
 
-              xfce4-terminal.wrapper) $(kde4-config --path libexec)kdesu -n --noignorebutton -d -c "xfce4-terminal$G$I$T -e $3"
+              xfce4-terminal.wrapper) $(kde4-config --path libexec)kdesu --noignorebutton -d -c "xfce4-terminal$G$I$T -e $3"
                                       ;;
 
                                xterm) if [ -e /usr/bin/konsole ]
@@ -929,7 +929,7 @@ def viewandupgrade():
         #done
 
         yad \
-        --window-icon=/usr/share/icons/mnotify-some.png \
+        --window-icon=/usr/share/icons/mnotify-some-"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)".png \
         --width=640 \
         --height=480 \
         --center \
@@ -939,7 +939,7 @@ def viewandupgrade():
           --field="$use_apt_get_dash_dash_yes$UpgradeType":CHK $UpgradeAssumeYes \
           --field="$auto_close_term_window1$UpgradeType$auto_close_term_window2":CHK $UpgradeAutoClose \
         --button "$switch_to1$OtherUpgradeType'$switch_to2"!!"$switch_tooltip":4 \
-        --button 'apt-get '"$UpgradeType"!mnotify-some!:0 \
+        --button 'apt-get '"$UpgradeType"!mnotify-some-"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"!:0 \
         --button "$reload"!reload!"$reload_tooltip":8 \
         --button gtk-cancel:2 \
         --buttons-layout=spread \
@@ -1145,6 +1145,29 @@ def initialize_aptnotifier_prefs():
       echo "CheckForAutoRemoves=false">> ~/.config/apt-notifierrc
     fi
 
+    #test if ~/.config/apt-notifierrc contains a IconLook=* line and that it's a valid entry
+    grep -q -e ^"IconLook=mx16" -e^"IconLook=classic" ~/.config/apt-notifierrc
+    if [ "$?" -eq 0 ]
+      then
+      #contains a valid entry so do nothing
+        :
+      else
+      #
+      #delete multiple entries or what appears to be invalid entries
+      sed -i '/.*IconLook.*/Id' ~/.config/apt-notifierrc 
+      #
+      #if a IconLook=* line not present,
+      #or not equal to "mx16" or "classic", then have default as follows for the various MX releases
+      #
+       case $(grep DISTRIB_RELEASE /etc/lsb-release | grep -Eo [0-9]+) in
+         14) IconDefault="classic" ;;
+         15) IconDefault="classic" ;;
+         16) IconDefault="mx16"    ;;
+          *) IconDefault="classic" ;;
+       esac
+       echo "IconLook=$IconDefault">> ~/.config/apt-notifierrc
+    fi
+
     #test to see if ~/.config/apt-notifierrc contains any blank lines or lines with only whitespace
     grep -q ^[[:space:]]*$ ~/.config/apt-notifierrc 
     if [ "$?" = "0" ]
@@ -1155,6 +1178,16 @@ def initialize_aptnotifier_prefs():
       #no blank lines or lines with only whitespace so do nothing
         :
     fi
+
+    [ -e ~/.local/share/applications/apt-notifier-menu.desktop ] || cp /usr/share/applications/apt-notifier-menu.desktop ~/.local/share/applications/apt-notifier-menu.desktop
+
+    grep $(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) ~/.local/share/applications/apt-notifier-menu.desktop -q
+    [ $? -eq 0 ] || sed -i 's/mnotify-some.*/mnotify-some-'"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"'/' ~/.local/share/applications/apt-notifier-menu.desktop
+
+    [ -e ~/.local/share/applications/mx-apt-notifier-menu.desktop ] || cp /usr/share/applications/mx-apt-notifier-menu.desktop ~/.local/share/applications/mx-apt-notifier-menu.desktop
+
+    grep $(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) ~/.local/share/applications/mx-apt-notifier-menu.desktop -q 
+    [ $? -eq 0 ] || sed -i 's/mnotify-some.*/mnotify-some-'"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"'/' ~/.local/share/applications/mx-apt-notifier-menu.desktop
 
     '''
 
@@ -1308,11 +1341,11 @@ def aptnotifier_prefs():
     #for MEPIS remove "MX" branding from the $window_title and $left_click_ViewandUpgrade strings
     window_title=$(echo "$window_title"|sed 's/MX /'$(grep -o MX-[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
     left_click_ViewandUpgrade=$(echo "$left_click_ViewandUpgrade"|sed 's/MX /'$(grep -o MX-[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
-
+    IconLookBegin=$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)
     TMP=$(mktemp -d /tmp/apt_notifier_preferences_dialog.XXXXXX)
     touch "$TMP"/output
     cat << EOF > "$TMP"/DIALOG
-    <window title="@title@" icon-name="mnotify-some">
+    <window title="@title@" icon-name="@mnotify-some@">
       <vbox>
         <frame @upgrade_behaviour@>
           <frame>
@@ -1365,7 +1398,33 @@ def aptnotifier_prefs():
             <action>:</action>
           </checkbox>
         </frame>
+        <vseparator></vseparator>
         </frame>
+        <frame Icons>
+          <hbox homogeneous="true">
+          <vbox>
+            <radiobutton active="@IconLookMx16@">
+              <label>mx16   </label>
+              <variable>IconLook_mx16</variable>
+              <action>:</action>
+            </radiobutton>
+            <radiobutton active="@IconLookClassic@">
+              <label>classic</label>
+              <variable>IconLook_classic</variable>
+              <action>:</action>
+            </radiobutton>
+          </vbox>
+          <vbox>
+            <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-some-mx16.png"</input></pixmap>
+            <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-some-classic.png"</input></pixmap>
+          </vbox>
+          <vbox>
+            <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-none-mx16.png"</input></pixmap>
+            <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-none-classic.png"</input></pixmap>
+          </vbox>
+          </hbox>
+        </frame>
+      <vseparator></vseparator>
       <hbox>
         <button ok> </button>
         <button cancel> </button>
@@ -1393,7 +1452,11 @@ EOF
     sed -i 's/@UpgradeAssumeYes@/'$(grep UpgradeAssumeYes ~/.config/apt-notifierrc | cut -f2 -d=)'/' "$TMP"/DIALOG
     sed -i 's/@UpgradeAutoClose@/'$(grep UpgradeAutoClose ~/.config/apt-notifierrc | cut -f2 -d=)'/' "$TMP"/DIALOG
     sed -i 's/@CheckForAutoRemoves@/'$(grep CheckForAutoRemoves ~/.config/apt-notifierrc | cut -f2 -d=)'/' "$TMP"/DIALOG
+    sed -i 's/@IconLookMx16@/'$(if [ $(grep IconLook=mx16 ~/.config/apt-notifierrc) ]; then echo -n true; else echo -n false; fi)'/' "$TMP"/DIALOG
+    sed -i 's/@IconLookClassic@/'$(if [ $(grep IconLook=classic ~/.config/apt-notifierrc) ]; then echo -n true; else echo -n false; fi)'/' "$TMP"/DIALOG
 
+    # edit placeholder for window icon placeholder in "$TMP"/DIALOG
+    sed -i 's/@mnotify-some@/mnotify-some-'$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d= | xargs echo -n)'/' "$TMP"/DIALOG
 
     gtkdialog --file="$TMP"/DIALOG >> "$TMP"/output
 
@@ -1411,11 +1474,27 @@ EOF
         if [ $(grep UpgradeAutoClose=.*true.*         "$TMP"/output) ]; then sed -i 's/UpgradeAutoClose=false/UpgradeAutoClose=true/'       ~/.config/apt-notifierrc; fi
         if [ $(grep CheckForAutoRemoves=.*false.*     "$TMP"/output) ]; then sed -i 's/CheckForAutoRemoves=true/CheckForAutoRemoves=false/' ~/.config/apt-notifierrc; fi
         if [ $(grep CheckForAutoRemoves=.*true.*      "$TMP"/output) ]; then sed -i 's/CheckForAutoRemoves=false/CheckForAutoRemoves=true/' ~/.config/apt-notifierrc; fi
+        if [ $(grep IconLook_mx16=.*true.*            "$TMP"/output) ]; then sed -i 's/IconLook=classic/IconLook=mx16/'                     ~/.config/apt-notifierrc; fi
+        if [ $(grep IconLook_classic=.*true.*         "$TMP"/output) ]; then sed -i 's/IconLook=mx16/IconLook=classic/'                     ~/.config/apt-notifierrc; fi
      else
         :
     fi
 
     rm -rf "$TMP"
+
+    #update Icon= line in .local apt-notifier-menu.desktop file if icon not same as IconLook config setting in ~/.config/apt-notifierrc file
+    grep $(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) ~/.local/share/applications/apt-notifier-menu.desktop -q
+    [ $? -eq 0 ] || sed -i 's/mnotify-some.*/mnotify-some-'"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"'/' ~/.local/share/applications/apt-notifier-menu.desktop
+
+    #update Icon= line in .local mx-apt-notifier-menu.desktop file if icon not same as IconLook config setting in ~/.config/apt-notifierrc file
+    grep $(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) ~/.local/share/applications/mx-apt-notifier-menu.desktop -q 
+    [ $? -eq 0 ] || sed -i 's/mnotify-some.*/mnotify-some-'"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"'/' ~/.local/share/applications/mx-apt-notifier-menu.desktop
+
+    #restart apt-notifier if IconLook setting has been changed 
+    if [ "$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)" != "$IconLookBegin" ]
+      then
+        apt-notifier-unhide-Icon
+    fi
 
     '''
     script_file = tempfile.NamedTemporaryFile('wt')
@@ -1434,7 +1513,7 @@ def apt_history():
     
     apt-history | sed 's/:all/ all/;s/:i386/ i386/;s/:amd64/ amd64/' | column -t > "$TMP"/APT_HISTORY
     
-    yad --window-icon=/usr/share/icons/mnotify-some.png \
+    yad --window-icon=/usr/share/icons/mnotify-some-"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)".png \
         --width=$(xprop -root | grep _NET_DESKTOP_GEOMETRY\(CARDINAL\) | awk '{print $3*.75}' | cut -f1 -d.) \
         --height=480 \
         --center \
@@ -1507,7 +1586,7 @@ def apt_get_update():
     TermXOffset="$(xwininfo -root|awk '/Width/{print $2/4}')"
     TermYOffset="$(xwininfo -root|awk '/Height/{print $2/4}')"
     G=" --geometry=80x25+"$TermXOffset"+"$TermYOffset
-    #I=" --icon=mnotify-some"
+    #I=" --icon=mnotify-some-""$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
     #T=" --title='""$(grep -o MX-[1-9][0-9] /etc/issue|cut -c1-2)"" apt-notifier: apt-get update'"
     if (xprop -root | grep -q -i kde)
       then
@@ -1661,6 +1740,19 @@ def read_icon_config():
     if exit_state != 0:
         return "show"
 
+def read_icon_look():
+    script = '''#! /bin/bash
+    grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=
+    '''
+    script_file = tempfile.NamedTemporaryFile('wt')
+    script_file.write(script)
+    script_file.flush()
+    run = subprocess.Popen(["echo -n `sh %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
+    # Read the output into a text string
+    iconLook = run.stdout.read(128)
+    script_file.close()
+    return iconLook
+    
 def set_noicon():
     """Reads ~/.config/apt-notifierrc. If "DontShowIcon blah blah blah" is already there, don't write it again"""
     command_string = "cat " + rc_file_name + " | grep -q DontShowIcon"
@@ -1690,8 +1782,8 @@ def add_rightclick_actions():
     add_apt_get_update_action()
     add_apt_notifier_help_action()
     add_synaptic_help_action()
-    add_quit_action()
     add_aptnotifier_prefs_action()
+    add_quit_action()
 
 def add_hide_action():
     ActionsMenu.clear()
@@ -1704,8 +1796,8 @@ def add_hide_action():
     add_apt_get_update_action()
     add_apt_notifier_help_action()
     add_synaptic_help_action()
-    add_quit_action()
     add_aptnotifier_prefs_action()
+    add_quit_action()
 
 def add_quit_action():
     ActionsMenu.addSeparator()
@@ -1766,6 +1858,9 @@ def main():
     global quit_action    
     global Timer
     global initialize_aptnotifier_prefs
+    global read_icon_look
+    global icon_set
+    
     set_translations()
     initialize_aptnotifier_prefs()
     AptNotify = QtGui.QApplication(sys.argv)
@@ -1776,8 +1871,12 @@ def main():
     global NoUpdatesIcon
     global NewUpdatesIcon
     global HelpIcon
-    NoUpdatesIcon = QtGui.QIcon("/usr/share/icons/mnotify-none.png")
-    NewUpdatesIcon  = QtGui.QIcon("/usr/share/icons/mnotify-some.png")
+    
+    # read in icon look into a variable
+    icon_set = read_icon_look()
+    
+    NoUpdatesIcon = QtGui.QIcon("/usr/share/icons/mnotify-none-" + icon_set + ".png")
+    NewUpdatesIcon  = QtGui.QIcon("/usr/share/icons/mnotify-some-" + icon_set + ".png")
     HelpIcon = QtGui.QIcon("/usr/share/icons/oxygen/22x22/apps/help-browser.png")
     QuitIcon = QtGui.QIcon("/usr/share/icons/oxygen/22x22/actions/system-shutdown.png")
     # Create the right-click menu and add the Tooltip text
@@ -1786,10 +1885,11 @@ def main():
     AptIcon.connect( AptIcon, QtCore.SIGNAL( "activated(QSystemTrayIcon::ActivationReason)" ), left_click_activated)
     AptNotify.connect(Timer, QtCore.SIGNAL("timeout()"), check_updates)
     # Integrate it together,apply checking of updated packages and set timer to every 1 minute(s) (1 second = 1000)
-    check_updates()
+    AptIcon.setIcon(NoUpdatesIcon)
     AptIcon.setContextMenu(ActionsMenu)
     if icon_config == "show":
         AptIcon.show()
+    check_updates()
     Timer.start(60000)
     if AptNotify.isSessionRestored():
         sys.exit(1)
