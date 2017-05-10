@@ -9,12 +9,6 @@ from os import environ
 from PyQt4 import QtGui
 from PyQt4 import QtCore
 
-#import gettext
-#gettext.bindtextdomain('apt-notifier', '/usr/share/locale')
-#gettext.textdomain('apt-notifier')
-#_ = gettext.gettext
-#gettext.install('/usr/bin/apt-notifier.py')
-
 rc_file_name = environ.get('HOME') + '/.config/apt-notifierrc'
 message_status = "not displayed"
 
@@ -25,7 +19,7 @@ import gettext
 gettext.bindtextdomain('apt-notifier', '/usr/share/locale')
 gettext.textdomain('apt-notifier')
 _ = gettext.gettext
-gettext.install('/usr/bin/apt-notifier.py')
+gettext.install('apt-notifier.py')
 
 from string import Template	# for simple string substitution (popup_msg...)
 
