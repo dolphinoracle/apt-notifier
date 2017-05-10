@@ -598,9 +598,9 @@ def viewandupgrade():
         # if the View and Upgrade yad window was closed by one of it's 4 buttons, 
         # then update the UpgradeAssumeYes & UpgradeAutoClose flags in the 
         # ~/.config/apt-notifierrc file to match the checkboxes
-        if [ $(tail -n1 "$TMP"/results) -eq 0 ]||\
-           [ $(tail -n1 "$TMP"/results) -eq 2 ]||\
-           [ $(tail -n1 "$TMP"/results) -eq 4 ]||\
+        if [ $(tail -n1 "$TMP"/results) -eq 0 ]||\\
+           [ $(tail -n1 "$TMP"/results) -eq 2 ]||\\
+           [ $(tail -n1 "$TMP"/results) -eq 4 ]||\\
            [ $(tail -n1 "$TMP"/results) -eq 8 ];
           then
             if [ "$(head -n1 "$TMP"/results | rev | awk -F \| '{ print $3}' | rev)" = "TRUE" ];
