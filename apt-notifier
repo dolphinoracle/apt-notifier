@@ -42,12 +42,6 @@ if [ "$?" = "0" ]
     :
 fi
 
-#remove IconLook setting if there is one
-sed -i '/IconLook/d' ~/.config/apt-notifierrc
-
-#remove ~/.local *apt-notifier-menu.desktop files if there are any
-rm -f ~/.local/share/applications/*apt-notifier-menu.desktop
-
 # start the notifier
 python /usr/bin/apt-notifier.py& disown -h
 
