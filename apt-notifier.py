@@ -69,22 +69,22 @@ def set_translations():
     text = ''
 
     # ~~~ Localize 1 ~~~
-    
-    tooltip_0_updates_available				= _(u"0 updates available")
-    tooltip_1_new_update_available			= _(u"1 new update available")
-    tooltip_multiple_new_updates_available		= _(u" new updates available")
-    popup_title						= _(u"Updates")
-    popup_msg_1_new_update_available			= _(u"You have 1 new update available")
-    popup_msg_multiple_new_updates_available		= _(u"You have $count new updates available")
-    Upgrade_using_Synaptic				= _(u"Upgrade using Synaptic")
-    View_and_Upgrade					= _(u"View and Upgrade")
-    Hide_until_updates_available			= _(u"Hide until updates available")
-    Quit_Apt_Notifier					= _(u"Quit")
-    Apt_Notifier_Help					= _(u"Apt-Notifier Help")
-    Synaptic_Help					= _(u"Synaptic Help")
-    Apt_Notifier_Preferences				= _(u"Preferences")
-    Apt_History						= _(u"Apt History")
-    Check_for_Updates					= _(u"Check for Updates")
+
+    tooltip_0_updates_available                 = unicode (_("0 updates available")                    ,'utf-8')
+    tooltip_1_new_update_available              = unicode (_("1 new update available")                 ,'utf-8')
+    tooltip_multiple_new_updates_available      = unicode (_(" new updates available")                 ,'utf-8')
+    popup_title                                 = unicode (_("Updates")                                ,'utf-8')
+    popup_msg_1_new_update_available            = unicode (_("You have 1 new update available")        ,'utf-8')
+    popup_msg_multiple_new_updates_available    = unicode (_("You have $count new updates available")  ,'utf-8')
+    Upgrade_using_Synaptic                      = unicode (_("Upgrade using Synaptic")                 ,'utf-8')
+    View_and_Upgrade                            = unicode (_("View and Upgrade")                       ,'utf-8')         
+    Hide_until_updates_available                = unicode (_("Hide until updates available")           ,'utf-8')
+    Quit_Apt_Notifier                           = unicode (_("Quit")                                   ,'utf-8')
+    Apt_Notifier_Help                           = unicode (_("Apt-Notifier Help")                      ,'utf-8')
+    Synaptic_Help                               = unicode (_("Synaptic Help")                          ,'utf-8')
+    Apt_Notifier_Preferences                    = unicode (_("Preferences")                            ,'utf-8')
+    Apt_History                                 = unicode (_("Apt History")                            ,'utf-8')
+    Check_for_Updates                           = unicode (_("Check for Updates")                      ,'utf-8')
   
 # Check for updates, using subprocess.Popen
 def check_updates():
