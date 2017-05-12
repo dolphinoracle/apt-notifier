@@ -287,7 +287,7 @@ def viewandupgrade():
     t08 = _("The action you requested needs <b>root privileges</b>. Please enter <b>root's</b> password below.")
     t09 = _("%s complete (or was canceled)")
     t10 = _("'this terminal window can now be closed '")
-    t11 = "'(" + _("press any key to close") + ")'"
+    t11 = "(" + _("press any key to close") + ")"
     t12 = _("Unneeded packages are installed that can be removed.")
     t13 = _("'Running apt-get autoremove, if you are unsure type \\\"n\\\".'")
 
@@ -670,7 +670,7 @@ def viewandupgrade():
                 echo "exit 0">> "$TMP"/upgradeScript
               else
                 echo "echo -n $done2">> "$TMP"/upgradeScript
-                echo "read -sn 1 -p $done3 -t 999999999">> "$TMP"/upgradeScript
+                echo "read -sn 1 -p "'"'" "$done3'"'" -t 999999999">> "$TMP"/upgradeScript
                 echo "echo">> "$TMP"/upgradeScript
                 echo "exit 0">> "$TMP"/upgradeScript
             fi
