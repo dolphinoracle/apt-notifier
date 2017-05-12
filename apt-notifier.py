@@ -1045,7 +1045,7 @@ def apt_history():
     shellvar = '    AptHistory="' + t01 + '"\n'
 
     script = '''#! /bin/bash
-    ''' + shellvar + '''
+''' + shellvar + '''
     
     TMP=$(mktemp -d /tmp/apt_history.XXXXXX)
     
