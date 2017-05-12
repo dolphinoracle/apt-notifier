@@ -24,16 +24,6 @@ gettext.install('apt-notifier.py')
 from string import Template	# for simple string substitution (popup_msg...)
 
 def set_translations():
-    script = '''#!/bin/sh
-    locale|grep ^LANG=|cut -f2 -d=|cut -f1 -d_
-    '''
-    script_file = tempfile.NamedTemporaryFile('wt')
-    script_file.write(script)
-    script_file.flush()
-    run = subprocess.Popen(["echo -n `sh %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
-    locale = run.stdout.read(128)
-    script_file.close()
-
     global tooltip_0_updates_available
     global tooltip_1_new_update_available
     global tooltip_multiple_new_updates_available
