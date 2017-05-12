@@ -1038,7 +1038,14 @@ EOF
 
 def apt_history():
     global Check_for_Updates_by_User
+
+    # ~~~ Localize 5 ~~~
+
+    t01 = _("Apt History")
+    shellvar = '    AptHistory="' + t01 + '"\n'
+
     script = '''#! /bin/bash
+    ''' + shellvar + '''
     
     TMP=$(mktemp -d /tmp/apt_history.XXXXXX)
     
@@ -1048,7 +1055,7 @@ def apt_history():
         --width=$(xprop -root | grep _NET_DESKTOP_GEOMETRY\(CARDINAL\) | awk '{print $3*.75}' | cut -f1 -d.) \\
         --height=480 \\
         --center \\
-        --title "apt history" \\
+        --title "$AptHistory" \\
         --text-info \\
         --filename="$TMP"/APT_HISTORY \\
         --fontname=mono \\
