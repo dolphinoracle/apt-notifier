@@ -645,8 +645,8 @@ def viewandupgrade():
                 echo 'apt-get autoremove -s | grep ^Remv -q'>> "$TMP"/upgradeScript
                 echo 'if [ $? -eq 0 ]; '>> "$TMP"/upgradeScript
                 echo '  then'>> "$TMP"/upgradeScript
-                echo 'echo '"$autoremovable_packages_msg1">> "$TMP"/upgradeScript
-                echo 'echo '"$autoremovable_packages_msg2">> "$TMP"/upgradeScript
+                echo 'echo "'"$autoremovable_packages_msg1"'"'>> "$TMP"/upgradeScript
+                echo 'echo "'"$autoremovable_packages_msg2"'"'>> "$TMP"/upgradeScript
                 echo 'apt-get autoremove -qV'>> "$TMP"/upgradeScript
                 echo '  else'>> "$TMP"/upgradeScript
                 echo '    :'>> "$TMP"/upgradeScript
