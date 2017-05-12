@@ -1,0 +1,189 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-10 21:26-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Geoff Gigg <geoffgigg@hotmail.com>, 2017\n"
+"Language-Team: Dutch (https://www.transifex.com/anticapitalista/teams/10162/nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: apt-notifier_translation_ready.py:73
+msgid "0 updates available"
+msgstr "0 updates beschikbaar"
+
+#: apt-notifier_translation_ready.py:74
+msgid "1 new update available"
+msgstr "1 nieuwe update beschikbaar"
+
+#: apt-notifier_translation_ready.py:75
+msgid " new updates available"
+msgstr "nieuwe update beschikbaar"
+
+#: apt-notifier_translation_ready.py:76
+msgid "Updates"
+msgstr "Updates"
+
+#: apt-notifier_translation_ready.py:77
+msgid "You have 1 new update available"
+msgstr "U heeft 1 nieuwe update beschikbaar"
+
+#: apt-notifier_translation_ready.py:78
+msgid "You have $count new updates available"
+msgstr "U heeft $count nieuwe update(s) beschikbaar"
+
+#: apt-notifier_translation_ready.py:79
+msgid "Upgrade using Synaptic"
+msgstr "Updaten met Synaptic"
+
+#: apt-notifier_translation_ready.py:80
+msgid "View and Upgrade"
+msgstr "Bekijken en Opwaarderen"
+
+#: apt-notifier_translation_ready.py:81
+msgid "Hide until updates available"
+msgstr "Verberg tot updates beschikbaar"
+
+#: apt-notifier_translation_ready.py:82
+msgid "Quit"
+msgstr "Stop"
+
+#: apt-notifier_translation_ready.py:83
+msgid "Apt-Notifier Help"
+msgstr "Apt-Notifier Help"
+
+#: apt-notifier_translation_ready.py:84
+msgid "Synaptic Help"
+msgstr "Synaptic Help"
+
+#: apt-notifier_translation_ready.py:85
+msgid "Preferences"
+msgstr "Voorkeuren"
+
+#: apt-notifier_translation_ready.py:86
+msgid "Apt History"
+msgstr "Apt Geschiedenis"
+
+#: apt-notifier_translation_ready.py:87
+msgid "Check for Updates"
+msgstr "Controleer op Updates"
+
+#: apt-notifier_translation_ready.py:289
+msgid "MX Apt Notifier--View and Upgrade, previewing: apt-get "
+msgstr "MX Apt Notifier--Bekijk en Opwaarderen, bekijken: apt-get"
+
+#: apt-notifier_translation_ready.py:290
+msgid "use apt-get's --yes option for "
+msgstr "gebruik apt-get's --yes optie voor"
+
+#: apt-notifier_translation_ready.py:291
+#, python-format
+msgid "automatically close terminal window when apt-get %s complete"
+msgstr "automatisch terminal scherm sluiten wanneer apt-get %s compleet is"
+
+#: apt-notifier_translation_ready.py:292
+#, python-format
+msgid "switch to %s"
+msgstr "wissel naar %s"
+
+#: apt-notifier_translation_ready.py:293
+msgid ""
+"Switches the type of Upgrade that will be performed, alternating back and "
+"forth between \\n'apt-get upgrade' and 'apt-get dist-upgrade'"
+msgstr ""
+"Wisselt het opwaardeertype dat toegepast wordt, heen en weer gaand tussen "
+"\\n'apt-get upgrade' en 'apt-get dist-upgrade'"
+
+#: apt-notifier_translation_ready.py:294
+msgid "Reload"
+msgstr "Herladen"
+
+#: apt-notifier_translation_ready.py:295
+msgid ""
+"Reload the package information to become informed about new, removed or "
+"upgraded software packages. \\n(apt-get update)"
+msgstr ""
+"Herlaad de pakketinformatie om te weten of er nieuwe, verwijderde op "
+"opgewaardeerde softwarepakketten zijn. \\n(apt-get update)"
+
+#: apt-notifier_translation_ready.py:296
+#: apt-notifier_translation_ready.py:1006
+msgid ""
+"The action you requested needs <b>root privileges</b>. Please enter "
+"<b>root's</b> password below."
+msgstr ""
+"De action die u wilt uitvoeren vereist <b>root privileges</b>. Vul aub "
+"<b>root's</b> wachtwoord hieronder in."
+
+#: apt-notifier_translation_ready.py:297
+#, python-format
+msgid "%s complete (or was canceled)"
+msgstr "%s compleet (of was geannuleerd)"
+
+#: apt-notifier_translation_ready.py:298
+msgid "'this terminal window can now be closed '"
+msgstr "'dit terminal scherm kan nu gesloten worden '"
+
+#: apt-notifier_translation_ready.py:299
+msgid "press any key to close"
+msgstr "druk een toets om te sluiten"
+
+#: apt-notifier_translation_ready.py:300
+msgid "Unneeded packages are installed that can be removed."
+msgstr "Onnodige pakketten zijn geïnstalleerd die verwijderd kunnen worden."
+
+#: apt-notifier_translation_ready.py:301
+msgid "'Running apt-get autoremove, if you are unsure type \\\"n\\\".'"
+msgstr "'Uitvoeren apt-get autoremove, als u niet zeker bent type \\\"n\\\".'"
+
+#: apt-notifier_translation_ready.py:824
+msgid "MX Apt Notifier preferences"
+msgstr "MX Apt Notifier voorkeuren"
+
+#: apt-notifier_translation_ready.py:825
+msgid "Upgrade behaviour   (also affects notification count)   "
+msgstr "Opwaardeergedrag (heeft ook invloed op notificatie-aantal)"
+
+#: apt-notifier_translation_ready.py:826
+msgid "Left-click behaviour   (when updates are available)   "
+msgstr "Links-klik gedrag (wanneer updates beschikbaar zijn)"
+
+#: apt-notifier_translation_ready.py:827
+msgid "Other options"
+msgstr "Andere opties"
+
+#: apt-notifier_translation_ready.py:828
+msgid "opens Synaptic "
+msgstr "opent Synaptic"
+
+#: apt-notifier_translation_ready.py:829
+msgid "opens MX Apt Notifier \"View and Upgrade\" window"
+msgstr "opent MX Apt Notifier \"Bekijk en Opwaardeer\" scherm"
+
+#: apt-notifier_translation_ready.py:830
+msgid "use apt-get's --yes option for upgrade/dist-upgrade"
+msgstr "gebruik apt-get's --yes optie voor upgrade/dist-upgrade"
+
+#: apt-notifier_translation_ready.py:831
+msgid ""
+"automatically close terminal window when apt-get upgrade/dist-upgrade "
+"complete"
+msgstr ""
+"automatisch terminal scherm sluiten wanneer apt-get upgrade/dist-upgrade "
+"compleet is"
+
+#: apt-notifier_translation_ready.py:832
+msgid "check for autoremovable packages after apt-get upgrade/dist-upgrade"
+msgstr ""
+"controleer voor automatisch verwijderbare pakketten na apt-get upgrade/dist-"
+"upgrade"

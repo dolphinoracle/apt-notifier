@@ -1,0 +1,186 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-10 21:26-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Geoff Gigg <geoffgigg@hotmail.com>, 2017\n"
+"Language-Team: Polish (https://www.transifex.com/anticapitalista/teams/10162/pl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>=14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+#: apt-notifier_translation_ready.py:73
+msgid "0 updates available"
+msgstr "0 Aktualizacje są dostępne"
+
+#: apt-notifier_translation_ready.py:74
+msgid "1 new update available"
+msgstr "1 Aktualizacja dostępna"
+
+#: apt-notifier_translation_ready.py:75
+msgid " new updates available"
+msgstr " Dostępne nowe aktualizacje"
+
+#: apt-notifier_translation_ready.py:76
+msgid "Updates"
+msgstr "Aktualizacje"
+
+#: apt-notifier_translation_ready.py:77
+msgid "You have 1 new update available"
+msgstr "Dostępna jest nowa aktualizacja"
+
+#: apt-notifier_translation_ready.py:78
+msgid "You have $count new updates available"
+msgstr "Masz dostępnych $count nowych aktualizacji"
+
+#: apt-notifier_translation_ready.py:79
+msgid "Upgrade using Synaptic"
+msgstr "Aktualizuj korzystając z Synaptic"
+
+#: apt-notifier_translation_ready.py:80
+msgid "View and Upgrade"
+msgstr "Przeglądaj i Aktualizować"
+
+#: apt-notifier_translation_ready.py:81
+msgid "Hide until updates available"
+msgstr "Ukryj aż będą dostępne aktualizacje"
+
+#: apt-notifier_translation_ready.py:82
+msgid "Quit"
+msgstr "Wyjście"
+
+#: apt-notifier_translation_ready.py:83
+msgid "Apt-Notifier Help"
+msgstr "Pomoc Apt-Notifier"
+
+#: apt-notifier_translation_ready.py:84
+msgid "Synaptic Help"
+msgstr "Pomoc Synaptic"
+
+#: apt-notifier_translation_ready.py:85
+msgid "Preferences"
+msgstr "Ustawienia"
+
+#: apt-notifier_translation_ready.py:86
+msgid "Apt History"
+msgstr ""
+
+#: apt-notifier_translation_ready.py:87
+msgid "Check for Updates"
+msgstr ""
+
+#: apt-notifier_translation_ready.py:289
+msgid "MX Apt Notifier--View and Upgrade, previewing: apt-get "
+msgstr "MX Apt Notifier--Przeglądaj i Aktualizować, podglądu: apt-get "
+
+#: apt-notifier_translation_ready.py:290
+msgid "use apt-get's --yes option for "
+msgstr "stosować apt-get --yes opcję  dla "
+
+#: apt-notifier_translation_ready.py:291
+#, python-format
+msgid "automatically close terminal window when apt-get %s complete"
+msgstr "zostały automatycznie zamknięte okno terminalu przy apt-get %s gotowy"
+
+#: apt-notifier_translation_ready.py:292
+#, python-format
+msgid "switch to %s"
+msgstr "Przełącz na %s"
+
+#: apt-notifier_translation_ready.py:293
+msgid ""
+"Switches the type of Upgrade that will be performed, alternating back and "
+"forth between \\n'apt-get upgrade' and 'apt-get dist-upgrade'"
+msgstr ""
+
+#: apt-notifier_translation_ready.py:294
+msgid "Reload"
+msgstr "Odśwież"
+
+#: apt-notifier_translation_ready.py:295
+msgid ""
+"Reload the package information to become informed about new, removed or "
+"upgraded software packages. \\n(apt-get update)"
+msgstr ""
+"Odświeża bazę informacji o pakietach, aby otrzymać informacje o nowych, "
+"usuniętych, zaktualizowanych pakietach oprogramowania. \\n(apt-get update)"
+
+#: apt-notifier_translation_ready.py:296
+#: apt-notifier_translation_ready.py:1006
+msgid ""
+"The action you requested needs <b>root privileges</b>. Please enter "
+"<b>root's</b> password below."
+msgstr ""
+"Polecenie, które chcesz wykonać, wymaga <b>uprawnień administratora</b>. "
+"Wpisz poniżej <b>hasło administratora</b>."
+
+#: apt-notifier_translation_ready.py:297
+#, python-format
+msgid "%s complete (or was canceled)"
+msgstr "Komenda %s została wykonana (lub przerwana)"
+
+#: apt-notifier_translation_ready.py:298
+msgid "'this terminal window can now be closed '"
+msgstr "'Okno to można zamknąć teraz '"
+
+#: apt-notifier_translation_ready.py:299
+msgid "press any key to close"
+msgstr "naciśnij dowolny klawisz, aby zamknąć"
+
+#: apt-notifier_translation_ready.py:300
+msgid "Unneeded packages are installed that can be removed."
+msgstr ""
+
+#: apt-notifier_translation_ready.py:301
+msgid "'Running apt-get autoremove, if you are unsure type \\\"n\\\".'"
+msgstr ""
+
+#: apt-notifier_translation_ready.py:824
+msgid "MX Apt Notifier preferences"
+msgstr "MX Apt Notifier Ustawienia"
+
+#: apt-notifier_translation_ready.py:825
+msgid "Upgrade behaviour   (also affects notification count)   "
+msgstr "Zachowanie aktualizacji   (również wpływ na liczbę powiadomień)   "
+
+#: apt-notifier_translation_ready.py:826
+msgid "Left-click behaviour   (when updates are available)   "
+msgstr ""
+"Zachowanie lewego przycisku myszy   (gdy dostępne są nowe aktualizacje)  "
+
+#: apt-notifier_translation_ready.py:827
+msgid "Other options"
+msgstr ""
+
+#: apt-notifier_translation_ready.py:828
+msgid "opens Synaptic "
+msgstr "otwiera Synaptic "
+
+#: apt-notifier_translation_ready.py:829
+msgid "opens MX Apt Notifier \"View and Upgrade\" window"
+msgstr "otwiera MX Apt Notifier \"Przeglądaj i Aktualizować\" okno"
+
+#: apt-notifier_translation_ready.py:830
+msgid "use apt-get's --yes option for upgrade/dist-upgrade"
+msgstr "stosować apt-get's --yes opcję  dla upgrade/dist-upgrade"
+
+#: apt-notifier_translation_ready.py:831
+msgid ""
+"automatically close terminal window when apt-get upgrade/dist-upgrade "
+"complete"
+msgstr ""
+"zostały automatycznie zamknięte okno terminalu przy upgrade/dist-upgrade "
+"gotowy"
+
+#: apt-notifier_translation_ready.py:832
+msgid "check for autoremovable packages after apt-get upgrade/dist-upgrade"
+msgstr ""

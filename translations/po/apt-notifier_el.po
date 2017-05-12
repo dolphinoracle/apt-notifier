@@ -1,0 +1,191 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-10 21:26-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Geoff Gigg <geoffgigg@hotmail.com>, 2017\n"
+"Language-Team: Greek (https://www.transifex.com/anticapitalista/teams/10162/el/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: apt-notifier_translation_ready.py:73
+msgid "0 updates available"
+msgstr "0 διαθέσιμες ενημερώσεις"
+
+#: apt-notifier_translation_ready.py:74
+msgid "1 new update available"
+msgstr ""
+
+#: apt-notifier_translation_ready.py:75
+msgid " new updates available"
+msgstr " νέες διαθέσιμες ενημερώσεις"
+
+#: apt-notifier_translation_ready.py:76
+msgid "Updates"
+msgstr "Ενημερώσεις"
+
+#: apt-notifier_translation_ready.py:77
+msgid "You have 1 new update available"
+msgstr "Έχετε 1 νέα διαθέσιμη ενημέρωση"
+
+#: apt-notifier_translation_ready.py:78
+msgid "You have $count new updates available"
+msgstr "Έχετε $count  νέες διαθέσιμες ενημερώσεις"
+
+#: apt-notifier_translation_ready.py:79
+msgid "Upgrade using Synaptic"
+msgstr "Αναβάθμιση χρησιμοποιώντας το Synaptic"
+
+#: apt-notifier_translation_ready.py:80
+msgid "View and Upgrade"
+msgstr "Προβολή και Αναβάθμιση"
+
+#: apt-notifier_translation_ready.py:81
+msgid "Hide until updates available"
+msgstr "Απόκρυψη μέχρι διαθέσιμες ενημερώσεις"
+
+#: apt-notifier_translation_ready.py:82
+msgid "Quit"
+msgstr "Έξοδος "
+
+#: apt-notifier_translation_ready.py:83
+msgid "Apt-Notifier Help"
+msgstr "Apt-Notifier Βοήθεια"
+
+#: apt-notifier_translation_ready.py:84
+msgid "Synaptic Help"
+msgstr "Synaptic Βοήθεια"
+
+#: apt-notifier_translation_ready.py:85
+msgid "Preferences"
+msgstr "Προτιμήσεις"
+
+#: apt-notifier_translation_ready.py:86
+msgid "Apt History"
+msgstr ""
+
+#: apt-notifier_translation_ready.py:87
+msgid "Check for Updates"
+msgstr ""
+
+#: apt-notifier_translation_ready.py:289
+msgid "MX Apt Notifier--View and Upgrade, previewing: apt-get "
+msgstr "MX Apt Notifier--Προβολή και Αναβάθμιση, προεπισκόπηση: apt-get "
+
+#: apt-notifier_translation_ready.py:290
+msgid "use apt-get's --yes option for "
+msgstr "χρησιμοποιήσετε την επιλογή του apt-get --yes option για την "
+
+#: apt-notifier_translation_ready.py:291
+#, python-format
+msgid "automatically close terminal window when apt-get %s complete"
+msgstr ""
+"Να κλείσει αυτόματα το παράθυρο τερματικού όταν το apt-get %s έχει "
+"ολοκληρωθεί"
+
+#: apt-notifier_translation_ready.py:292
+#, python-format
+msgid "switch to %s"
+msgstr "αλλαγή σε %s"
+
+#: apt-notifier_translation_ready.py:293
+msgid ""
+"Switches the type of Upgrade that will be performed, alternating back and "
+"forth between \\n'apt-get upgrade' and 'apt-get dist-upgrade'"
+msgstr ""
+
+#: apt-notifier_translation_ready.py:294
+msgid "Reload"
+msgstr "Ανανέωση"
+
+#: apt-notifier_translation_ready.py:295
+msgid ""
+"Reload the package information to become informed about new, removed or "
+"upgraded software packages. \\n(apt-get update)"
+msgstr ""
+"Ανανέωση των πληροφοριών του πακέτου ώστε να γίνει ενημέρωση για νέα, "
+"αναβαθμισμένα ή απομακρυθέντα πακέτα λογισμικού. \\n(apt-get update)"
+
+#: apt-notifier_translation_ready.py:296
+#: apt-notifier_translation_ready.py:1006
+msgid ""
+"The action you requested needs <b>root privileges</b>. Please enter "
+"<b>root's</b> password below."
+msgstr ""
+"Η ενέργεια που ζητήσατε απαιτεί <b>προνόμια root</b>. Παρακαλώ εισάγετε τον "
+"κωδικό πρόσβασης του <b>root</b> παρακάτω."
+
+#: apt-notifier_translation_ready.py:297
+#, python-format
+msgid "%s complete (or was canceled)"
+msgstr "%s ολοκληρώθηκε (ή ακυρώθηκε)"
+
+#: apt-notifier_translation_ready.py:298
+msgid "'this terminal window can now be closed '"
+msgstr "'Αυτό το παράθυρο τερματικού μπορεί να κλείσει '"
+
+#: apt-notifier_translation_ready.py:299
+msgid "press any key to close"
+msgstr "πατήστε οποιοδήποτε πλήκτρο να κλείσει"
+
+#: apt-notifier_translation_ready.py:300
+msgid "Unneeded packages are installed that can be removed."
+msgstr "Περιττά εγκαταστημένα πακέτα που μπορεί να αφαιρεθούν"
+
+#: apt-notifier_translation_ready.py:301
+msgid "'Running apt-get autoremove, if you are unsure type \\\"n\\\".'"
+msgstr ""
+"'Εκτέλεση του apt-get autoremove, αν δεν είστε σίγουροι, πληκτρολογήστε "
+"\\\"ο\\\".'"
+
+#: apt-notifier_translation_ready.py:824
+msgid "MX Apt Notifier preferences"
+msgstr "MX Apt Notifier προτιμήσεις"
+
+#: apt-notifier_translation_ready.py:825
+msgid "Upgrade behaviour   (also affects notification count)   "
+msgstr "αναβάθμιση (επηρεάζει επίσης καταμέτρηση κοινοποίηση)   "
+
+#: apt-notifier_translation_ready.py:826
+msgid "Left-click behaviour   (when updates are available)   "
+msgstr "αριστερό κλικ (όταν υπάρχουν διαθέσιμες ενημερώσεις)   "
+
+#: apt-notifier_translation_ready.py:827
+msgid "Other options"
+msgstr ""
+
+#: apt-notifier_translation_ready.py:828
+msgid "opens Synaptic "
+msgstr "ανοίγει το  Synaptic "
+
+#: apt-notifier_translation_ready.py:829
+msgid "opens MX Apt Notifier \"View and Upgrade\" window"
+msgstr "ανοίγει το παράθυρο \"Προβολή και Αναβάθμιση\" του MX Apt Notifier"
+
+#: apt-notifier_translation_ready.py:830
+msgid "use apt-get's --yes option for upgrade/dist-upgrade"
+msgstr ""
+"χρησιμοποιήσετε την επιλογή του apt-get --yes option για την αναβάθμιση"
+
+#: apt-notifier_translation_ready.py:831
+msgid ""
+"automatically close terminal window when apt-get upgrade/dist-upgrade "
+"complete"
+msgstr ""
+"Να κλείσει αυτόματα το παράθυρο τερματικού όταν το apt-get upgrade/dist-"
+"upgrade έχει ολοκληρωθεί"
+
+#: apt-notifier_translation_ready.py:832
+msgid "check for autoremovable packages after apt-get upgrade/dist-upgrade"
+msgstr ""
+"Έλεγχος για αυτόματα αφαιρούμενα πακέτα μετά το apt-get upgrade/dist-upgrade"

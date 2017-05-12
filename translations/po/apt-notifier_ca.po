@@ -1,0 +1,189 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-10 21:26-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Geoff Gigg <geoffgigg@hotmail.com>, 2017\n"
+"Language-Team: Catalan (https://www.transifex.com/anticapitalista/teams/10162/ca/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ca\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: apt-notifier_translation_ready.py:73
+msgid "0 updates available"
+msgstr "No hi ha actualitzacions disponibles"
+
+#: apt-notifier_translation_ready.py:74
+msgid "1 new update available"
+msgstr "1 actualització disponible"
+
+#: apt-notifier_translation_ready.py:75
+msgid " new updates available"
+msgstr "noves actualitzacions disponibles"
+
+#: apt-notifier_translation_ready.py:76
+msgid "Updates"
+msgstr "Actualitzacions"
+
+#: apt-notifier_translation_ready.py:77
+msgid "You have 1 new update available"
+msgstr "Teniu 1 actualització disponible"
+
+#: apt-notifier_translation_ready.py:78
+msgid "You have $count new updates available"
+msgstr " Teniu $count noves actualitzacions disponibles"
+
+#: apt-notifier_translation_ready.py:79
+msgid "Upgrade using Synaptic"
+msgstr "Actualitza usant Synaptic"
+
+#: apt-notifier_translation_ready.py:80
+msgid "View and Upgrade"
+msgstr "Veure i actualitzar"
+
+#: apt-notifier_translation_ready.py:81
+msgid "Hide until updates available"
+msgstr "Amagar fins que hi hagi actualitzacions disponibles"
+
+#: apt-notifier_translation_ready.py:82
+msgid "Quit"
+msgstr "Surt "
+
+#: apt-notifier_translation_ready.py:83
+msgid "Apt-Notifier Help"
+msgstr "Ajuda d'Apt-Notifier"
+
+#: apt-notifier_translation_ready.py:84
+msgid "Synaptic Help"
+msgstr "Ajuda de Synaptic"
+
+#: apt-notifier_translation_ready.py:85
+msgid "Preferences"
+msgstr "Preferències"
+
+#: apt-notifier_translation_ready.py:86
+msgid "Apt History"
+msgstr "Historial de l'APT "
+
+#: apt-notifier_translation_ready.py:87
+msgid "Check for Updates"
+msgstr "Comprova si hi ha actualitzacions "
+
+#: apt-notifier_translation_ready.py:289
+msgid "MX Apt Notifier--View and Upgrade, previewing: apt-get "
+msgstr "MX Apt Notifier--Veure i actualitzar, vista prèvia: apt-get "
+
+#: apt-notifier_translation_ready.py:290
+msgid "use apt-get's --yes option for "
+msgstr "usa l'opció d'apt-get --yes per a "
+
+#: apt-notifier_translation_ready.py:291
+#, python-format
+msgid "automatically close terminal window when apt-get %s complete"
+msgstr ""
+"tanca automàticament la finestra del terminal quan s'ha completat apt-get %s"
+
+#: apt-notifier_translation_ready.py:292
+#, python-format
+msgid "switch to %s"
+msgstr "canvia a %s"
+
+#: apt-notifier_translation_ready.py:293
+msgid ""
+"Switches the type of Upgrade that will be performed, alternating back and "
+"forth between \\n'apt-get upgrade' and 'apt-get dist-upgrade'"
+msgstr ""
+"Commuta el tipus d'actualització que es farà, canviant entre \\n'apt-get "
+"upgrade' i 'apt-get dist-upgrade'."
+
+#: apt-notifier_translation_ready.py:294
+msgid "Reload"
+msgstr "Refresca"
+
+#: apt-notifier_translation_ready.py:295
+msgid ""
+"Reload the package information to become informed about new, removed or "
+"upgraded software packages. \\n(apt-get update)"
+msgstr ""
+"Refresqueu la informació dels paquets per a informar-vos de paquets de "
+"programari nous, eliminats o actualitzats. \\n(apt-get update)"
+
+#: apt-notifier_translation_ready.py:296
+#: apt-notifier_translation_ready.py:1006
+msgid ""
+"The action you requested needs <b>root privileges</b>. Please enter "
+"<b>root's</b> password below."
+msgstr ""
+"A l'acció que heu demanat li calen <b>privilegis de root</b>. Si us plau, "
+"introduïu la contrasenya de <b>root</b> tot seguit."
+
+#: apt-notifier_translation_ready.py:297
+#, python-format
+msgid "%s complete (or was canceled)"
+msgstr "s'ha completat (o cancel·lat) %s"
+
+#: apt-notifier_translation_ready.py:298
+msgid "'this terminal window can now be closed '"
+msgstr "'ara podeu tancar la finestra '"
+
+#: apt-notifier_translation_ready.py:299
+msgid "press any key to close"
+msgstr "prement qualsevol tecla"
+
+#: apt-notifier_translation_ready.py:300
+msgid "Unneeded packages are installed that can be removed."
+msgstr "Hi ha paquets instal·lats innecessaris que es poden eliminar."
+
+#: apt-notifier_translation_ready.py:301
+msgid "'Running apt-get autoremove, if you are unsure type \\\"n\\\".'"
+msgstr "'Executant apt-get autoremove, si no esteu segurs entreu \\\"n\\\"."
+
+#: apt-notifier_translation_ready.py:824
+msgid "MX Apt Notifier preferences"
+msgstr "Preferències de MX Apt Notifier"
+
+#: apt-notifier_translation_ready.py:825
+msgid "Upgrade behaviour   (also affects notification count)   "
+msgstr ""
+"Comportament d'actualitzacions (també afecta el compte d'actualitzacions)   "
+
+#: apt-notifier_translation_ready.py:826
+msgid "Left-click behaviour   (when updates are available)   "
+msgstr "Comportament del clic esquerre (quan hi ha actualitzacions)   "
+
+#: apt-notifier_translation_ready.py:827
+msgid "Other options"
+msgstr "Altres opcions"
+
+#: apt-notifier_translation_ready.py:828
+msgid "opens Synaptic "
+msgstr "obre Synaptic "
+
+#: apt-notifier_translation_ready.py:829
+msgid "opens MX Apt Notifier \"View and Upgrade\" window"
+msgstr "obre la finestra de MX Apt Notifier \"Veure i actualitzar\""
+
+#: apt-notifier_translation_ready.py:830
+msgid "use apt-get's --yes option for upgrade/dist-upgrade"
+msgstr "usa l'opció d'apt-get --yes per a upgrade/dist-upgrade"
+
+#: apt-notifier_translation_ready.py:831
+msgid ""
+"automatically close terminal window when apt-get upgrade/dist-upgrade "
+"complete"
+msgstr ""
+"tanca automàticament la finestra del terminal quan s'ha completat apt-get "
+"upgrade/dist-upgrade"
+
+#: apt-notifier_translation_ready.py:832
+msgid "check for autoremovable packages after apt-get upgrade/dist-upgrade"
+msgstr "cerca paquets autoeliminables després d'apt-get upgrade/dist-upgrade "

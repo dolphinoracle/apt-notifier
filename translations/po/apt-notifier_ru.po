@@ -1,0 +1,190 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-10 21:26-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Вячеслав Волошин <vol_vel@mail.ru>, 2017\n"
+"Language-Team: Russian (https://www.transifex.com/anticapitalista/teams/10162/ru/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: apt-notifier_translation_ready.py:73
+msgid "0 updates available"
+msgstr "0 обновлений доступно"
+
+#: apt-notifier_translation_ready.py:74
+msgid "1 new update available"
+msgstr "1 обновление доступно"
+
+#: apt-notifier_translation_ready.py:75
+msgid " new updates available"
+msgstr "доступны новые обновления"
+
+#: apt-notifier_translation_ready.py:76
+msgid "Updates"
+msgstr "Обновления"
+
+#: apt-notifier_translation_ready.py:77
+msgid "You have 1 new update available"
+msgstr "У вас есть 1 доступное обновление"
+
+#: apt-notifier_translation_ready.py:78
+msgid "You have $count new updates available"
+msgstr "У Вас есть $count доступных обновлений"
+
+#: apt-notifier_translation_ready.py:79
+msgid "Upgrade using Synaptic"
+msgstr "Обновить с помощью Synaptic"
+
+#: apt-notifier_translation_ready.py:80
+msgid "View and Upgrade"
+msgstr "Просмотр и обновление"
+
+#: apt-notifier_translation_ready.py:81
+msgid "Hide until updates available"
+msgstr "Скрыть до появления обновлений"
+
+#: apt-notifier_translation_ready.py:82
+msgid "Quit"
+msgstr "Выход"
+
+#: apt-notifier_translation_ready.py:83
+msgid "Apt-Notifier Help"
+msgstr "Помощь по Apt-Notifier"
+
+#: apt-notifier_translation_ready.py:84
+msgid "Synaptic Help"
+msgstr "Помощь по Synaptic"
+
+#: apt-notifier_translation_ready.py:85
+msgid "Preferences"
+msgstr "Предпочтения"
+
+#: apt-notifier_translation_ready.py:86
+msgid "Apt History"
+msgstr "История обновлений"
+
+#: apt-notifier_translation_ready.py:87
+msgid "Check for Updates"
+msgstr "Проверить обновления"
+
+#: apt-notifier_translation_ready.py:289
+msgid "MX Apt Notifier--View and Upgrade, previewing: apt-get "
+msgstr "MX Apt Notifier--Просмотр и обновления, предпросмотр: apt-get "
+
+#: apt-notifier_translation_ready.py:290
+msgid "use apt-get's --yes option for "
+msgstr "использовать опцию apt-get's --yes для "
+
+#: apt-notifier_translation_ready.py:291
+#, python-format
+msgid "automatically close terminal window when apt-get %s complete"
+msgstr "автоматически закрыть окно терминала после выполнения apt-get %s"
+
+#: apt-notifier_translation_ready.py:292
+#, python-format
+msgid "switch to %s"
+msgstr "переключить на %s"
+
+#: apt-notifier_translation_ready.py:293
+msgid ""
+"Switches the type of Upgrade that will be performed, alternating back and "
+"forth between \\n'apt-get upgrade' and 'apt-get dist-upgrade'"
+msgstr ""
+"Переключает тип обновления с \\n'apt-get upgrade' на 'apt-get dist-upgrade',"
+" и обратно"
+
+#: apt-notifier_translation_ready.py:294
+msgid "Reload"
+msgstr "Перезагрузить"
+
+#: apt-notifier_translation_ready.py:295
+msgid ""
+"Reload the package information to become informed about new, removed or "
+"upgraded software packages. \\n(apt-get update)"
+msgstr ""
+"Обновить информацию о пакетах, чтобы получить информацию о новых, удаленных "
+"или обновленных пакетах программного обеспечения. \\n(apt-get update)"
+
+#: apt-notifier_translation_ready.py:296
+#: apt-notifier_translation_ready.py:1006
+msgid ""
+"The action you requested needs <b>root privileges</b>. Please enter "
+"<b>root's</b> password below."
+msgstr ""
+"Запрошенное действие требует <b>root привиллегий</b>. Введите ниже "
+"<b>root</b> пароль."
+
+#: apt-notifier_translation_ready.py:297
+#, python-format
+msgid "%s complete (or was canceled)"
+msgstr "%s завершено (или было отменено)"
+
+#: apt-notifier_translation_ready.py:298
+msgid "'this terminal window can now be closed '"
+msgstr "'это окно терминала теперь можно закрыть '"
+
+#: apt-notifier_translation_ready.py:299
+msgid "press any key to close"
+msgstr "нажмите любую клавишу для выхода"
+
+#: apt-notifier_translation_ready.py:300
+msgid "Unneeded packages are installed that can be removed."
+msgstr "Установлены ненужные пакеты, которые можно удалить."
+
+#: apt-notifier_translation_ready.py:301
+msgid "'Running apt-get autoremove, if you are unsure type \\\"n\\\".'"
+msgstr ""
+"'Выполнение команды apt-get autoremove, если Вы не уверены, нажмите "
+"\\\"n\\\".'"
+
+#: apt-notifier_translation_ready.py:824
+msgid "MX Apt Notifier preferences"
+msgstr "MX Apt Notifier предпочтения"
+
+#: apt-notifier_translation_ready.py:825
+msgid "Upgrade behaviour   (also affects notification count)   "
+msgstr "Поведение при обновлении (также влияет на количество уведомлений)"
+
+#: apt-notifier_translation_ready.py:826
+msgid "Left-click behaviour   (when updates are available)   "
+msgstr "Поведение при нажатии левой кнопки мыши (когда доступны обновления)"
+
+#: apt-notifier_translation_ready.py:827
+msgid "Other options"
+msgstr "Другие опции"
+
+#: apt-notifier_translation_ready.py:828
+msgid "opens Synaptic "
+msgstr "открыть Synaptic"
+
+#: apt-notifier_translation_ready.py:829
+msgid "opens MX Apt Notifier \"View and Upgrade\" window"
+msgstr "открыть окно MX Apt Notifier \"Просмотр и обновление\""
+
+#: apt-notifier_translation_ready.py:830
+msgid "use apt-get's --yes option for upgrade/dist-upgrade"
+msgstr "использовать apt-get's --yes опцию для upgrade/dist-upgrade"
+
+#: apt-notifier_translation_ready.py:831
+msgid ""
+"automatically close terminal window when apt-get upgrade/dist-upgrade "
+"complete"
+msgstr ""
+"автоматически закрыть окно терминала после выполнения apt-get upgrade/dist-"
+"upgrade"
+
+#: apt-notifier_translation_ready.py:832
+msgid "check for autoremovable packages after apt-get upgrade/dist-upgrade"
+msgstr ""
+"проверить наличие автоудаляемых пакетов после apt-get upgrade/dist-upgrade"
