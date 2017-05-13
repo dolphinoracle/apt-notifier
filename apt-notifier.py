@@ -62,7 +62,7 @@ def set_translations():
 
     tooltip_0_updates_available                 = unicode (_("0 updates available")                    ,'utf-8')
     tooltip_1_new_update_available              = unicode (_("1 new update available")                 ,'utf-8')
-    tooltip_multiple_new_updates_available      = unicode (_(" new updates available")                 ,'utf-8')
+    tooltip_multiple_new_updates_available      = unicode (_("$count new updates available")           ,'utf-8')
     popup_title                                 = unicode (_("Updates")                                ,'utf-8')
     popup_msg_1_new_update_available            = unicode (_("You have 1 new update available")        ,'utf-8')
     popup_msg_multiple_new_updates_available    = unicode (_("You have $count new updates available")  ,'utf-8')
@@ -245,7 +245,9 @@ def check_updates():
         else:
             AptIcon.setIcon(NewUpdatesIcon)
             AptIcon.show()
-            AptIcon.setToolTip(text + tooltip_multiple_new_updates_available)
+            tooltip_template=Template(tooltip_multiple_new_updates_available)
+            tooltip_with_count=tooltip_template.substitute(count=text)
+            AptIcon.setToolTip(tooltip_with_count)    
             add_rightclick_actions()
             # Shows the pop up message only if not displayed before 
             if message_status == "not displayed":
@@ -277,19 +279,24 @@ def viewandupgrade():
     #   t11: '( and )' moved outside of translatable string to protect from potential translator's typo
     #   t13: \\\"n\\\" will convert to \"n\" which will become "n" in shell (to avoid concatenating shell strings)
 
-    t01 = _("MX Apt Notifier--View and Upgrade, previewing: apt-get ")
-    t02 = _("use apt-get's --yes option for ")
+    # t01 thru t07, Yad 'View and Upgrade' strings 
+    t01 = _("MX Apt Notifier--View and Upgrade, previewing: apt-get")
+    t02 = _("use apt-get's --yes option for")
     t03 = _("automatically close terminal window when apt-get %s complete")
     t04 = _("switch to %s")
-    t05 = _("Switches the type of Upgrade that will be performed, alternating back and forth between \\n'apt-get upgrade' and 'apt-get dist-upgrade'")
+    t05 = _("Switches the type of Upgrade that will be performed, alternating back and forth between 'apt-get upgrade' and 'apt-get dist-upgrade'.")
     t06 = _("Reload")
-    t07 = _("Reload the package information to become informed about new, removed or upgraded software packages. \\n(apt-get update)")
+    t07 = _("Reload the package information to become informed about new, removed or upgraded software packages. (apt-get update)")
+    
+    # t08, gksu dialog
     t08 = _("The action you requested needs <b>root privileges</b>. Please enter <b>root's</b> password below.")
+
+    # t09 thru t13, strings for the upgrade/dist-upgrade script that runs in the terminal window    
     t09 = _("%s complete (or was canceled)")
-    t10 = _("'this terminal window can now be closed '")
-    t11 = "(" + _("press any key to close") + ")"
+    t10 = _("this terminal window can now be closed")
+    t11 = "'(" + _("press any key to close") + ")'"
     t12 = _("Unneeded packages are installed that can be removed.")
-    t13 = _("'Running apt-get autoremove, if you are unsure type \\\"n\\\".'")
+    t13 = _("Running apt-get autoremove, if you are unsure type 'n'.")
 
     shellvar = (
 	'    window_title="'			+ t01 + '"\n'
@@ -570,10 +577,10 @@ def viewandupgrade():
         --width=640 \\
         --height=480 \\
         --center \\
-        --title "$window_title$UpgradeType" \\
+        --title "$window_title $UpgradeType" \\
         --form \\
           --field :TXT "$(sed 's/^/  /' "$TMP"/upgrades)" \\
-          --field="$use_apt_get_dash_dash_yes$UpgradeType":CHK $UpgradeAssumeYes \\
+          --field="$use_apt_get_dash_dash_yes $UpgradeType":CHK $UpgradeAssumeYes \\
           --field="$auto_close_label":CHK $UpgradeAutoClose \\
         --button "$switch_label"!!"$switch_tooltip":4 \\
         --button 'apt-get '"$UpgradeType"!mnotify-some-"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"!:0 \\
@@ -669,8 +676,8 @@ def viewandupgrade():
                 echo "sleep 1">> "$TMP"/upgradeScript
                 echo "exit 0">> "$TMP"/upgradeScript
               else
-                echo "echo -n $done2">> "$TMP"/upgradeScript
-                echo "read -sn 1 -p "'"'" "$done3'"'" -t 999999999">> "$TMP"/upgradeScript
+                echo "echo -n $done2' '">> "$TMP"/upgradeScript
+                echo "read -sn 1 -p $done3 -t 999999999">> "$TMP"/upgradeScript
                 echo "echo">> "$TMP"/upgradeScript
                 echo "exit 0">> "$TMP"/upgradeScript
             fi
@@ -845,10 +852,10 @@ def aptnotifier_prefs():
     # ~~~ Localize 3 ~~~
 
     t01 = _("MX Apt Notifier preferences")
-    t02 = _("Upgrade behaviour   (also affects notification count)   ")
-    t03 = _("Left-click behaviour   (when updates are available)   ")
+    t02 = _("Upgrade behaviour   (also affects notification count)")
+    t03 = _("Left-click behaviour   (when updates are available)")
     t04 = _("Other options")
-    t05 = _("opens Synaptic ")
+    t05 = _("opens Synaptic")
     t06 = _('opens MX Apt Notifier "View and Upgrade" window')
     t07 = _("use apt-get's --yes option for upgrade/dist-upgrade")
     t08 = _("automatically close terminal window when apt-get upgrade/dist-upgrade complete")
@@ -931,7 +938,7 @@ def aptnotifier_prefs():
         </frame>
         <vseparator></vseparator>
         </frame>
-        <frame Icons>
+        <frame Icons   >
           <hbox homogeneous="true">
           <vbox>
             <radiobutton active="@IconLookMx16@">
@@ -966,9 +973,9 @@ EOF
 
     # edit translateable strings placeholders in "$TMP"/DIALOG
     sed -i 's/@title@/'"$window_title"'/' "$TMP"/DIALOG
-    sed -i 's/@upgrade_behaviour@/'"$frame_upgrade_behaviour"'/' "$TMP"/DIALOG
-    sed -i 's/@leftclick_behaviour@/'"$frame_left_click_behaviour"'/' "$TMP"/DIALOG
-    sed -i 's/@Other_options@/'"$frame_other_options"'/' "$TMP"/DIALOG
+    sed -i 's/@upgrade_behaviour@/'"$frame_upgrade_behaviour""   "'/' "$TMP"/DIALOG
+    sed -i 's/@leftclick_behaviour@/'"$frame_left_click_behaviour""   "'/' "$TMP"/DIALOG
+    sed -i 's/@Other_options@/'"$frame_other_options""   "'/' "$TMP"/DIALOG
     sed -i 's/@opens_Synaptic@/'"$left_click_Synaptic"'/' "$TMP"/DIALOG
     sed -i 's/@opens_View_and_Upgrade@/'"$left_click_ViewandUpgrade"'/' "$TMP"/DIALOG
     sed -i 's|@use_apt_get_yes@|'"$use_apt_get_dash_dash_yes"'|' "$TMP"/DIALOG
