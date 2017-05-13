@@ -12,3 +12,16 @@ mnotify-none-classic.png usr/share/icons
 mnotify-some-classic.png usr/share/icons
 mnotify-none-mx16.png usr/share/icons
 mnotify-some-mx16.png usr/share/icons
+translations/mo/ca/apt-notifier.mo usr/share/locale/ca/LC_MESSAGES
+translations/mo/cs/apt-notifier.mo usr/share/locale/cs/LC_MESSAGES
+translations/mo/de/apt-notifier.mo usr/share/locale/de/LC_MESSAGES
+translations/mo/el/apt-notifier.mo usr/share/locale/el/LC_MESSAGES
+translations/mo/es/apt-notifier.mo usr/share/locale/es/LC_MESSAGES
+translations/mo/fr/apt-notifier.mo usr/share/locale/fr/LC_MESSAGES
+translations/mo/it/apt-notifier.mo usr/share/locale/it/LC_MESSAGES
+translations/mo/ja/apt-notifier.mo usr/share/locale/ja/LC_MESSAGES
+translations/mo/nl/apt-notifier.mo usr/share/locale/nl/LC_MESSAGES
+translations/mo/pl/apt-notifier.mo usr/share/locale/pl/LC_MESSAGES
+translations/mo/pt/apt-notifier.mo usr/share/locale/pt/LC_MESSAGES
+translations/mo/ru/apt-notifier.mo usr/share/locale/ru/LC_MESSAGES
+translations/mo/sv/apt-notifier.mo usr/share/locale/sv/LC_MESSAGES
