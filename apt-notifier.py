@@ -856,7 +856,7 @@ def aptnotifier_prefs():
     t03 = _("Left-click behaviour   (when updates are available)")
     t04 = _("Other options")
     t05 = _("opens Synaptic")
-    t06 = _('opens MX Apt Notifier "View and Upgrade" window')
+    t06 = _("opens MX Apt Notifier 'View and Upgrade' window")
     t07 = _("use apt-get's --yes option for upgrade/dist-upgrade")
     t08 = _("automatically close terminal window when apt-get upgrade/dist-upgrade complete")
     t09 = _("check for autoremovable packages after apt-get upgrade/dist-upgrade")
@@ -867,7 +867,7 @@ def aptnotifier_prefs():
 	'    frame_left_click_behaviour="'		+ t03 + '"\n'
 	'    frame_other_options="'			+ t04 + '"\n'
 	'    left_click_Synaptic="'			+ t05 + '"\n'
-	"    left_click_ViewandUpgrade='"		+ t06 + "'\n"
+	'    left_click_ViewandUpgrade="'		+ t06 + '"\n'
 	'    use_apt_get_dash_dash_yes="'		+ t07 + '"\n'
 	'    auto_close_term_window_when_complete="' 	+ t08 + '"\n'
 	'    check_for_autoremoves="'			+ t09 + '"\n'
@@ -888,12 +888,12 @@ def aptnotifier_prefs():
         <frame @upgrade_behaviour@>
           <frame>
             <radiobutton active="@UpgradeBehaviourAptGetUpgrade@">
-              <label>apt-get upgrade</label>
+              <label>"apt-get upgrade"</label>
               <variable>UpgradeType_upgrade</variable>
               <action>:</action>
             </radiobutton>
             <radiobutton active="@UpgradeBehaviourAptGetDistUpgrade@">
-              <label>apt-get dist-upgrade</label>
+              <label>"apt-get dist-upgrade"</label>
               <variable>UpgradeType_dist-upgrade</variable>
               <action>:</action>
             </radiobutton>
@@ -942,12 +942,12 @@ def aptnotifier_prefs():
           <hbox homogeneous="true">
           <vbox>
             <radiobutton active="@IconLookMx16@">
-              <label>mx16   </label>
+              <label>"mx16   "</label>
               <variable>IconLook_mx16</variable>
               <action>:</action>
             </radiobutton>
             <radiobutton active="@IconLookClassic@">
-              <label>classic</label>
+              <label>"classic"</label>
               <variable>IconLook_classic</variable>
               <action>:</action>
             </radiobutton>
@@ -973,14 +973,14 @@ EOF
 
     # edit translateable strings placeholders in "$TMP"/DIALOG
     sed -i 's/@title@/'"$window_title"'/' "$TMP"/DIALOG
-    sed -i 's/@upgrade_behaviour@/'"$frame_upgrade_behaviour""   "'/' "$TMP"/DIALOG
-    sed -i 's/@leftclick_behaviour@/'"$frame_left_click_behaviour""   "'/' "$TMP"/DIALOG
-    sed -i 's/@Other_options@/'"$frame_other_options""   "'/' "$TMP"/DIALOG
-    sed -i 's/@opens_Synaptic@/'"$left_click_Synaptic"'/' "$TMP"/DIALOG
-    sed -i 's/@opens_View_and_Upgrade@/'"$left_click_ViewandUpgrade"'/' "$TMP"/DIALOG
-    sed -i 's|@use_apt_get_yes@|'"$use_apt_get_dash_dash_yes"'|' "$TMP"/DIALOG
-    sed -i 's|@auto_close_term_window@|'"$auto_close_term_window_when_complete"'|' "$TMP"/DIALOG
-    sed -i 's|@check_for_autoremoves@|'"$check_for_autoremoves"'|' "$TMP"/DIALOG
+    sed -i 's/@upgrade_behaviour@/"'"$frame_upgrade_behaviour""   "'"/' "$TMP"/DIALOG
+    sed -i 's/@leftclick_behaviour@/"'"$frame_left_click_behaviour""   "'"/' "$TMP"/DIALOG
+    sed -i 's/@Other_options@/"'"$frame_other_options""   "'"/' "$TMP"/DIALOG
+    sed -i 's/@opens_Synaptic@/"'"$left_click_Synaptic"'"/' "$TMP"/DIALOG
+    sed -i 's/@opens_View_and_Upgrade@/"'"$left_click_ViewandUpgrade"'"/' "$TMP"/DIALOG
+    sed -i 's|@use_apt_get_yes@|"'"$use_apt_get_dash_dash_yes"'"|' "$TMP"/DIALOG
+    sed -i 's|@auto_close_term_window@|"'"$auto_close_term_window_when_complete"'"|' "$TMP"/DIALOG
+    sed -i 's|@check_for_autoremoves@|"'"$check_for_autoremoves"'"|' "$TMP"/DIALOG
 
     # edit placeholders in "$TMP"/DIALOG to set initial settings of the radiobuttons & checkboxes 
     sed -i 's/@UpgradeBehaviourAptGetUpgrade@/'$(if [ $(grep UpgradeType=upgrade ~/.config/apt-notifierrc) ]; then echo -n true; else echo -n false; fi)'/' "$TMP"/DIALOG
