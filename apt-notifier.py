@@ -845,6 +845,7 @@ def initialize_aptnotifier_prefs():
     run = subprocess.Popen(['sh %s' % script_file.name],shell=True).wait()
     script_file.close()
 
+
 def aptnotifier_prefs():
     global Check_for_Updates_by_User
     initialize_aptnotifier_prefs()
@@ -860,6 +861,8 @@ def aptnotifier_prefs():
     t07 = _("use apt-get's --yes option for upgrade/dist-upgrade")
     t08 = _("automatically close terminal window when apt-get upgrade/dist-upgrade complete")
     t09 = _("check for autoremovable packages after apt-get upgrade/dist-upgrade")
+    t10 = _("Icons")
+    t11 = _("classic")
  
     shellvar = (
 	'    window_title="'				+ t01 + '"\n'
@@ -871,6 +874,8 @@ def aptnotifier_prefs():
 	'    use_apt_get_dash_dash_yes="'		+ t07 + '"\n'
 	'    auto_close_term_window_when_complete="' 	+ t08 + '"\n'
 	'    check_for_autoremoves="'			+ t09 + '"\n'
+    '    frame_Icons="'                     + t10 + '"\n'
+    '    label_classic="'                   + t11 + '"\n'
 	)
     
     script = '''#! /bin/bash
@@ -938,16 +943,16 @@ def aptnotifier_prefs():
         </frame>
         <vseparator></vseparator>
         </frame>
-        <frame Icons   >
+        <frame @Icons@   >
           <hbox homogeneous="true">
           <vbox>
             <radiobutton active="@IconLookMx16@">
-              <label>"mx16   "</label>
+              <label>"mx16"</label>
               <variable>IconLook_mx16</variable>
               <action>:</action>
             </radiobutton>
             <radiobutton active="@IconLookClassic@">
-              <label>"classic"</label>
+              <label>@classic@</label>
               <variable>IconLook_classic</variable>
               <action>:</action>
             </radiobutton>
@@ -973,14 +978,16 @@ EOF
 
     # edit translateable strings placeholders in "$TMP"/DIALOG
     sed -i 's/@title@/'"$window_title"'/' "$TMP"/DIALOG
-    sed -i 's/@upgrade_behaviour@/"'"$frame_upgrade_behaviour""   "'"/' "$TMP"/DIALOG
-    sed -i 's/@leftclick_behaviour@/"'"$frame_left_click_behaviour""   "'"/' "$TMP"/DIALOG
-    sed -i 's/@Other_options@/"'"$frame_other_options""   "'"/' "$TMP"/DIALOG
+    sed -i 's/@upgrade_behaviour@/'"$frame_upgrade_behaviour""   "'/' "$TMP"/DIALOG
+    sed -i 's/@leftclick_behaviour@/'"$frame_left_click_behaviour""   "'/' "$TMP"/DIALOG
+    sed -i 's/@Other_options@/'"$frame_other_options""   "'/' "$TMP"/DIALOG
+    sed -i 's/@Icons@/'"$frame_Icons""   "'/' "$TMP"/DIALOG
     sed -i 's/@opens_Synaptic@/"'"$left_click_Synaptic"'"/' "$TMP"/DIALOG
     sed -i 's/@opens_View_and_Upgrade@/"'"$left_click_ViewandUpgrade"'"/' "$TMP"/DIALOG
     sed -i 's|@use_apt_get_yes@|"'"$use_apt_get_dash_dash_yes"'"|' "$TMP"/DIALOG
     sed -i 's|@auto_close_term_window@|"'"$auto_close_term_window_when_complete"'"|' "$TMP"/DIALOG
     sed -i 's|@check_for_autoremoves@|"'"$check_for_autoremoves"'"|' "$TMP"/DIALOG
+    sed -i 's/@classic@/"'"$label_classic"'"/' "$TMP"/DIALOG
 
     # edit placeholders in "$TMP"/DIALOG to set initial settings of the radiobuttons & checkboxes 
     sed -i 's/@UpgradeBehaviourAptGetUpgrade@/'$(if [ $(grep UpgradeType=upgrade ~/.config/apt-notifierrc) ]; then echo -n true; else echo -n false; fi)'/' "$TMP"/DIALOG
