@@ -1,3 +1,11 @@
+apt-notifier (17.05.01mx16+2) mx; urgency=medium
+
+  * .po & .mo changes reverted
+  * apt-notifier.py updated, to allow single quoting in pref. translations
+  * Icon and classic translateable strings added 
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Sun, 14 May 2017 18:41:12 -0400
+
 apt-notifier (17.05.01mx16+1) mx; urgency=medium
 
   * fix .po's
