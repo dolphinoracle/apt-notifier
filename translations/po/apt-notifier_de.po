@@ -186,3 +186,11 @@ msgid "check for autoremovable packages after apt-get upgrade/dist-upgrade"
 msgstr ""
 "nach apt-get upgrade/dist-upgrade überprüfen, ob autoremove Pakete vorhande"
 " sind."
+
+#: apt-notifier.py:864
+msgid "Icons"
+msgstr ""
+
+#: apt-notifier.py:865
+msgid "classic"
+msgstr ""

@@ -190,3 +190,11 @@ msgstr ""
 msgid "check for autoremovable packages after apt-get upgrade/dist-upgrade"
 msgstr ""
 "Έλεγχος για αυτόματα αφαιρούμενα πακέτα μετά το apt-get upgrade/dist-upgrade"
+
+#: apt-notifier.py:864
+msgid "Icons"
+msgstr ""
+
+#: apt-notifier.py:865
+msgid "classic"
+msgstr ""

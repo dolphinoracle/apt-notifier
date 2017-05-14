@@ -180,3 +180,11 @@ msgstr "apt-get upgrade/dist-upgrade が完了した後自動的に端末ウイ�
 #: apt-notifier.py:863
 msgid "check for autoremovable packages after apt-get upgrade/dist-upgrade"
 msgstr ""
+
+#: apt-notifier.py:864
+msgid "Icons"
+msgstr ""
+
+#: apt-notifier.py:865
+msgid "classic"
+msgstr ""
