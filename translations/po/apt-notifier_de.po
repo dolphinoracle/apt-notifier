@@ -166,8 +166,8 @@ msgid "opens Synaptic"
 msgstr "startet Synaptic"
 
 #: apt-notifier.py:860
-msgid "opens MX Apt Notifier 'View and Upgrade' window"
-msgstr "öffnet das Fenster im MX Apt Notifier 'Anschauen and Aufrüsten'"
+msgid "opens MX Apt Notifier \"View and Upgrade\" window"
+msgstr "öffnet das Fenster im MX Apt Notifier \"Anschauen and Aufrüsten\""
 
 #: apt-notifier.py:861
 msgid "use apt-get's --yes option for upgrade/dist-upgrade"
