@@ -323,13 +323,13 @@ def viewandupgrade():
 
     RunAptScriptInTerminal(){
     #for MEPIS remove "MX" branding from the $window_title string
-    window_title=$(echo "$1"|sed 's/MX /'$(grep -o MX-[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
+    window_title=$(echo "$1"|sed 's/MX /'$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
 
         TermXOffset="$(xwininfo -root|awk '/Width/{print $2/4}')"
         TermYOffset="$(xwininfo -root|awk '/Height/{print $2/4}')"
         G=" --geometry=80x25+"$TermXOffset"+"$TermYOffset
         I=" --icon=mnotify-some-""$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
-        if [ "$2" = "" ]; then T=""; I=""; else T=" --title='""$(grep -o MX-[1-9][0-9] /etc/issue|cut -c1-2)"" apt-notifier: apt-get "$2"'"; fi
+        if [ "$2" = "" ]; then T=""; I=""; else T=" --title='""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" apt-notifier: apt-get "$2"'"; fi
         if (xprop -root | grep -q -i kde)
           then
 
@@ -577,7 +577,7 @@ def viewandupgrade():
         --width=640 \\
         --height=480 \\
         --center \\
-        --title "$window_title $UpgradeType" \\
+        --title "$(echo "$window_title"|sed 's/MX /'$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)" "'/') $UpgradeType" \\
         --form \\
           --field :TXT "$(sed 's/^/  /' "$TMP"/upgrades)" \\
           --field="$use_apt_get_dash_dash_yes $UpgradeType":CHK $UpgradeAssumeYes \\
@@ -882,7 +882,7 @@ def aptnotifier_prefs():
 ''' + shellvar + '''    
 
     #for MEPIS remove "MX" branding from the $window_title and $left_click_ViewandUpgrade strings
-    window_title=$(echo "$window_title"|sed 's/MX /'$(grep -o MX-[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
+    window_title=$(echo "$window_title"|sed 's/MX /'$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
     left_click_ViewandUpgrade=$(echo "$left_click_ViewandUpgrade"|sed 's/MX /'$(grep -o MX-[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
     IconLookBegin=$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)
     TMP=$(mktemp -d /tmp/apt_notifier_preferences_dialog.XXXXXX)
@@ -1100,13 +1100,13 @@ def apt_get_update():
 ''' + shellvar + '''
 
     #for MEPIS remove "MX" branding from the $window_title string
-    window_title=$(echo "$window_title"|sed 's/MX /'$(grep -o MX-[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
+    window_title=$(echo "$window_title"|sed 's/MX /'$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
 
     TermXOffset="$(xwininfo -root|awk '/Width/{print $2/4}')"
     TermYOffset="$(xwininfo -root|awk '/Height/{print $2/4}')"
     G=" --geometry=80x25+"$TermXOffset"+"$TermYOffset
     #I=" --icon=mnotify-some-""$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
-    #T=" --title='""$(grep -o MX-[1-9][0-9] /etc/issue|cut -c1-2)"" apt-notifier: apt-get update'"
+    #T=" --title='""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" apt-notifier: apt-get update'"
     if (xprop -root | grep -q -i kde)
       then
         # Running KDE
