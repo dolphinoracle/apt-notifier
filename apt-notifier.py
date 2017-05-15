@@ -874,8 +874,8 @@ def aptnotifier_prefs():
 	'    use_apt_get_dash_dash_yes="'		+ t07 + '"\n'
 	'    auto_close_term_window_when_complete="' 	+ t08 + '"\n'
 	'    check_for_autoremoves="'			+ t09 + '"\n'
-    '    frame_Icons="'                     + t10 + '"\n'
-    '    label_classic="'                   + t11 + '"\n'
+	'    frame_Icons="'				+ t10 + '"\n'
+	'    label_classic="'				+ t11 + '"\n'
 	)
     
     script = '''#! /bin/bash
@@ -943,7 +943,7 @@ def aptnotifier_prefs():
         </frame>
         <vseparator></vseparator>
         </frame>
-        <frame @Icons@   >
+        <frame @Icons@>
           <hbox homogeneous="true">
           <vbox>
             <radiobutton active="@IconLookMx16@">
