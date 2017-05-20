@@ -1,3 +1,9 @@
+apt-notifier (17.05.01mx16+3) mx; urgency=medium
+
+  * also use mx16 icons for 16.1
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Fri, 19 May 2017 22:02:51 -0400
+
 apt-notifier (17.05.01mx16+2) mx; urgency=medium
 
   * .po & .mo changes reverted
