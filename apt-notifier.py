@@ -434,7 +434,7 @@ def viewandupgrade():
 
               xfce4-terminal.wrapper) if [ -x $(whereis gksu | awk '{print $2}') ]
                                         then
-                                          gksu -m "$rootPasswordRequestMsg""\n\n'apt-get $2'" "xfce4-terminal$G$I$T -e $3"
+                                          gksu --su-mode -m "$rootPasswordRequestMsg""\n\n'apt-get $2'" "xfce4-terminal$G$I$T -e $3"
                                         else
                                           su-to-root -X -c "xfce4-terminal$G$I$T -e $3"
                                       fi                                      
@@ -1182,7 +1182,7 @@ def apt_get_update():
 
           xfce4-terminal.wrapper) if [ -x $(whereis gksu | awk '{print $2}') ]
                                     then
-                                      gksu -m "$rootPasswordRequestMsg""\n\n'apt-get update'" "xfce4-terminal$G$I$T -e 'apt-get update'"
+                                      gksu --su-mode -m "$rootPasswordRequestMsg""\n\n'apt-get update'" "xfce4-terminal$G$I$T -e 'apt-get update'"
                                     else
                                       su-to-root -X -c "xfce4-terminal$G$I$T -e 'apt-get update"
                                   fi                                      
