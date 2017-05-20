@@ -811,7 +811,7 @@ def initialize_aptnotifier_prefs():
          14  ) IconDefault="classic" ;;
          15  ) IconDefault="classic" ;;
          16  ) IconDefault="mx16"    ;;
-	 16.1) IconDefault="mx16"    ;;
+	     16.1) IconDefault="mx16"    ;;
             *) IconDefault="classic" ;;
        esac
        echo "IconLook=$IconDefault">> ~/.config/apt-notifierrc
