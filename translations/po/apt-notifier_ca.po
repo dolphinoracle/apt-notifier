@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-10 21:26-0400\n"
+"POT-Creation-Date: 2017-05-23 20:23-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Geoff Gigg <geoffgigg@hotmail.com>, 2017\n"
+"Last-Translator: Eduard Selma <selma@tinet.cat>, 2017\n"
 "Language-Team: Catalan (https://www.transifex.com/anticapitalista/teams/10162/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -52,7 +52,7 @@ msgstr "Veure i actualitzar"
 
 #: apt-notifier.py:71
 msgid "Hide until updates available"
-msgstr "Amagar fins que hi hagi actualitzacions disponibles"
+msgstr "Amaga fins que hi hagi actualitzacions disponibles"
 
 #: apt-notifier.py:72
 msgid "Quit"
@@ -70,8 +70,7 @@ msgstr "Ajuda de Synaptic"
 msgid "Preferences"
 msgstr "Preferències"
 
-#: apt-notifier.py:76
-#: apt-notifier.py:1049
+#: apt-notifier.py:76 apt-notifier.py:1059
 msgid "Apt History"
 msgstr "Historial de l'APT"
 
@@ -79,26 +78,26 @@ msgstr "Historial de l'APT"
 msgid "Check for Updates"
 msgstr "Comprova si hi ha actualitzacions"
 
-#: apt-notifier.py:284
+#: apt-notifier.py:283
 msgid "MX Apt Notifier--View and Upgrade, previewing: apt-get"
 msgstr "MX Apt Notifier--Veure i actualitzar, vista prèvia: apt-get"
 
-#: apt-notifier.py:285
+#: apt-notifier.py:284
 msgid "use apt-get's --yes option for"
 msgstr "usa l'opció d'apt-get --yes per a"
 
-#: apt-notifier.py:286
+#: apt-notifier.py:285
 #, python-format
 msgid "automatically close terminal window when apt-get %s complete"
 msgstr ""
 "tanca automàticament la finestra del terminal quan s'ha completat apt-get %s"
 
-#: apt-notifier.py:287
+#: apt-notifier.py:286
 #, python-format
 msgid "switch to %s"
 msgstr "canvia a %s"
 
-#: apt-notifier.py:288
+#: apt-notifier.py:287
 msgid ""
 "Switches the type of Upgrade that will be performed, alternating back and "
 "forth between 'apt-get upgrade' and 'apt-get dist-upgrade'."
@@ -106,11 +105,11 @@ msgstr ""
 "Commuta el tipus d'actualització que es farà, canviant entre 'apt-get "
 "upgrade' i 'apt-get dist-upgrade'."
 
-#: apt-notifier.py:289
+#: apt-notifier.py:288
 msgid "Reload"
 msgstr "Refresca"
 
-#: apt-notifier.py:290
+#: apt-notifier.py:289
 msgid ""
 "Reload the package information to become informed about new, removed or "
 "upgraded software packages. (apt-get update)"
@@ -118,8 +117,7 @@ msgstr ""
 "Refresqueu la informació dels paquets per a informar-vos de paquets de "
 "programari nous, eliminats o actualitzats. (apt-get update)"
 
-#: apt-notifier.py:293
-#: apt-notifier.py:1090
+#: apt-notifier.py:292 apt-notifier.py:1097
 msgid ""
 "The action you requested needs <b>root privileges</b>. Please enter "
 "<b>root's</b> password below."
@@ -127,57 +125,57 @@ msgstr ""
 "A l'acció que heu demanat li calen <b>privilegis de root</b>. Si us plau, "
 "introduïu la contrasenya de <b>root</b> tot seguit."
 
-#: apt-notifier.py:296
+#: apt-notifier.py:295
 #, python-format
 msgid "%s complete (or was canceled)"
 msgstr "s'ha completat (o cancel·lat) %s"
 
-#: apt-notifier.py:297
+#: apt-notifier.py:296
 msgid "this terminal window can now be closed"
 msgstr "ara podeu tancar la finestra"
 
-#: apt-notifier.py:298
+#: apt-notifier.py:297
 msgid "press any key to close"
-msgstr "prement qualsevol tecla"
+msgstr "premeu una tecla per tancar"
 
-#: apt-notifier.py:299
+#: apt-notifier.py:298
 msgid "Unneeded packages are installed that can be removed."
 msgstr "Hi ha paquets instal·lats innecessaris que es poden eliminar."
 
-#: apt-notifier.py:300
+#: apt-notifier.py:299
 msgid "Running apt-get autoremove, if you are unsure type 'n'."
 msgstr "Executant apt-get autoremove, si no esteu segurs entreu 'n'."
 
-#: apt-notifier.py:855
+#: apt-notifier.py:856
 msgid "MX Apt Notifier preferences"
 msgstr "Preferències de MX Apt Notifier"
 
-#: apt-notifier.py:856
+#: apt-notifier.py:857
 msgid "Upgrade behaviour   (also affects notification count)"
 msgstr ""
 "Comportament d'actualitzacions (també afecta el compte d'actualitzacions)"
 
-#: apt-notifier.py:857
+#: apt-notifier.py:858
 msgid "Left-click behaviour   (when updates are available)"
 msgstr "Comportament del clic esquerre (quan hi ha actualitzacions)"
 
-#: apt-notifier.py:858
+#: apt-notifier.py:859
 msgid "Other options"
 msgstr "Altres opcions"
 
-#: apt-notifier.py:859
+#: apt-notifier.py:860
 msgid "opens Synaptic"
 msgstr "obre Synaptic"
 
-#: apt-notifier.py:860
+#: apt-notifier.py:861
 msgid "opens MX Apt Notifier 'View and Upgrade' window"
 msgstr "obre la finestra de MX Apt Notifier 'Veure i actualitzar'"
 
-#: apt-notifier.py:861
+#: apt-notifier.py:862
 msgid "use apt-get's --yes option for upgrade/dist-upgrade"
 msgstr "usa l'opció d'apt-get --yes per a upgrade/dist-upgrade"
 
-#: apt-notifier.py:862
+#: apt-notifier.py:863
 msgid ""
 "automatically close terminal window when apt-get upgrade/dist-upgrade "
 "complete"
@@ -185,14 +183,14 @@ msgstr ""
 "tanca automàticament la finestra del terminal quan s'ha completat apt-get "
 "upgrade/dist-upgrade"
 
-#: apt-notifier.py:863
+#: apt-notifier.py:864
 msgid "check for autoremovable packages after apt-get upgrade/dist-upgrade"
 msgstr "cerca paquets autoeliminables després d'apt-get upgrade/dist-upgrade "
 
-#: apt-notifier.py:864
-msgid "Icons"
-msgstr ""
-
 #: apt-notifier.py:865
+msgid "Icons"
+msgstr "Icones"
+
+#: apt-notifier.py:866
 msgid "classic"
-msgstr ""
+msgstr "clàssic"

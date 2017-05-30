@@ -11,186 +11,183 @@ msgstr ""
 "POT-Creation-Date: 2017-05-23 20:23-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Geoff Gigg <geoffgigg@hotmail.com>, 2017\n"
-"Language-Team: Dutch (https://www.transifex.com/anticapitalista/teams/10162/nl/)\n"
+"Language-Team: Lithuanian (https://www.transifex.com/anticapitalista/teams/10162/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nl\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: lt\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: apt-notifier.py:63
 msgid "0 updates available"
-msgstr "0 updates beschikbaar"
+msgstr "Prieinama 0 atnaujinimų"
 
 #: apt-notifier.py:64
 msgid "1 new update available"
-msgstr "1 nieuwe update beschikbaar"
+msgstr "Prieinamas 1 naujas atnaujinimas"
 
 #: apt-notifier.py:65
 msgid "$count new updates available"
-msgstr "$count nieuwe update beschikbaar"
+msgstr ""
 
 #: apt-notifier.py:66
 msgid "Updates"
-msgstr "Updates"
+msgstr "Atnaujinimai"
 
 #: apt-notifier.py:67
 msgid "You have 1 new update available"
-msgstr "U heeft 1 nieuwe update beschikbaar"
+msgstr "Yra prieinamas 1 naujas atnaujinimas"
 
 #: apt-notifier.py:68
 msgid "You have $count new updates available"
-msgstr "U heeft $count nieuwe update(s) beschikbaar"
+msgstr "Yra prieinama $count naujų atnaujinimų"
 
 #: apt-notifier.py:69
 msgid "Upgrade using Synaptic"
-msgstr "Updaten met Synaptic"
+msgstr "Naujinti, naudojant Synaptic"
 
 #: apt-notifier.py:70
 msgid "View and Upgrade"
-msgstr "Bekijken en Opwaarderen"
+msgstr "Rodyti ir naujinti"
 
 #: apt-notifier.py:71
 msgid "Hide until updates available"
-msgstr "Verberg tot updates beschikbaar"
+msgstr "Slėpti, kol bus prieinami atnaujinimai"
 
 #: apt-notifier.py:72
 msgid "Quit"
-msgstr "Stop"
+msgstr "Išeiti"
 
 #: apt-notifier.py:73
 msgid "Apt-Notifier Help"
-msgstr "Apt-Notifier Help"
+msgstr ""
 
 #: apt-notifier.py:74
 msgid "Synaptic Help"
-msgstr "Synaptic Help"
+msgstr "Synaptic žinynas"
 
 #: apt-notifier.py:75
 msgid "Preferences"
-msgstr "Voorkeuren"
+msgstr "Nuostatos"
 
 #: apt-notifier.py:76 apt-notifier.py:1059
 msgid "Apt History"
-msgstr "Apt Geschiedenis"
+msgstr ""
 
 #: apt-notifier.py:77
 msgid "Check for Updates"
-msgstr "Controleer op Updates"
+msgstr "Tikrinti ar yra atnaujinimų"
 
 #: apt-notifier.py:283
 msgid "MX Apt Notifier--View and Upgrade, previewing: apt-get"
-msgstr "MX Apt Notifier--Bekijk en Opwaarderen, bekijken: apt-get"
+msgstr ""
 
 #: apt-notifier.py:284
 msgid "use apt-get's --yes option for"
-msgstr "gebruik apt-get's --yes optie voor"
+msgstr "naudoti apt-get --yes parametrą, skirtą"
 
 #: apt-notifier.py:285
 #, python-format
 msgid "automatically close terminal window when apt-get %s complete"
-msgstr "automatisch terminal scherm sluiten wanneer apt-get %s compleet is"
+msgstr ""
+"automatiškai užverti terminalo langą, kai apt-get %s komanda bus baigta"
 
 #: apt-notifier.py:286
 #, python-format
 msgid "switch to %s"
-msgstr "wissel naar %s"
+msgstr "perjungti į %s"
 
 #: apt-notifier.py:287
 msgid ""
 "Switches the type of Upgrade that will be performed, alternating back and "
 "forth between 'apt-get upgrade' and 'apt-get dist-upgrade'."
 msgstr ""
-"Wisselt het opwaardeertype dat toegepast wordt, heen en weer gaand tussen "
-"'apt-get upgrade' en 'apt-get dist-upgrade'"
 
 #: apt-notifier.py:288
 msgid "Reload"
-msgstr "Herladen"
+msgstr "Įkelti iš naujo"
 
 #: apt-notifier.py:289
 msgid ""
 "Reload the package information to become informed about new, removed or "
 "upgraded software packages. (apt-get update)"
 msgstr ""
-"Herlaad de pakketinformatie om te weten of er nieuwe, verwijderde op "
-"opgewaardeerde softwarepakketten zijn. (apt-get update)"
 
 #: apt-notifier.py:292 apt-notifier.py:1097
 msgid ""
 "The action you requested needs <b>root privileges</b>. Please enter "
 "<b>root's</b> password below."
 msgstr ""
-"De action die u wilt uitvoeren vereist <b>root privileges</b>. Vul aub "
-"<b>root's</b> wachtwoord hieronder in."
 
 #: apt-notifier.py:295
 #, python-format
 msgid "%s complete (or was canceled)"
-msgstr "%s compleet (of was geannuleerd)"
+msgstr "Komanda %s užbaigta (arba jos buvo atsisakyta)"
 
 #: apt-notifier.py:296
 msgid "this terminal window can now be closed"
-msgstr "dit terminal scherm kan nu gesloten worden"
+msgstr "šis terminalo langas dabar gali būti užvertas"
 
 #: apt-notifier.py:297
 msgid "press any key to close"
-msgstr "druk een toets om te sluiten"
+msgstr "norėdami užverti, paspauskite bet kurį klavišą"
 
 #: apt-notifier.py:298
 msgid "Unneeded packages are installed that can be removed."
-msgstr "Onnodige pakketten zijn geïnstalleerd die verwijderd kunnen worden."
+msgstr ""
 
 #: apt-notifier.py:299
 msgid "Running apt-get autoremove, if you are unsure type 'n'."
-msgstr "Uitvoeren apt-get autoremove, als u niet zeker bent type 'n'."
+msgstr ""
 
 #: apt-notifier.py:856
 msgid "MX Apt Notifier preferences"
-msgstr "MX Apt Notifier voorkeuren"
+msgstr ""
 
 #: apt-notifier.py:857
 msgid "Upgrade behaviour   (also affects notification count)"
-msgstr "Opwaardeergedrag (heeft ook invloed op notificatie-aantal)"
+msgstr "Naujinimo elgsena   (taip pat įtakoja pranešimų skaičių)"
 
 #: apt-notifier.py:858
 msgid "Left-click behaviour   (when updates are available)"
-msgstr "Links-klik gedrag (wanneer updates beschikbaar zijn)"
+msgstr ""
+"Kairiojo pelės mygtuko spustelėjimo elgsena (kai prieinami atnaujinimai)"
 
 #: apt-notifier.py:859
 msgid "Other options"
-msgstr "Andere opties"
+msgstr "Kiti parametrai"
 
 #: apt-notifier.py:860
 msgid "opens Synaptic"
-msgstr "opent Synaptic"
+msgstr "atveria Synaptic"
 
 #: apt-notifier.py:861
 msgid "opens MX Apt Notifier 'View and Upgrade' window"
-msgstr "opent MX Apt Notifier 'Bekijk en Opwaardeer' scherm"
+msgstr ""
 
 #: apt-notifier.py:862
 msgid "use apt-get's --yes option for upgrade/dist-upgrade"
-msgstr "gebruik apt-get's --yes optie voor upgrade/dist-upgrade"
+msgstr ""
+"naudoti apt-get --yes parametrą, skirtą upgrade/dist-upgrade komandoms"
 
 #: apt-notifier.py:863
 msgid ""
 "automatically close terminal window when apt-get upgrade/dist-upgrade "
 "complete"
 msgstr ""
-"automatisch terminal scherm sluiten wanneer apt-get upgrade/dist-upgrade "
-"compleet is"
+"automatiškai užverti terminalo langą, kai apt-get upgrade/dist-upgrade "
+"komanda bus baigta"
 
 #: apt-notifier.py:864
 msgid "check for autoremovable packages after apt-get upgrade/dist-upgrade"
 msgstr ""
-"controleer voor automatisch verwijderbare pakketten na apt-get upgrade/dist-"
-"upgrade"
+"po komandos apt-get upgrade/dist-upgrade, tikrinti ar yra automatiškai "
+"šalintinų paketų"
 
 #: apt-notifier.py:865
 msgid "Icons"
-msgstr "Iconen"
+msgstr "Piktogramos"
 
 #: apt-notifier.py:866
 msgid "classic"
-msgstr "klassiek"
+msgstr ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-10 21:26-0400\n"
+"POT-Creation-Date: 2017-05-23 20:23-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Geoff Gigg <geoffgigg@hotmail.com>, 2017\n"
 "Language-Team: Italian (https://www.transifex.com/anticapitalista/teams/10162/it/)\n"
@@ -44,7 +44,7 @@ msgstr "Hai $count nuovi aggiornamenti disponibili"
 
 #: apt-notifier.py:69
 msgid "Upgrade using Synaptic"
-msgstr "Aggiornare tramite Synaptic"
+msgstr "Aggiorna tramite Synaptic"
 
 #: apt-notifier.py:70
 msgid "View and Upgrade"
@@ -52,7 +52,7 @@ msgstr "Mostra e aggiorna"
 
 #: apt-notifier.py:71
 msgid "Hide until updates available"
-msgstr "Nascondi finchè non hai aggiornamenti disponibili"
+msgstr "Nascondi finchè non sono disponibili aggiornamenti"
 
 #: apt-notifier.py:72
 msgid "Quit"
@@ -70,46 +70,49 @@ msgstr "Aiuto su Synaptic"
 msgid "Preferences"
 msgstr "Preferenze"
 
-#: apt-notifier.py:76
-#: apt-notifier.py:1052
+#: apt-notifier.py:76 apt-notifier.py:1059
 msgid "Apt History"
-msgstr ""
+msgstr "Cronologia di Apt"
 
 #: apt-notifier.py:77
 msgid "Check for Updates"
-msgstr ""
+msgstr "Controlla Aggiornamenti"
+
+#: apt-notifier.py:283
+msgid "MX Apt Notifier--View and Upgrade, previewing: apt-get"
+msgstr "MX Apt Notifier--Mostra e Aggiorna, anteprima di: apt-get"
 
 #: apt-notifier.py:284
-msgid "MX Apt Notifier--View and Upgrade, previewing: apt-get"
-msgstr "MX Apt Notifier--Mostra e Aggiorna, presentazione di: apt-get"
+msgid "use apt-get's --yes option for"
+msgstr "usare l'opzione --yes  in apt-get"
 
 #: apt-notifier.py:285
-msgid "use apt-get's --yes option for"
-msgstr "usare l'opzione --yes di apt-get per l'"
-
-#: apt-notifier.py:286
 #, python-format
 msgid "automatically close terminal window when apt-get %s complete"
 msgstr ""
 "chiudere automaticamente la finestra del terminale quando apt-get %s ha "
 "terminato"
 
-#: apt-notifier.py:287
+#: apt-notifier.py:286
 #, python-format
 msgid "switch to %s"
-msgstr "passare a %s"
+msgstr "passa a %s"
 
-#: apt-notifier.py:288
+#: apt-notifier.py:287
 msgid ""
 "Switches the type of Upgrade that will be performed, alternating back and "
 "forth between 'apt-get upgrade' and 'apt-get dist-upgrade'."
 msgstr ""
+"Consente di cambiare il tipo di aggiornamento commutando tra 'apt-get "
+"upgrade' e 'apt-get dist-upgrade' cioè tra un aggiornamento di routine e un "
+"aggiornamento che cerca di risolvere i problemi oppure il passaggio da una "
+"versione della distribuzione a quella successiva."
+
+#: apt-notifier.py:288
+msgid "Reload"
+msgstr "Aggiorna Info"
 
 #: apt-notifier.py:289
-msgid "Reload"
-msgstr "Aggiorna"
-
-#: apt-notifier.py:290
 msgid ""
 "Reload the package information to become informed about new, removed or "
 "upgraded software packages. (apt-get update)"
@@ -117,67 +120,66 @@ msgstr ""
 "Aggiorna le informazioni sui pacchetti per informare di pacchetti nuovi, "
 "rimossi o aggiornati. (apt-get update)"
 
-#: apt-notifier.py:293
-#: apt-notifier.py:1090
+#: apt-notifier.py:292 apt-notifier.py:1097
 msgid ""
 "The action you requested needs <b>root privileges</b>. Please enter "
 "<b>root's</b> password below."
 msgstr ""
-"L'azione che hai richiesto richiede i <b>privilegi di root</b>. Per piacere,"
-" inserisci la password di <b>root</b>."
+"L'azione che hai scelto richiede i <b>privilegi di root</b>. Per piacere, "
+"inserisci la password di <b>root</b>."
 
-#: apt-notifier.py:296
+#: apt-notifier.py:295
 #, python-format
 msgid "%s complete (or was canceled)"
 msgstr "%s ha terminato (o è stato annullato)"
 
-#: apt-notifier.py:297
+#: apt-notifier.py:296
 msgid "this terminal window can now be closed"
 msgstr "Ora è possibile chiudere questa finestra del terminale"
 
-#: apt-notifier.py:298
+#: apt-notifier.py:297
 msgid "press any key to close"
 msgstr "premi un tasto qualsiasi per chiudere"
 
-#: apt-notifier.py:299
+#: apt-notifier.py:298
 msgid "Unneeded packages are installed that can be removed."
 msgstr "I pacchetti installati non necessari possono essere rimossi."
 
-#: apt-notifier.py:300
+#: apt-notifier.py:299
 msgid "Running apt-get autoremove, if you are unsure type 'n'."
 msgstr "Si sta per avviare apt-get autoremove, se non sei sicuro digita 'n'."
 
-#: apt-notifier.py:855
-msgid "MX Apt Notifier preferences"
-msgstr "Preferenze per MX Apt Notifier"
-
 #: apt-notifier.py:856
-msgid "Upgrade behaviour   (also affects notification count)"
-msgstr ""
-"Comportamento dell'aggiornamento (compresa la conta delle notifiche)"
+msgid "MX Apt Notifier preferences"
+msgstr "Preferenze di MX Apt Notifier"
 
 #: apt-notifier.py:857
-msgid "Left-click behaviour   (when updates are available)"
-msgstr ""
-"Comportemento click sinistro (quando sono disponibili aggiornamenti)"
+msgid "Upgrade behaviour   (also affects notification count)"
+msgstr "Tipo di aggiornamento (avrà un effetto anche sul numero di notifiche)"
 
 #: apt-notifier.py:858
-msgid "Other options"
+msgid "Left-click behaviour   (when updates are available)"
 msgstr ""
+"Comportamento del click col pulsante sinistro (funziona quando sono "
+"disponibili aggiornamenti)"
 
 #: apt-notifier.py:859
+msgid "Other options"
+msgstr "Altre opzioni"
+
+#: apt-notifier.py:860
 msgid "opens Synaptic"
 msgstr "apre Synaptic"
 
-#: apt-notifier.py:860
+#: apt-notifier.py:861
 msgid "opens MX Apt Notifier 'View and Upgrade' window"
 msgstr "apre la finestra 'Mostra e Aggiorna' di MX Apt Notifier"
 
-#: apt-notifier.py:861
-msgid "use apt-get's --yes option for upgrade/dist-upgrade"
-msgstr "usare l'opzione --yes di apt-get per l' upgrade/dist-upgrade"
-
 #: apt-notifier.py:862
+msgid "use apt-get's --yes option for upgrade/dist-upgrade"
+msgstr "usare l'opzione --yes  in apt-get upgrade/dist-upgrade"
+
+#: apt-notifier.py:863
 msgid ""
 "automatically close terminal window when apt-get upgrade/dist-upgrade "
 "complete"
@@ -185,16 +187,16 @@ msgstr ""
 "chiudere automaticamente la finestra del terminale quando apt-get upgrade"
 "/dist-upgrade ha terminato"
 
-#: apt-notifier.py:863
+#: apt-notifier.py:864
 msgid "check for autoremovable packages after apt-get upgrade/dist-upgrade"
 msgstr ""
 "verificare la presenza di pacchetti auto-rimovibili dopo aver eseguito apt-"
 "get upgrade/dist-upgrade"
 
-#: apt-notifier.py:864
+#: apt-notifier.py:865
 msgid "Icons"
 msgstr ""
 
-#: apt-notifier.py:865
+#: apt-notifier.py:866
 msgid "classic"
 msgstr ""
