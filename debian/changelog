@@ -1,3 +1,9 @@
+apt-notifier (17.05.01mx16+4) mx; urgency=medium
+
+  * revised and new translations
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Wed, 31 May 2017 13:18:59 -0400
+
 apt-notifier (17.05.01mx16+3) mx; urgency=medium
 
   * also use mx16 icons for 16.1
