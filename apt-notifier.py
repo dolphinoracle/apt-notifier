@@ -794,7 +794,7 @@ def initialize_aptnotifier_prefs():
     fi
 
     #test if ~/.config/apt-notifierrc contains a IconLook=* line and that it's a valid entry
-    grep -q -e ^"IconLook=mx16" -e^"IconLook=classic" ~/.config/apt-notifierrc
+    grep -q -e ^"IconLook=mx16" -e^"IconLook=classic" -e^"IconLook=pulse" ~/.config/apt-notifierrc
     if [ "$?" -eq 0 ]
       then
       #contains a valid entry so do nothing
@@ -805,7 +805,7 @@ def initialize_aptnotifier_prefs():
       sed -i '/.*IconLook.*/Id' ~/.config/apt-notifierrc 
       #
       #if a IconLook=* line not present,
-      #or not equal to "mx16" or "classic", then have default as follows for the various MX releases
+      #or not equal to "mx16" or "classic" or "pulse", then have default as follows for the various MX releases
       #
        case $(grep DISTRIB_RELEASE /etc/lsb-release | grep -Eo [0-9.]+) in
          14  ) IconDefault="classic" ;;
@@ -864,6 +864,7 @@ def aptnotifier_prefs():
     t09 = _("check for autoremovable packages after apt-get upgrade/dist-upgrade")
     t10 = _("Icons")
     t11 = _("classic")
+    t12 = _("pulse")
  
     shellvar = (
 	'    window_title="'				+ t01 + '"\n'
@@ -877,6 +878,7 @@ def aptnotifier_prefs():
 	'    check_for_autoremoves="'			+ t09 + '"\n'
 	'    frame_Icons="'				+ t10 + '"\n'
 	'    label_classic="'				+ t11 + '"\n'
+	'    label_pulse="'				+ t12 + '"\n'
 	)
     
     script = '''#! /bin/bash
@@ -957,14 +959,21 @@ def aptnotifier_prefs():
               <variable>IconLook_classic</variable>
               <action>:</action>
             </radiobutton>
+            <radiobutton active="@IconLookPulse@">
+              <label>@pulse@</label>
+              <variable>IconLook_pulse</variable>
+              <action>:</action>
+            </radiobutton>
           </vbox>
           <vbox>
             <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-some-mx16.png"</input></pixmap>
             <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-some-classic.png"</input></pixmap>
+            <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-some-pulse.png"</input></pixmap>
           </vbox>
           <vbox>
             <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-none-mx16.png"</input></pixmap>
             <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-none-classic.png"</input></pixmap>
+            <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-none-pulse.png"</input></pixmap>
           </vbox>
           </hbox>
         </frame>
@@ -989,6 +998,7 @@ EOF
     sed -i 's|@auto_close_term_window@|"'"$auto_close_term_window_when_complete"'"|' "$TMP"/DIALOG
     sed -i 's|@check_for_autoremoves@|"'"$check_for_autoremoves"'"|' "$TMP"/DIALOG
     sed -i 's/@classic@/"'"$label_classic"'"/' "$TMP"/DIALOG
+    sed -i 's/@pulse@/"'"$label_pulse"'"/' "$TMP"/DIALOG
 
     # edit placeholders in "$TMP"/DIALOG to set initial settings of the radiobuttons & checkboxes 
     sed -i 's/@UpgradeBehaviourAptGetUpgrade@/'$(if [ $(grep UpgradeType=upgrade ~/.config/apt-notifierrc) ]; then echo -n true; else echo -n false; fi)'/' "$TMP"/DIALOG
@@ -1000,6 +1010,7 @@ EOF
     sed -i 's/@CheckForAutoRemoves@/'$(grep CheckForAutoRemoves ~/.config/apt-notifierrc | cut -f2 -d=)'/' "$TMP"/DIALOG
     sed -i 's/@IconLookMx16@/'$(if [ $(grep IconLook=mx16 ~/.config/apt-notifierrc) ]; then echo -n true; else echo -n false; fi)'/' "$TMP"/DIALOG
     sed -i 's/@IconLookClassic@/'$(if [ $(grep IconLook=classic ~/.config/apt-notifierrc) ]; then echo -n true; else echo -n false; fi)'/' "$TMP"/DIALOG
+    sed -i 's/@IconLookPulse@/'$(if [ $(grep IconLook=pulse ~/.config/apt-notifierrc) ]; then echo -n true; else echo -n false; fi)'/' "$TMP"/DIALOG
 
     # edit placeholder for window icon placeholder in "$TMP"/DIALOG
     sed -i 's/@mnotify-some@/mnotify-some-'$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d= | xargs echo -n)'/' "$TMP"/DIALOG
@@ -1021,7 +1032,11 @@ EOF
         if [ $(grep CheckForAutoRemoves=.*false.*     "$TMP"/output) ]; then sed -i 's/CheckForAutoRemoves=true/CheckForAutoRemoves=false/' ~/.config/apt-notifierrc; fi
         if [ $(grep CheckForAutoRemoves=.*true.*      "$TMP"/output) ]; then sed -i 's/CheckForAutoRemoves=false/CheckForAutoRemoves=true/' ~/.config/apt-notifierrc; fi
         if [ $(grep IconLook_mx16=.*true.*            "$TMP"/output) ]; then sed -i 's/IconLook=classic/IconLook=mx16/'                     ~/.config/apt-notifierrc; fi
+        if [ $(grep IconLook_mx16=.*true.*            "$TMP"/output) ]; then sed -i 's/IconLook=pulse/IconLook=mx16/'                       ~/.config/apt-notifierrc; fi
         if [ $(grep IconLook_classic=.*true.*         "$TMP"/output) ]; then sed -i 's/IconLook=mx16/IconLook=classic/'                     ~/.config/apt-notifierrc; fi
+        if [ $(grep IconLook_classic=.*true.*         "$TMP"/output) ]; then sed -i 's/IconLook=pulse/IconLook=classic/'                    ~/.config/apt-notifierrc; fi
+        if [ $(grep IconLook_pulse=.*true.*           "$TMP"/output) ]; then sed -i 's/IconLook=mx16/IconLook=pulse/'                       ~/.config/apt-notifierrc; fi
+        if [ $(grep IconLook_pulse=.*true.*           "$TMP"/output) ]; then sed -i 's/IconLook=classic/IconLook=pulse/'                    ~/.config/apt-notifierrc; fi
      else
         :
     fi
