@@ -1,3 +1,9 @@
+apt-notifier (17.09.02mx17+1) mx; urgency=medium
+
+  * MX-17 support added
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Sat, 02 Sep 2017 17:02:16 -0400
+
 apt-notifier (17.05.01mx16+4) mx; urgency=medium
 
   * revised and new translations

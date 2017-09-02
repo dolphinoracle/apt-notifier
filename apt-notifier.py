@@ -812,7 +812,7 @@ def initialize_aptnotifier_prefs():
          15  ) IconDefault="classic"   ;;
          16  ) IconDefault="wireframe" ;;
          16.1) IconDefault="wireframe" ;;
-         17  ) IconDefault-"wireframe" ;;
+         17  ) IconDefault="wireframe" ;;
             *) IconDefault="classic"   ;;
        esac
        echo "IconLook=$IconDefault">> ~/.config/apt-notifierrc
@@ -953,7 +953,7 @@ def aptnotifier_prefs():
           <hbox homogeneous="true">
           <vbox>
             <radiobutton active="@IconLookWireframe@">
-              <label>"@wireframe@"</label>
+              <label>@wireframe@</label>
               <variable>IconLook_wireframe</variable>
               <action>:</action>
             </radiobutton>
