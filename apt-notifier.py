@@ -866,6 +866,7 @@ def aptnotifier_prefs():
     t10 = _("Icons")
     t11 = _("classic")
     t12 = _("pulse")
+    t13 = _("wireframe")
  
     shellvar = (
 	'    window_title="'				+ t01 + '"\n'
@@ -880,6 +881,7 @@ def aptnotifier_prefs():
 	'    frame_Icons="'				+ t10 + '"\n'
 	'    label_classic="'				+ t11 + '"\n'
 	'    label_pulse="'				+ t12 + '"\n'
+        '    label_wireframe="'                         + t13 + '"\n'
 	)
     
     script = '''#! /bin/bash
@@ -951,7 +953,7 @@ def aptnotifier_prefs():
           <hbox homogeneous="true">
           <vbox>
             <radiobutton active="@IconLookWireframe@">
-              <label>"wireframe"</label>
+              <label>"@wireframe@"</label>
               <variable>IconLook_wireframe</variable>
               <action>:</action>
             </radiobutton>
@@ -1000,6 +1002,7 @@ EOF
     sed -i 's|@check_for_autoremoves@|"'"$check_for_autoremoves"'"|' "$TMP"/DIALOG
     sed -i 's/@classic@/"'"$label_classic"'"/' "$TMP"/DIALOG
     sed -i 's/@pulse@/"'"$label_pulse"'"/' "$TMP"/DIALOG
+    sed -i 's/@wireframe@/"'"$label_wireframe"'"/' "$TMP"/DIALOG
 
     # edit placeholders in "$TMP"/DIALOG to set initial settings of the radiobuttons & checkboxes 
     sed -i 's/@UpgradeBehaviourAptGetUpgrade@/'$(if [ $(grep UpgradeType=upgrade ~/.config/apt-notifierrc) ]; then echo -n true; else echo -n false; fi)'/' "$TMP"/DIALOG
