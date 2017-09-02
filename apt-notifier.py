@@ -807,12 +807,13 @@ def initialize_aptnotifier_prefs():
       #if a IconLook=* line not present,
       #or not equal to "wireframe" or "classic" or "pulse", then have default as follows for the various MX releases
       #
-       case $(grep DISTRIB_RELEASE /etc/lsb-release | grep -Eo [0-9.]+) in
-         14  ) IconDefault="classic" ;;
-         15  ) IconDefault="classic" ;;
-         16  ) IconDefault="wireframe"    ;;
-	     16.1) IconDefault="wireframe"    ;;
-            *) IconDefault="classic" ;;
+       case $(grep DISTRIB_RELEASE /etc/lsb-release | grep -Eo [0-9.]+ | head -n1) in
+         14  ) IconDefault="classic"   ;;
+         15  ) IconDefault="classic"   ;;
+         16  ) IconDefault="wireframe" ;;
+         16.1) IconDefault="wireframe" ;;
+         17  ) IconDefault-"wireframe" ;;
+            *) IconDefault="classic"   ;;
        esac
        echo "IconLook=$IconDefault">> ~/.config/apt-notifierrc
     fi
