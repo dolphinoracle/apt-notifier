@@ -188,11 +188,23 @@ def check_updates():
     
     #Create an inline script (what used to be /usr/bin/apt-notifier-check-Updates) and then run it to get the number of updates.
     script = '''#!/bin/sh
+    
+    #Create a temporary folder and redirect the apt-get upgrade's output to it; doing this so only have to run the apt command one time.
+    TMP=$(mktemp -d /tmp/apt-notifier.check_updates.XXXXXX)
+    LC_ALL=en_US apt-get -o Debug::NoLocking=true --trivial-only -V $(grep ^UpgradeType ~/.config/apt-notifierrc | cut -f2 -d=) 2>/dev/null > "$TMP"/updates
+    
+    #Suppress the 'updates available' notification if all of the updates are from a backports repo (jessie-backports, stretch-backports, etc.)
+    if [ "$(grep " => " "$TMP"/updates | wc -l)" = "$(grep " => " "$TMP"/updates | grep -E ~bpo[0-9]+[+][0-9]+[\)]$ | wc -l)" ]
+        then
+            rm -rf "$TMP"
+            echo 0
+            exit
+    fi
+   
     sorted_list_of_upgrades() 
     {
         #Create a sorted list of the names of the packages that are upgradeable.
-        LC_ALL=en_US apt-get -o 'Debug::NoLocking=true' --trivial-only -V $(grep ^UpgradeType ~/.config/apt-notifierrc | cut -f2 -d=) 2>/dev/null \\
-        |  sed -n '/upgraded:/,$p' | grep ^'  ' | awk '{ print $1 }' | sort
+        cat "$TMP"/updates  |  sed -n '/upgraded:/,$p' | grep ^'  ' | awk '{ print $1 }' | sort
     }
     
     #suppress updates available indication if 2 or more Release.reverify entries found
@@ -212,6 +224,7 @@ def check_updates():
             
             sorted_list_of_upgrades | wc -l
     fi
+    rm -rf "$TMP"
     '''
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
