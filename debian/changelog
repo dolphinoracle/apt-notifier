@@ -1,3 +1,10 @@
+apt-notifier (17.10.09mx17+1) mx; urgency=medium
+
+  * Suppress notification when all upgrades from backports.
+  * Check for updates when update-stamp missing but lock file exists.
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Mon, 09 Oct 2017 20:26:54 -0400
+
 apt-notifier (17.09.02mx17+1) mx; urgency=medium
 
   * MX-17 support added
