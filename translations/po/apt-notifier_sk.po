@@ -10,192 +10,188 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-23 20:23-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Geoff Gigg <geoffgigg@hotmail.com>, 2017\n"
-"Language-Team: Portuguese (https://www.transifex.com/anticapitalista/teams/10162/pt/)\n"
+"Last-Translator: joyinko <joyinko@azet.sk>, 2017\n"
+"Language-Team: Slovak (https://www.transifex.com/anticapitalista/teams/10162/sk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: sk\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: apt-notifier.py:63
 msgid "0 updates available"
-msgstr "0 actualizações disponíveis"
+msgstr "0 dostupných aktualizácií"
 
 #: apt-notifier.py:64
 msgid "1 new update available"
-msgstr "1 nova actualização disponível"
+msgstr "1 dostupná aktualizácia"
 
 #: apt-notifier.py:65
 msgid "$count new updates available"
-msgstr "$count novas actualizações disponíveis"
+msgstr "$count nových dostupných aktualizácií"
 
 #: apt-notifier.py:66
 msgid "Updates"
-msgstr "Actualizações"
+msgstr "Aktualizácie"
 
 #: apt-notifier.py:67
 msgid "You have 1 new update available"
-msgstr "Há 1 nova actualização disponível"
+msgstr "Máte 1 novú dostupnú aktualizáciu"
 
 #: apt-notifier.py:68
 msgid "You have $count new updates available"
-msgstr "Há $count novas actualizações disponíveis"
+msgstr "Máte $count nových dostupných aktualizácií"
 
 #: apt-notifier.py:69
 msgid "Upgrade using Synaptic"
-msgstr "Actualizar através do Synaptic"
+msgstr "Aktualizovať s pomocou Synaptic-u"
 
 #: apt-notifier.py:70
 msgid "View and Upgrade"
-msgstr "Ver e actualizar"
+msgstr "Prezrieť a Aktualizovať"
 
 #: apt-notifier.py:71
 msgid "Hide until updates available"
-msgstr "Ocultar até haver actualizações disponíveis"
+msgstr "Skryť pokiaľ nie sú dostupné aktualizácie"
 
 #: apt-notifier.py:72
 msgid "Quit"
-msgstr "Sair"
+msgstr "Koniec"
 
 #: apt-notifier.py:73
 msgid "Apt-Notifier Help"
-msgstr "Ajuda do Notificador do apt "
+msgstr "Nápoveda programu APT Hlásič"
 
 #: apt-notifier.py:74
 msgid "Synaptic Help"
-msgstr "Ajuda do Synaptic"
+msgstr "Nápoveda Synaptic-u"
 
 #: apt-notifier.py:75
 msgid "Preferences"
-msgstr "Preferências"
+msgstr "Nastavenia"
 
 #: apt-notifier.py:76 apt-notifier.py:1059
 msgid "Apt History"
-msgstr "Histórico do apt"
+msgstr "História aktualizácií APT"
 
 #: apt-notifier.py:77
 msgid "Check for Updates"
-msgstr "Verificar se há actualizações"
+msgstr "Skontrolovať dostupné aktualizácie"
 
 #: apt-notifier.py:283
 msgid "MX Apt Notifier--View and Upgrade, previewing: apt-get"
-msgstr ""
-"Notificador do apt para o MX--Ver e actualizar, pré-visualizar: apt-get"
+msgstr "MX APT Hlásič--Prezrieť a Aktualizovať, náhľad: apt-get"
 
 #: apt-notifier.py:284
 msgid "use apt-get's --yes option for"
-msgstr "usar a opção --yes do apt-get para"
+msgstr "použiť voľbu apt-get --yes pre"
 
 #: apt-notifier.py:285
 #, python-format
 msgid "automatically close terminal window when apt-get %s complete"
-msgstr ""
-"fechar automaticamente a janela de terminal quando o apt-get %s finalizar"
+msgstr "po dokončení apt-get %s automaticky zatvoriť okno terminálu"
 
 #: apt-notifier.py:286
 #, python-format
 msgid "switch to %s"
-msgstr "mudar para %s"
+msgstr "prepnúť na %s"
 
 #: apt-notifier.py:287
 msgid ""
 "Switches the type of Upgrade that will be performed, alternating back and "
 "forth between 'apt-get upgrade' and 'apt-get dist-upgrade'."
 msgstr ""
-"Altera o tipo de Actualização a ser executada, alternando entre 'apt-get "
-"upgrade' (actualiza os pacotes) e 'apt-get dist-upgrade' (actualiza os "
-"pacotes e as dependências)"
+"Mení typ vykonávanej aktualizácie, prepína tam a naspäť medzi 'apt-get "
+"upgrade' a 'apt-get dist-upgrade'."
 
 #: apt-notifier.py:288
 msgid "Reload"
-msgstr "Recarregar"
+msgstr "Obnoviť"
 
 #: apt-notifier.py:289
 msgid ""
 "Reload the package information to become informed about new, removed or "
 "upgraded software packages. (apt-get update)"
 msgstr ""
-"Recarregar a informação sobre os pacotes de software disponíveis nos "
-"repositórios, para actualização (novos pacotes, pacotes removidos e pacotes "
-"actualizados). (apt-get update)"
+"Obnoviť informácie o nových, odstránených alebo aktualizovaných softvérových"
+" balíkoch. (apt-get update)"
 
 #: apt-notifier.py:292 apt-notifier.py:1097
 msgid ""
 "The action you requested needs <b>root privileges</b>. Please enter "
 "<b>root's</b> password below."
 msgstr ""
-"A acção requerida necessita de <b>privilégios de administrador (root)</b>. "
-"Introduzir a <b>senha de administrador</b> abaixo."
+"Požadovaný úkon potrebuje <b>root oprávnenia</b>. Prosím zadajte heslo "
+"<b>root-a</b> nižšie."
 
 #: apt-notifier.py:295
 #, python-format
 msgid "%s complete (or was canceled)"
-msgstr "%s completo (ou foi cancelado)"
+msgstr "%s hotovo (alebo bolo zastavené)"
 
 #: apt-notifier.py:296
 msgid "this terminal window can now be closed"
-msgstr "esta janela de terminal pode agora ser fechada"
+msgstr "Okno terminálu už môžete zatvoriť"
 
 #: apt-notifier.py:297
 msgid "press any key to close"
-msgstr "prima qualquer tecla para fechar"
+msgstr "pre ukončenie stlačte ľubovoľnú klávesu"
 
 #: apt-notifier.py:298
 msgid "Unneeded packages are installed that can be removed."
-msgstr "Estão instalados pacotes desnecessários que podem ser removidos."
+msgstr "Nepotrebné balíky, ktoré môžu byť odstránené."
 
 #: apt-notifier.py:299
 msgid "Running apt-get autoremove, if you are unsure type 'n'."
-msgstr "A executar o apt-get autoremove; em caso de dúvida, teclar 'n'."
+msgstr "Spúšťam apt-get autoremove, ak si nie ste istí stlačte 'n'."
 
 #: apt-notifier.py:856
 msgid "MX Apt Notifier preferences"
-msgstr "Preferências do Notificador do apt para o MX "
+msgstr "Nastavenia programu MX APT Hlásič"
 
 #: apt-notifier.py:857
 msgid "Upgrade behaviour   (also affects notification count)"
-msgstr ""
-"Comportamento da actualização (também afecta a contagem de notificações)"
+msgstr "Chovanie aktualizácií (tiež ovplyvňuje počet notifikácií)"
 
 #: apt-notifier.py:858
 msgid "Left-click behaviour   (when updates are available)"
-msgstr "Comportamento do botão esquerdo (quando há actualizações disponíveis)"
+msgstr ""
+"Chovanie pri kliknutí ľavým tlačidlom myši (keď sú dostupné aktualizácie)"
 
 #: apt-notifier.py:859
 msgid "Other options"
-msgstr "Outras opções"
+msgstr "Ďalšie voľby"
 
 #: apt-notifier.py:860
 msgid "opens Synaptic"
-msgstr "abre o Synaptic"
+msgstr "otvorí Synaptic"
 
 #: apt-notifier.py:861
 msgid "opens MX Apt Notifier 'View and Upgrade' window"
-msgstr "abre a janela 'Ver e Atualizar' do Notificador do apt para o MX"
+msgstr "otvorí okno 'Prezrieť a Aktualizovať' programu MX APT Hlásič"
 
 #: apt-notifier.py:862
 msgid "use apt-get's --yes option for upgrade/dist-upgrade"
-msgstr "usar a opção --yes do apt-get para upgrade/dist-upgrade"
+msgstr "použiť voľbu apt-get --yes pre upgrade/dist-upgrade"
 
 #: apt-notifier.py:863
 msgid ""
 "automatically close terminal window when apt-get upgrade/dist-upgrade "
 "complete"
 msgstr ""
-"fechar automaticamente a janela de terminal quando o apt-get upgrade/dist-"
-"upgrade finalizar"
+"po dokončení apt-get upgrade/dist-upgrade automaticky zatvoriť okno "
+"terminálu"
 
 #: apt-notifier.py:864
 msgid "check for autoremovable packages after apt-get upgrade/dist-upgrade"
 msgstr ""
-"verificar se há pacotes autoremovíveis após a execução do apt-get upgrade"
-"/dist-upgrade"
+"po dokončení apt-get upgrade/dist-upgrade skontrolovať automaticky "
+"odstrániteľné balíky "
 
 #: apt-notifier.py:865
 msgid "Icons"
-msgstr "Ícones"
+msgstr "Ikony"
 
 #: apt-notifier.py:866
 msgid "classic"
-msgstr "clássico"
+msgstr "klasické"

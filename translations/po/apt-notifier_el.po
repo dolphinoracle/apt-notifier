@@ -24,11 +24,11 @@ msgstr "0 διαθέσιμες ενημερώσεις"
 
 #: apt-notifier.py:64
 msgid "1 new update available"
-msgstr ""
+msgstr "1 νέα διαθέσιμη ενημέρωση"
 
 #: apt-notifier.py:65
 msgid "$count new updates available"
-msgstr ""
+msgstr " $count νέες διαθέσιμες ενημερώσεις"
 
 #: apt-notifier.py:66
 msgid "Updates"
@@ -72,11 +72,11 @@ msgstr "Προτιμήσεις"
 
 #: apt-notifier.py:76 apt-notifier.py:1059
 msgid "Apt History"
-msgstr ""
+msgstr "Apt History"
 
 #: apt-notifier.py:77
 msgid "Check for Updates"
-msgstr ""
+msgstr "Ελεγχος για ενημερώσεις"
 
 #: apt-notifier.py:283
 msgid "MX Apt Notifier--View and Upgrade, previewing: apt-get"
@@ -103,6 +103,8 @@ msgid ""
 "Switches the type of Upgrade that will be performed, alternating back and "
 "forth between 'apt-get upgrade' and 'apt-get dist-upgrade'."
 msgstr ""
+"Αλλάζει τον τύπο της αναβάθμισης που θα εκτελεστεί, εναλλασσόμενος μεταξύ "
+"του 'apt-get upgrade' και του 'apt-get dist-upgrade'"
 
 #: apt-notifier.py:288
 msgid "Reload"
@@ -160,7 +162,7 @@ msgstr "αριστερό κλικ (όταν υπάρχουν διαθέσιμε�
 
 #: apt-notifier.py:859
 msgid "Other options"
-msgstr ""
+msgstr "Αλλες επιλογές"
 
 #: apt-notifier.py:860
 msgid "opens Synaptic"
@@ -190,8 +192,8 @@ msgstr ""
 
 #: apt-notifier.py:865
 msgid "Icons"
-msgstr ""
+msgstr "Εικονίδια"
 
 #: apt-notifier.py:866
 msgid "classic"
-msgstr ""
+msgstr "κλασσικός"

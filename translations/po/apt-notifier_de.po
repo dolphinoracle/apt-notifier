@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-23 20:23-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Geoff Gigg <geoffgigg@hotmail.com>, 2017\n"
+"Last-Translator: Vinzenz Vietzke <vinz@vinzv.de>, 2017\n"
 "Language-Team: German (https://www.transifex.com/anticapitalista/teams/10162/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -72,11 +72,11 @@ msgstr "Einstellungen"
 
 #: apt-notifier.py:76 apt-notifier.py:1059
 msgid "Apt History"
-msgstr ""
+msgstr "Apt-Historie"
 
 #: apt-notifier.py:77
 msgid "Check for Updates"
-msgstr ""
+msgstr "Auf Aktualisierungen prüfen"
 
 #: apt-notifier.py:283
 msgid "MX Apt Notifier--View and Upgrade, previewing: apt-get"
@@ -101,6 +101,8 @@ msgid ""
 "Switches the type of Upgrade that will be performed, alternating back and "
 "forth between 'apt-get upgrade' and 'apt-get dist-upgrade'."
 msgstr ""
+"Wechselt den genutzten Upgrade-Typ zwischen 'apt-get upgrade' und 'apt-get "
+"dist-upgrade'."
 
 #: apt-notifier.py:288
 msgid "Reload"
@@ -157,7 +159,7 @@ msgstr "Linksklick-Verhalten (wenn Updates verfügbar sind)"
 
 #: apt-notifier.py:859
 msgid "Other options"
-msgstr ""
+msgstr "Weitere Optionen"
 
 #: apt-notifier.py:860
 msgid "opens Synaptic"
@@ -187,8 +189,8 @@ msgstr ""
 
 #: apt-notifier.py:865
 msgid "Icons"
-msgstr ""
+msgstr "Symbole"
 
 #: apt-notifier.py:866
 msgid "classic"
-msgstr ""
+msgstr "klassisch"

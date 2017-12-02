@@ -28,7 +28,7 @@ msgstr "Prieinamas 1 naujas atnaujinimas"
 
 #: apt-notifier.py:65
 msgid "$count new updates available"
-msgstr ""
+msgstr "Yra prieinama $count naujų atnaujinimų"
 
 #: apt-notifier.py:66
 msgid "Updates"

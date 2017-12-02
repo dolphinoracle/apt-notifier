@@ -195,8 +195,8 @@ msgstr ""
 
 #: apt-notifier.py:865
 msgid "Icons"
-msgstr ""
+msgstr "Icone"
 
 #: apt-notifier.py:866
 msgid "classic"
-msgstr ""
+msgstr "classico"
