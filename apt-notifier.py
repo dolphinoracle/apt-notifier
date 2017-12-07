@@ -336,13 +336,21 @@ def viewandupgrade():
 
     RunAptScriptInTerminal(){
     #for MEPIS remove "MX" branding from the $window_title string
-    window_title=$(echo "$1"|sed 's/MX /'$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
+    window_title_term=$window_title
+    window_title_term=$(echo "$1"|sed 's/MX /'$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
 
         TermXOffset="$(xwininfo -root|awk '/Width/{print $2/4}')"
         TermYOffset="$(xwininfo -root|awk '/Height/{print $2/4}')"
         G=" --geometry=80x25+"$TermXOffset"+"$TermYOffset
         I=" --icon=mnotify-some-""$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
-        if [ "$2" = "" ]; then T=""; I=""; else T=" --title='""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" Updater: "$2"'"; fi
+        if [ "$2" = "" ]
+          then T=""; I=""
+          else 
+            if [ "$2" != "update" ]
+              then T=" --title='""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" Updater: "$2"'"
+              else T=" --title='""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" Updater: "$reload"'"
+            fi
+        fi
         if (xprop -root | grep -q -i kde)
           then
 
@@ -1127,7 +1135,9 @@ def apt_get_update():
     # ~~~ Localize 4 ~~~
 
     t01 = _("The action you requested needs <b>root privileges</b>. Please enter <b>root's</b> password below.")
+    t02 = _("Reload")
     shellvar = '    rootPasswordRequestMsg="' + t01 + '"\n'
+    shellvar = '    reload="' + t02 + '"\n'
     
     script = '''#! /bin/bash
 ''' + shellvar + '''
@@ -1139,7 +1149,7 @@ def apt_get_update():
     TermYOffset="$(xwininfo -root|awk '/Height/{print $2/4}')"
     G=" --geometry=80x25+"$TermXOffset"+"$TermYOffset
     I=" --icon=mnotify-some-""$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
-    T=" --title='""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" Updater: Reload'"
+    T=" --title='""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" Updater: $reload'"
     if (xprop -root | grep -q -i kde)
       then
         # Running KDE
