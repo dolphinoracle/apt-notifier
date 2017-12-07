@@ -643,7 +643,7 @@ def viewandupgrade():
           else
             # build a upgrade script to do the apt-get upgrade (or dist-upgrade)
             echo "#!/bin/bash"> "$TMP"/upgradeScript
-            echo "echo 'apt-get '"$UpgradeType>> "$TMP"/upgradeScript
+            echo "echo ''"$UpgradeType>> "$TMP"/upgradeScript
             echo 'find /etc/apt/preferences.d | grep -E synaptic-[0-9a-zA-Z]{6}-pins | xargs rm -f'>> "$TMP"/upgradeScript 
             echo 'if [ -f /var/lib/synaptic/preferences -a -s /var/lib/synaptic/preferences ]'>> "$TMP"/upgradeScript
             echo '  then '>> "$TMP"/upgradeScript
@@ -679,7 +679,7 @@ def viewandupgrade():
             
             # ~~~ Localize 2b ~~~
 
-            donetype="apt-get $UpgradeType"
+            donetype="$UpgradeType"
             donetext=$(echo "$done1" | sed 's/%s/'"$donetype"'/')
             echo 'echo "'"$donetext"'"'>> "$TMP"/upgradeScript
             echo "echo">> "$TMP"/upgradeScript
