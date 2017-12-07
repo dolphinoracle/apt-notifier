@@ -70,10 +70,10 @@ def set_translations():
     View_and_Upgrade                            = unicode (_("View and Upgrade")                       ,'utf-8')         
     Hide_until_updates_available                = unicode (_("Hide until updates available")           ,'utf-8')
     Quit_Apt_Notifier                           = unicode (_("Quit")                                   ,'utf-8')
-    Apt_Notifier_Help                           = unicode (_("Apt-Notifier Help")                      ,'utf-8')
+    Apt_Notifier_Help                           = unicode (_("MX Updater Help")                      ,'utf-8')
     Synaptic_Help                               = unicode (_("Synaptic Help")                          ,'utf-8')
     Apt_Notifier_Preferences                    = unicode (_("Preferences")                            ,'utf-8')
-    Apt_History                                 = unicode (_("Apt History")                            ,'utf-8')
+    Apt_History                                 = unicode (_("History")                            ,'utf-8')
     Check_for_Updates                           = unicode (_("Check for Updates")                      ,'utf-8')
   
 # Check for updates, using subprocess.Popen
@@ -293,9 +293,9 @@ def viewandupgrade():
     #   t13: \\\"n\\\" will convert to \"n\" which will become "n" in shell (to avoid concatenating shell strings)
 
     # t01 thru t07, Yad 'View and Upgrade' strings 
-    t01 = _("MX Apt Notifier--View and Upgrade, previewing: apt-get")
-    t02 = _("use apt-get's --yes option for")
-    t03 = _("automatically close terminal window when apt-get %s complete")
+    t01 = _("MX Updater--View and Upgrade, previewing: apt-get")
+    t02 = _("Automatically anwser 'yes' to all prompts during upgrade/dist-upgrade")
+    t03 = _("automatically close terminal window when %s complete")
     t04 = _("switch to %s")
     t05 = _("Switches the type of Upgrade that will be performed, alternating back and forth between 'apt-get upgrade' and 'apt-get dist-upgrade'.")
     t06 = _("Reload")
@@ -581,7 +581,7 @@ def viewandupgrade():
         # But fails, so use sed instead.
         # Format auto close message in same way.
 
-        switch_type="'apt-get ""$OtherUpgradeType""'"
+        switch_type="'""$OtherUpgradeType""'"
         switch_label=$(echo "$switch_to" | sed 's/%s/'"$switch_type"'/')
         auto_close_label=$(echo "$auto_close_window" | sed 's/%s/'"$UpgradeType"'/')
 
@@ -593,7 +593,7 @@ def viewandupgrade():
         --title "$(echo "$window_title"|sed 's/MX /'$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)" "'/') $UpgradeType" \\
         --form \\
           --field :TXT "$(sed 's/^/  /' "$TMP"/upgrades)" \\
-          --field="$use_apt_get_dash_dash_yes $UpgradeType":CHK $UpgradeAssumeYes \\
+          --field="$use_apt_get_dash_dash_yes":CHK $UpgradeAssumeYes \\
           --field="$auto_close_label":CHK $UpgradeAutoClose \\
         --button "$switch_label"!!"$switch_tooltip":4 \\
         --button 'apt-get '"$UpgradeType"!mnotify-some-"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"!:0 \\
@@ -867,15 +867,15 @@ def aptnotifier_prefs():
     
     # ~~~ Localize 3 ~~~
 
-    t01 = _("MX Apt Notifier preferences")
+    t01 = _("MX Updater preferences")
     t02 = _("Upgrade behaviour   (also affects notification count)")
     t03 = _("Left-click behaviour   (when updates are available)")
     t04 = _("Other options")
     t05 = _("opens Synaptic")
-    t06 = _("opens MX Apt Notifier 'View and Upgrade' window")
-    t07 = _("use apt-get's --yes option for upgrade/dist-upgrade")
-    t08 = _("automatically close terminal window when apt-get upgrade/dist-upgrade complete")
-    t09 = _("check for autoremovable packages after apt-get upgrade/dist-upgrade")
+    t06 = _("opens MX Updater 'View and Upgrade' window")
+    t07 = _("Automatically anwser 'yes' to all prompts during upgrade/dist-upgrade")
+    t08 = _("automatically close terminal window when upgrade/dist-upgrade complete")
+    t09 = _("check for autoremovable packages after upgrade/dist-upgrade")
     t10 = _("Icons")
     t11 = _("classic")
     t12 = _("pulse")
@@ -1088,7 +1088,7 @@ def apt_history():
 
     # ~~~ Localize 5 ~~~
 
-    t01 = _("Apt History")
+    t01 = _("History")
     shellvar = '    AptHistory="' + t01 + '"\n'
 
     script = '''#! /bin/bash
