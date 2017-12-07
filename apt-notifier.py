@@ -515,7 +515,7 @@ def viewandupgrade():
         UpgradeAutoClose=$(grep ^UpgradeAutoClose ~/.config/apt-notifierrc | cut -f2 -d=)
       
         TMP=$(mktemp -d /tmp/apt-notifier.XXXXXX)
-        echo "apt-get $UpgradeType" > "$TMP"/upgrades
+        echo "$UpgradeType" > "$TMP"/upgrades
         
         #The following 40 or so lines (down to the "APT_CONFIG" line) create a temporary etc/apt folder and subfolders
         #that for the most part match the root owned /etc/apt folder and it's subfolders.
@@ -637,7 +637,7 @@ def viewandupgrade():
           then
             # build a upgrade script to do a apt-get update
             echo "#!/bin/bash"> "$TMP"/upgradeScript
-            echo "echo 'apt-get update'">> "$TMP"/upgradeScript
+            echo "echo 'update'">> "$TMP"/upgradeScript
             echo "apt-get update">> "$TMP"/upgradeScript
 
           else
@@ -1138,8 +1138,8 @@ def apt_get_update():
     TermXOffset="$(xwininfo -root|awk '/Width/{print $2/4}')"
     TermYOffset="$(xwininfo -root|awk '/Height/{print $2/4}')"
     G=" --geometry=80x25+"$TermXOffset"+"$TermYOffset
-    #I=" --icon=mnotify-some-""$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
-    #T=" --title='""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" apt-notifier: apt-get update'"
+    I=" --icon=mnotify-some-""$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
+    T=" --title='""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" Updater: Reload'"
     if (xprop -root | grep -q -i kde)
       then
         # Running KDE
