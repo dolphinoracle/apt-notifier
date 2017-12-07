@@ -293,7 +293,7 @@ def viewandupgrade():
     #   t13: \\\"n\\\" will convert to \"n\" which will become "n" in shell (to avoid concatenating shell strings)
 
     # t01 thru t07, Yad 'View and Upgrade' strings 
-    t01 = _("MX Updater--View and Upgrade, previewing: apt-get")
+    t01 = _("MX Updater--View and Upgrade, previewing: ")
     t02 = _("Automatically anwser 'yes' to all prompts during upgrade/dist-upgrade")
     t03 = _("automatically close terminal window when %s complete")
     t04 = _("switch to %s")
@@ -342,7 +342,7 @@ def viewandupgrade():
         TermYOffset="$(xwininfo -root|awk '/Height/{print $2/4}')"
         G=" --geometry=80x25+"$TermXOffset"+"$TermYOffset
         I=" --icon=mnotify-some-""$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
-        if [ "$2" = "" ]; then T=""; I=""; else T=" --title='""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" apt-notifier: apt-get "$2"'"; fi
+        if [ "$2" = "" ]; then T=""; I=""; else T=" --title='""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" Updater: "$2"'"; fi
         if (xprop -root | grep -q -i kde)
           then
 
@@ -596,7 +596,7 @@ def viewandupgrade():
           --field="$use_apt_get_dash_dash_yes":CHK $UpgradeAssumeYes \\
           --field="$auto_close_label":CHK $UpgradeAutoClose \\
         --button "$switch_label"!!"$switch_tooltip":4 \\
-        --button 'apt-get '"$UpgradeType"!mnotify-some-"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"!:0 \\
+        --button ''"$UpgradeType"!mnotify-some-"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"!:0 \\
         --button "$reload"!reload!"$reload_tooltip":8 \\
         --button gtk-cancel:2 \\
         --buttons-layout=spread \\
@@ -902,7 +902,7 @@ def aptnotifier_prefs():
 
     #for MEPIS remove "MX" branding from the $window_title and $left_click_ViewandUpgrade strings
     window_title=$(echo "$window_title"|sed 's/MX /'$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
-    left_click_ViewandUpgrade=$(echo "$left_click_ViewandUpgrade"|sed 's/MX /'$(grep -o MX-[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
+    left_click_ViewandUpgrade=$(echo "$left_click_ViewandUpgrade"|sed 's/MX /'$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
     IconLookBegin=$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)
     TMP=$(mktemp -d /tmp/apt_notifier_preferences_dialog.XXXXXX)
     touch "$TMP"/output
@@ -912,12 +912,12 @@ def aptnotifier_prefs():
         <frame @upgrade_behaviour@>
           <frame>
             <radiobutton active="@UpgradeBehaviourAptGetUpgrade@">
-              <label>"apt-get upgrade"</label>
+              <label>"upgrade"</label>
               <variable>UpgradeType_upgrade</variable>
               <action>:</action>
             </radiobutton>
             <radiobutton active="@UpgradeBehaviourAptGetDistUpgrade@">
-              <label>"apt-get dist-upgrade"</label>
+              <label>"dist-upgrade"</label>
               <variable>UpgradeType_dist-upgrade</variable>
               <action>:</action>
             </radiobutton>
