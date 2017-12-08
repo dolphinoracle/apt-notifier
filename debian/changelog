@@ -1,3 +1,9 @@
+apt-notifier (17.12.07mx17+2) mx; urgency=medium
+
+  * Remove /etc/xdg/autostart/apt-notifier-autostart-xdg.desktop if present
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Fri, 08 Dec 2017 10:10:38 -0500
+
 apt-notifier (17.12.07mx17+1) mx; urgency=medium
 
   * App renamed to MX Updater, packagename remains as apt-notifier for now

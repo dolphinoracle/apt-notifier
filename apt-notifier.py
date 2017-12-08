@@ -850,8 +850,12 @@ def initialize_aptnotifier_prefs():
         :
     fi
 
+    #not really a preference, but remove obsolete *apt-notifier-menu.desktop files if present 
     rm -f ~/.local/share/applications/apt-notifier-menu.desktop
-    rm -f ~/.local/share/applications/mx-apt-notifier-menu.desktop    
+    rm -f ~/.local/share/applications/mx-apt-notifier-menu.desktop   
+
+    #also not a preference, but remove obsolete ~/.config/autostart/apt-notifier-autostart-xdg.desktop file if present
+    rm -f ~/.config/autostart/apt-notifier-autostart-xdg.desktop
 
     [ -e ~/.local/share/applications/mx-updater-menu-kde.desktop ] || cp /usr/share/applications/mx-updater-menu-kde.desktop ~/.local/share/applications/mx-updater-menu-kde.desktop
 
