@@ -1,13 +1,13 @@
 #15periodic-update etc/apt/apt.conf.d
 1-quick-live-update etc/cron.daily
-apt-notifier-autostart-xdg.desktop etc/xdg/autostart
+mx-updater-autostart-xdg.desktop etc/xdg/autostart
 apt-notifier usr/bin
 apt-notifier.py usr/bin
 apt-notifier-unhide-Icon usr/bin
-apt-notifier-autostart.desktop usr/share/autostart
-apt-notifier-menu.desktop usr/share/applications
+mx-updater-autostart-kde.desktop usr/share/autostart
+mx-updater-menu-kde.desktop usr/share/applications
 apt-history usr/local/bin
-mx-apt-notifier-menu.desktop usr/share/applications
+mx-updater-menu-non-kde.desktop usr/share/applications
 mnotify-none-classic.png usr/share/icons
 mnotify-some-classic.png usr/share/icons
 mnotify-none-pulse.png usr/share/icons
