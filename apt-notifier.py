@@ -850,15 +850,18 @@ def initialize_aptnotifier_prefs():
         :
     fi
 
-    [ -e ~/.local/share/applications/apt-notifier-menu.desktop ] || cp /usr/share/applications/apt-notifier-menu.desktop ~/.local/share/applications/apt-notifier-menu.desktop
+    rm -f ~/.local/share/applications/apt-notifier-menu.desktop
+    rm -f ~/.local/share/applications/mx-apt-notifier-menu.desktop    
 
-    grep $(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) ~/.local/share/applications/apt-notifier-menu.desktop -q
-    [ $? -eq 0 ] || sed -i 's/mnotify-some.*/mnotify-some-'"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"'/' ~/.local/share/applications/apt-notifier-menu.desktop
+    [ -e ~/.local/share/applications/mx-updater-menu-kde.desktop ] || cp /usr/share/applications/mx-updater-menu-kde.desktop ~/.local/share/applications/mx-updater-menu-kde.desktop
 
-    [ -e ~/.local/share/applications/mx-apt-notifier-menu.desktop ] || cp /usr/share/applications/mx-apt-notifier-menu.desktop ~/.local/share/applications/mx-apt-notifier-menu.desktop
+    grep $(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) ~/.local/share/applications/mx-updater-menu-kde.desktop -q
+    [ $? -eq 0 ] || sed -i 's/mnotify-some.*/mnotify-some-'"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"'/' ~/.local/share/applications/mx-updater-menu-kde.desktop
 
-    grep $(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) ~/.local/share/applications/mx-apt-notifier-menu.desktop -q 
-    [ $? -eq 0 ] || sed -i 's/mnotify-some.*/mnotify-some-'"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"'/' ~/.local/share/applications/mx-apt-notifier-menu.desktop
+    [ -e ~/.local/share/applications/mx-updater-menu-non-kde.desktop ] || cp /usr/share/applications/mx-updater-menu-non-kde.desktop ~/.local/share/applications/mx-updater-menu-non-kde.desktop
+
+    grep $(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) ~/.local/share/applications/mx-updater-menu-non-kde.desktop -q 
+    [ $? -eq 0 ] || sed -i 's/mnotify-some.*/mnotify-some-'"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"'/' ~/.local/share/applications/mx-updater-menu-non-kde.desktop
 
     '''
 
@@ -1068,13 +1071,13 @@ EOF
 
     rm -rf "$TMP"
 
-    #update Icon= line in .local apt-notifier-menu.desktop file if icon not same as IconLook config setting in ~/.config/apt-notifierrc file
-    grep $(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) ~/.local/share/applications/apt-notifier-menu.desktop -q
-    [ $? -eq 0 ] || sed -i 's/mnotify-some.*/mnotify-some-'"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"'/' ~/.local/share/applications/apt-notifier-menu.desktop
+    #update Icon= line in .local mx-updater-menu-kde.desktop file if icon not same as IconLook config setting in ~/.config/apt-notifierrc file
+    grep $(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) ~/.local/share/applications/mx-updater-menu-kde.desktop -q
+    [ $? -eq 0 ] || sed -i 's/mnotify-some.*/mnotify-some-'"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"'/' ~/.local/share/applications/mx-updater-menu-kde.desktop
 
-    #update Icon= line in .local mx-apt-notifier-menu.desktop file if icon not same as IconLook config setting in ~/.config/apt-notifierrc file
-    grep $(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) ~/.local/share/applications/mx-apt-notifier-menu.desktop -q 
-    [ $? -eq 0 ] || sed -i 's/mnotify-some.*/mnotify-some-'"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"'/' ~/.local/share/applications/mx-apt-notifier-menu.desktop
+    #update Icon= line in .local mx-updater-menu-non-kde.desktop file if icon not same as IconLook config setting in ~/.config/apt-notifierrc file
+    grep $(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) ~/.local/share/applications/mx-updater-menu-non-kde.desktop -q 
+    [ $? -eq 0 ] || sed -i 's/mnotify-some.*/mnotify-some-'"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"'/' ~/.local/share/applications/mx-updater-menu-non-kde.desktop
 
     #restart apt-notifier if IconLook setting has been changed 
     if [ "$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)" != "$IconLookBegin" ]

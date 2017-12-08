@@ -1,3 +1,9 @@
+apt-notifier (17.12.07mx17+1) mx; urgency=medium
+
+  * App renamed to MX Updater, packagename remains as apt-notifier for now
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Thu, 07 Dec 2017 20:02:47 -0500
+
 apt-notifier (17.10.09mx17+1) mx; urgency=medium
 
   * Suppress notification when all upgrades from backports.

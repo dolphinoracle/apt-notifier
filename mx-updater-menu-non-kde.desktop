@@ -1,15 +1,15 @@
 [Desktop Entry]
-Name=MX Apt-notifier
-Name[ca]=MX Apt-notifier
-Name[de]=MX Apt-notifier
-Name[el]=MX Apt-notifier
-Name[es]=MX Apt-notifier
-Name[fr]=MX Notificateur Apt
-Name[it]=MX Apt-notifier
-Name[ja]=MX Apt-notifier
-Name[nl]=MX Apt-notifier
-Name[pl]=MX Apt-notifier
-Name[sv]=MX Apt-notifier
+Name=MX Updater
+Name[ca]=MX Updater
+Name[de]=MX Updater
+Name[el]=MX Updater
+Name[es]=MX Updater
+Name[fr]=MX Updater
+Name[it]=MX Updater
+Name[ja]=MX Updater
+Name[nl]=MX Updater
+Name[pl]=MX Updater
+Name[sv]=MX Updater
 Comment=Re-enable MX Updater icon even if no updates available
 Comment[ca]=Reactiva la icona d'MX Updater encara que no hi hagin actualitzacions
 Comment[de]=Das Ikon von MX Updater reaktivieren, auch ohne verfügbare Updates 
