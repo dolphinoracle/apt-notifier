@@ -1,3 +1,9 @@
+apt-notifier (17.12.07mx17+3) mx; urgency=medium
+
+  * fixed typos
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Mon, 11 Dec 2017 11:44:05 -0500
+
 apt-notifier (17.12.07mx17+2) mx; urgency=medium
 
   * Remove /etc/xdg/autostart/apt-notifier-autostart-xdg.desktop if present
