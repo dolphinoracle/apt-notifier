@@ -294,7 +294,7 @@ def viewandupgrade():
 
     # t01 thru t07, Yad 'View and Upgrade' strings 
     t01 = _("MX Updater--View and Upgrade, previewing: ")
-    t02 = _("Automatically anwser 'yes' to all prompts during upgrade/dist-upgrade")
+    t02 = _("Automatically answer 'yes' to all prompts during upgrade/dist-upgrade")
     t03 = _("automatically close terminal window when %s complete")
     t04 = _("switch to %s")
     t05 = _("Switches the type of Upgrade that will be performed, alternating back and forth between 'apt-get upgrade' and 'apt-get dist-upgrade'.")
@@ -888,7 +888,7 @@ def aptnotifier_prefs():
     t04 = _("Other options")
     t05 = _("opens Synaptic")
     t06 = _("opens MX Updater 'View and Upgrade' window")
-    t07 = _("Automatically anwser 'yes' to all prompts during upgrade/dist-upgrade")
+    t07 = _("Automatically answer 'yes' to all prompts during upgrade/dist-upgrade")
     t08 = _("automatically close terminal window when upgrade/dist-upgrade complete")
     t09 = _("check for autoremovable packages after upgrade/dist-upgrade")
     t10 = _("Icons")
