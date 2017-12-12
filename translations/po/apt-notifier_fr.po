@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-23 20:23-0400\n"
+"POT-Creation-Date: 2017-12-11 09:23-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: cyril cottet <cyrilusber2001@yahoo.fr>, 2017\n"
 "Language-Team: French (https://www.transifex.com/anticapitalista/teams/10162/fr/)\n"
@@ -59,8 +59,8 @@ msgid "Quit"
 msgstr "Quitter"
 
 #: apt-notifier.py:73
-msgid "Apt-Notifier Help"
-msgstr "Aide sur Notificateur d'Apt"
+msgid "MX Updater Help"
+msgstr "Aide de MX Mise à jour"
 
 #: apt-notifier.py:74
 msgid "Synaptic Help"
@@ -70,35 +70,35 @@ msgstr "Aide sur Synaptic"
 msgid "Preferences"
 msgstr "Préferences"
 
-#: apt-notifier.py:76 apt-notifier.py:1059
-msgid "Apt History"
-msgstr "Historique de Apt"
+#: apt-notifier.py:76 apt-notifier.py:1106
+msgid "History"
+msgstr "Historique"
 
 #: apt-notifier.py:77
 msgid "Check for Updates"
 msgstr "Vérifier les mises à jour"
 
-#: apt-notifier.py:283
-msgid "MX Apt Notifier--View and Upgrade, previewing: apt-get"
+#: apt-notifier.py:296
+msgid "MX Updater--View and Upgrade, previewing: "
+msgstr "MX Mise à jour--Voir et mettre à niveau, prévisualisation: "
+
+#: apt-notifier.py:297 apt-notifier.py:891
+msgid "Automatically answer 'yes' to all prompts during upgrade/dist-upgrade"
 msgstr ""
-"MX Notificateur d'Apt--Voir et mettre à niveau, survol du programme apt-get"
+"Répondre automatiquement 'oui' à toutes les demandes lors de upgrade/dist-"
+"upgrade"
 
-#: apt-notifier.py:284
-msgid "use apt-get's --yes option for"
-msgstr "utiliser l'option --yes de apt-get pour"
-
-#: apt-notifier.py:285
+#: apt-notifier.py:298
 #, python-format
-msgid "automatically close terminal window when apt-get %s complete"
-msgstr ""
-"fermer automatiquement la fenêtre de terminal quand apt-get %s se termine"
+msgid "automatically close terminal window when %s complete"
+msgstr "fermer automatiquement la fenêtre du terminal lorsque %s se termine"
 
-#: apt-notifier.py:286
+#: apt-notifier.py:299
 #, python-format
 msgid "switch to %s"
 msgstr "passer à %s"
 
-#: apt-notifier.py:287
+#: apt-notifier.py:300
 msgid ""
 "Switches the type of Upgrade that will be performed, alternating back and "
 "forth between 'apt-get upgrade' and 'apt-get dist-upgrade'."
@@ -106,11 +106,11 @@ msgstr ""
 "Change le type de mise à niveau effectuée, alternant entre 'apt-get upgrade'"
 " et 'apt-get dist-upgrade'"
 
-#: apt-notifier.py:288
+#: apt-notifier.py:301 apt-notifier.py:1145
 msgid "Reload"
 msgstr "Recharger"
 
-#: apt-notifier.py:289
+#: apt-notifier.py:302
 msgid ""
 "Reload the package information to become informed about new, removed or "
 "upgraded software packages. (apt-get update)"
@@ -119,7 +119,7 @@ msgstr ""
 "paquets, des suppressions de paquets ou des paquets mis à jour. (apt-get "
 "update)"
 
-#: apt-notifier.py:292 apt-notifier.py:1097
+#: apt-notifier.py:305 apt-notifier.py:1144
 msgid ""
 "The action you requested needs <b>root privileges</b>. Please enter "
 "<b>root's</b> password below."
@@ -127,75 +127,76 @@ msgstr ""
 "L'action requise nécessite <b>les droits du superutilisateur</b>. Veuillez "
 "saisir ci-dessous le mot de passe du <b>superutilisateur</b>."
 
-#: apt-notifier.py:295
+#: apt-notifier.py:308
 #, python-format
 msgid "%s complete (or was canceled)"
 msgstr "%s s'est terminé (ou a été annulé)"
 
-#: apt-notifier.py:296
+#: apt-notifier.py:309
 msgid "this terminal window can now be closed"
 msgstr "vous pouvez maintenant fermer cette fenêtre de terminal"
 
-#: apt-notifier.py:297
+#: apt-notifier.py:310
 msgid "press any key to close"
 msgstr "appuyez sur une touche pour fermer"
 
-#: apt-notifier.py:298
+#: apt-notifier.py:311
 msgid "Unneeded packages are installed that can be removed."
 msgstr "Il existe des paquets installés superflus pouvant être supprimés."
 
-#: apt-notifier.py:299
+#: apt-notifier.py:312
 msgid "Running apt-get autoremove, if you are unsure type 'n'."
 msgstr ""
 "Lancement de apt-get autoremove; si vous n'êtes pas sûr de vous, entrez 'n'."
 
-#: apt-notifier.py:856
-msgid "MX Apt Notifier preferences"
-msgstr "Préferences pour MX Notificateur d'Apt"
+#: apt-notifier.py:885
+msgid "MX Updater preferences"
+msgstr "Préférences de MX Mise à jour"
 
-#: apt-notifier.py:857
+#: apt-notifier.py:886
 msgid "Upgrade behaviour   (also affects notification count)"
 msgstr ""
 "Comportement de la mise à niveau (influe aussi sur le compte dans la "
 "notification)"
 
-#: apt-notifier.py:858
+#: apt-notifier.py:887
 msgid "Left-click behaviour   (when updates are available)"
 msgstr "Comportement du clic gauche (quand des mises à jour sont disponibles)"
 
-#: apt-notifier.py:859
+#: apt-notifier.py:888
 msgid "Other options"
 msgstr "Autres options"
 
-#: apt-notifier.py:860
+#: apt-notifier.py:889
 msgid "opens Synaptic"
 msgstr "lance Synaptic"
 
-#: apt-notifier.py:861
-msgid "opens MX Apt Notifier 'View and Upgrade' window"
-msgstr ""
-"lance MX Notificateur d'Apt 'Voir et mettre à niveau' dans une fenêtre"
+#: apt-notifier.py:890
+msgid "opens MX Updater 'View and Upgrade' window"
+msgstr "ouvre la fenêtre 'Voir et mettre à niveau' de MX Mise à jour"
 
-#: apt-notifier.py:862
-msgid "use apt-get's --yes option for upgrade/dist-upgrade"
-msgstr "utiliser l'option --yes de apt-get pour upgrade/dist-upgrade"
-
-#: apt-notifier.py:863
-msgid ""
-"automatically close terminal window when apt-get upgrade/dist-upgrade "
-"complete"
+#: apt-notifier.py:892
+msgid "automatically close terminal window when upgrade/dist-upgrade complete"
 msgstr ""
-"fermer automatiquement la fenêtre de terminal quand apt-get upgrade/dist-"
+"fermer automatiquement la fenêtre du terminal quand apt-get upgrade/dist-"
 "upgrade se termine"
 
-#: apt-notifier.py:864
-msgid "check for autoremovable packages after apt-get upgrade/dist-upgrade"
-msgstr "chercher des paquets superflus après apt-get upgrade/dist-upgrade"
+#: apt-notifier.py:893
+msgid "check for autoremovable packages after upgrade/dist-upgrade"
+msgstr "chercher les paquets superflus après upgrade/dist-upgrade"
 
-#: apt-notifier.py:865
+#: apt-notifier.py:894
 msgid "Icons"
 msgstr "Icônes"
 
-#: apt-notifier.py:866
+#: apt-notifier.py:895
 msgid "classic"
 msgstr "classique"
+
+#: apt-notifier.py:896
+msgid "pulse"
+msgstr "pulsation"
+
+#: apt-notifier.py:897
+msgid "wireframe"
+msgstr "fil de fer"
