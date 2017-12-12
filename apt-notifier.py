@@ -1379,13 +1379,25 @@ def add_apt_notifier_help_action():
     apt_notifier_help_action.triggered.connect(open_apt_notifier_help)
     
 def open_apt_notifier_help():
-    """ check if mx-viewer is installed, if it is use it to display help, otherwise use xdg-open """
-    command_string = "test -e /usr/bin/mx-viewer"
-    exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
-    if exit_state == 0:
-        subprocess.Popen(['mx-viewer https://mxlinux.org/wiki/help-files/help-mx-apt-notifier'],shell=True)
-    else:
-        subprocess.Popen(['xdg-open  https://mxlinux.org/wiki/help-files/help-mx-apt-notifier'],shell=True) 
+    script = '''#! /bin/bash
+    case $(echo $LANG | cut -f1 -d_) in
+      fr) HelpUrl="https://mxlinux.org/wiki/help-files/help-mx-apt-notifier-notificateur-dapt" ;;
+       *) HelpUrl="https://mxlinux.org/wiki/help-files/help-mx-apt-notifier" ;;
+    esac
+    test -e /usr/bin/mx-viewer
+    if [ $? -eq 0 ]
+      then
+        mx-viewer $HelpUrl
+      else
+        xdg-open  $HelpUrl
+    fi
+    '''
+    script_file = tempfile.NamedTemporaryFile('wt')
+    script_file.write(script)
+    script_file.flush()
+    run = subprocess.Popen(["echo -n `sh %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
+    run.stdout.read(128)
+    script_file.close()
 
     
 def add_synaptic_help_action():
