@@ -1424,7 +1424,7 @@ def open_synaptic_help():
           SynapticPage="129"
           ;;
           
-       *) HelpUrl="https://mxlinux.org/wiki/help-files/help-mx-apt-notifier" ;;
+       *) HelpUrl="https://mxlinux.org/user_manual_mx15/mxum.html#toc-Subsection-5.3" ;;
     esac
     
     #test to see if pdf or html (a 0 result = pdf)
