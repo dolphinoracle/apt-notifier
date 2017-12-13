@@ -1406,13 +1406,51 @@ def add_synaptic_help_action():
     synaptic_help_action.triggered.connect(open_synaptic_help)
     
 def open_synaptic_help():
-    """ check if mx-viewer is installed, if it is use it to display help, otherwise use xdg-open """
-    command_string = "test -e /usr/bin/mx-viewer"
-    exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
-    if exit_state == 0:
-        subprocess.Popen(['mx-viewer https://mxlinux.org/user_manual_mx15/mxum.html#toc-Subsection-5.3'],shell=True)
-    else:
-        subprocess.Popen(['xdg-open  https://mxlinux.org/user_manual_mx15/mxum.html#toc-Subsection-5.3'],shell=True)
+    script = '''#! /bin/bash
+    case $(echo $LANG | cut -f1 -d_) in
+    
+      es) HelpUrl="https://mxlinux.org/user_manual_mx15/Translations/mxum_espa%C3%B1ol.pdf"
+          HelpActualName="mxum_español.pdf"
+          SynapticPage="97"
+          ;;
+          
+      it) HelpUrl="https://mxlinux.org/user_manual_mx16/Translations/mxum_italiano.pdf"
+          HelpActualName="mxum_italiano.pdf"
+          SynapticPage="135"
+          ;;
+      
+      ru) HelpUrl="https://mxlinux.org/user_manual_mx16/Translations/mxum_p%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE.pdf"
+          HelpActualName="mxum_pуководство.pdf"
+          SynapticPage="129"
+          ;;
+          
+       *) HelpUrl="https://mxlinux.org/wiki/help-files/help-mx-apt-notifier" ;;
+    esac
+    
+    #test to see if pdf or html (a 0 result = pdf)
+    echo $HelpUrl | grep \.pdf -q    
+    if [ $? -eq 0 ]
+      then
+        TMP=$(mktemp -d /tmp/synaptic_help.XXXXXX)
+        wget $HelpUrl -O "$TMP"/$HelpActualName 
+        qpdfview "$TMP"/$HelpActualName#"$SynapticPage"
+        rm -rf "$TMP"        
+      else
+        test -e /usr/bin/mx-viewer
+        if [ $? -eq 0 ]
+          then
+            mx-viewer $HelpUrl
+          else
+            xdg-open  $HelpUrl
+        fi
+    fi        
+    '''
+    script_file = tempfile.NamedTemporaryFile('wt')
+    script_file.write(script)
+    script_file.flush()
+    run = subprocess.Popen(["echo -n `sh %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
+    run.stdout.read(128)
+    script_file.close()
 
 def add_aptnotifier_prefs_action():
     ActionsMenu.addSeparator()
