@@ -1,3 +1,10 @@
+apt-notifier (17.12.13mx17+1) mx; urgency=medium
+
+  * add french help
+  * translation updates
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Wed, 13 Dec 2017 08:12:12 -0500
+
 apt-notifier (17.12.07mx17+3) mx; urgency=medium
 
   * fixed typos
