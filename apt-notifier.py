@@ -1409,18 +1409,15 @@ def open_synaptic_help():
     script = '''#! /bin/bash
     case $(echo $LANG | cut -f1 -d_) in
     
-      es) HelpUrl="https://mxlinux.org/user_manual_mx15/Translations/mxum_espa%C3%B1ol.pdf"
-          HelpActualName="mxum_español.pdf"
+      es) HelpUrl="https://mxlinux.org/user_manual_mx15/Translations/mxum_español.pdf"
           SynapticPage="97"
           ;;
           
       it) HelpUrl="https://mxlinux.org/user_manual_mx16/Translations/mxum_italiano.pdf"
-          HelpActualName="mxum_italiano.pdf"
           SynapticPage="135"
           ;;
-      
-      ru) HelpUrl="https://mxlinux.org/user_manual_mx16/Translations/mxum_p%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE.pdf"
-          HelpActualName="mxum_pуководство.pdf"
+
+      ru) HelpUrl="https://mxlinux.org/user_manual_mx16/Translations/mxum_pуководство.pdf"
           SynapticPage="129"
           ;;
           
@@ -1432,8 +1429,8 @@ def open_synaptic_help():
     if [ $? -eq 0 ]
       then
         TMP=$(mktemp -d /tmp/synaptic_help.XXXXXX)
-        wget $HelpUrl -O "$TMP"/$HelpActualName 
-        qpdfview "$TMP"/$HelpActualName#"$SynapticPage"
+        curl $HelpUrl -o "$TMP"/$(basename $HelpUrl)
+        qpdfview "$TMP"/$(basename $HelpUrl)#$SynapticPage
         rm -rf "$TMP"        
       else
         test -e /usr/bin/mx-viewer
