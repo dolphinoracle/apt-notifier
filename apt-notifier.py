@@ -1399,7 +1399,6 @@ def open_apt_notifier_help():
     run.stdout.read(128)
     script_file.close()
 
-    
 def add_synaptic_help_action():
     ActionsMenu.addSeparator()
     synaptic_help_action = ActionsMenu.addAction(HelpIcon,Synaptic_Help)
