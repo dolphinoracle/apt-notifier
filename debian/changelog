@@ -1,3 +1,9 @@
+apt-notifier (17.12.14mx17+2) mx; urgency=medium
+
+  * more synaptic help changes
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Thu, 14 Dec 2017 17:48:24 -0500
+
 apt-notifier (17.12.14mx17+1) mx; urgency=medium
 
   * synaptic help changes
