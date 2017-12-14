@@ -1407,10 +1407,10 @@ def add_synaptic_help_action():
     
 def open_synaptic_help():
     script = '''#! /bin/bash
-    case $(echo $LANG | cut -f1 -d_) in
     
-      es) HelpUrl="https://mxlinux.org/user_manual_mx15/Translations/mxum_español.pdf";     SynapticPage="97"  ;;
-      it) HelpUrl="https://mxlinux.org/user_manual_mx16/Translations/mxum_italiano.pdf";    SynapticPage="135" ;;
+    case $(echo $LANG | cut -f1 -d_) in
+      es) HelpUrl="https://mxlinux.org/user_manual_mx15/Translations/mxum_español.pdf"    ; SynapticPage="97"  ;;
+      it) HelpUrl="https://mxlinux.org/user_manual_mx16/Translations/mxum_italiano.pdf"   ; SynapticPage="135" ;;
       ru) HelpUrl="https://mxlinux.org/user_manual_mx16/Translations/mxum_pуководство.pdf"; SynapticPage="129" ;;
        *) HelpUrl="https://mxlinux.org/user_manual_mx15/mxum.html#toc-Subsection-5.3"                          ;;
     esac
