@@ -1406,11 +1406,19 @@ def add_synaptic_help_action():
     
 def open_synaptic_help():
     script = '''#! /bin/bash
+    HelpUrlBase="https://mxlinux.org/wiki/help-files/help-synaptic"
+    #english     HelpUrl = HelpUrlBase
+    #non-english HelpUrl = HelpUrlBase + "-" + "{2 character suffix - de, es, fr, it, etc.}"
     case $(echo $LANG | cut -f1 -d_) in
-      it) HelpUrl="https://mxlinux.org/wiki/help-files/help-synaptic"    ;;
-      ru) HelpUrl="https://mxlinux.org/wiki/help-files/help-synaptic-ru" ;;
-       *) HelpUrl="https://mxlinux.org/wiki/help-files/help-synaptic"    ;;
+      en) HelpUrl="$HelpUrlBase"                                 ;;
+       *) HelpUrl="$HelpUrlBase""-""$(echo $LANG | cut -f1 -d_)" ;;
     esac
+    #test to see if HelpUrl page exists, if it doesn't change it to HelpUrlBase (english version)
+    wget $HelpUrl --spider -q
+    if [ $? -eq 0 ]
+      then : 
+      else HelpUrl="$HelpUrlBase"
+    fi
     #test to see if pdf or html (a 0 result = pdf)
     echo $HelpUrl | grep \.pdf -q    
     if [ $? -eq 0 ]
