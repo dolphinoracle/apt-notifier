@@ -1,3 +1,9 @@
+apt-notifier (17.12.14mx17+1) mx; urgency=medium
+
+  * synaptic help changes
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Thu, 14 Dec 2017 04:56:33 -0500
+
 apt-notifier (17.12.13mx17+1) mx; urgency=medium
 
   * add french help
