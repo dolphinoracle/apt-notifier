@@ -52,7 +52,7 @@ msgstr "Anschauen and aufrüsten"
 
 #: apt-notifier.py:71
 msgid "Hide until updates available"
-msgstr "Verstercken bis Updates verfügbar"
+msgstr "Verstecken bis Updates verfügbar"
 
 #: apt-notifier.py:72
 msgid "Quit"
@@ -89,7 +89,7 @@ msgstr "Option --yes von apt-get's benutzen bei"
 #: apt-notifier.py:285
 #, python-format
 msgid "automatically close terminal window when apt-get %s complete"
-msgstr "Shellfenster automatiisch schliessen nach Ende von apt-get %s"
+msgstr "Shellfenster automatisch schliessen nach Ende von apt-get %s"
 
 #: apt-notifier.py:286
 #, python-format
@@ -135,7 +135,7 @@ msgstr "Dieses Shellfenster darf jetzt geschlossen werden"
 
 #: apt-notifier.py:297
 msgid "press any key to close"
-msgstr "drücken Sie eine beliebige Taste zu schliessen"
+msgstr "drücken Sie eine beliebige Taste um zu schliessen"
 
 #: apt-notifier.py:298
 msgid "Unneeded packages are installed that can be removed."
