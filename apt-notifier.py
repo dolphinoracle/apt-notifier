@@ -901,24 +901,24 @@ def aptnotifier_prefs():
     t17 = _("<b>Root privileges</b> are required to <b>disable</b> Auto Updates. Please enter <b>root's</b> password below.")
  
     shellvar = (
-	'    window_title="'				            + t01 + '"\n'
-	'    frame_upgrade_behaviour="'			        + t02 + '"\n'
-	'    frame_left_click_behaviour="'		        + t03 + '"\n'
-	'    frame_other_options="'			            + t04 + '"\n'
-	'    left_click_Synaptic="'			            + t05 + '"\n'
-	'    left_click_ViewandUpgrade="'		        + t06 + '"\n'
-	'    use_apt_get_dash_dash_yes="'		        + t07 + '"\n'
-	'    auto_close_term_window_when_complete="' 	+ t08 + '"\n'
-	'    check_for_autoremoves="'			        + t09 + '"\n'
-	'    frame_Icons="'				                + t10 + '"\n'
-	'    label_classic="'				            + t11 + '"\n'
-	'    label_pulse="'				                + t12 + '"\n'
-    '    label_wireframe="'                         + t13 + '"\n'
-    '    frame_Auto_update="'                       + t14 + '"\n' 
-    '    auto_update_checkbox_txt="'                + t15 + '"\n'
-    '    rootPasswordRequestMsgEnableAutoUpdates="' + t16 + '"\n'
-    '    rootPasswordRequestMsgDisableAutoUpdates="'+ t17 + '"\n'
-	)
+        '    window_title="'                             + t01 + '"\n'
+        '    frame_upgrade_behaviour="'                  + t02 + '"\n'
+        '    frame_left_click_behaviour="'               + t03 + '"\n'
+        '    frame_other_options="'                      + t04 + '"\n'
+        '    left_click_Synaptic="'                      + t05 + '"\n'
+        '    left_click_ViewandUpgrade="'                + t06 + '"\n'
+        '    use_apt_get_dash_dash_yes="'                + t07 + '"\n'
+        '    auto_close_term_window_when_complete="' 	 + t08 + '"\n'
+        '    check_for_autoremoves="'                    + t09 + '"\n'
+        '    frame_Icons="'                              + t10 + '"\n'
+        '    label_classic"'                             + t11 + '"\n'
+        '    label_pulse="'                              + t12 + '"\n'
+        '    label_wireframe="'                          + t13 + '"\n'
+        '    frame_Auto_update="'                        + t14 + '"\n' 
+        '    auto_update_checkbox_txt="'                 + t15 + '"\n'
+        '    rootPasswordRequestMsgEnableAutoUpdates="'  + t16 + '"\n'
+        '    rootPasswordRequestMsgDisableAutoUpdates="' + t17 + '"\n'
+        )
     
     script = '''#! /bin/bash
 ''' + shellvar + '''    
