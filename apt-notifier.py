@@ -1034,7 +1034,16 @@ def aptnotifier_prefs():
       </vbox>
     </window>
 EOF
-
+    cat << EOF > "$TMP"/enable_unattended_upgrades
+    #!/bin/bash
+    sed -i 's/[ ]*APT::Periodic::Unattended-Upgrade.*"0".*;/   APT::Periodic::Unattended-Upgrade "1";/' /etc/apt/apt.conf.d/02periodic
+    exit 0
+EOF
+    cat << EOF > "$TMP"/disable_unattended_upgrades
+    #!/bin/bash
+    sed -i 's/[ ]*APT::Periodic::Unattended-Upgrade.*"1".*;/   APT::Periodic::Unattended-Upgrade "0";/' /etc/apt/apt.conf.d/02periodic
+    exit 0
+EOF
     # edit translateable strings placeholders in "$TMP"/DIALOG
     sed -i 's/@title@/'"$window_title"'/' "$TMP"/DIALOG
     sed -i 's/@upgrade_behaviour@/'"$frame_upgrade_behaviour""   "'/' "$TMP"/DIALOG
@@ -1069,11 +1078,12 @@ EOF
     sed -i 's/@Auto_update_label@/'"$frame_Auto_update"'/' "$TMP"/DIALOG
     sed -i 's/@autoupdate_checkboxtxt@/'"$auto_update_checkbox_txt"'/' "$TMP"/DIALOG
     
-    # get what the Unattended-Upgrade status is before bringing up the preferences dialog 
-    eval $(apt-config shell Unattended_Upgrade_before APT::Periodic::Unattended-Upgrade)
+    # get what the Unattended-Upgrade status is before bringing up the preferences dialog
+    Unattended_Upgrade_before_pref_dialog=0
+    eval $(apt-config shell Unattended_Upgrade_before_pref_dialog APT::Periodic::Unattended-Upgrade)
     
     # also use it to set the checkbox setting
-    if [ $Unattended_Upgrade_before = "1" ]
+    if [ $Unattended_Upgrade_before_pref_dialog = "1" ]
       then
         sed -i 's/@Auto_Update_setting@/true/' "$TMP"/DIALOG
       else
@@ -1102,24 +1112,18 @@ EOF
         if [ $(grep IconLook_classic=.*true.*         "$TMP"/output) ]; then sed -i 's/IconLook=pulse/IconLook=classic/'                    ~/.config/apt-notifierrc; fi
         if [ $(grep IconLook_pulse=.*true.*           "$TMP"/output) ]; then sed -i 's/IconLook=wireframe/IconLook=pulse/'                  ~/.config/apt-notifierrc; fi
         if [ $(grep IconLook_pulse=.*true.*           "$TMP"/output) ]; then sed -i 's/IconLook=classic/IconLook=pulse/'                    ~/.config/apt-notifierrc; fi
+        if [ $Unattended_Upgrade_before_pref_dialog = "0" ] && [ $(grep AutoUpdate=.*true.* "$TMP"/output) ]
+          then
+            gksu --su-mode -m "$rootPasswordRequestMsgEnableAutoUpdates"  sh "$TMP"/enable_unattended_upgrades
+        fi
+        if [ $Unattended_Upgrade_before_pref_dialog = "1" ] && [ $(grep AutoUpdate=.*false.* "$TMP"/output) ]
+          then
+            gksu --su-mode -m "$rootPasswordRequestMsgDisableAutoUpdates" sh "$TMP"/disable_unattended_upgrades
+        fi
      else
         :
     fi
 
-    grep -q EXIT=.*OK.* "$TMP"/output
-
-    if [ "$?" -eq 0 ];
-      then
-        if [ $Unattended_Upgrade_before = "0" ] && [ $(grep AutoUpdate=.*true.* "$TMP"/output) ]
-          then
-            gksu --su-mode -m "$rootPasswordRequestMsgEnableAutoUpdates" mx-updater_enable-autoupdate
-          else
-            gksu --su-mode -m "$rootPasswordRequestMsgDisableAutoUpdates" mx-updater_disable-autoupdate
-        fi
-      else
-        :
-    fi
-        
     rm -rf "$TMP"
 
     #update Icon= line in .local mx-updater-menu-kde.desktop file if icon not same as IconLook config setting in ~/.config/apt-notifierrc file
