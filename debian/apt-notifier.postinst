@@ -1,0 +1,55 @@
+#!/bin/bash
+
+#DEBHELPER#
+
+# postinst script for apt-notifier
+
+set -e
+
+case "$1" in
+  configure)  rm -f /etc/apt/apt.conf.d/15periodic-update
+              
+              if  [ ! -f /etc/apt/apt.conf.d/02periodic ]
+                then
+                  cp /usr/share/apt-notifier/02periodic /etc/apt/apt.conf.d/02periodic
+                else 
+                  diff /usr/share/apt-notifier/02periodic /etc/apt/apt.conf.d/02periodic 1>/dev/null
+                  if [ $? -eq 0 ]
+                    then
+                      :
+                    else
+                      grep -q 'overwrite existing' /usr/share/apt-notifier/02periodic
+                      if [ $? -eq 0 ]
+                        then
+                          cp /usr/share/apt-notifier/02periodic /etc/apt/apt.conf.d/02periodic
+                        else
+                          :
+                      fi
+                  fi       
+              fi
+
+              if  [ ! -f /etc/apt/apt.conf.d/51unattended-upgrades-mx ]
+                then
+                  cp /usr/share/apt-notifier/51unattended-upgrades-mx /etc/apt/apt.conf.d/51unattended-upgrades-mx
+                else 
+                  diff /usr/share/apt-notifier/51unattended-upgrades-mx /etc/apt/apt.conf.d/51unattended-upgrades-mx 1>/dev/null
+                  if [ $? -eq 0 ]
+                    then
+                      :
+                    else
+                      grep -q 'overwrite existing' /usr/share/apt-notifier/51unattended-upgrades-mx
+                      if [ $? -eq 0 ]
+                        then
+                          cp /usr/share/apt-notifier/51unattended-upgrades-mx /etc/apt/apt.conf.d/51unattended-upgrades-mx
+                        else
+                          :
+                      fi
+                  fi       
+              fi
+              ;;
+
+          *)  :
+              ;;  
+esac
+exit 0
+

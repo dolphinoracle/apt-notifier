@@ -7,15 +7,11 @@
 set -e
 
 case "$1" in
-  remove)
-    if [ $(grep  15periodic-update /var/lib/dpkg/info/mepis-config.list 2>/dev/null) ];
-      then : ;
-      else rm /etc/apt/apt.conf.d/15periodic-update;
-    fi
-  ;;
-  *)
-    :
-  ;;  
+  purge|remove)  rm -f /etc/apt/apt.conf.d/02periodic
+                 rm -f /etc/apt/apt.conf.d/51unattended-upgrades-mx
+                 ;;
+             *)  :
+                 ;;  
 esac
 exit 0
 

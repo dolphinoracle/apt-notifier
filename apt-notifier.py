@@ -895,21 +895,29 @@ def aptnotifier_prefs():
     t11 = _("classic")
     t12 = _("pulse")
     t13 = _("wireframe")
+    t14 = _("Auto-update")
+    t15 = _("update automatically   (will not add new or remove existing packages)")
+    t16 = _("<b>Root privileges</b> are required to <b>enable</b> Auto Updates. Please enter <b>root's</b> password below.")
+    t17 = _("<b>Root privileges</b> are required to <b>disable</b> Auto Updates. Please enter <b>root's</b> password below.")
  
     shellvar = (
-	'    window_title="'				+ t01 + '"\n'
-	'    frame_upgrade_behaviour="'			+ t02 + '"\n'
-	'    frame_left_click_behaviour="'		+ t03 + '"\n'
-	'    frame_other_options="'			+ t04 + '"\n'
-	'    left_click_Synaptic="'			+ t05 + '"\n'
-	'    left_click_ViewandUpgrade="'		+ t06 + '"\n'
-	'    use_apt_get_dash_dash_yes="'		+ t07 + '"\n'
+	'    window_title="'				            + t01 + '"\n'
+	'    frame_upgrade_behaviour="'			        + t02 + '"\n'
+	'    frame_left_click_behaviour="'		        + t03 + '"\n'
+	'    frame_other_options="'			            + t04 + '"\n'
+	'    left_click_Synaptic="'			            + t05 + '"\n'
+	'    left_click_ViewandUpgrade="'		        + t06 + '"\n'
+	'    use_apt_get_dash_dash_yes="'		        + t07 + '"\n'
 	'    auto_close_term_window_when_complete="' 	+ t08 + '"\n'
-	'    check_for_autoremoves="'			+ t09 + '"\n'
-	'    frame_Icons="'				+ t10 + '"\n'
-	'    label_classic="'				+ t11 + '"\n'
-	'    label_pulse="'				+ t12 + '"\n'
-        '    label_wireframe="'                         + t13 + '"\n'
+	'    check_for_autoremoves="'			        + t09 + '"\n'
+	'    frame_Icons="'				                + t10 + '"\n'
+	'    label_classic="'				            + t11 + '"\n'
+	'    label_pulse="'				                + t12 + '"\n'
+    '    label_wireframe="'                         + t13 + '"\n'
+    '    frame_Auto_update="'                       + t14 + '"\n' 
+    '    auto_update_checkbox_txt="'                + t15 + '"\n'
+    '    rootPasswordRequestMsgEnableAutoUpdates="' + t16 + '"\n'
+    '    rootPasswordRequestMsgDisableAutoUpdates="'+ t17 + '"\n'
 	)
     
     script = '''#! /bin/bash
@@ -1009,6 +1017,16 @@ def aptnotifier_prefs():
           </hbox>
         </frame>
       <vseparator></vseparator>
+        <frame @Auto_update_label@>
+        <frame>
+          <checkbox active="@Auto_Update_setting@">
+            <label>@autoupdate_checkboxtxt@</label>
+            <variable>AutoUpdate</variable>
+            <action>:</action>
+          </checkbox>
+        </frame>
+        <vseparator></vseparator>
+        </frame>
       <hbox>
         <button ok> </button>
         <button cancel> </button>
@@ -1046,7 +1064,22 @@ EOF
 
     # edit placeholder for window icon placeholder in "$TMP"/DIALOG
     sed -i 's/@mnotify-some@/mnotify-some-'$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d= | xargs echo -n)'/' "$TMP"/DIALOG
-
+    
+    # edit AutoUpdate related translateable string placeholders in "$TMP"/DIALOG
+    sed -i 's/@Auto_update_label@/'"$frame_Auto_update"'/' "$TMP"/DIALOG
+    sed -i 's/@autoupdate_checkboxtxt@/'"$auto_update_checkbox_txt"'/' "$TMP"/DIALOG
+    
+    # get what the Unattended-Upgrade status is before bringing up the preferences dialog 
+    eval $(apt-config shell Unattended_Upgrade_before APT::Periodic::Unattended-Upgrade)
+    
+    # also use it to set the checkbox setting
+    if [ $Unattended_Upgrade_before = "1" ]
+      then
+        sed -i 's/@Auto_Update_setting@/true/' "$TMP"/DIALOG
+      else
+        sed -i 's/@Auto_Update_setting@/false/' "$TMP"/DIALOG
+    fi
+        
     gtkdialog --file="$TMP"/DIALOG >> "$TMP"/output
 
     grep -q EXIT=.*OK.* "$TMP"/output
@@ -1063,16 +1096,30 @@ EOF
         if [ $(grep UpgradeAutoClose=.*true.*         "$TMP"/output) ]; then sed -i 's/UpgradeAutoClose=false/UpgradeAutoClose=true/'       ~/.config/apt-notifierrc; fi
         if [ $(grep CheckForAutoRemoves=.*false.*     "$TMP"/output) ]; then sed -i 's/CheckForAutoRemoves=true/CheckForAutoRemoves=false/' ~/.config/apt-notifierrc; fi
         if [ $(grep CheckForAutoRemoves=.*true.*      "$TMP"/output) ]; then sed -i 's/CheckForAutoRemoves=false/CheckForAutoRemoves=true/' ~/.config/apt-notifierrc; fi
-        if [ $(grep IconLook_wireframe=.*true.*            "$TMP"/output) ]; then sed -i 's/IconLook=classic/IconLook=wireframe/'                     ~/.config/apt-notifierrc; fi
-        if [ $(grep IconLook_wireframe=.*true.*            "$TMP"/output) ]; then sed -i 's/IconLook=pulse/IconLook=wireframe/'                       ~/.config/apt-notifierrc; fi
-        if [ $(grep IconLook_classic=.*true.*         "$TMP"/output) ]; then sed -i 's/IconLook=wireframe/IconLook=classic/'                     ~/.config/apt-notifierrc; fi
+        if [ $(grep IconLook_wireframe=.*true.*       "$TMP"/output) ]; then sed -i 's/IconLook=classic/IconLook=wireframe/'                ~/.config/apt-notifierrc; fi
+        if [ $(grep IconLook_wireframe=.*true.*       "$TMP"/output) ]; then sed -i 's/IconLook=pulse/IconLook=wireframe/'                  ~/.config/apt-notifierrc; fi
+        if [ $(grep IconLook_classic=.*true.*         "$TMP"/output) ]; then sed -i 's/IconLook=wireframe/IconLook=classic/'                ~/.config/apt-notifierrc; fi
         if [ $(grep IconLook_classic=.*true.*         "$TMP"/output) ]; then sed -i 's/IconLook=pulse/IconLook=classic/'                    ~/.config/apt-notifierrc; fi
-        if [ $(grep IconLook_pulse=.*true.*           "$TMP"/output) ]; then sed -i 's/IconLook=wireframe/IconLook=pulse/'                       ~/.config/apt-notifierrc; fi
+        if [ $(grep IconLook_pulse=.*true.*           "$TMP"/output) ]; then sed -i 's/IconLook=wireframe/IconLook=pulse/'                  ~/.config/apt-notifierrc; fi
         if [ $(grep IconLook_pulse=.*true.*           "$TMP"/output) ]; then sed -i 's/IconLook=classic/IconLook=pulse/'                    ~/.config/apt-notifierrc; fi
      else
         :
     fi
 
+    grep -q EXIT=.*OK.* "$TMP"/output
+
+    if [ "$?" -eq 0 ];
+      then
+        if [ $Unattended_Upgrade_before = "0" ] && [ $(grep AutoUpdate=.*true.* "$TMP"/output) ]
+          then
+            gksu --su-mode -m "$rootPasswordRequestMsgEnableAutoUpdates" mx-updater_enable-autoupdate
+          else
+            gksu --su-mode -m "$rootPasswordRequestMsgDisableAutoUpdates" mx-updater_disable-autoupdate
+        fi
+      else
+        :
+    fi
+        
     rm -rf "$TMP"
 
     #update Icon= line in .local mx-updater-menu-kde.desktop file if icon not same as IconLook config setting in ~/.config/apt-notifierrc file
