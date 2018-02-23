@@ -1,0 +1,19 @@
+#!/bin/bash
+
+
+
+# preinst script for apt-notifier
+
+set -e
+
+case "$1" in
+  install|upgrade)
+    rm -f /etc/xdg/autostart/apt-notifier-autostart-xdg.desktop
+    rm -f /etc/xdg/autostart/mx-apt-notifier-autostart-xdg.desktop
+  ;;
+  *)
+    :
+  ;;  
+esac
+exit 0
+

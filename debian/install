@@ -1,4 +1,3 @@
-#15periodic-update etc/apt/apt.conf.d
 02periodic usr/share/apt-notifier
 51unattended-upgrades-mx usr/share/apt-notifier
 1-quick-live-update etc/cron.daily

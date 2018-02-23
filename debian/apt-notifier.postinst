@@ -7,13 +7,19 @@
 set -e
 
 case "$1" in
-  configure)  rm -f /etc/apt/apt.conf.d/15periodic-update
-              
+  configure)  #remove obsolete /etc/apt/apt.conf.d/15periodic-update file 
+              rm -f /etc/apt/apt.conf.d/15periodic-update
+
+              #rename other config files with a APT::Periodic::Unattended-Upgrade setting (other than 02periodic)
+              for i in $(grep 'APT::Periodic::Unattended-Upgrade "[0-9]+";' /etc/apt/apt.conf.d/* -E | \
+              cut -f1 -d: | grep -v /etc/apt/apt.conf.d/02periodic); do sudo mv $i $i~; done
+
               if  [ ! -f /etc/apt/apt.conf.d/02periodic ]
                 then
                   cp /usr/share/apt-notifier/02periodic /etc/apt/apt.conf.d/02periodic
+                  sed -i '/overwrite existing/d' /etc/apt/apt.conf.d/02periodic
                 else 
-                  diff /usr/share/apt-notifier/02periodic /etc/apt/apt.conf.d/02periodic 1>/dev/null
+                  diff <(sed '/overwrite existing/d' /usr/share/apt-notifier/02periodic) /etc/apt/apt.conf.d/02periodic 1>/dev/null
                   if [ $? -eq 0 ]
                     then
                       :
@@ -22,6 +28,7 @@ case "$1" in
                       if [ $? -eq 0 ]
                         then
                           cp /usr/share/apt-notifier/02periodic /etc/apt/apt.conf.d/02periodic
+                          sed -i '/overwrite existing/d' /etc/apt/apt.conf.d/02periodic
                         else
                           :
                       fi
@@ -31,8 +38,9 @@ case "$1" in
               if  [ ! -f /etc/apt/apt.conf.d/51unattended-upgrades-mx ]
                 then
                   cp /usr/share/apt-notifier/51unattended-upgrades-mx /etc/apt/apt.conf.d/51unattended-upgrades-mx
+                  sed -i '/overwrite existing/d' /etc/apt/apt.conf.d/51unattended-upgrades-mx
                 else 
-                  diff /usr/share/apt-notifier/51unattended-upgrades-mx /etc/apt/apt.conf.d/51unattended-upgrades-mx 1>/dev/null
+                  diff <(sed '/overwrite existing/d' /usr/share/apt-notifier/51unattended-upgrades-mx) /etc/apt/apt.conf.d/51unattended-upgrades-mx 1>/dev/null
                   if [ $? -eq 0 ]
                     then
                       :
@@ -41,6 +49,7 @@ case "$1" in
                       if [ $? -eq 0 ]
                         then
                           cp /usr/share/apt-notifier/51unattended-upgrades-mx /etc/apt/apt.conf.d/51unattended-upgrades-mx
+                          sed -i '/overwrite existing/d' /etc/apt/apt.conf.d/51unattended-upgrades-mx
                         else
                           :
                       fi
