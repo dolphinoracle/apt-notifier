@@ -104,7 +104,17 @@ def check_updates():
             AptIcon.hide()
         else:
             AptIcon.setIcon(NoUpdatesIcon)
-            AptIcon.setToolTip(tooltip_0_updates_available)
+            command_string = "( [ -z $(apt-config shell U APT::Periodic::Unattended-Upgrade) ] )"
+            exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
+            if exit_state == 0:
+                AptIcon.setToolTip(tooltip_0_updates_available)
+            else:
+                command_string = "( [ $(apt-config shell U APT::Periodic::Unattended-Upgrade | cut -c4) != 0 ] )"
+                exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
+                if exit_state == 0:
+                    AptIcon.setToolTip("")
+                else:
+                    AptIcon.setToolTip(tooltip_0_updates_available)
         return
     
     """
@@ -185,13 +195,36 @@ def check_updates():
     AptPkgCacheHashNow = ''
     
     Check_for_Updates_by_User = 'false'
-    
+
     #Create an inline script (what used to be /usr/bin/apt-notifier-check-Updates) and then run it to get the number of updates.
     script = '''#!/bin/sh
     
-    #Create a temporary folder and redirect the apt-get upgrade's output to it; doing this so only have to run the apt command one time.
+    #Create a temporary folder and redirect the apt-get upgrade and dist-upgrade output to them; doing this so only have to run the apt command 2 times.
     TMP=$(mktemp -d /tmp/apt-notifier.check_updates.XXXXXX)
-    LC_ALL=en_US apt-get -o Debug::NoLocking=true --trivial-only -V $(grep ^UpgradeType ~/.config/apt-notifierrc | cut -f2 -d=) 2>/dev/null > "$TMP"/updates
+
+    LC_ALL=en_US apt-get -o Debug::NoLocking=true --trivial-only -V upgrade      2>/dev/null > "$TMP"/upgrade
+    LC_ALL=en_US apt-get -o Debug::NoLocking=true --trivial-only -V dist-upgrade 2>/dev/null > "$TMP"/dist-upgrade
+    
+    #Suppress 'updates available' notification if apt-get upgrade & dist-upgrade output are the same, and Unattended-Upgrades are enabled (>=1)
+    diff "$TMP"/upgrade "$TMP"/dist-upgrade 1>/dev/null 2>/dev/null
+    if [ $? -eq 0 ]
+        then 
+            Unattended_Upgrade=0
+            eval $(apt-config shell Unattended_Upgrade APT::Periodic::Unattended-Upgrade)
+            if [ $Unattended_Upgrade != 0 ]
+                then
+                    rm -rf "$TMP"
+                    echo 0
+                exit
+            fi
+    fi
+    
+    if [ $(grep ^UpgradeType ~/.config/apt-notifierrc | cut -f2 -d=) = upgrade ]
+        then
+            mv "$TMP"/upgrade      "$TMP"/updates
+        else
+            mv "$TMP"/dist-upgrade "$TMP"/updates
+    fi
     
     #Suppress the 'updates available' notification if all of the updates are from a backports repo (jessie-backports, stretch-backports, etc.)
     if [ "$(grep " => " "$TMP"/updates | wc -l)" = "$(grep " => " "$TMP"/updates | grep -E ~bpo[0-9]+[+][0-9]+[\)]$ | wc -l)" ]
@@ -242,7 +275,12 @@ def check_updates():
             AptIcon.hide()
         else:
             AptIcon.setIcon(NoUpdatesIcon)
-            AptIcon.setToolTip(tooltip_0_updates_available)
+            command_string = "( [ $(apt-config shell U APT::Periodic::Unattended-Upgrade | cut -c4) != 0 ] && [ $(apt-config shell U APT::Periodic::Unattended-Upgrade | cut -c4) != '' ] )"
+            exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
+            if exit_state == 0:
+                AptIcon.setToolTip("")
+            else:
+                AptIcon.setToolTip(tooltip_0_updates_available)
     else:
         if text == "1":
             AptIcon.setIcon(NewUpdatesIcon)
@@ -287,45 +325,57 @@ def viewandupgrade():
     # ~~~ Localize 2 ~~~
 
     # Accommodations for transformation from Python literals to Bash literals:
-    #	t05: \\n will convert to \n
-    #   t07: \\n will convert to \n
-    #   t11: '( and )' moved outside of translatable string to protect from potential translator's typo
-    #   t13: \\\"n\\\" will convert to \"n\" which will become "n" in shell (to avoid concatenating shell strings)
+    #   t10: \\n will convert to \n
+    #   t12: \\n will convert to \n
+    #   t16: '( and )' moved outside of translatable string to protect from potential translator's typo
+    #   t18: \\\"n\\\" will convert to \"n\" which will become "n" in shell (to avoid concatenating shell strings)
 
-    # t01 thru t07, Yad 'View and Upgrade' strings 
-    t01 = _("MX Updater--View and Upgrade, previewing: ")
-    t02 = _("Automatically answer 'yes' to all prompts during upgrade/dist-upgrade")
-    t03 = _("automatically close terminal window when %s complete")
-    t04 = _("switch to %s")
-    t05 = _("Switches the type of Upgrade that will be performed, alternating back and forth between 'apt-get upgrade' and 'apt-get dist-upgrade'.")
-    t06 = _("Reload")
-    t07 = _("Reload the package information to become informed about new, removed or upgraded software packages. (apt-get update)")
+    # t01 thru t12, Yad 'View and Upgrade' strings 
+    t01 = _("MX Updater--View and Upgrade, previewing: basic upgrade")
+    t02 = _("MX Updater--View and Upgrade, previewing: full upgrade")
+    t03 = _("Automatically answer 'yes' to all prompts during full/basic upgrade")
+    t04 = _("automatically close terminal window when basic upgrade complete")
+    t05 = _("automatically close terminal window when full upgrade complete")
+    t06 = _("basic upgrade")
+    t07 = _("full upgrade")
+    t08 = _("switch to basic upgrade")
+    t09 = _("switch to full upgrade")
+    t10 = _("Switches the type of Upgrade that will be performed, alternating back and forth between 'full upgrade' and 'basic upgrade'.")
+    t11 = _("Reload")
+    t12 = _("Reload the package information to become informed about new, removed or upgraded software packages. (apt-get update)")
     
-    # t08, gksu dialog
-    t08 = _("The action you requested needs <b>root privileges</b>. Please enter <b>root's</b> password below.")
+    # t13, gksu dialog
+    t13 = _("The action you requested needs <b>root privileges</b>. Please enter <b>root's</b> password below.")
 
-    # t09 thru t13, strings for the upgrade/dist-upgrade script that runs in the terminal window    
-    t09 = _("%s complete (or was canceled)")
-    t10 = _("this terminal window can now be closed")
-    t11 = "'(" + _("press any key to close") + ")'"
-    t12 = _("Unneeded packages are installed that can be removed.")
-    t13 = _("Running apt-get autoremove, if you are unsure type 'n'.")
+    # t14 thru t19, strings for the upgrade (basic) / dist-upgrade (full) script that runs in the terminal window    
+    t14 = _("basic upgrade complete (or was canceled)")
+    t15 = _("full upgrade complete (or was canceled)")
+    t16 = _("this terminal window can now be closed")
+    t17 = "'(" + _("press any key to close") + ")'"
+    t18 = _("Unneeded packages are installed that can be removed.")
+    t19 = _("Running apt-get autoremove, if you are unsure type 'n'.")
 
     shellvar = (
-	'    window_title="'			+ t01 + '"\n'
-	'    use_apt_get_dash_dash_yes="'	+ t02 + '"\n'
-	'    auto_close_window="'		+ t03 + '"\n'
-	'    switch_to="'			+ t04 + '"\n'
-	'    switch_tooltip="'			+ t05 + '"\n'
-	'    reload="'				+ t06 + '"\n'
-	'    reload_tooltip="'			+ t07 + '"\n'
-	'    rootPasswordRequestMsg="'		+ t08 + '"\n'
-	'    done1="'				+ t09 + '"\n'
-	'    done2="'				+ t10 + '"\n'
-	'    done3="'				+ t11 + '"\n'
-	'    autoremovable_packages_msg1="'	+ t12 + '"\n'
-	'    autoremovable_packages_msg2="'	+ t13 + '"\n'
-	)
+    '    window_title_basic="'          + t01 + '"\n'
+    '    window_title_full="'           + t02 + '"\n'
+    '    use_apt_get_dash_dash_yes="'   + t03 + '"\n'
+    '    auto_close_window_basic="'     + t04 + '"\n'
+    '    auto_close_window_full="'      + t05 + '"\n'
+    '    basic_upgrade="'               + t06 + '"\n'
+    '    full_upgrade="'                + t07 + '"\n'
+    '    switch_to_basic_upgrade="'     + t08 + '"\n'
+    '    switch_to_full_upgrade="'      + t09 + '"\n'      
+    '    switch_tooltip="'              + t10 + '"\n'
+    '    reload="'                      + t11 + '"\n'
+    '    reload_tooltip="'              + t12 + '"\n'
+    '    rootPasswordRequestMsg="'      + t13 + '"\n'
+    '    done1basic="'                  + t14 + '"\n'
+    '    done1full="'                   + t15 + '"\n'
+    '    done2="'                       + t16 + '"\n'
+    '    done3="'                       + t17 + '"\n'
+    '    autoremovable_packages_msg1="'	+ t18 + '"\n'
+    '    autoremovable_packages_msg2="' + t19 + '"\n'
+    )
     
     script = '''#!/bin/bash
     
@@ -455,7 +505,7 @@ def viewandupgrade():
 
               xfce4-terminal.wrapper) if [ -x $(whereis gksu | awk '{print $2}') ]
                                         then
-                                          gksu --su-mode -m "$rootPasswordRequestMsg""\n\n'apt-get $2'" "xfce4-terminal$G$I$T -e $3"
+                                          gksu --su-mode -m "$rootPasswordRequestMsg""\n\n'$2'" "xfce4-terminal$G$I$T -e $3"
                                         else
                                           su-to-root -X -c "xfce4-terminal$G$I$T -e $3"
                                       fi                                      
@@ -481,7 +531,7 @@ def viewandupgrade():
         0)
         BP="1"
         chmod +x $TMP/upgradeScript
-        RunAptScriptInTerminal "$window_title" "$UpgradeType" "$TMP/upgradeScript"
+        RunAptScriptInTerminal "$window_title" "$UpgradeTypeUserFriendlyName" "$TMP/upgradeScript"
         ;;
 
         2)
@@ -513,9 +563,11 @@ def viewandupgrade():
 
         UpgradeType=$(grep ^UpgradeType ~/.config/apt-notifierrc | cut -f2 -d=)
         if [ "$UpgradeType" = "upgrade"      ]; then
+          UpgradeTypeUserFriendlyName=$basic_upgrade
           OtherUpgradeType="dist-upgrade"
         fi
         if [ "$UpgradeType" = "dist-upgrade" ]; then
+          UpgradeTypeUserFriendlyName=$full_upgrade
           OtherUpgradeType="upgrade"
         fi
   
@@ -523,7 +575,7 @@ def viewandupgrade():
         UpgradeAutoClose=$(grep ^UpgradeAutoClose ~/.config/apt-notifierrc | cut -f2 -d=)
       
         TMP=$(mktemp -d /tmp/apt-notifier.XXXXXX)
-        echo "$UpgradeType" > "$TMP"/upgrades
+        echo "$UpgradeTypeUserFriendlyName" > "$TMP"/upgrades
         
         #The following 40 or so lines (down to the "APT_CONFIG" line) create a temporary etc/apt folder and subfolders
         #that for the most part match the root owned /etc/apt folder and it's subfolders.
@@ -592,19 +644,32 @@ def viewandupgrade():
         switch_type="'""$OtherUpgradeType""'"
         switch_label=$(echo "$switch_to" | sed 's/%s/'"$switch_type"'/')
         auto_close_label=$(echo "$auto_close_window" | sed 's/%s/'"$UpgradeType"'/')
+        
+        if [ "$UpgradeType" = "upgrade" ]
+          then
+            upgrade_label=$basic_upgrade
+            switch_label=$switch_to_full_upgrade
+            auto_close_label=$auto_close_window_basic
+            window_title="$window_title_basic"
+          else
+            upgrade_label=$full_upgrade
+            switch_label=$switch_to_basic_upgrade
+            auto_close_label=$auto_close_window_full
+            window_title="$window_title_full"
+        fi
 
         yad \\
         --window-icon=/usr/share/icons/mnotify-some-"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)".png \\
         --width=640 \\
         --height=480 \\
         --center \\
-        --title "$(echo "$window_title"|sed 's/MX /'$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)" "'/') $UpgradeType" \\
+        --title "$(echo "$window_title"|sed 's/MX /'$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)" "'/')" \\
         --form \\
           --field :TXT "$(sed 's/^/  /' "$TMP"/upgrades)" \\
           --field="$use_apt_get_dash_dash_yes":CHK $UpgradeAssumeYes \\
           --field="$auto_close_label":CHK $UpgradeAutoClose \\
         --button "$switch_label"!!"$switch_tooltip":4 \\
-        --button ''"$UpgradeType"!mnotify-some-"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"!:0 \\
+        --button ''"$upgrade_label"!mnotify-some-"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"!:0 \\
         --button "$reload"!reload!"$reload_tooltip":8 \\
         --button gtk-cancel:2 \\
         --buttons-layout=spread \\
@@ -649,9 +714,9 @@ def viewandupgrade():
             echo "apt-get update">> "$TMP"/upgradeScript
 
           else
-            # build a upgrade script to do the apt-get upgrade (or dist-upgrade)
+            # build a upgrade script to do the apt-get upgrade (basic upgrade) or dist-upgrade (full upgrade)
             echo "#!/bin/bash"> "$TMP"/upgradeScript
-            echo "echo ''"$UpgradeType>> "$TMP"/upgradeScript
+            echo "echo ''"$UpgradeTypeUserFriendlyName>> "$TMP"/upgradeScript
             echo 'find /etc/apt/preferences.d | grep -E synaptic-[0-9a-zA-Z]{6}-pins | xargs rm -f'>> "$TMP"/upgradeScript 
             echo 'if [ -f /var/lib/synaptic/preferences -a -s /var/lib/synaptic/preferences ]'>> "$TMP"/upgradeScript
             echo '  then '>> "$TMP"/upgradeScript
@@ -687,8 +752,14 @@ def viewandupgrade():
             
             # ~~~ Localize 2b ~~~
 
-            donetype="$UpgradeType"
-            donetext=$(echo "$done1" | sed 's/%s/'"$donetype"'/')
+            #donetype="$UpgradeType"
+            #donetext=$(echo "$done1" | sed 's/%s/'"$donetype"'/')
+            if [ "$UpgradeType" = "upgrade" ]
+              then
+                donetext="$done1basic"
+              else
+                donetext="$done1full"
+            fi
             echo 'echo "'"$donetext"'"'>> "$TMP"/upgradeScript
             echo "echo">> "$TMP"/upgradeScript
 
@@ -884,40 +955,44 @@ def aptnotifier_prefs():
 
     t01 = _("MX Updater preferences")
     t02 = _("Upgrade behaviour   (also affects notification count)")
-    t03 = _("Left-click behaviour   (when updates are available)")
-    t04 = _("Other options")
-    t05 = _("opens Synaptic")
-    t06 = _("opens MX Updater 'View and Upgrade' window")
-    t07 = _("Automatically answer 'yes' to all prompts during upgrade/dist-upgrade")
-    t08 = _("automatically close terminal window when upgrade/dist-upgrade complete")
-    t09 = _("check for autoremovable packages after upgrade/dist-upgrade")
-    t10 = _("Icons")
-    t11 = _("classic")
-    t12 = _("pulse")
-    t13 = _("wireframe")
-    t14 = _("Auto-update")
-    t15 = _("update automatically   (will not add new or remove existing packages)")
-    t16 = _("<b>Root privileges</b> are required to <b>enable</b> Auto Updates. Please enter <b>root's</b> password below.")
-    t17 = _("<b>Root privileges</b> are required to <b>disable</b> Auto Updates. Please enter <b>root's</b> password below.")
+    t03 = _("full upgrade")
+    t04 = _("basic upgrade")
+    t05 = _("Left-click behaviour   (when updates are available)")
+    t06 = _("Other options")
+    t07 = _("opens Synaptic")
+    t08 = _("opens MX Updater 'View and Upgrade' window")
+    t09 = _("Automatically answer 'yes' to all prompts during full/basic upgrade")
+    t10 = _("automatically close terminal window when full/basic upgrade complete")
+    t11 = _("check for autoremovable packages after full/basic upgrade")
+    t12 = _("Icons")
+    t13 = _("classic")
+    t14 = _("pulse")
+    t15 = _("wireframe")
+    t16 = _("Auto-update")
+    t17 = _("update automatically   (will not add new or remove existing packages)")
+    t18 = _("<b>Root privileges</b> are required to <b>enable</b> Auto Updates. Please enter <b>root's</b> password below.")
+    t19 = _("<b>Root privileges</b> are required to <b>disable</b> Auto Updates. Please enter <b>root's</b> password below.")
  
     shellvar = (
         '    window_title="'                             + t01 + '"\n'
         '    frame_upgrade_behaviour="'                  + t02 + '"\n'
-        '    frame_left_click_behaviour="'               + t03 + '"\n'
-        '    frame_other_options="'                      + t04 + '"\n'
-        '    left_click_Synaptic="'                      + t05 + '"\n'
-        '    left_click_ViewandUpgrade="'                + t06 + '"\n'
-        '    use_apt_get_dash_dash_yes="'                + t07 + '"\n'
-        '    auto_close_term_window_when_complete="' 	 + t08 + '"\n'
-        '    check_for_autoremoves="'                    + t09 + '"\n'
-        '    frame_Icons="'                              + t10 + '"\n'
-        '    label_classic"'                             + t11 + '"\n'
-        '    label_pulse="'                              + t12 + '"\n'
-        '    label_wireframe="'                          + t13 + '"\n'
-        '    frame_Auto_update="'                        + t14 + '"\n' 
-        '    auto_update_checkbox_txt="'                 + t15 + '"\n'
-        '    rootPasswordRequestMsgEnableAutoUpdates="'  + t16 + '"\n'
-        '    rootPasswordRequestMsgDisableAutoUpdates="' + t17 + '"\n'
+        '    full_upgrade="'                             + t03 + '"\n'
+        '    basic_upgrade="'                            + t04 + '"\n'
+        '    frame_left_click_behaviour="'               + t05 + '"\n'
+        '    frame_other_options="'                      + t06 + '"\n'
+        '    left_click_Synaptic="'                      + t07 + '"\n'
+        '    left_click_ViewandUpgrade="'                + t08 + '"\n'
+        '    use_apt_get_dash_dash_yes="'                + t09 + '"\n'
+        '    auto_close_term_window_when_complete="'     + t10 + '"\n'
+        '    check_for_autoremoves="'                    + t11 + '"\n'
+        '    frame_Icons="'                              + t12 + '"\n'
+        '    label_classic="'                            + t13 + '"\n'
+        '    label_pulse="'                              + t14 + '"\n'
+        '    label_wireframe="'                          + t15 + '"\n'
+        '    frame_Auto_update="'                        + t16 + '"\n' 
+        '    auto_update_checkbox_txt="'                 + t17 + '"\n'
+        '    rootPasswordRequestMsgEnableAutoUpdates="'  + t18 + '"\n'
+        '    rootPasswordRequestMsgDisableAutoUpdates="' + t19 + '"\n'
         )
     
     script = '''#! /bin/bash
@@ -934,14 +1009,14 @@ def aptnotifier_prefs():
       <vbox>
         <frame @upgrade_behaviour@>
           <frame>
-            <radiobutton active="@UpgradeBehaviourAptGetUpgrade@">
-              <label>"upgrade"</label>
-              <variable>UpgradeType_upgrade</variable>
+            <radiobutton active="@UpgradeBehaviourAptGetDistUpgrade@">
+              <label>@full_upgrade@</label>
+              <variable>UpgradeType_dist-upgrade</variable>
               <action>:</action>
             </radiobutton>
-            <radiobutton active="@UpgradeBehaviourAptGetDistUpgrade@">
-              <label>"dist-upgrade"</label>
-              <variable>UpgradeType_dist-upgrade</variable>
+            <radiobutton active="@UpgradeBehaviourAptGetUpgrade@">
+              <label>@basic_upgrade@</label>
+              <variable>UpgradeType_upgrade</variable>
               <action>:</action>
             </radiobutton>
           </frame>
@@ -1034,19 +1109,26 @@ def aptnotifier_prefs():
       </vbox>
     </window>
 EOF
+
     cat << EOF > "$TMP"/enable_unattended_upgrades
     #!/bin/bash
-    sed -i 's/[ ]*APT::Periodic::Unattended-Upgrade.*"0".*;/   APT::Periodic::Unattended-Upgrade "1";/' /etc/apt/apt.conf.d/02periodic
+    for i in @(grep 'APT::Periodic::Unattended-Upgrade "[0-9]+";' /etc/apt/apt.conf.d/* -E | cut -f1 -d: | grep -v ~$); do sed -i 's/[ ]*APT::Periodic::Unattended-Upgrade.*"0".*;/   APT::Periodic::Unattended-Upgrade "1";/' @i; done  
     exit 0
 EOF
+    sed -i 's/@/\$/g' "$TMP"/enable_unattended_upgrades
+
     cat << EOF > "$TMP"/disable_unattended_upgrades
     #!/bin/bash
-    sed -i 's/[ ]*APT::Periodic::Unattended-Upgrade.*"1".*;/   APT::Periodic::Unattended-Upgrade "0";/' /etc/apt/apt.conf.d/02periodic
+    for i in @(grep 'APT::Periodic::Unattended-Upgrade "[0-9]+*";' /etc/apt/apt.conf.d/* -E | cut -f1 -d: | grep -v ~$); do sed -i 's/[ ]*APT::Periodic::Unattended-Upgrade.*"1".*;/   APT::Periodic::Unattended-Upgrade "0";/' @i; done
     exit 0
 EOF
-    # edit translateable strings placeholders in "$TMP"/DIALOG
+    sed -i 's/@/\$/g' "$TMP"/disable_unattended_upgrades
+
+# edit translateable strings placeholders in "$TMP"/DIALOG
     sed -i 's/@title@/'"$window_title"'/' "$TMP"/DIALOG
     sed -i 's/@upgrade_behaviour@/'"$frame_upgrade_behaviour""   "'/' "$TMP"/DIALOG
+    sed -i 's/@full_upgrade@/'"$full_upgrade""   "'/' "$TMP"/DIALOG
+    sed -i 's/@basic_upgrade@/'"$basic_upgrade""   "'/' "$TMP"/DIALOG
     sed -i 's/@leftclick_behaviour@/'"$frame_left_click_behaviour""   "'/' "$TMP"/DIALOG
     sed -i 's/@Other_options@/'"$frame_other_options""   "'/' "$TMP"/DIALOG
     sed -i 's/@Icons@/'"$frame_Icons""   "'/' "$TMP"/DIALOG
