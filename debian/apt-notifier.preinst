@@ -1,6 +1,6 @@
 #!/bin/bash
 
-
+#DEBHELPER#
 
 # preinst script for apt-notifier
 
