@@ -954,7 +954,7 @@ def aptnotifier_prefs():
     # ~~~ Localize 3 ~~~
 
     t01 = _("MX Updater preferences")
-    t02 = _("Upgrade behaviour   (also affects notification count)")
+    t02 = _("Upgrade mode")
     t03 = _("full upgrade")
     t04 = _("basic upgrade")
     t05 = _("Left-click behaviour   (when updates are available)")
@@ -1096,14 +1096,16 @@ EOF
 
     cat << EOF > "$TMP"/enable_unattended_upgrades
     #!/bin/bash
-    for i in @(grep 'APT::Periodic::Unattended-Upgrade "[0-9]+";' /etc/apt/apt.conf.d/* -E | cut -f1 -d: | grep -v ~$); do sed -i 's/[ ]*APT::Periodic::Unattended-Upgrade.*"0".*;/   APT::Periodic::Unattended-Upgrade "1";/' @i; done  
+    for i in @(grep 'APT::Periodic::Unattended-Upgrade "[0-9]+";' /etc/apt/apt.conf.d/* -E | cut -f1 -d: | grep -v ~$); \
+    do sed -i 's/[ ]*APT::Periodic::Unattended-Upgrade.*"0".*;/   APT::Periodic::Unattended-Upgrade "1";/' @i; done  
     exit 0
 EOF
     sed -i 's/@/\$/g' "$TMP"/enable_unattended_upgrades
 
     cat << EOF > "$TMP"/disable_unattended_upgrades
     #!/bin/bash
-    for i in @(grep 'APT::Periodic::Unattended-Upgrade "[0-9]+*";' /etc/apt/apt.conf.d/* -E | cut -f1 -d: | grep -v ~$); do sed -i 's/[ ]*APT::Periodic::Unattended-Upgrade.*"1".*;/   APT::Periodic::Unattended-Upgrade "0";/' @i; done
+    for i in @(grep 'APT::Periodic::Unattended-Upgrade "[0-9]+*";' /etc/apt/apt.conf.d/* -E | cut -f1 -d: | grep -v ~$); \
+    do sed -i 's/[ ]*APT::Periodic::Unattended-Upgrade.*"1".*;/   APT::Periodic::Unattended-Upgrade "0";/' @i; done
     exit 0
 EOF
     sed -i 's/@/\$/g' "$TMP"/disable_unattended_upgrades

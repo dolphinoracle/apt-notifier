@@ -1,3 +1,9 @@
+apt-notifier (18.02.28mx17+1) mx; urgency=medium
+
+  * In Prefs changed 'Upgrade Behaviour  (also affects ...' to 'Upgrade mode'
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Wed, 28 Feb 2018 09:21:53 -0500
+
 apt-notifier (18.02.27mx17+1) mx; urgency=medium
 
   * maintainer script updates
