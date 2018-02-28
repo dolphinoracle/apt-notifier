@@ -262,7 +262,7 @@ def check_updates():
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
     script_file.flush()
-    run = subprocess.Popen(["echo -n `sh %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
+    run = subprocess.Popen(["echo -n `bash %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
     # Read the output into a text string
     text = run.stdout.read(128)
     script_file.close()
@@ -792,7 +792,7 @@ def viewandupgrade():
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
     script_file.flush()
-    run = subprocess.Popen(['sh %s' % script_file.name],shell=True).wait()
+    run = subprocess.Popen(['bash %s' % script_file.name],shell=True).wait()
     script_file.close()
     Check_for_Updates_by_User = 'true'
     check_updates()
@@ -943,7 +943,7 @@ def initialize_aptnotifier_prefs():
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
     script_file.flush()
-    run = subprocess.Popen(['sh %s' % script_file.name],shell=True).wait()
+    run = subprocess.Popen(['bash %s' % script_file.name],shell=True).wait()
     script_file.close()
 
 
@@ -1008,104 +1008,88 @@ def aptnotifier_prefs():
     <window title="@title@" icon-name="@mnotify-some@">
       <vbox>
         <frame @upgrade_behaviour@>
-          <frame>
-            <radiobutton active="@UpgradeBehaviourAptGetDistUpgrade@">
-              <label>@full_upgrade@</label>
-              <variable>UpgradeType_dist-upgrade</variable>
-              <action>:</action>
-            </radiobutton>
-            <radiobutton active="@UpgradeBehaviourAptGetUpgrade@">
-              <label>@basic_upgrade@</label>
-              <variable>UpgradeType_upgrade</variable>
-              <action>:</action>
-            </radiobutton>
-          </frame>
+          <radiobutton active="@UpgradeBehaviourAptGetDistUpgrade@">
+            <label>@full_upgrade@</label>
+            <variable>UpgradeType_dist-upgrade</variable>
+            <action>:</action>
+          </radiobutton>
+          <radiobutton active="@UpgradeBehaviourAptGetUpgrade@">
+            <label>@basic_upgrade@</label>
+            <variable>UpgradeType_upgrade</variable>
+            <action>:</action>
+          </radiobutton>
         </frame>
-        <vseparator></vseparator>
         <frame @leftclick_behaviour@>
-          <frame>
-            <radiobutton active="@LeftClickBehaviourSynaptic@">
-              <label>@opens_Synaptic@</label>
-              <variable>LeftClickSynaptic</variable>
-              <action>:</action>
-            </radiobutton>
-            <radiobutton active="@LeftClickBehaviourViewAndUpgrade@">
-              <label>@opens_View_and_Upgrade@</label>
-              <variable>LeftClickViewAndUpgrade</variable>
-              <action>:</action>
-            </radiobutton>
-          </frame>
+          <radiobutton active="@LeftClickBehaviourSynaptic@">
+            <label>@opens_Synaptic@</label>
+            <variable>LeftClickSynaptic</variable>
+            <action>:</action>
+          </radiobutton>
+          <radiobutton active="@LeftClickBehaviourViewAndUpgrade@">
+            <label>@opens_View_and_Upgrade@</label>
+            <variable>LeftClickViewAndUpgrade</variable>
+            <action>:</action>
+          </radiobutton>
         </frame>
         <frame @Other_options@>
-        <frame>
           <checkbox active="@UpgradeAssumeYes@">
             <label>@use_apt_get_yes@</label>
             <variable>UpgradeAssumeYes</variable>
             <action>:</action>
           </checkbox>
-        </frame>
-        <frame>
           <checkbox active="@UpgradeAutoClose@">
             <label>@auto_close_term_window@</label>
             <variable>UpgradeAutoClose</variable>
             <action>:</action>
           </checkbox>
-        </frame>
-        <frame>
           <checkbox active="@CheckForAutoRemoves@">
             <label>@check_for_autoremoves@</label>
             <variable>CheckForAutoRemoves</variable>
             <action>:</action>
           </checkbox>
         </frame>
-        <vseparator></vseparator>
-        </frame>
         <frame @Icons@>
           <hbox homogeneous="true">
-          <vbox>
-            <radiobutton active="@IconLookWireframe@">
-              <label>@wireframe@</label>
-              <variable>IconLook_wireframe</variable>
-              <action>:</action>
-            </radiobutton>
-            <radiobutton active="@IconLookClassic@">
-              <label>@classic@</label>
-              <variable>IconLook_classic</variable>
-              <action>:</action>
-            </radiobutton>
-            <radiobutton active="@IconLookPulse@">
-              <label>@pulse@</label>
-              <variable>IconLook_pulse</variable>
-              <action>:</action>
-            </radiobutton>
-          </vbox>
-          <vbox>
-            <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-some-wireframe.png"</input></pixmap>
-            <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-some-classic.png"</input></pixmap>
-            <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-some-pulse.png"</input></pixmap>
-          </vbox>
-          <vbox>
-            <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-none-wireframe.png"</input></pixmap>
-            <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-none-classic.png"</input></pixmap>
-            <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-none-pulse.png"</input></pixmap>
-          </vbox>
+            <vbox>
+              <radiobutton active="@IconLookWireframe@">
+                <label>@wireframe@</label>
+                <variable>IconLook_wireframe</variable>
+                <action>:</action>
+              </radiobutton>
+              <radiobutton active="@IconLookClassic@">
+                <label>@classic@</label>
+                <variable>IconLook_classic</variable>
+                <action>:</action>
+              </radiobutton>
+              <radiobutton active="@IconLookPulse@">
+                <label>@pulse@</label>
+                <variable>IconLook_pulse</variable>
+                <action>:</action>
+              </radiobutton>
+            </vbox>
+            <vbox>
+              <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-some-wireframe.png"</input></pixmap>
+              <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-some-classic.png"</input></pixmap>
+              <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-some-pulse.png"</input></pixmap>
+            </vbox>
+            <vbox>
+              <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-none-wireframe.png"</input></pixmap>
+              <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-none-classic.png"</input></pixmap>
+              <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-none-pulse.png"</input></pixmap>
+            </vbox>
           </hbox>
         </frame>
-      <vseparator></vseparator>
         <frame @Auto_update_label@>
-        <frame>
           <checkbox active="@Auto_Update_setting@">
             <label>@autoupdate_checkboxtxt@</label>
             <variable>AutoUpdate</variable>
             <action>:</action>
           </checkbox>
         </frame>
-        <vseparator></vseparator>
-        </frame>
-      <hbox>
-        <button ok> </button>
-        <button cancel> </button>
-      </hbox>
+        <hbox>
+          <button ok></button>
+          <button cancel></button>
+        </hbox>
       </vbox>
     </window>
 EOF
@@ -1126,12 +1110,12 @@ EOF
 
 # edit translateable strings placeholders in "$TMP"/DIALOG
     sed -i 's/@title@/'"$window_title"'/' "$TMP"/DIALOG
-    sed -i 's/@upgrade_behaviour@/'"$frame_upgrade_behaviour""   "'/' "$TMP"/DIALOG
-    sed -i 's/@full_upgrade@/'"$full_upgrade""   "'/' "$TMP"/DIALOG
-    sed -i 's/@basic_upgrade@/'"$basic_upgrade""   "'/' "$TMP"/DIALOG
-    sed -i 's/@leftclick_behaviour@/'"$frame_left_click_behaviour""   "'/' "$TMP"/DIALOG
-    sed -i 's/@Other_options@/'"$frame_other_options""   "'/' "$TMP"/DIALOG
-    sed -i 's/@Icons@/'"$frame_Icons""   "'/' "$TMP"/DIALOG
+    sed -i 's/@upgrade_behaviour@/'"$frame_upgrade_behaviour"'/' "$TMP"/DIALOG
+    sed -i 's/@full_upgrade@/'"$full_upgrade"'/' "$TMP"/DIALOG
+    sed -i 's/@basic_upgrade@/'"$basic_upgrade"'/' "$TMP"/DIALOG
+    sed -i 's/@leftclick_behaviour@/'"$frame_left_click_behaviour"'/' "$TMP"/DIALOG
+    sed -i 's/@Other_options@/'"$frame_other_options"'/' "$TMP"/DIALOG
+    sed -i 's/@Icons@/'"$frame_Icons"'/' "$TMP"/DIALOG
     sed -i 's/@opens_Synaptic@/"'"$left_click_Synaptic"'"/' "$TMP"/DIALOG
     sed -i 's/@opens_View_and_Upgrade@/"'"$left_click_ViewandUpgrade"'"/' "$TMP"/DIALOG
     sed -i 's|@use_apt_get_yes@|"'"$use_apt_get_dash_dash_yes"'"|' "$TMP"/DIALOG
@@ -1202,7 +1186,7 @@ EOF
           then
             gksu --su-mode -m "$rootPasswordRequestMsgDisableAutoUpdates" sh "$TMP"/disable_unattended_upgrades
         fi
-     else
+      else
         :
     fi
 
@@ -1226,7 +1210,7 @@ EOF
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
     script_file.flush()
-    run = subprocess.Popen(['sh %s' % script_file.name],shell=True).wait()
+    run = subprocess.Popen(['bash %s' % script_file.name],shell=True).wait()
     script_file.close()
     Check_for_Updates_by_User = 'true'
     check_updates()
@@ -1264,7 +1248,7 @@ def apt_history():
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
     script_file.flush()
-    run = subprocess.Popen(['sh %s' % script_file.name],shell=True).wait()
+    run = subprocess.Popen(['bash %s' % script_file.name],shell=True).wait()
     script_file.close()
     Check_for_Updates_by_User = 'true'
     check_updates()
@@ -1388,7 +1372,7 @@ def apt_get_update():
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
     script_file.flush()
-    run = subprocess.Popen(['sh %s' % script_file.name],shell=True).wait()
+    run = subprocess.Popen(['bash %s' % script_file.name],shell=True).wait()
     script_file.close()
     Check_for_Updates_by_User = 'true'
     check_updates()
@@ -1449,7 +1433,7 @@ def read_icon_look():
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
     script_file.flush()
-    run = subprocess.Popen(["echo -n `sh %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
+    run = subprocess.Popen(["echo -n `bash %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
     # Read the output into a text string
     iconLook = run.stdout.read(128)
     script_file.close()
@@ -1528,7 +1512,7 @@ def open_apt_notifier_help():
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
     script_file.flush()
-    run = subprocess.Popen(["echo -n `sh %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
+    run = subprocess.Popen(["echo -n `bash %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
     run.stdout.read(128)
     script_file.close()
 
@@ -1573,7 +1557,7 @@ def open_synaptic_help():
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
     script_file.flush()
-    run = subprocess.Popen(["echo -n `sh %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
+    run = subprocess.Popen(["echo -n `bash %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
     run.stdout.read(128)
     script_file.close()
 

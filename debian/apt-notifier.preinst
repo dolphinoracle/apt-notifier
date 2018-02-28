@@ -10,6 +10,18 @@ case "$1" in
   install|upgrade)
     rm -f /etc/xdg/autostart/apt-notifier-autostart-xdg.desktop
     rm -f /etc/xdg/autostart/mx-apt-notifier-autostart-xdg.desktop
+    if [ ! -f /etc/cron.d/mx-Unattended-Origins-Pattern-update ]; then
+      cat << EOF > /etc/cron.d/mx-Unattended-Origins-Pattern-update
+# /etc/cron.d/mx-Unattended-Origins-Pattern-update: crontab entry
+
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+19 7 * * *   root   [ -x /usr/local/bin/update-Origins-Pattern ]\
+ && /usr/local/bin/update-Origins-Pattern \
+/etc/apt/apt.conf.d/51unattended-upgrades-mx
+EOF
+    fi
   ;;
   *)
     :

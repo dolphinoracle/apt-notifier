@@ -1,7 +1,16 @@
+apt-notifier (18.02.27mx17+1) mx; urgency=medium
+
+  * maintainer script updates
+  * added update-Origins-Pattern script 
+  * mx-Unattended-Origins-Pattern-update cronjob added
+  * vertical separators reomved in Preferences dialog
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Tue, 27 Feb 2018 19:32:42 -0500
+
 apt-notifier (18.02.23mx17+1) mx; urgency=medium
 
   * full/basic upgrade changes
-  * suppress notification when unattened upgrades enabled
+  * suppress notification when unattended upgrades enabled
   * preinst script added to remove obsolete autostart-xdg desktop files 
 
  -- Kent Mathern <maintainer@mepiscommunity.org>  Fri, 23 Feb 2018 20:14:56 -0500

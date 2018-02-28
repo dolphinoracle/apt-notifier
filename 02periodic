@@ -5,7 +5,7 @@
 // APT::Archives::MaxAge "0";
 // APT::Archives::MaxSize "0";
 // APT::Archives::MinAge "2";
-   APT::Periodic::AutocleanInterval "0";
+   APT::Periodic::AutocleanInterval "7";
 // APT::Periodic::BackupArchiveInterval "0";
 // APT::Periodic::BackupLevel "3";
 // APT::Periodic::CleanInterval "0";
@@ -20,3 +20,4 @@
    APT::Periodic::Verbose "3";
 // Dir::Cache::Archives "archives/";
 // Dir::Cache::Backup "backup/";
+// overwrite existing (note: line will be removed from /etc/apt... file)
