@@ -1,3 +1,12 @@
+apt-notifier (18.03.02mx17+1) mx; urgency=medium
+
+  * disable unattended-upgrades from Debian testing & sid, dmo, and mx testrepo
+  * backslash commas not used as keyword separators
+  * if exists, rename /etc/cron.daily/apt~ back to /etc/cron.daily/apt
+  * ship 51unattended-upgrades-mx without a Origins-Pattern 
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Fri, 02 Mar 2018 18:17:34 -0500
+
 apt-notifier (18.03.01mx17+1) mx; urgency=medium
 
   * script changes to remove b=amd64, b=i386, site=* from Origins-Pattern 

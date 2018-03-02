@@ -63,44 +63,57 @@ main() {
         End="$(grep '};' -A9999 "$File")"
     fi
    #Create a Origins-Pattern for all currently enabled repos
-    Cache_Origins="$(apt-cache policy                                                  )"
-    Cache_Origins="$(grep -v T                                      <<<"$Cache_Origins")"
-    Cache_Origins="$(grep -v 'Pinned packages:'                     <<<"$Cache_Origins")"
-    Cache_Origins="$(grep ^\ [0-9]+ -A1 -E                          <<<"$Cache_Origins")"
-    Cache_Origins="$(grep -v -e--                                   <<<"$Cache_Origins")"
-    Cache_Origins="$(sed 's/^[ ]* //g'                              <<<"$Cache_Origins")"
-    Cache_Origins="$(sed 's/^\([0-9]\)/\/\/  \1/'                   <<<"$Cache_Origins")"
-    Cache_Origins="$(sed 's/^\/\//\/\/\n\/\//'                      <<<"$Cache_Origins")"
-    Cache_Origins="$(sed 's/^release //'                            <<<"$Cache_Origins")"
-    Cache_Origins="$(sed 's/v=[0-9.,]*//'                           <<<"$Cache_Origins")"
-    Cache_Origins="$(sed 's/,b=amd64//'                             <<<"$Cache_Origins")"
-    Cache_Origins="$(sed 's/,b=i386//'                              <<<"$Cache_Origins")"
-    Cache_Origins="$(sed 's/,\([aclno][=]\)/,\1/g'                  <<<"$Cache_Origins")"
-    Cache_Origins="$(sed 's/^\([aclno]=.*\)/   "\1";/'              <<<"$Cache_Origins")"
-    Cache_Origins="$(sed 's/, /,\\ /g'                              <<<"$Cache_Origins")"
+    Cache_Origins="$(apt-cache policy                                                               )"
+    Cache_Origins="$(grep -v Translation-[a-z]{2}$ -E                            <<<"$Cache_Origins")"
+    Cache_Origins="$(grep -v 'Pinned packages:'                                  <<<"$Cache_Origins")"
+    Cache_Origins="$(grep ^\ [0-9]+ -A1 -E                                       <<<"$Cache_Origins")"
+    Cache_Origins="$(grep -v -e--                                                <<<"$Cache_Origins")"
+    Cache_Origins="$(sed 's/,\([aclno][=]\)/@\1/g'                               <<<"$Cache_Origins")"
+    Cache_Origins="$(sed 's/,/\\,/g'                                             <<<"$Cache_Origins")"
+    Cache_Origins="$(sed 's/@/,/g'                                               <<<"$Cache_Origins")"
+    Cache_Origins="$(sed 's/^[ ]* //g'                                           <<<"$Cache_Origins")"
+    Cache_Origins="$(sed 's/^\([0-9]\)/\/\/  \1/'                                <<<"$Cache_Origins")"
+    Cache_Origins="$(sed 's/^\/\//\/\/\n\/\//'                                   <<<"$Cache_Origins")"
+    Cache_Origins="$(sed 's/^release //'                                         <<<"$Cache_Origins")"
+    Cache_Origins="$(sed 's/v=[0-9.,]*//'                                        <<<"$Cache_Origins")"
+    Cache_Origins="$(sed 's/,b=amd64//'                                          <<<"$Cache_Origins")"
+    Cache_Origins="$(sed 's/,b=i386//'                                           <<<"$Cache_Origins")"
+    Cache_Origins="$(sed 's/^\([aclno]=.*\)/   "\1";/'                           <<<"$Cache_Origins")"
 
    #Now Disable Unattended Upgrades for Debian Backports & Experimental repos
-   #Cache_Origins="$(sed 's/^\([ ]*.*Debian Backports\)/\/\/\1/'    <<<"$Cache_Origins")"
-   #Cache_Origins="$(sed 's/^\([ ]*.*Debian Experimental\)/\/\/\1/' <<<"$Cache_Origins")"
-   #Cache_Origins="$(sed 's/\/\/    "/\/\/  "/'                     <<<"$Cache_Origins")"
+   #Cache_Origins="$(sed 's/^\([ ]*.*Debian Backports\)/\/\/\1/'                 <<<"$Cache_Origins")"
+   #Cache_Origins="$(sed 's/^\([ ]*.*Debian Experimental\)/\/\/\1/'              <<<"$Cache_Origins")"
+   #Cache_Origins="$(sed 's/\/\/    "/\/\/  "/'                                  <<<"$Cache_Origins")"
 
    #As an alternative, disable Unattended Upgrades for Pin-Prioritys less than 500, the 
    #Debian Backports & Experimental repos will also be disabled by this.
-    Cache_Origins="$(sed  '/^\/\/  [0-4][0-9]*[0-9]* /a @@'         <<<"$Cache_Origins")"
-	Cache_Origins="$(sed '/@@/N;y/\n/\t/'                           <<<"$Cache_Origins")"
-    Cache_Origins="$(sed 's/\t  //'                                 <<<"$Cache_Origins")"
-	Cache_Origins="$(sed 's/@@/\/\//'                               <<<"$Cache_Origins")"
+    Cache_Origins="$(sed  '/^\/\/  [0-4][0-9]*[0-9]* /a @@'                      <<<"$Cache_Origins")"
+	Cache_Origins="$(sed '/@@/N;y/\n/\t/'                                        <<<"$Cache_Origins")"
+    Cache_Origins="$(sed 's/\t  //'                                              <<<"$Cache_Origins")"
+	Cache_Origins="$(sed 's/@@/\/\//'                                            <<<"$Cache_Origins")"
+
+   #Disable Unattended Upgrades from MX testrepos
+	Cache_Origins="$(sed 's/^   \(.*l=MX repository,c=test.*\)/\/\/ \1/'         <<<"$Cache_Origins")"
+
+   #Disable Unattended Upgrades from Debian Multimedia repos
+	Cache_Origins="$(sed 's/^   \(.*Unofficial Multimedia Packages.*\)/\/\/ \1/' <<<"$Cache_Origins")"
+    
+   #Disable Unattended Upgrades from Debian testing, currently known as "buster"
+    Cache_Origins="$(sed 's/^   \(.*o=Debian,a=testing.*\)/\/\/ \1/'             <<<"$Cache_Origins")"
+
+   #Disable Unattended Upgrades from Debian sid or unstable
+    Cache_Origins="$(sed 's/^   \(.*o=Debian,a=unstable.*\)/\/\/ \1/'            <<<"$Cache_Origins")"
 
    #Get a sum of the apt-cache Origins-Pattern 
-    Cache_Org_md5="$(md5sum                                         <<<"$Cache_Origins")"
-    Cache_Org_md5="$(awk    '{print $1}'                            <<<"$Cache_Org_md5")"
+    Cache_Org_md5="$(md5sum                                                      <<<"$Cache_Origins")"
+    Cache_Org_md5="$(awk    '{print $1}'                                         <<<"$Cache_Org_md5")"
 
    #Get a sum of the existing Origins-Pattern 
-    Exist_Origins="$(grep '};' -B9999 -m1 "$File" 2>/dev/null                          )"
-    Exist_Origins="$(head -n -1                                     <<<"$Exist_Origins")"
-    Exist_Origins="$(tail -n +2                                     <<<"$Exist_Origins")"
-    Existing__md5="$(md5sum                                         <<<"$Exist_Origins")"
-    Existing__md5="$(awk '{print $1}'                               <<<"$Existing__md5")"
+    Exist_Origins="$(grep '};' -B9999 -m1 "$File" 2>/dev/null                                       )"
+    Exist_Origins="$(head -n -1                                                  <<<"$Exist_Origins")"
+    Exist_Origins="$(tail -n +2                                                  <<<"$Exist_Origins")"
+    Existing__md5="$(md5sum                                                      <<<"$Exist_Origins")"
+    Existing__md5="$(awk '{print $1}'                                            <<<"$Existing__md5")"
 
    #Compare the pattern sums, update the Unattended-Upgrade::Origins-Pattern if it has
    #changed since last checked.

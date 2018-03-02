@@ -1,67 +1,6 @@
 Unattended-Upgrade::Origins-Pattern {
-//
-//  100 /var/lib/dpkg/status
-// "a=now";
-//
-//  500 http://mxrepo.com/mx/repo stretch/non-free i386 Packages
-   "o=MX repository,a=mx,n=stretch,l=MX repository,c=non-free";
-//
-//  500 http://mxrepo.com/mx/repo stretch/non-free amd64 Packages
-   "o=MX repository,a=mx,n=stretch,l=MX repository,c=non-free";
-//
-//  500 http://mxrepo.com/mx/repo stretch/main i386 Packages
-   "o=MX repository,a=mx,n=stretch,l=MX repository,c=main";
-//
-//  500 http://mxrepo.com/mx/repo stretch/main amd64 Packages
-   "o=MX repository,a=mx,n=stretch,l=MX repository,c=main";
-//
-//  500 http://security.debian.org stretch/updates/non-free i386 Packages
-   "o=Debian,a=stable,n=stretch,l=Debian-Security,c=non-free";
-//
-//  500 http://security.debian.org stretch/updates/non-free amd64 Packages
-   "o=Debian,a=stable,n=stretch,l=Debian-Security,c=non-free";
-//
-//  500 http://security.debian.org stretch/updates/contrib i386 Packages
-   "o=Debian,a=stable,n=stretch,l=Debian-Security,c=contrib";
-//
-//  500 http://security.debian.org stretch/updates/contrib amd64 Packages
-   "o=Debian,a=stable,n=stretch,l=Debian-Security,c=contrib";
-//
-//  500 http://security.debian.org stretch/updates/main i386 Packages
-   "o=Debian,a=stable,n=stretch,l=Debian-Security,c=main";
-//
-//  500 http://security.debian.org stretch/updates/main amd64 Packages
-   "o=Debian,a=stable,n=stretch,l=Debian-Security,c=main";
-//
-//  500 http://ftp.us.debian.org/debian stretch/non-free i386 Packages
-   "o=Debian,a=stable,n=stretch,l=Debian,c=non-free";
-//
-//  500 http://ftp.us.debian.org/debian stretch/non-free amd64 Packages
-   "o=Debian,a=stable,n=stretch,l=Debian,c=non-free";
-//
-//  500 http://ftp.us.debian.org/debian stretch/contrib i386 Packages
-   "o=Debian,a=stable,n=stretch,l=Debian,c=contrib";
-//
-//  500 http://ftp.us.debian.org/debian stretch/contrib amd64 Packages
-   "o=Debian,a=stable,n=stretch,l=Debian,c=contrib";
-//
-//  500 http://ftp.us.debian.org/debian stretch/main i386 Packages
-   "o=Debian,a=stable,n=stretch,l=Debian,c=main";
-//
-//  500 http://ftp.us.debian.org/debian stretch/main amd64 Packages
-   "o=Debian,a=stable,n=stretch,l=Debian,c=main";
-//
-//  500 http://ftp.us.debian.org/debian stretch-updates/main i386 Packages
-   "o=Debian,a=stable-updates,n=stretch-updates,l=Debian,c=main";
-//
-//  500 http://ftp.us.debian.org/debian stretch-updates/main amd64 Packages
-   "o=Debian,a=stable-updates,n=stretch-updates,l=Debian,c=main";
-//
-//  500 http://repo.antixlinux.com/stretch stretch/main i386 Packages
-   "o=repo.antixlinux.com,a=stretch,n=stretch,l=antiX repository,c=main";
-//
-//  500 http://repo.antixlinux.com/stretch stretch/main amd64 Packages
-   "o=repo.antixlinux.com,a=stretch,n=stretch,l=antiX repository,c=main";
+// Shipped without a Origins-Pattern, will be populated later by the
+// update-Origins-Pattern script which is run by cronjob.
 };
 Unattended-Upgrade::Package-Blacklist {
 //	"vim";

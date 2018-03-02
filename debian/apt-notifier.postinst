@@ -8,9 +8,14 @@ case "$1" in
   configure)  #remove obsolete /etc/apt/apt.conf.d/15periodic-update file 
               rm -f /etc/apt/apt.conf.d/15periodic-update
 
+              #if /etc/cron.daily/apt~ exists rename it back to /etc/cron.daily/apt
+              if [ -f /etc/cron.daily/apt~ ] && [ ! -f /etc/cron.daily/apt ]; then
+                mv /etc/cron.daily/apt~ /etc/cron.daily/apt
+              fi
+
               #rename other config files with a APT::Periodic::Unattended-Upgrade setting (other than 02periodic)
               for i in $(grep 'APT::Periodic::Unattended-Upgrade "[0-9]+";' /etc/apt/apt.conf.d/* -E | \
-              cut -f1 -d: | grep -v -e /etc/apt/apt.conf.d/02periodic -e /etc/apt/apt.conf.d/*~); do mv $i $i~; done
+              cut -f1 -d: | grep -v -e /etc/apt/apt.conf.d/02periodic -e /etc/apt/apt.conf.d/.*~); do mv $i $i~; done
 
               if  [ ! -f /etc/apt/apt.conf.d/02periodic ]
                 then
