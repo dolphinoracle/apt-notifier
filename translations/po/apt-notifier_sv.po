@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-23 20:23-0400\n"
+"POT-Creation-Date: 2018-02-28 10:28-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Geoff Gigg <geoffgigg@hotmail.com>, 2017\n"
 "Language-Team: Swedish (https://www.transifex.com/anticapitalista/teams/10162/sv/)\n"
@@ -59,8 +59,8 @@ msgid "Quit"
 msgstr "Avsluta"
 
 #: apt-notifier.py:73
-msgid "Apt-Notifier Help"
-msgstr "Apt-Notifier Hjälp"
+msgid "MX Updater Help"
+msgstr "MX Uppdaterare Hjälp"
 
 #: apt-notifier.py:74
 msgid "Synaptic Help"
@@ -70,45 +70,65 @@ msgstr "Synaptic Hjälp"
 msgid "Preferences"
 msgstr "Inställningar"
 
-#: apt-notifier.py:76 apt-notifier.py:1059
-msgid "Apt History"
-msgstr "Apt historia"
+#: apt-notifier.py:76 apt-notifier.py:1225
+msgid "History"
+msgstr "Historik"
 
 #: apt-notifier.py:77
 msgid "Check for Updates"
 msgstr "Sök efter uppdateringar"
 
-#: apt-notifier.py:283
-msgid "MX Apt Notifier--View and Upgrade, previewing: apt-get"
-msgstr "MX Apt Notifier--Granska och Uppgradera, förhandsgranskning: apt-get"
+#: apt-notifier.py:334
+msgid "MX Updater--View and Upgrade, previewing: basic upgrade"
+msgstr ""
+"MX Uppdaterare--Se och Uppgradera, förhandsgranskning: enkel uppgradering"
 
-#: apt-notifier.py:284
-msgid "use apt-get's --yes option for"
-msgstr "använd apt-get's --yes möjlighet för"
+#: apt-notifier.py:335
+msgid "MX Updater--View and Upgrade, previewing: full upgrade"
+msgstr ""
+"MX Uppdaterare--Se och Uppgradera, förhandsgranskning: full uppgradering"
 
-#: apt-notifier.py:285
-#, python-format
-msgid "automatically close terminal window when apt-get %s complete"
-msgstr "stäng automatiskt terminalfönstret när apt-get %s är slutförd"
+#: apt-notifier.py:336 apt-notifier.py:964
+msgid "Automatically answer 'yes' to all prompts during full/basic upgrade"
+msgstr "Säg automatiskt 'ja' till alla fönster under full/enkel uppgradering"
 
-#: apt-notifier.py:286
-#, python-format
-msgid "switch to %s"
-msgstr "byt till %s"
+#: apt-notifier.py:337
+msgid "automatically close terminal window when basic upgrade complete"
+msgstr "stäng terminalfönster automatiskt när enkel uppgradering är färdig"
 
-#: apt-notifier.py:287
+#: apt-notifier.py:338
+msgid "automatically close terminal window when full upgrade complete"
+msgstr "stäng terminalfönster automatiskt när full uppgradering är färdig"
+
+#: apt-notifier.py:339 apt-notifier.py:959
+msgid "basic upgrade"
+msgstr "enkel uppgradering"
+
+#: apt-notifier.py:340 apt-notifier.py:958
+msgid "full upgrade"
+msgstr "full uppgradering"
+
+#: apt-notifier.py:341
+msgid "switch to basic upgrade"
+msgstr "byt till enkel uppgradering"
+
+#: apt-notifier.py:342
+msgid "switch to full upgrade"
+msgstr "byt till full uppgradering"
+
+#: apt-notifier.py:343
 msgid ""
 "Switches the type of Upgrade that will be performed, alternating back and "
-"forth between 'apt-get upgrade' and 'apt-get dist-upgrade'."
+"forth between 'full upgrade' and 'basic upgrade'."
 msgstr ""
-"Växlar mellan typen av uppgradering som kommer att utföras, växlar fram och "
-"tillbaka mellan 'apt-get upgrade' och 'apt-get dist-upgrade'"
+"Byter typ av Uppgradering som kommer att utföras, fram och tillbaka mellan "
+"'full uppgradering' och 'enkel uppgradering'."
 
-#: apt-notifier.py:288
+#: apt-notifier.py:344 apt-notifier.py:1264
 msgid "Reload"
 msgstr "Läs om"
 
-#: apt-notifier.py:289
+#: apt-notifier.py:345
 msgid ""
 "Reload the package information to become informed about new, removed or "
 "upgraded software packages. (apt-get update)"
@@ -116,7 +136,7 @@ msgstr ""
 "Läs om paketinformationen för att få information om nya, borttagna eller "
 "uppgraderade programpaket. (apt-get update)"
 
-#: apt-notifier.py:292 apt-notifier.py:1097
+#: apt-notifier.py:348 apt-notifier.py:1263
 msgid ""
 "The action you requested needs <b>root privileges</b>. Please enter "
 "<b>root's</b> password below."
@@ -124,72 +144,101 @@ msgstr ""
 "Åtgärden du har begärt kräver <b>administratörsbehörighet</b>. Ange "
 "lösenordet för <b>root</b>nedan."
 
-#: apt-notifier.py:295
-#, python-format
-msgid "%s complete (or was canceled)"
-msgstr "%s färdig (eller stoppades)"
+#: apt-notifier.py:351
+msgid "basic upgrade complete (or was canceled)"
+msgstr "enkel uppgradering färdig (eller stoppades)"
 
-#: apt-notifier.py:296
+#: apt-notifier.py:352
+msgid "full upgrade complete (or was canceled)"
+msgstr "full uppgradering färdig (eller stoppades)"
+
+#: apt-notifier.py:353
 msgid "this terminal window can now be closed"
 msgstr "detta terminalfönster kan nu stängas"
 
-#: apt-notifier.py:297
+#: apt-notifier.py:354
 msgid "press any key to close"
 msgstr "tryck på valfri tangent för att stänga"
 
-#: apt-notifier.py:298
+#: apt-notifier.py:355
 msgid "Unneeded packages are installed that can be removed."
 msgstr "Onödiga paket som är installerade och kan tas bort."
 
-#: apt-notifier.py:299
+#: apt-notifier.py:356
 msgid "Running apt-get autoremove, if you are unsure type 'n'."
 msgstr "Kör apt-get autoremove, om du är osäker skriv 'n'."
 
-#: apt-notifier.py:856
-msgid "MX Apt Notifier preferences"
-msgstr "MX Apt Notifier inställningar"
+#: apt-notifier.py:956
+msgid "MX Updater preferences"
+msgstr "MX Uppdaterare preferenser "
 
-#: apt-notifier.py:857
-msgid "Upgrade behaviour   (also affects notification count)"
-msgstr "Uppgraderingsbeteende (påverkar också antalet i meddelandena)"
+#: apt-notifier.py:957
+msgid "Upgrade mode"
+msgstr "Uppgraderingsläge"
 
-#: apt-notifier.py:858
+#: apt-notifier.py:960
 msgid "Left-click behaviour   (when updates are available)"
 msgstr "Vänster-klicks beteende (när uppdateringar är tillgängliga)"
 
-#: apt-notifier.py:859
+#: apt-notifier.py:961
 msgid "Other options"
 msgstr "Andra möjligheter"
 
-#: apt-notifier.py:860
+#: apt-notifier.py:962
 msgid "opens Synaptic"
 msgstr "öppnar Synaptic"
 
-#: apt-notifier.py:861
-msgid "opens MX Apt Notifier 'View and Upgrade' window"
-msgstr "öppnar MX Apt Notifier 'Granska och uppgradera'-fönster"
+#: apt-notifier.py:963
+msgid "opens MX Updater 'View and Upgrade' window"
+msgstr "öppnar MX Uppdaterares 'Se och Uppgradera'-fönster"
 
-#: apt-notifier.py:862
-msgid "use apt-get's --yes option for upgrade/dist-upgrade"
-msgstr "använd apt-get's --yes möjlighet för upgrade/dist-upgrade"
-
-#: apt-notifier.py:863
-msgid ""
-"automatically close terminal window when apt-get upgrade/dist-upgrade "
-"complete"
+#: apt-notifier.py:965
+msgid "automatically close terminal window when full/basic upgrade complete"
 msgstr ""
-"stäng automatiskt terminalfönstret när apt-get upgrade/dist-upgrade är "
-"slutfört"
+"stäng terminalfönster automatiskt när full/enkel uppgradering är färdig"
 
-#: apt-notifier.py:864
-msgid "check for autoremovable packages after apt-get upgrade/dist-upgrade"
-msgstr ""
-"sök efter automatiskt borttagbara paket efter apt-get upgrade/dist-upgrade"
+#: apt-notifier.py:966
+msgid "check for autoremovable packages after full/basic upgrade"
+msgstr "leta efter auto-borttagningsbara paket efter full/enkel uppgradering"
 
-#: apt-notifier.py:865
+#: apt-notifier.py:967
 msgid "Icons"
 msgstr "Ikoner"
 
-#: apt-notifier.py:866
+#: apt-notifier.py:968
 msgid "classic"
 msgstr "klassisk"
+
+#: apt-notifier.py:969
+msgid "pulse"
+msgstr "puls"
+
+#: apt-notifier.py:970
+msgid "wireframe"
+msgstr "wireframe"
+
+#: apt-notifier.py:971
+msgid "Auto-update"
+msgstr "Auto-uppdatera"
+
+#: apt-notifier.py:972
+msgid "update automatically   (will not add new or remove existing packages)"
+msgstr ""
+"uppdatera automatiskt   (kommer inte att lägga till eller ta bort nuvarande "
+"paket)"
+
+#: apt-notifier.py:973
+msgid ""
+"<b>Root privileges</b> are required to <b>enable</b> Auto Updates. Please "
+"enter <b>root's</b> password below."
+msgstr ""
+"<b>administratörsbehörighet</b>behövs för att<b>möjliggöra</b>Auto-"
+"Uppdateringar. Var vänlig skriv in<b>root</b>lösenord nedan."
+
+#: apt-notifier.py:974
+msgid ""
+"<b>Root privileges</b> are required to <b>disable</b> Auto Updates. Please "
+"enter <b>root's</b> password below."
+msgstr ""
+"<b>administratörsbehörighet</b>behövs för att<b>stänga av</b>Auto-"
+"Uppdateringar. Var vänlig skriv in<b>root</b>lösenord nedan."

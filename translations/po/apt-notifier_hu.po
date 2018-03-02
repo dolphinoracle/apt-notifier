@@ -10,73 +10,73 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-28 10:28-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Geoff Gigg <geoffgigg@hotmail.com>, 2017\n"
-"Language-Team: Lithuanian (https://www.transifex.com/anticapitalista/teams/10162/lt/)\n"
+"Last-Translator: Tamas Szarvas <szarvy@gmail.com>, 2017\n"
+"Language-Team: Hungarian (https://www.transifex.com/anticapitalista/teams/10162/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: lt\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: hu\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: apt-notifier.py:63
 msgid "0 updates available"
-msgstr "Prieinama 0 atnaujinimų"
+msgstr "0 elérhető frissítés"
 
 #: apt-notifier.py:64
 msgid "1 new update available"
-msgstr "Prieinamas 1 naujas atnaujinimas"
+msgstr "1 frissítés érhető el"
 
 #: apt-notifier.py:65
 msgid "$count new updates available"
-msgstr "Yra prieinama $count naujų atnaujinimų"
+msgstr "$count frissítés érhető el"
 
 #: apt-notifier.py:66
 msgid "Updates"
-msgstr "Atnaujinimai"
+msgstr "Frissítések"
 
 #: apt-notifier.py:67
 msgid "You have 1 new update available"
-msgstr "Yra prieinamas 1 naujas atnaujinimas"
+msgstr "1 új elérhető frissítése van"
 
 #: apt-notifier.py:68
 msgid "You have $count new updates available"
-msgstr "Yra prieinama $count naujų atnaujinimų"
+msgstr "$count új elérhető frissítése van"
 
 #: apt-notifier.py:69
 msgid "Upgrade using Synaptic"
-msgstr "Naujinti, naudojant Synaptic"
+msgstr "Frissítés Synaptic használatával"
 
 #: apt-notifier.py:70
 msgid "View and Upgrade"
-msgstr "Rodyti ir naujinti"
+msgstr "Megtekintés és frissítés"
 
 #: apt-notifier.py:71
 msgid "Hide until updates available"
-msgstr "Slėpti, kol bus prieinami atnaujinimai"
+msgstr "Elrejtés, amíg lesz elérhető frissítés"
 
 #: apt-notifier.py:72
 msgid "Quit"
-msgstr "Išeiti"
+msgstr "Kilépés"
 
 #: apt-notifier.py:73
 msgid "MX Updater Help"
-msgstr ""
+msgstr "MX frissítő súgó"
 
 #: apt-notifier.py:74
 msgid "Synaptic Help"
-msgstr "Synaptic žinynas"
+msgstr "Synaptic súgó"
 
 #: apt-notifier.py:75
 msgid "Preferences"
-msgstr "Nuostatos"
+msgstr "Tulajdonságok"
 
 #: apt-notifier.py:76 apt-notifier.py:1225
 msgid "History"
-msgstr ""
+msgstr "Történet"
 
 #: apt-notifier.py:77
 msgid "Check for Updates"
-msgstr "Tikrinti ar yra atnaujinimų"
+msgstr "Frissítések keresése"
 
 #: apt-notifier.py:334
 msgid "MX Updater--View and Upgrade, previewing: basic upgrade"
@@ -122,19 +122,23 @@ msgstr ""
 
 #: apt-notifier.py:344 apt-notifier.py:1264
 msgid "Reload"
-msgstr "Įkelti iš naujo"
+msgstr "Újratöltés"
 
 #: apt-notifier.py:345
 msgid ""
 "Reload the package information to become informed about new, removed or "
 "upgraded software packages. (apt-get update)"
 msgstr ""
+"Csomaginformációk újratöltése, annak érdekében, hogy meggyőződjünk róla, "
+"vannak-e új, eltávolított vagy frissített csomagok. (apt-get update)"
 
 #: apt-notifier.py:348 apt-notifier.py:1263
 msgid ""
 "The action you requested needs <b>root privileges</b>. Please enter "
 "<b>root's</b> password below."
 msgstr ""
+"A kért művelet <b>root jogokat</b> igényel. Kérem, írja be a <b>root "
+"felhasználó</b> jelszavát!"
 
 #: apt-notifier.py:351
 msgid "basic upgrade complete (or was canceled)"
@@ -146,23 +150,23 @@ msgstr ""
 
 #: apt-notifier.py:353
 msgid "this terminal window can now be closed"
-msgstr "šis terminalo langas dabar gali būti užvertas"
+msgstr "Ez a terminálablak már bezárható."
 
 #: apt-notifier.py:354
 msgid "press any key to close"
-msgstr "norėdami užverti, paspauskite bet kurį klavišą"
+msgstr "Nyomja meg bármely billentyűt a bezáráshoz!"
 
 #: apt-notifier.py:355
 msgid "Unneeded packages are installed that can be removed."
-msgstr ""
+msgstr "Szükségtelen telepített csomagok eltávolíthatók."
 
 #: apt-notifier.py:356
 msgid "Running apt-get autoremove, if you are unsure type 'n'."
-msgstr ""
+msgstr "apt-get autroremove fut, ha nem biztos benne, nyomja meg az 'n'-t."
 
 #: apt-notifier.py:956
 msgid "MX Updater preferences"
-msgstr ""
+msgstr "MX frissítő tulajdonságai"
 
 #: apt-notifier.py:957
 msgid "Upgrade mode"
@@ -170,20 +174,19 @@ msgstr ""
 
 #: apt-notifier.py:960
 msgid "Left-click behaviour   (when updates are available)"
-msgstr ""
-"Kairiojo pelės mygtuko spustelėjimo elgsena (kai prieinami atnaujinimai)"
+msgstr "Bal klikk viselkedése (mikor elérhetőek frissítések)"
 
 #: apt-notifier.py:961
 msgid "Other options"
-msgstr "Kiti parametrai"
+msgstr "Egyéb beállítások"
 
 #: apt-notifier.py:962
 msgid "opens Synaptic"
-msgstr "atveria Synaptic"
+msgstr "Synaptic megnyitása"
 
 #: apt-notifier.py:963
 msgid "opens MX Updater 'View and Upgrade' window"
-msgstr ""
+msgstr "MX frissítő 'Nézet és frissítés' ablakának megnyitása"
 
 #: apt-notifier.py:965
 msgid "automatically close terminal window when full/basic upgrade complete"
@@ -195,19 +198,19 @@ msgstr ""
 
 #: apt-notifier.py:967
 msgid "Icons"
-msgstr "Piktogramos"
+msgstr "Ikonok"
 
 #: apt-notifier.py:968
 msgid "classic"
-msgstr ""
+msgstr "klasszikus"
 
 #: apt-notifier.py:969
 msgid "pulse"
-msgstr ""
+msgstr "pulse"
 
 #: apt-notifier.py:970
 msgid "wireframe"
-msgstr ""
+msgstr "wireframe"
 
 #: apt-notifier.py:971
 msgid "Auto-update"
