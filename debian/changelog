@@ -1,3 +1,9 @@
+apt-notifier (18.03.01mx17+1) mx; urgency=medium
+
+  * script changes to remove b=amd64, b=i386, site=* from Origins-Pattern 
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Thu, 01 Mar 2018 19:07:28 -0500
+
 apt-notifier (18.02.28mx17+1) mx; urgency=medium
 
   * In Prefs changed 'Upgrade Behaviour  (also affects ...' to 'Upgrade mode'
