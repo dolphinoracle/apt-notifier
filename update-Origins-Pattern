@@ -69,7 +69,7 @@ main() {
     Cache_Origins="$(grep -v 'Pinned packages:'                                  <<<"$Cache_Origins")"
     Cache_Origins="$(grep ^\ [0-9]+ -A1 -E                                       <<<"$Cache_Origins")"
     Cache_Origins="$(grep -v -e--                                                <<<"$Cache_Origins")"
-    Cache_Origins="$(sed 's/,\([aclno][=]\)/@\1/g'                               <<<"$Cache_Origins")"
+    Cache_Origins="$(sed 's/,\([abclno][=]\)/@\1/g'                              <<<"$Cache_Origins")"
     Cache_Origins="$(sed 's/,/\\,/g'                                             <<<"$Cache_Origins")"
     Cache_Origins="$(sed 's/@/,/g'                                               <<<"$Cache_Origins")"
     Cache_Origins="$(sed 's/^[ ]* //g'                                           <<<"$Cache_Origins")"

@@ -1,3 +1,9 @@
+apt-notifier (18.03.03mx17+3) mx; urgency=medium
+
+  * add "b" (build) keyword to commas that aren't backslashed
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Sat, 03 Mar 2018 11:17:17 -0500
+
 apt-notifier (18.03.03mx17+2) mx; urgency=medium
 
   * enable Unattended-Upgrade::MinimalSteps
