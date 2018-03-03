@@ -14,10 +14,17 @@ repos.
 
 File:
 
-    File to be updated e.g. /etc/apt/apt.conf.d/51unattended-upgrades-mx.
+    File to be updated. Typically this would be the /etc/apt/apt.conf.d/
+    51unattended-upgrades-mx file but can be any file user has read/write
+    permissions to.
+
     If no file argument provided, output will be written to stdout.
 
 Options:
+
+    -d, --default
+        Default to updating the Origins-Pattern in the
+        /etc/apt/apt.conf.d/51unattended-upgrades-mx file.
 
     -h, --help
         Show this help.
@@ -27,7 +34,7 @@ Usage
 main() {
 
 	if [ $# -gt 1 ]; then
-      echo "$ME":' too many option(s) or file argument(s) -- '"$@"
+          echo "$ME":' too many option(s) or file argument(s) -- '"$@"
 	  echo 'Try '"$ME"' --help for more information.' 
 	  exit 1
 	fi
@@ -37,14 +44,20 @@ main() {
 	  exit 0
 	fi
 
-    if [ "$(cut -c1 <<<"$1")" = "-" ]; then
+        bad_option="true"
+
+        if [ "$1" = "-d" -o "$1" = "--default" ]; then
+          bad_option="false"
+        fi
+
+        if [ "$(cut -c1 <<<"$1")" = "-" ] && [ "$bad_option" = "true" ]; then
 	  echo "$ME":' invalid option(s) -- '"$@"
 	  echo 'Try '"$ME"' --help for more information.' 
 	  exit 1
 	fi
 
-	if [ ! -f "$1" ] && [ $# -ge 1 ]; then
-      echo "$ME":' passed argument is not a valid file  -- '"$@"
+	if [ ! -f "$1" ] && [ $# -ge 1 ] && [ "$bad_option" = "true" ]; then
+          echo "$ME":' passed argument is not a valid file  -- '"$@"
 	  echo 'Try '"$ME"' --help for more information.' 
 	  exit 1
 	fi
@@ -58,7 +71,12 @@ main() {
         Start="Unattended-Upgrade::Origins-Pattern {"
         End="};"
       else
-        File="$1"
+        if [ "$1" = "-d" ] || [ "$1" = "--default" ]
+          then
+            File="/etc/apt/apt.conf.d/51unattended-upgrades-mx"
+          else
+            File="$1"
+        fi
         Start="$(grep 'Unattended-Upgrade::Origins-Pattern {' -B9999 "$File")"
         End="$(grep '};' -A9999 "$File")"
     fi

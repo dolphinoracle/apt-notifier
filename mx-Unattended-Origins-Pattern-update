@@ -1,7 +1,0 @@
-# /etc/cron.d/mx-Unattended-Origins-Pattern-update: crontab entry
-
-SHELL=/bin/sh
-PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-
-5 7    * * *   root    [ -x /usr/local/bin/update-Origins-Pattern ] && /usr/local/bin/update-Origins-Pattern /etc/apt/apt.conf.d/51unattended-upgrades-mx
-
