@@ -1,3 +1,9 @@
+apt-notifier (18.03.03mx17+2) mx; urgency=medium
+
+  * enable Unattended-Upgrade::MinimalSteps
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Sat, 03 Mar 2018 10:18:28 -0500
+
 apt-notifier (18.03.03mx17+1) mx; urgency=medium
 
   * disable unattended-upgrades from Debian releases other than MX's base

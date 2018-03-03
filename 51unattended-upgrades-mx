@@ -8,8 +8,8 @@ Unattended-Upgrade::Package-Blacklist {
 //	"libc6-dev";
 //	"libc6-i686";
 };
-//Unattended-Upgrade::AutoFixInterruptedDpkg "false";
-//Unattended-Upgrade::MinimalSteps "true";
+Unattended-Upgrade::AutoFixInterruptedDpkg "true";     //default is "true"
+Unattended-Upgrade::MinimalSteps "true";               //default is "false"
 //Unattended-Upgrade::InstallOnShutdown "true";
 //Unattended-Upgrade::Mail "root";
 //Unattended-Upgrade::MailOnlyOnError "true";
