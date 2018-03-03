@@ -59,11 +59,12 @@ main() {
         End="};"
       else
         File="$1"
-        Start="$(grep 'Origins-Pattern' -B9999 "$File")"
+        Start="$(grep 'Unattended-Upgrade::Origins-Pattern {' -B9999 "$File")"
         End="$(grep '};' -A9999 "$File")"
     fi
    #Create a Origins-Pattern for all currently enabled repos
-    Cache_Origins="$(apt-cache policy                                                               )"
+    Cache__policy="$(apt-cache policy                                                               )"
+    Cache_Origins="$(cat                                                         <<<"$Cache__policy")"
     Cache_Origins="$(grep -v Translation-[a-z]{2}$ -E                            <<<"$Cache_Origins")"
     Cache_Origins="$(grep -v 'Pinned packages:'                                  <<<"$Cache_Origins")"
     Cache_Origins="$(grep ^\ [0-9]+ -A1 -E                                       <<<"$Cache_Origins")"
@@ -103,6 +104,24 @@ main() {
 
    #Disable Unattended Upgrades from Debian sid or unstable
     Cache_Origins="$(sed 's/^   \(.*o=Debian,a=unstable.*\)/\/\/ \1/'            <<<"$Cache_Origins")"
+
+   #Disable Debian releases other than the one that this MX is based upon
+    Debian_allowd="$(grep -v  Translation-[a-z]{2}$ -E                           <<<"$Cache__policy")" 
+    Debian_allowd="$(grep ^'     release v=[0-9.]+,o=Debian' -E                  <<<"$Debian_allowd")" 
+    Debian_allowd="$(grep v=$(cut -f1 -d. /etc/debian_version)                   <<<"$Debian_allowd")"
+    Debian_allowd="$(grep o=Debian,a=.*,n=.*, -Eo -m1                            <<<"$Debian_allowd")"
+    Debian_allowd="$(cut -f1-3 -d\,                                              <<<"$Debian_allowd")"
+    for i in $(\
+    grep -v Translation-[a-z]{2}$ -E <<<"$Cache__policy" |\
+    grep ^'     release v=[0-9.]+,o=Debian' -E |\
+    grep -v "$Debian_allowd" |\
+    grep o=Debian,a=.*,n=.*, -Eo |\
+    cut -f1-3 -d\, |\
+    sort -u \
+    ); \
+    do \
+    Cache_Origins="$(sed 's/   \(.*'"$i"'.*\)/\/\/ \1/'                          <<<"$Cache_Origins")";\
+    done
 
    #Get a sum of the apt-cache Origins-Pattern 
     Cache_Org_md5="$(md5sum                                                      <<<"$Cache_Origins")"

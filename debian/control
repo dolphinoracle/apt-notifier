@@ -3,7 +3,7 @@ Section: admin
 Priority: optional
 Maintainer: Steve (Stevo) Pusser <maintainer@mepiscommunity.org>
 Uploaders: Kent Mathern <maintainer@mepiscommunity.org>
-Build-Depends: debhelper (>= 7.0.50~)
+Build-Depends: debhelper (>= 9.0)
 Standards-Version: 3.9.3
 Homepage: http://forum.mepiscommunity.org/
 

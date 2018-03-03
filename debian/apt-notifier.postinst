@@ -42,7 +42,10 @@ case "$1" in
                   cp /usr/share/apt-notifier/51unattended-upgrades-mx /etc/apt/apt.conf.d/51unattended-upgrades-mx
                   sed -i '/overwrite existing/d' /etc/apt/apt.conf.d/51unattended-upgrades-mx
                 else 
-                  if [ "$(sed '/overwrite existing/d' /usr/share/apt-notifier/51unattended-upgrades-mx | md5sum)" = "$(cat /etc/apt/apt.conf.d/51unattended-upgrades-mx | md5sum)" ]
+                  if [ "$(cat <(grep 'Origins-Pattern {' /usr/share/apt-notifier/51unattended-upgrades-mx -B9999) \
+                              <(grep '};' /usr/share/apt-notifier/51unattended-upgrades-mx -A9999) | sed '/overwrite existing/d' | md5sum)" = \
+                       "$(cat <(grep 'Origins-Pattern {' /etc/apt/apt.conf.d/51unattended-upgrades-mx -B9999) \
+                              <(grep '};' /etc/apt/apt.conf.d/51unattended-upgrades-mx -A9999) | md5sum)" ]
                     then
                       :
                     else

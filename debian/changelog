@@ -1,3 +1,9 @@
+apt-notifier (18.03.03mx17+1) mx; urgency=medium
+
+  * disable unattended-upgrades from Debian releases other than MX's base
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Sat, 03 Mar 2018 08:42:54 -0500
+
 apt-notifier (18.03.02mx17+1) mx; urgency=medium
 
   * disable unattended-upgrades from Debian testing & sid, dmo, and mx testrepo
