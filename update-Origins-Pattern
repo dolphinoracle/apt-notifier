@@ -65,6 +65,11 @@ main() {
 
 	local File Start End Cache_Origins Cache_Org_md5 Exist_Origins Existing__md5
 
+    #Attempt to remove file causing apt-cache policy syntax error (if there is one)
+    #note, this won't work for non-root users.
+    apt-cache policy 2>&1 | grep 'E: Syntax error' 1>/dev/null 2>/dev/null && [ $? ] && \
+    rm -f "$(apt-cache policy 2>&1 | grep 'E: Syntax error' | cut -f4 -d\ | cut -f1 -d:)"
+
     if [ $# -eq 0 ]
       then
         File=""
@@ -77,8 +82,16 @@ main() {
           else
             File="$1"
         fi
-        Start="$(grep 'Unattended-Upgrade::Origins-Pattern {' -B9999 "$File")"
-        End="$(grep '};' -A9999 "$File")"
+        if [ -f "$File" ]
+          then
+            Start="$(grep 'Unattended-Upgrade::Origins-Pattern {' -B9999 "$File")"
+            End="$(grep '};' -A9999 "$File")"
+          else
+            cp /usr/share/apt-notifier/51unattended-upgrades-mx  "$File"
+            sed -i '$d' "$File"
+            Start="$(grep 'Unattended-Upgrade::Origins-Pattern {' -B9999 "$File")"
+            End="$(grep '};' -A9999 "$File")"
+        fi
     fi
    #Create a Origins-Pattern for all currently enabled repos
     Cache__policy="$(apt-cache policy                                                               )"
@@ -94,9 +107,18 @@ main() {
     Cache_Origins="$(sed 's/^\([0-9]\)/\/\/  \1/'                                <<<"$Cache_Origins")"
     Cache_Origins="$(sed 's/^\/\//\/\/\n\/\//'                                   <<<"$Cache_Origins")"
     Cache_Origins="$(sed 's/^release //'                                         <<<"$Cache_Origins")"
-    Cache_Origins="$(sed 's/v=[0-9.,]*//'                                        <<<"$Cache_Origins")"
-    Cache_Origins="$(sed 's/,b=amd64//'                                          <<<"$Cache_Origins")"
-    Cache_Origins="$(sed 's/,b=i386//'                                           <<<"$Cache_Origins")"
+   #Cache_Origins="$(sed 's/v=[0-9.a-zA-Z]*,//'                                  <<<"$Cache_Origins")"
+   #Cache_Origins="$(sed 's/,b=amd64//'                                          <<<"$Cache_Origins")"
+   #Cache_Origins="$(sed 's/,b=i386//'                                           <<<"$Cache_Origins")"
+    Cache_Origins="$(sed 's/,/\n/g'                                              <<<"$Cache_Origins")"
+    Cache_Origins="$(sed '/[bv]=.*/d'                                            <<<"$Cache_Origins")"
+    Cache_Origins="$(sed 's/^\([aclno]\)/,\1/'                                   <<<"$Cache_Origins")"
+    Cache_Origins="$(sed ':a;N;$!ba;s/\n//g'                                     <<<"$Cache_Origins")"
+    Cache_Origins="$(sed 's/Packages,/\n/g'                                      <<<"$Cache_Origins")"
+    Cache_Origins="$(sed 's/status,/status\n/g'                                  <<<"$Cache_Origins")"
+    Cache_Origins="$(sed 's,////,//\n//,g'                                       <<<"$Cache_Origins")"
+    Cache_Origins="$(sed 's,//$,\n//,g'                                          <<<"$Cache_Origins")"
+    Cache_Origins="$(sed '/^$/d'                                                 <<<"$Cache_Origins")"
     Cache_Origins="$(sed 's/^\([aclno]=.*\)/   "\1";/'                           <<<"$Cache_Origins")"
 
    #Now Disable Unattended Upgrades for Debian Backports & Experimental repos
@@ -161,6 +183,11 @@ main() {
             cat <<<"$Start"          > "$File"
             cat <<<"$Cache_Origins" >> "$File"
             cat <<<"$End"           >> "$File"
+            #If now getting a syntax error when running the apt-cache policy command,
+            #assume that the new Origins-Pattern that was just created is causing it,
+            #set the Origins-Pattern back to a empty pattern.    
+            apt-cache policy 2>&1 | grep 'E: Syntax error' -q && if [ $? ]; then \
+            cp /usr/share/apt-notifier/51unattended-upgrades-mx "$File"; sed -i '$d' "$File"; fi
           else
             cat <<<"$Start"
             cat <<<"$Cache_Origins"

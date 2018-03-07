@@ -1,3 +1,9 @@
+apt-notifier (18.03.07mx17+1) mx; urgency=medium
+
+  * update-Origins-Pattern script changes to fix 'v=all' 
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Wed, 07 Mar 2018 13:10:50 -0500
+
 apt-notifier (18.03.03mx17+4) mx; urgency=medium
 
   * -d option added to update-Origins-Pattern script
