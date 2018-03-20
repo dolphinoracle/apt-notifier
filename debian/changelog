@@ -1,3 +1,11 @@
+apt-notifier (18.03.20mx17+1) mx; urgency=medium
+
+  * remove /etc/cron.d/mx-Unattended-Origins-Pattern-update cronjob
+  * run Unattended-Origins-Pattern update before unattended-upgrades
+    via the /etc/cron.daily/2-apt-compat cronjob
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Tue, 20 Mar 2018 12:26:32 -0400
+
 apt-notifier (18.03.07mx17+1) mx; urgency=medium
 
   * update-Origins-Pattern script changes to fix 'v=all' 

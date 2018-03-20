@@ -20,4 +20,3 @@
    APT::Periodic::Verbose "3";
 // Dir::Cache::Archives "archives/";
 // Dir::Cache::Backup "backup/";
-// overwrite existing (note: line will be removed from /etc/apt... file)

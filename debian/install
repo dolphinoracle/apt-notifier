@@ -1,10 +1,12 @@
 02periodic                          usr/share/apt-notifier
-1-quick-live-update                 etc/cron.daily
+1-quick-live-update                 usr/share/apt-notifier
+2-apt-compat                        usr/share/apt-notifier
 51unattended-upgrades-mx            usr/share/apt-notifier
 apt-history                         usr/local/bin
 apt-notifier.py                     usr/bin
 apt-notifier-unhide-Icon            usr/bin
 apt-notifier                        usr/bin
+apt.systemd.daily                   usr/lib/apt-notifier
 mnotify-none-classic.png            usr/share/icons
 mnotify-none-pulse.png              usr/share/icons
 mnotify-none-wireframe.png          usr/share/icons

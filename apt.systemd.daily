@@ -3,7 +3,7 @@
 #
 # This file understands the following apt configuration variables:
 # Values here are the default.
-# Create /etc/apt/apt.conf.d/02periodic file to set your preference.
+# Create /etc/apt/apt.conf.d/10periodic file to set your preference.
 #
 #  Dir "/";
 #  - RootDir for all configuration files
@@ -62,12 +62,16 @@
 #  APT::Periodic::AutocleanInterval "0";
 #  - Do "apt-get autoclean" every n-days (0=disable)
 #
+#  APT::Periodic::CleanInterval "0";
+#  - Do "apt-get clean" every n-days (0=disable)
+#
 #  APT::Periodic::Verbose "0";
 #  - Send report mail to root
 #      0:  no report             (or null string)
 #      1:  progress report       (actually any string)
 #      2:  + command outputs     (remove -qq, remove 2>/dev/null, add -d)
 #      3:  + trace on            
+#
 
 check_stamp()
 {
@@ -278,25 +282,6 @@ do_cache_backup()
     fi
 }
 
-# sleep for a random interval of time (default 30min)
-# (some code taken from cron-apt, thanks)
-random_sleep()
-{
-    RandomSleep=1800
-    eval $(apt-config shell RandomSleep APT::Periodic::RandomSleep)
-    if [ $RandomSleep -eq 0 ]; then
-	return
-    fi
-    if [ -z "$RANDOM" ] ; then
-        # A fix for shells that do not have this bash feature.
-	RANDOM=$(( $(dd if=/dev/urandom bs=2 count=1 2> /dev/null | cksum | cut -d' ' -f1) % 32767 ))
-    fi
-    TIME=$(($RANDOM % $RandomSleep))
-    debug_echo "sleeping for $TIME seconds"
-    sleep $TIME
-}
-
-
 debug_echo()
 {
     # Display message if $VERBOSE >= 1
@@ -305,27 +290,24 @@ debug_echo()
     fi
 }
 
-check_power(){
-    # laptop check, on_ac_power returns:
-    #       0 (true)    System is on main power
-    #       1 (false)   System is not on main power
-    #       255 (false) Power status could not be determined
-    # Desktop systems always return 255 it seems
-    if which on_ac_power >/dev/null; then
-        on_ac_power
-        POWER=$?
-        if [ $POWER -eq 1 ]; then
-	    debug_echo "exit: system NOT on main power"
-	    return 1
-        elif [ $POWER -ne 0 ]; then
-	    debug_echo "power status ($POWER) undetermined, continuing"
-        fi
-        debug_echo "system is on main power."
-    fi
-    return 0
-}
-
 # ------------------------ main ----------------------------
+if [ "$1" = "lock_is_held" ]; then
+    shift
+else
+    # Maintain a lock on fd 3, so we can't run the script twice at the same
+    # time.
+    eval $(apt-config shell StateDir Dir::State/d)
+    exec 3>${StateDir}/daily_lock
+    if ! flock -w 3600 3; then
+        echo "E: Could not acquire lock" >&2
+        exit 1
+    fi
+
+    # We hold the lock.  Rerun this script as a child process, which
+    # can run without propagating an extra fd to all of its children.
+    "$0" lock_is_held "$@" 3>&-
+    exit $?
+fi
 
 if test -r /var/lib/apt/extended_states; then
     # Backup the 7 last versions of APT's extended_states file
@@ -339,7 +321,7 @@ if test -r /var/lib/apt/extended_states; then
 fi
 
 # check apt-config existence
-if ! which apt-config >/dev/null ; then
+if ! which apt-config >/dev/null 2>&1; then
 	exit 0
 fi
 
@@ -355,8 +337,8 @@ fi
 VERBOSE=0
 eval $(apt-config shell VERBOSE APT::Periodic::Verbose)
 debug_echo "verbose level $VERBOSE"
-if [ "$VERBOSE" -le 2 ]; then
-    # quiet for 0,1,2
+if [ "$VERBOSE" -le 1 ]; then
+    # quiet for 0/1
     XSTDOUT=">/dev/null"
     XSTDERR="2>/dev/null"
     XAPTOPT="-qq"
@@ -372,10 +354,8 @@ if [ "$VERBOSE" -ge 3 ]; then
     set -x
 fi
 
-check_power || exit 0
-
 # check if we can lock the cache and if the cache is clean
-if which apt-get >/dev/null && ! eval apt-get check $XAPTOPT $XSTDERR ; then
+if which apt-get >/dev/null 2>&1 && ! eval apt-get check $XAPTOPT $XSTDERR ; then
     debug_echo "error encountered in cron job with \"apt-get check\"."
     exit 0
 fi
@@ -398,6 +378,9 @@ eval $(apt-config shell UnattendedUpgradeInterval APT::Periodic::Unattended-Upgr
 AutocleanInterval=0
 eval $(apt-config shell AutocleanInterval APT::Periodic::AutocleanInterval)
 
+CleanInterval=0
+eval $(apt-config shell CleanInterval APT::Periodic::CleanInterval)
+
 BackupArchiveInterval=0
 eval $(apt-config shell BackupArchiveInterval APT::Periodic::BackupArchiveInterval)
 
@@ -409,7 +392,8 @@ if [ $UpdateInterval -eq 0 ] &&
    [ $DownloadUpgradeableInterval -eq 0 ] &&
    [ $UnattendedUpgradeInterval -eq 0 ] &&
    [ $BackupArchiveInterval -eq 0 ] &&
-   [ $AutocleanInterval -eq 0 ]; then
+   [ $AutocleanInterval -eq 0 ] &&
+   [ $CleanInterval -eq 0 ]; then
 
     # check cache size
     check_size_constraints
@@ -417,90 +401,114 @@ if [ $UpdateInterval -eq 0 ] &&
     exit 0
 fi
 
-# deal with BackupArchiveInterval
-do_cache_backup $BackupArchiveInterval
+if [ "$1" = "update" -o -z "$1" ] ; then
+    # deal with BackupArchiveInterval
+    do_cache_backup $BackupArchiveInterval
 
-# sleep random amount of time to avoid hitting the 
-# mirrors at the same time
-[ ! -e /var/lib/apt/periodic/update-stamp ] || exit 0
-check_power || exit 0
+    # include default system language so that "apt-get update" will
+    # fetch the right translated package descriptions
+    if [ -r /etc/default/locale ]; then
+	. /etc/default/locale
+	export LANG LANGUAGE LC_MESSAGES LC_ALL
+    fi
 
-# include default system language so that "apt-get update" will
-# fetch the right translated package descriptions
-if [ -r /etc/default/locale ]; then
-    . /etc/default/locale
-    export LANG LANGUAGE LC_MESSAGES LC_ALL
-fi
-
-# update package lists
-UPDATED=0
-UPDATE_STAMP=/var/lib/apt/periodic/update-stamp
-if check_stamp $UPDATE_STAMP $UpdateInterval; then
-    if eval apt-get $XAPTOPT -y update $XSTDERR; then
-	debug_echo "download updated metadata (success)."
-	if which dbus-send >/dev/null && pidof dbus-daemon >/dev/null; then
-	    if dbus-send --system / app.apt.dbus.updated boolean:true ; then
-		debug_echo "send dbus signal (success)"
+    # update package lists
+    UPDATED=0
+    UPDATE_STAMP=/var/lib/apt/periodic/update-stamp
+    if check_stamp $UPDATE_STAMP $UpdateInterval; then
+	if eval apt-get $XAPTOPT -y update $XSTDERR; then
+	    debug_echo "download updated metadata (success)."
+	    if which dbus-send >/dev/null 2>&1 && pidof dbus-daemon >/dev/null 2>&1; then
+		if dbus-send --system / app.apt.dbus.updated boolean:true ; then
+		    debug_echo "send dbus signal (success)"
+		else
+		    debug_echo "send dbus signal (error)"
+		fi
 	    else
-		debug_echo "send dbus signal (error)"
+		debug_echo "dbus signal not send (command not available)"
 	    fi
+	    update_stamp $UPDATE_STAMP
+	    UPDATED=1
 	else
-	    debug_echo "dbus signal not send (command not available)"
+	    debug_echo "download updated metadata (error)"
 	fi
-	#update_stamp $UPDATE_STAMP
-	UPDATED=1
-    if [ $UnattendedUpgradeInterval -ge 1 ]; then update-Origins-Pattern -d; fi
     else
-	debug_echo "download updated metadata (error)"
+	debug_echo "download updated metadata (not run)."
     fi
-else
-    debug_echo "download updated metadata (not run)."
-fi
-: <<'Disabled'	
-# download all upgradeable packages (if it is requested)
-DOWNLOAD_UPGRADEABLE_STAMP=/var/lib/apt/periodic/download-upgradeable-stamp
-if [ $UPDATED -eq 1 ] && check_stamp $DOWNLOAD_UPGRADEABLE_STAMP $DownloadUpgradeableInterval; then
-    if [ $Debdelta -eq 1 ]; then
-        debdelta-upgrade >/dev/null 2>&1 || true
-    fi
-    if  eval apt-get $XAPTOPT -y -d dist-upgrade $XSTDERR; then
-	update_stamp $DOWNLOAD_UPGRADEABLE_STAMP
-	debug_echo "download upgradable (success)"
+	    
+    # download all upgradeable packages (if it is requested)
+    DOWNLOAD_UPGRADEABLE_STAMP=/var/lib/apt/periodic/download-upgradeable-stamp
+    if [ $UPDATED -eq 1 ] && check_stamp $DOWNLOAD_UPGRADEABLE_STAMP $DownloadUpgradeableInterval; then
+	if [ $Debdelta -eq 1 ]; then
+	    debdelta-upgrade >/dev/null 2>&1 || true
+	fi
+	if  eval apt-get $XAPTOPT -y -d dist-upgrade $XSTDERR; then
+	    update_stamp $DOWNLOAD_UPGRADEABLE_STAMP
+	    debug_echo "download upgradable (success)"
+	else
+	    debug_echo "download upgradable (error)"
+	fi
     else
-	debug_echo "download upgradable (error)"
+	debug_echo "download upgradable (not run)"
     fi
-else
-    debug_echo "download upgradable (not run)"
+
+    if which unattended-upgrade >/dev/null 2>&1 && unattended-upgrade --help | grep -q download-only && check_stamp $DOWNLOAD_UPGRADEABLE_STAMP $UnattendedUpgradeInterval; then
+        update-Origins-Pattern -d
+	if unattended-upgrade --download-only $XUUPOPT; then
+	    update_stamp $DOWNLOAD_UPGRADEABLE_STAMP
+	    debug_echo "unattended-upgrade -d (success)"
+	else
+	    debug_echo "unattended-upgrade -d (error)"
+	fi
+    else
+	debug_echo "unattended-upgrade -d (not run)"
+    fi
 fi
 
-# auto upgrade all upgradeable packages
-UPGRADE_STAMP=/var/lib/apt/periodic/upgrade-stamp
-if which unattended-upgrade >/dev/null && check_stamp $UPGRADE_STAMP $UnattendedUpgradeInterval; then
-    if unattended-upgrade $XUUPOPT; then
-	update_stamp $UPGRADE_STAMP
-	debug_echo "unattended-upgrade (success)"
+if [ "$1" = "install" -o -z "$1" ] ; then
+    # auto upgrade all upgradeable packages
+    UPGRADE_STAMP=/var/lib/apt/periodic/upgrade-stamp
+    if which unattended-upgrade >/dev/null 2>&1 && check_stamp $UPGRADE_STAMP $UnattendedUpgradeInterval; then
+        update-Origins-Pattern -d
+	if unattended-upgrade $XUUPOPT; then
+	    update_stamp $UPGRADE_STAMP
+	    debug_echo "unattended-upgrade (success)"
+	else
+	    debug_echo "unattended-upgrade (error)"
+	fi
     else
-	debug_echo "unattended-upgrade (error)"
+	debug_echo "unattended-upgrade (not run)"
     fi
-else
-    debug_echo "unattended-upgrade (not run)"
-fi
 
-# autoclean package archive
-AUTOCLEAN_STAMP=/var/lib/apt/periodic/autoclean-stamp
-if check_stamp $AUTOCLEAN_STAMP $AutocleanInterval; then
-    if  eval apt-get $XAPTOPT -y autoclean $XSTDERR; then
-	debug_echo "autoclean (success)."
-	update_stamp $AUTOCLEAN_STAMP
+    # clean package archive
+    CLEAN_STAMP=/var/lib/apt/periodic/clean-stamp
+    if check_stamp $CLEAN_STAMP $CleanInterval; then
+	if  eval apt-get $XAPTOPT -y clean $XSTDERR; then
+	    debug_echo "clean (success)."
+	    update_stamp $CLEAN_STAMP
+	else
+	    debug_echo "clean (error)"
+	fi
     else
-	debug_echo "autoclean (error)"
+	debug_echo "clean (not run)"
     fi
-else
-    debug_echo "autoclean (not run)"
+
+    # autoclean package archive
+    AUTOCLEAN_STAMP=/var/lib/apt/periodic/autoclean-stamp
+    if check_stamp $AUTOCLEAN_STAMP $AutocleanInterval; then
+	if  eval apt-get $XAPTOPT -y autoclean $XSTDERR; then
+	    debug_echo "autoclean (success)."
+	    update_stamp $AUTOCLEAN_STAMP
+	else
+	    debug_echo "autoclean (error)"
+	fi
+    else
+	debug_echo "autoclean (not run)"
+    fi
+
+    # check cache size 
+    check_size_constraints
 fi
-Disabled
-# check cache size 
-check_size_constraints
 
 #
 #     vim: set sts=4 ai :

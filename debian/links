@@ -1,3 +1,5 @@
-usr/share/icons/mnotify-some-classic.png usr/share/icons/hicolor/32x32/status/mnotify-some-classic.png
-usr/share/icons/mnotify-some-pulse.png usr/share/icons/hicolor/32x32/status/mnotify-some-pulse.png
+usr/share/icons/mnotify-some-classic.png   usr/share/icons/hicolor/32x32/status/mnotify-some-classic.png
+usr/share/icons/mnotify-some-pulse.png     usr/share/icons/hicolor/32x32/status/mnotify-some-pulse.png
 usr/share/icons/mnotify-some-wireframe.png usr/share/icons/hicolor/32x32/status/mnotify-some-wireframe.png
+usr/share/apt-notifier/1-quick-live-update etc/cron.daily/1-quick-live-update
+usr/share/apt-notifier/2-apt-compat        etc/cron.daily/2-apt-compat
