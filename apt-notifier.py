@@ -333,9 +333,12 @@ def viewandupgrade():
     # t01 thru t12, Yad 'View and Upgrade' strings 
     t01 = _("MX Updater--View and Upgrade, previewing: basic upgrade")
     t02 = _("MX Updater--View and Upgrade, previewing: full upgrade")
-    t03 = _("Automatically answer 'yes' to all prompts during full/basic upgrade")
-    t04 = _("automatically close terminal window when basic upgrade complete")
-    t05 = _("automatically close terminal window when full upgrade complete")
+    #t03 = _("Automatically answer 'yes' to all prompts during full/basic upgrade")
+    t03 = _("Automatically answer 'yes' to all prompts during upgrade")
+    #t04 = _("automatically close terminal window when basic upgrade complete")
+    t04 = _("automatically close terminal window when upgrade complete")
+    #t05 = _("automatically close terminal window when full upgrade complete")
+    t05 = _("automatically close terminal window when upgrade complete")
     t06 = _("basic upgrade")
     t07 = _("full upgrade")
     t08 = _("switch to basic upgrade")
@@ -354,6 +357,9 @@ def viewandupgrade():
     t17 = "'(" + _("press any key to close") + ")'"
     t18 = _("Unneeded packages are installed that can be removed.")
     t19 = _("Running apt-get autoremove, if you are unsure type 'n'.")
+    t20 = _("upgrade")
+    t21 = _("Using full upgrade")
+    t22 = _("Using basic upgrade (not recommended)")
 
     shellvar = (
     '    window_title_basic="'          + t01 + '"\n'
@@ -375,6 +381,9 @@ def viewandupgrade():
     '    done3="'                       + t17 + '"\n'
     '    autoremovable_packages_msg1="'	+ t18 + '"\n'
     '    autoremovable_packages_msg2="' + t19 + '"\n'
+    '    upgrade="'                     + t20 + '"\n'
+    '    upgrade_tooltip_full="'        + t21 + '"\n'
+    '    upgrade_tooltip_basic="'       + t22 + '"\n'
     )
     
     script = '''#!/bin/bash
@@ -565,10 +574,12 @@ def viewandupgrade():
         if [ "$UpgradeType" = "upgrade"      ]; then
           UpgradeTypeUserFriendlyName=$basic_upgrade
           OtherUpgradeType="dist-upgrade"
+          upgrade_tooltip=$upgrade_tooltip_basic
         fi
         if [ "$UpgradeType" = "dist-upgrade" ]; then
           UpgradeTypeUserFriendlyName=$full_upgrade
           OtherUpgradeType="upgrade"
+          upgrade_tooltip=$upgrade_tooltip_full
         fi
   
         UpgradeAssumeYes=$(grep ^UpgradeAssumeYes ~/.config/apt-notifierrc | cut -f2 -d=)
@@ -647,12 +658,12 @@ def viewandupgrade():
         
         if [ "$UpgradeType" = "upgrade" ]
           then
-            upgrade_label=$basic_upgrade
+            upgrade_label=$upgrade
             switch_label=$switch_to_full_upgrade
             auto_close_label=$auto_close_window_basic
             window_title="$window_title_basic"
           else
-            upgrade_label=$full_upgrade
+            upgrade_label=$upgrade
             switch_label=$switch_to_basic_upgrade
             auto_close_label=$auto_close_window_full
             window_title="$window_title_full"
@@ -668,9 +679,8 @@ def viewandupgrade():
           --field :TXT "$(sed 's/^/  /' "$TMP"/upgrades)" \\
           --field="$use_apt_get_dash_dash_yes":CHK $UpgradeAssumeYes \\
           --field="$auto_close_label":CHK $UpgradeAutoClose \\
-        --button "$switch_label"!!"$switch_tooltip":4 \\
-        --button ''"$upgrade_label"!mnotify-some-"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"!:0 \\
         --button "$reload"!reload!"$reload_tooltip":8 \\
+        --button ''"$upgrade_label"!mnotify-some-"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"!"$upgrade_tooltip":0 \\
         --button gtk-cancel:2 \\
         --buttons-layout=spread \\
         2>/dev/null \\
@@ -955,7 +965,7 @@ def aptnotifier_prefs():
 
     t01 = _("MX Updater preferences")
     t02 = _("Upgrade mode")
-    t03 = _("full upgrade")
+    t03 = _("full upgrade   (recommended)")
     t04 = _("basic upgrade")
     t05 = _("Left-click behaviour   (when updates are available)")
     t06 = _("Other options")
