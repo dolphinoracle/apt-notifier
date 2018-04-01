@@ -10,73 +10,73 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-21 22:16-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: samson <sambelet@yahoo.com>, 2018\n"
-"Language-Team: Amharic (https://www.transifex.com/anticapitalista/teams/10162/am/)\n"
+"Last-Translator: Wang Hsiang Wei <irene.wang.250@gmail.com>, 2018\n"
+"Language-Team: Chinese (Taiwan) (https://www.transifex.com/anticapitalista/teams/10162/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: am\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: zh_TW\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: apt-notifier.py:63
 msgid "0 updates available"
-msgstr "0 ዝግጁ ማሻሻያ"
+msgstr ""
 
 #: apt-notifier.py:64
 msgid "1 new update available"
-msgstr "1 አዲስ ማሻሻያ ተገኝቷል"
+msgstr ""
 
 #: apt-notifier.py:65
 msgid "$count new updates available"
-msgstr "$መቁጠሪያ አዲስ ዝግጁ ማሻሻያ"
+msgstr ""
 
 #: apt-notifier.py:66
 msgid "Updates"
-msgstr "ማሻሻያ"
+msgstr ""
 
 #: apt-notifier.py:67
 msgid "You have 1 new update available"
-msgstr "እርስዎ 1 አዲስ ማሻሻያ አለዎት"
+msgstr ""
 
 #: apt-notifier.py:68
 msgid "You have $count new updates available"
-msgstr "እርስዎ $መቁጠሪያ ማሻሻያ አለዎት"
+msgstr ""
 
 #: apt-notifier.py:69
 msgid "Upgrade using Synaptic"
-msgstr "ሲናፕቴክ በ መጠቀም ማሻሻያ"
+msgstr ""
 
 #: apt-notifier.py:70
 msgid "View and Upgrade"
-msgstr "መመልከቻ እና ማሻሻያ"
+msgstr ""
 
 #: apt-notifier.py:71
 msgid "Hide until updates available"
-msgstr "ዝግጁ ማሻሻያ እስከሚኖር መደበቂያ"
+msgstr ""
 
 #: apt-notifier.py:72
 msgid "Quit"
-msgstr "ማጥፊያ"
+msgstr "退出"
 
 #: apt-notifier.py:73
 msgid "MX Updater Help"
-msgstr "MX ማሻሻያ እርዳታ"
+msgstr ""
 
 #: apt-notifier.py:74
 msgid "Synaptic Help"
-msgstr "ሲናፕቲክ እርዳታ"
+msgstr ""
 
 #: apt-notifier.py:75
 msgid "Preferences"
-msgstr "ምርጫዎች"
+msgstr ""
 
 #: apt-notifier.py:76 apt-notifier.py:1235
 msgid "History"
-msgstr "ታሪክ"
+msgstr ""
 
 #: apt-notifier.py:77
 msgid "Check for Updates"
-msgstr "ማሻሻያ መፈለጊያ"
+msgstr ""
 
 #: apt-notifier.py:334
 msgid "MX Updater--View and Upgrade, previewing: basic upgrade"
@@ -96,19 +96,19 @@ msgstr ""
 
 #: apt-notifier.py:342 apt-notifier.py:969
 msgid "basic upgrade"
-msgstr "መሰረታዊ ማሻሻያ"
+msgstr ""
 
 #: apt-notifier.py:343
 msgid "full upgrade"
-msgstr "ሙሉ ማሻሻያ"
+msgstr ""
 
 #: apt-notifier.py:344
 msgid "switch to basic upgrade"
-msgstr "ወደ መሰረታዊ ማሻሻያ መቀየሪያ"
+msgstr ""
 
 #: apt-notifier.py:345
 msgid "switch to full upgrade"
-msgstr "ወደ ሙሉ ማሻሻያ መቀየሪያ"
+msgstr ""
 
 #: apt-notifier.py:346
 msgid ""
@@ -118,23 +118,19 @@ msgstr ""
 
 #: apt-notifier.py:347 apt-notifier.py:1274
 msgid "Reload"
-msgstr "ዳግም መጫኛ: "
+msgstr ""
 
 #: apt-notifier.py:348
 msgid ""
 "Reload the package information to become informed about new, removed or "
 "upgraded software packages. (apt-get update)"
 msgstr ""
-"የ ጥቅል መረጃ ዳግም መጫኛ: ስለ አዲሱ መረጃ ለ ማግኘት: ለ ማስወገድ: ወይንም የ ሶፍትዌር ጥቅል ለ ማሻሻል በ "
-"(apt-get update)"
 
 #: apt-notifier.py:351 apt-notifier.py:1273
 msgid ""
 "The action you requested needs <b>root privileges</b>. Please enter "
 "<b>root's</b> password below."
 msgstr ""
-"እርስዎ የ ጠየቁጥ ጥያቄ የ <b>root ቅድሚያ ይፈልጋል </b>. እባክዎን ያስገቡ የ <b>root's</b> የ መግቢያ"
-" ቃል ከ ታች በኩል"
 
 #: apt-notifier.py:354
 msgid "basic upgrade complete (or was canceled)"
@@ -146,19 +142,19 @@ msgstr ""
 
 #: apt-notifier.py:356
 msgid "this terminal window can now be closed"
-msgstr "ይህን የ ተርሚናል መስኮት አሁን መዝጋት ይችላሉ"
+msgstr ""
 
 #: apt-notifier.py:357
 msgid "press any key to close"
-msgstr "ለ መዝጋት ማንኛውንም ቁልፍ ይጫኑ"
+msgstr ""
 
 #: apt-notifier.py:358
 msgid "Unneeded packages are installed that can be removed."
-msgstr "የማይፈለግ ጥቅል ተገጥሟል: መወገድ ያለበት"
+msgstr ""
 
 #: apt-notifier.py:359
 msgid "Running apt-get autoremove, if you are unsure type 'n'."
-msgstr "apt-get autoremove, በ ማስኬድ ላይ: እርስዎ እርግጠኛ ካልሆኑ ይጻፉ'n'."
+msgstr ""
 
 #: apt-notifier.py:360
 msgid "upgrade"
@@ -174,11 +170,11 @@ msgstr ""
 
 #: apt-notifier.py:966
 msgid "MX Updater preferences"
-msgstr "MX የ ማሻሻያ ምርጫ"
+msgstr ""
 
 #: apt-notifier.py:967
 msgid "Upgrade mode"
-msgstr "የ ማሻሻያ ዘዴ"
+msgstr ""
 
 #: apt-notifier.py:968
 msgid "full upgrade   (recommended)"
@@ -186,19 +182,19 @@ msgstr ""
 
 #: apt-notifier.py:970
 msgid "Left-click behaviour   (when updates are available)"
-msgstr "በ ግራ-መጫኛ ባህሪ   (ማሻሻያ በሚኖር ጊዜ)"
+msgstr ""
 
 #: apt-notifier.py:971
 msgid "Other options"
-msgstr "ሌሎች ምርጫዎች"
+msgstr ""
 
 #: apt-notifier.py:972
 msgid "opens Synaptic"
-msgstr "ሲናፕቴክ መክፈቻ"
+msgstr ""
 
 #: apt-notifier.py:973
 msgid "opens MX Updater 'View and Upgrade' window"
-msgstr "የ MX ማሻሻያ መክፈቻ 'መመልከቻ እና ማሻሻያ' መስኮት"
+msgstr ""
 
 #: apt-notifier.py:974
 msgid "Automatically answer 'yes' to all prompts during full/basic upgrade"
@@ -214,23 +210,23 @@ msgstr ""
 
 #: apt-notifier.py:977
 msgid "Icons"
-msgstr "ምልክት"
+msgstr ""
 
 #: apt-notifier.py:978
 msgid "classic"
-msgstr "ዘመናዊ"
+msgstr ""
 
 #: apt-notifier.py:979
 msgid "pulse"
-msgstr "pulse"
+msgstr ""
 
 #: apt-notifier.py:980
 msgid "wireframe"
-msgstr "የ ሽቦ ክፈፍ"
+msgstr ""
 
 #: apt-notifier.py:981
 msgid "Auto-update"
-msgstr "በራሱ-ማሻሻያ"
+msgstr ""
 
 #: apt-notifier.py:982
 msgid "update automatically   (will not add new or remove existing packages)"

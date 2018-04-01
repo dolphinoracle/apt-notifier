@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-28 10:28-0500\n"
+"POT-Creation-Date: 2018-03-21 22:16-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Eduard Selma <selma@tinet.cat>, 2017\n"
 "Language-Team: Catalan (https://www.transifex.com/anticapitalista/teams/10162/ca/)\n"
@@ -70,7 +70,7 @@ msgstr "Ajuda de Synaptic"
 msgid "Preferences"
 msgstr "Preferències"
 
-#: apt-notifier.py:76 apt-notifier.py:1225
+#: apt-notifier.py:76 apt-notifier.py:1235
 msgid "History"
 msgstr "Història"
 
@@ -87,37 +87,32 @@ msgid "MX Updater--View and Upgrade, previewing: full upgrade"
 msgstr ""
 "MX Updater--View and Upgrade, previsualització: actualització completa"
 
-#: apt-notifier.py:336 apt-notifier.py:964
-msgid "Automatically answer 'yes' to all prompts during full/basic upgrade"
-msgstr ""
-"Respon automàticament 'si' a totes les peticions durant l'actualització"
-
 #: apt-notifier.py:337
-msgid "automatically close terminal window when basic upgrade complete"
-msgstr "Tanca el terminal automàticament quan s'acaba l'actualització bàsica"
+msgid "Automatically answer 'yes' to all prompts during upgrade"
+msgstr "Respon automàticament 'sí' a totes les qüestions mentre s'actualitza"
 
-#: apt-notifier.py:338
-msgid "automatically close terminal window when full upgrade complete"
+#: apt-notifier.py:339 apt-notifier.py:341
+msgid "automatically close terminal window when upgrade complete"
 msgstr ""
-"Tanca el terminal automàticament quan s'acaba l'actualització completa"
+"tanca automàticament la finestra del terminal en acabar l'actualització"
 
-#: apt-notifier.py:339 apt-notifier.py:959
+#: apt-notifier.py:342 apt-notifier.py:969
 msgid "basic upgrade"
 msgstr "actualització bàsica"
 
-#: apt-notifier.py:340 apt-notifier.py:958
+#: apt-notifier.py:343
 msgid "full upgrade"
 msgstr "actualització completa"
 
-#: apt-notifier.py:341
+#: apt-notifier.py:344
 msgid "switch to basic upgrade"
 msgstr "canvia a actualització bàsica"
 
-#: apt-notifier.py:342
+#: apt-notifier.py:345
 msgid "switch to full upgrade"
 msgstr "canvia a actualització completa"
 
-#: apt-notifier.py:343
+#: apt-notifier.py:346
 msgid ""
 "Switches the type of Upgrade that will be performed, alternating back and "
 "forth between 'full upgrade' and 'basic upgrade'."
@@ -125,11 +120,11 @@ msgstr ""
 "Commuta el tipus d'actualització que es farà, alternant entre 'actualització"
 " bàsica' i 'actualització completa'."
 
-#: apt-notifier.py:344 apt-notifier.py:1264
+#: apt-notifier.py:347 apt-notifier.py:1274
 msgid "Reload"
 msgstr "Refresca"
 
-#: apt-notifier.py:345
+#: apt-notifier.py:348
 msgid ""
 "Reload the package information to become informed about new, removed or "
 "upgraded software packages. (apt-get update)"
@@ -137,7 +132,7 @@ msgstr ""
 "Refresqueu la informació dels paquets per a informar-vos de paquets de "
 "programari nous, eliminats o actualitzats. (apt-get update)"
 
-#: apt-notifier.py:348 apt-notifier.py:1263
+#: apt-notifier.py:351 apt-notifier.py:1273
 msgid ""
 "The action you requested needs <b>root privileges</b>. Please enter "
 "<b>root's</b> password below."
@@ -145,92 +140,113 @@ msgstr ""
 "A l'acció que heu demanat li calen <b>privilegis de root</b>. Si us plau, "
 "introduïu la contrasenya de <b>root</b> tot seguit."
 
-#: apt-notifier.py:351
+#: apt-notifier.py:354
 msgid "basic upgrade complete (or was canceled)"
 msgstr "s'ha acabat l'actualització bàsica (o s'ha cancel·lat)"
 
-#: apt-notifier.py:352
+#: apt-notifier.py:355
 msgid "full upgrade complete (or was canceled)"
 msgstr "s'ha acabat l'actualització completa (o s'ha cancel·lat)"
 
-#: apt-notifier.py:353
+#: apt-notifier.py:356
 msgid "this terminal window can now be closed"
 msgstr "ara podeu tancar la finestra"
 
-#: apt-notifier.py:354
+#: apt-notifier.py:357
 msgid "press any key to close"
 msgstr "premeu una tecla per tancar"
 
-#: apt-notifier.py:355
+#: apt-notifier.py:358
 msgid "Unneeded packages are installed that can be removed."
 msgstr "Hi ha paquets instal·lats innecessaris que es poden eliminar."
 
-#: apt-notifier.py:356
+#: apt-notifier.py:359
 msgid "Running apt-get autoremove, if you are unsure type 'n'."
 msgstr "Executant apt-get autoremove, si no esteu segurs entreu 'n'."
 
-#: apt-notifier.py:956
+#: apt-notifier.py:360
+msgid "upgrade"
+msgstr "actualitza"
+
+#: apt-notifier.py:361
+msgid "Using full upgrade"
+msgstr "Usant l'actualització completa"
+
+#: apt-notifier.py:362
+msgid "Using basic upgrade (not recommended)"
+msgstr "Usant l'actualització bàsica (no recomanat)"
+
+#: apt-notifier.py:966
 msgid "MX Updater preferences"
 msgstr "Preferències de MX Updater"
 
-#: apt-notifier.py:957
+#: apt-notifier.py:967
 msgid "Upgrade mode"
-msgstr ""
+msgstr "Mode d'actualització"
 
-#: apt-notifier.py:960
+#: apt-notifier.py:968
+msgid "full upgrade   (recommended)"
+msgstr "actualització completa (recomanat)"
+
+#: apt-notifier.py:970
 msgid "Left-click behaviour   (when updates are available)"
 msgstr "Comportament del clic esquerre (quan hi ha actualitzacions)"
 
-#: apt-notifier.py:961
+#: apt-notifier.py:971
 msgid "Other options"
 msgstr "Altres opcions"
 
-#: apt-notifier.py:962
+#: apt-notifier.py:972
 msgid "opens Synaptic"
 msgstr "obre Synaptic"
 
-#: apt-notifier.py:963
+#: apt-notifier.py:973
 msgid "opens MX Updater 'View and Upgrade' window"
 msgstr "Obre la finestra de MX Updater 'Veure i actualitzar' "
 
-#: apt-notifier.py:965
+#: apt-notifier.py:974
+msgid "Automatically answer 'yes' to all prompts during full/basic upgrade"
+msgstr ""
+"Respon automàticament 'si' a totes les peticions durant l'actualització"
+
+#: apt-notifier.py:975
 msgid "automatically close terminal window when full/basic upgrade complete"
 msgstr ""
 "tanca el terminal automàticament quan s'acaba l'actualització "
 "bàsica/completa"
 
-#: apt-notifier.py:966
+#: apt-notifier.py:976
 msgid "check for autoremovable packages after full/basic upgrade"
 msgstr ""
 "cerca paquets autoeliminables després de l'actualització bàsica/completa"
 
-#: apt-notifier.py:967
+#: apt-notifier.py:977
 msgid "Icons"
 msgstr "Icones"
 
-#: apt-notifier.py:968
+#: apt-notifier.py:978
 msgid "classic"
 msgstr "clàssic"
 
-#: apt-notifier.py:969
+#: apt-notifier.py:979
 msgid "pulse"
 msgstr "pols "
 
-#: apt-notifier.py:970
+#: apt-notifier.py:980
 msgid "wireframe"
 msgstr "trama"
 
-#: apt-notifier.py:971
+#: apt-notifier.py:981
 msgid "Auto-update"
 msgstr "Auto-actualitz"
 
-#: apt-notifier.py:972
+#: apt-notifier.py:982
 msgid "update automatically   (will not add new or remove existing packages)"
 msgstr ""
 "actualitza automàticament (no afegirà paquets nous ni n'eliminarà els "
 "existents)"
 
-#: apt-notifier.py:973
+#: apt-notifier.py:983
 msgid ""
 "<b>Root privileges</b> are required to <b>enable</b> Auto Updates. Please "
 "enter <b>root's</b> password below."
@@ -238,7 +254,7 @@ msgstr ""
 "Cal tenir <b>privilegis d'administrador</b> per <b>activar</b> les "
 "actualitzacions automàtiques. Entreu la contrasenya de <b>root</b> a sota."
 
-#: apt-notifier.py:974
+#: apt-notifier.py:984
 msgid ""
 "<b>Root privileges</b> are required to <b>disable</b> Auto Updates. Please "
 "enter <b>root's</b> password below."

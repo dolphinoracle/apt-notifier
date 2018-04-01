@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-28 10:28-0500\n"
+"POT-Creation-Date: 2018-03-21 22:16-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Geoff Gigg <geoffgigg@hotmail.com>, 2017\n"
 "Language-Team: Dutch (https://www.transifex.com/anticapitalista/teams/10162/nl/)\n"
@@ -70,7 +70,7 @@ msgstr "Synaptic Help"
 msgid "Preferences"
 msgstr "Voorkeuren"
 
-#: apt-notifier.py:76 apt-notifier.py:1225
+#: apt-notifier.py:76 apt-notifier.py:1235
 msgid "History"
 msgstr "Geschiedenis"
 
@@ -86,39 +86,31 @@ msgstr "MX Updater--Bekijk en Opwaarderen, bekijken: basis opwaardering"
 msgid "MX Updater--View and Upgrade, previewing: full upgrade"
 msgstr "MX Updater--Bekijk en Opwaarderen, bekijken: volle opwaardering"
 
-#: apt-notifier.py:336 apt-notifier.py:964
-msgid "Automatically answer 'yes' to all prompts during full/basic upgrade"
-msgstr ""
-"Automatisch 'ja' antwoorden op alle vragen gedurende volle/basis "
-"opwaardering"
-
 #: apt-notifier.py:337
-msgid "automatically close terminal window when basic upgrade complete"
-msgstr ""
-"automatisch terminal scherm sluiten wanneer basis opwaardering compleet is"
+msgid "Automatically answer 'yes' to all prompts during upgrade"
+msgstr "Automatisch 'ja' antwoorden op alle vragen gedurende opwaardering"
 
-#: apt-notifier.py:338
-msgid "automatically close terminal window when full upgrade complete"
-msgstr ""
-"automatisch terminal scherm sluiten wanneer volle opwaardering compleet is"
+#: apt-notifier.py:339 apt-notifier.py:341
+msgid "automatically close terminal window when upgrade complete"
+msgstr "automatisch terminal scherm sluiten wanneer opwaardering compleet is"
 
-#: apt-notifier.py:339 apt-notifier.py:959
+#: apt-notifier.py:342 apt-notifier.py:969
 msgid "basic upgrade"
 msgstr "basis opwaardering"
 
-#: apt-notifier.py:340 apt-notifier.py:958
+#: apt-notifier.py:343
 msgid "full upgrade"
 msgstr "volle opwaardering"
 
-#: apt-notifier.py:341
+#: apt-notifier.py:344
 msgid "switch to basic upgrade"
 msgstr "wissel naar basis opwaardering"
 
-#: apt-notifier.py:342
+#: apt-notifier.py:345
 msgid "switch to full upgrade"
 msgstr "wissel naar volle opwaardering"
 
-#: apt-notifier.py:343
+#: apt-notifier.py:346
 msgid ""
 "Switches the type of Upgrade that will be performed, alternating back and "
 "forth between 'full upgrade' and 'basic upgrade'."
@@ -126,11 +118,11 @@ msgstr ""
 "Wisselt het Opwaardeertype dat toegepast wordt, heen en weer gaand tussen "
 "'volle opwaardering' en 'basis opwaardering'."
 
-#: apt-notifier.py:344 apt-notifier.py:1264
+#: apt-notifier.py:347 apt-notifier.py:1274
 msgid "Reload"
 msgstr "Herladen"
 
-#: apt-notifier.py:345
+#: apt-notifier.py:348
 msgid ""
 "Reload the package information to become informed about new, removed or "
 "upgraded software packages. (apt-get update)"
@@ -138,7 +130,7 @@ msgstr ""
 "Herlaad de pakketinformatie om te weten of er nieuwe, verwijderde op "
 "opgewaardeerde softwarepakketten zijn. (apt-get update)"
 
-#: apt-notifier.py:348 apt-notifier.py:1263
+#: apt-notifier.py:351 apt-notifier.py:1273
 msgid ""
 "The action you requested needs <b>root privileges</b>. Please enter "
 "<b>root's</b> password below."
@@ -146,93 +138,115 @@ msgstr ""
 "De action die u wilt uitvoeren vereist <b>root privileges</b>. Vul aub "
 "<b>root's</b> wachtwoord hieronder in."
 
-#: apt-notifier.py:351
+#: apt-notifier.py:354
 msgid "basic upgrade complete (or was canceled)"
 msgstr "basis opwaardering compleet (of was geannuleerd)"
 
-#: apt-notifier.py:352
+#: apt-notifier.py:355
 msgid "full upgrade complete (or was canceled)"
 msgstr "volle opwaardering compleet (of was geannuleerd)"
 
-#: apt-notifier.py:353
+#: apt-notifier.py:356
 msgid "this terminal window can now be closed"
 msgstr "dit terminal scherm kan nu gesloten worden"
 
-#: apt-notifier.py:354
+#: apt-notifier.py:357
 msgid "press any key to close"
 msgstr "druk een toets om te sluiten"
 
-#: apt-notifier.py:355
+#: apt-notifier.py:358
 msgid "Unneeded packages are installed that can be removed."
 msgstr "Onnodige pakketten zijn geïnstalleerd die verwijderd kunnen worden."
 
-#: apt-notifier.py:356
+#: apt-notifier.py:359
 msgid "Running apt-get autoremove, if you are unsure type 'n'."
 msgstr "Uitvoeren apt-get autoremove, als u niet zeker bent type 'n'."
 
-#: apt-notifier.py:956
+#: apt-notifier.py:360
+msgid "upgrade"
+msgstr "opwaardering"
+
+#: apt-notifier.py:361
+msgid "Using full upgrade"
+msgstr "Volle opwaardering gebruiken"
+
+#: apt-notifier.py:362
+msgid "Using basic upgrade (not recommended)"
+msgstr "Basis opwaardering gebruiken (niet aanbevolen)"
+
+#: apt-notifier.py:966
 msgid "MX Updater preferences"
 msgstr "MX Updater voorkeuren"
 
-#: apt-notifier.py:957
+#: apt-notifier.py:967
 msgid "Upgrade mode"
 msgstr "Opwaardeer modus"
 
-#: apt-notifier.py:960
+#: apt-notifier.py:968
+msgid "full upgrade   (recommended)"
+msgstr "volle opwaardering   (aanbevolen)"
+
+#: apt-notifier.py:970
 msgid "Left-click behaviour   (when updates are available)"
 msgstr "Links-klik gedrag (wanneer updates beschikbaar zijn)"
 
-#: apt-notifier.py:961
+#: apt-notifier.py:971
 msgid "Other options"
 msgstr "Andere opties"
 
-#: apt-notifier.py:962
+#: apt-notifier.py:972
 msgid "opens Synaptic"
 msgstr "opent Synaptic"
 
-#: apt-notifier.py:963
+#: apt-notifier.py:973
 msgid "opens MX Updater 'View and Upgrade' window"
 msgstr "opent MX Updater 'Bekijk en Opwaardeer' scherm"
 
-#: apt-notifier.py:965
+#: apt-notifier.py:974
+msgid "Automatically answer 'yes' to all prompts during full/basic upgrade"
+msgstr ""
+"Automatisch 'ja' antwoorden op alle vragen gedurende volle/basis "
+"opwaardering"
+
+#: apt-notifier.py:975
 msgid "automatically close terminal window when full/basic upgrade complete"
 msgstr ""
 "automatisch terminal scherm sluiten wanneer /vollebasis opwaardering "
 "compleet is"
 
-#: apt-notifier.py:966
+#: apt-notifier.py:976
 msgid "check for autoremovable packages after full/basic upgrade"
 msgstr ""
 "controleer voor automatisch verwijderbare pakketten na volle/basis "
 "opwaardering"
 
-#: apt-notifier.py:967
+#: apt-notifier.py:977
 msgid "Icons"
 msgstr "Iconen"
 
-#: apt-notifier.py:968
+#: apt-notifier.py:978
 msgid "classic"
 msgstr "klassiek"
 
-#: apt-notifier.py:969
+#: apt-notifier.py:979
 msgid "pulse"
 msgstr "pulse"
 
-#: apt-notifier.py:970
+#: apt-notifier.py:980
 msgid "wireframe"
 msgstr "wireframe"
 
-#: apt-notifier.py:971
+#: apt-notifier.py:981
 msgid "Auto-update"
 msgstr "Auto-opwaarderen"
 
-#: apt-notifier.py:972
+#: apt-notifier.py:982
 msgid "update automatically   (will not add new or remove existing packages)"
 msgstr ""
 "automatisch opwaarderen    (zal geen nieuwe of bestaande pakketten toevoegen"
 " of verwijderen)"
 
-#: apt-notifier.py:973
+#: apt-notifier.py:983
 msgid ""
 "<b>Root privileges</b> are required to <b>enable</b> Auto Updates. Please "
 "enter <b>root's</b> password below."
@@ -240,7 +254,7 @@ msgstr ""
 "<b>Root privileges</b> zijn vereist voor <b>inschakelen van</b> Auto "
 "Opwaardering. Voer aub <b>root's</b> wachtwoord hieronder in."
 
-#: apt-notifier.py:974
+#: apt-notifier.py:984
 msgid ""
 "<b>Root privileges</b> are required to <b>disable</b> Auto Updates. Please "
 "enter <b>root's</b> password below."

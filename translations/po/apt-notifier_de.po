@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-28 10:28-0500\n"
+"POT-Creation-Date: 2018-03-21 22:16-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Vinzenz Vietzke <vinz@vinzv.de>, 2017\n"
 "Language-Team: German (https://www.transifex.com/anticapitalista/teams/10162/de/)\n"
@@ -20,27 +20,27 @@ msgstr ""
 
 #: apt-notifier.py:63
 msgid "0 updates available"
-msgstr "0 Updates verfügbar"
+msgstr "0 Aktualisierungen verfügbar"
 
 #: apt-notifier.py:64
 msgid "1 new update available"
-msgstr "1 neues Update verfügbar"
+msgstr "1 neue Aktualisierung verfügbar"
 
 #: apt-notifier.py:65
 msgid "$count new updates available"
-msgstr "$count neue Updates verfügbar"
+msgstr "$count neue Aktualisierungen verfügbar"
 
 #: apt-notifier.py:66
 msgid "Updates"
-msgstr "Updates"
+msgstr "Aktualisierungen"
 
 #: apt-notifier.py:67
 msgid "You have 1 new update available"
-msgstr "Sie haben 1 neues Update verfügbar"
+msgstr "1 neue Aktualisierung verfügbar"
 
 #: apt-notifier.py:68
 msgid "You have $count new updates available"
-msgstr "Sie haben $count neue Updates verfügbar"
+msgstr "$count neue Aktualisierungen verfügbar"
 
 #: apt-notifier.py:69
 msgid "Upgrade using Synaptic"
@@ -52,7 +52,7 @@ msgstr "Anschauen und aufrüsten"
 
 #: apt-notifier.py:71
 msgid "Hide until updates available"
-msgstr "Verstecken bis Updates verfügbar"
+msgstr "Verstecken bis Aktualisierungen verfügbar sind"
 
 #: apt-notifier.py:72
 msgid "Quit"
@@ -70,7 +70,7 @@ msgstr "Synaptic Hilfe"
 msgid "Preferences"
 msgstr "Einstellungen"
 
-#: apt-notifier.py:76 apt-notifier.py:1225
+#: apt-notifier.py:76 apt-notifier.py:1235
 msgid "History"
 msgstr "Verlauf"
 
@@ -81,50 +81,51 @@ msgstr "Auf Aktualisierungen prüfen"
 #: apt-notifier.py:334
 msgid "MX Updater--View and Upgrade, previewing: basic upgrade"
 msgstr ""
+"MX Updater--Ansicht und Aktualisierung, Vorschau:  nur Kernbestandteile "
+"aktualisieren"
 
 #: apt-notifier.py:335
 msgid "MX Updater--View and Upgrade, previewing: full upgrade"
-msgstr ""
-
-#: apt-notifier.py:336 apt-notifier.py:964
-msgid "Automatically answer 'yes' to all prompts during full/basic upgrade"
-msgstr ""
+msgstr "MX Updater--Ansicht und Upgrade, Vorschau: vollständig aktualisieren"
 
 #: apt-notifier.py:337
-msgid "automatically close terminal window when basic upgrade complete"
+msgid "Automatically answer 'yes' to all prompts during upgrade"
 msgstr ""
+"Während des Aktualisierens alle Fragen automatisch mit 'Ja' beantworten"
 
-#: apt-notifier.py:338
-msgid "automatically close terminal window when full upgrade complete"
-msgstr ""
+#: apt-notifier.py:339 apt-notifier.py:341
+msgid "automatically close terminal window when upgrade complete"
+msgstr "Terminal nach Durchführung der Aktualisierung automatisch schließen"
 
-#: apt-notifier.py:339 apt-notifier.py:959
+#: apt-notifier.py:342 apt-notifier.py:969
 msgid "basic upgrade"
-msgstr ""
-
-#: apt-notifier.py:340 apt-notifier.py:958
-msgid "full upgrade"
-msgstr ""
-
-#: apt-notifier.py:341
-msgid "switch to basic upgrade"
-msgstr ""
-
-#: apt-notifier.py:342
-msgid "switch to full upgrade"
-msgstr ""
+msgstr "Aktualisierung der Kernbestandteile"
 
 #: apt-notifier.py:343
+msgid "full upgrade"
+msgstr "vollständige Aktualisierung"
+
+#: apt-notifier.py:344
+msgid "switch to basic upgrade"
+msgstr "Wechsel auf Aktualisierung der Kernbestandteile"
+
+#: apt-notifier.py:345
+msgid "switch to full upgrade"
+msgstr "Wechsel auf vollständige Aktualisierung"
+
+#: apt-notifier.py:346
 msgid ""
 "Switches the type of Upgrade that will be performed, alternating back and "
 "forth between 'full upgrade' and 'basic upgrade'."
 msgstr ""
+"Wechsel der Aktualisierungsmethode zwischen 'vollständiger Aktualisierung' "
+"und 'Aktualisierung der Kernbestandteile' und andersrum "
 
-#: apt-notifier.py:344 apt-notifier.py:1264
+#: apt-notifier.py:347 apt-notifier.py:1274
 msgid "Reload"
 msgstr "Neu laden"
 
-#: apt-notifier.py:345
+#: apt-notifier.py:348
 msgid ""
 "Reload the package information to become informed about new, removed or "
 "upgraded software packages. (apt-get update)"
@@ -132,7 +133,7 @@ msgstr ""
 "Die Paketinformationen neu laden, um über neue, entfernte oder aktualisierte"
 " Softwarepakete informiert zu werden. (apt-get update)"
 
-#: apt-notifier.py:348 apt-notifier.py:1263
+#: apt-notifier.py:351 apt-notifier.py:1273
 msgid ""
 "The action you requested needs <b>root privileges</b>. Please enter "
 "<b>root's</b> password below."
@@ -140,94 +141,123 @@ msgstr ""
 "Die Aktion benötigt <b>Systemverwalterrechte</b>. Bitte geben Sie das "
 "Passwort des Benutzers <b>root</b> ein."
 
-#: apt-notifier.py:351
+#: apt-notifier.py:354
 msgid "basic upgrade complete (or was canceled)"
 msgstr ""
+"Aktualisierung der Kernbestandteile abgeschlossen (oder wurde abgebrochen)"
 
-#: apt-notifier.py:352
+#: apt-notifier.py:355
 msgid "full upgrade complete (or was canceled)"
-msgstr ""
+msgstr "vollständige Aktualisierung abgeschlossen (oder wurde abgebrochen)"
 
-#: apt-notifier.py:353
+#: apt-notifier.py:356
 msgid "this terminal window can now be closed"
 msgstr "Dieses Shellfenster darf jetzt geschlossen werden"
 
-#: apt-notifier.py:354
+#: apt-notifier.py:357
 msgid "press any key to close"
 msgstr "drücken Sie eine beliebige Taste um zu schliessen"
 
-#: apt-notifier.py:355
+#: apt-notifier.py:358
 msgid "Unneeded packages are installed that can be removed."
 msgstr "Unnötige Pakete sind installiert, die entfernt werden können"
 
-#: apt-notifier.py:356
+#: apt-notifier.py:359
 msgid "Running apt-get autoremove, if you are unsure type 'n'."
 msgstr "Apt-get autoremove wird ausgeführt, tippen Sie 'n' wenn unsicher."
 
-#: apt-notifier.py:956
+#: apt-notifier.py:360
+msgid "upgrade"
+msgstr "Aktualisieren"
+
+#: apt-notifier.py:361
+msgid "Using full upgrade"
+msgstr "Vollständige Aktualisierung"
+
+#: apt-notifier.py:362
+msgid "Using basic upgrade (not recommended)"
+msgstr "Aktualisierung der Kernbestandteile (wird nicht empfohlen)"
+
+#: apt-notifier.py:966
 msgid "MX Updater preferences"
 msgstr "MX Updater - persönliche Voreinstellungen"
 
-#: apt-notifier.py:957
+#: apt-notifier.py:967
 msgid "Upgrade mode"
-msgstr ""
+msgstr "Aktualisierungsmethode"
 
-#: apt-notifier.py:960
+#: apt-notifier.py:968
+msgid "full upgrade   (recommended)"
+msgstr "Vollständige Aktualisierung (wird empfohlen)"
+
+#: apt-notifier.py:970
 msgid "Left-click behaviour   (when updates are available)"
 msgstr "Linksklick-Verhalten (wenn Updates verfügbar sind)"
 
-#: apt-notifier.py:961
+#: apt-notifier.py:971
 msgid "Other options"
 msgstr "Weitere Optionen"
 
-#: apt-notifier.py:962
+#: apt-notifier.py:972
 msgid "opens Synaptic"
 msgstr "startet Synaptic"
 
-#: apt-notifier.py:963
+#: apt-notifier.py:973
 msgid "opens MX Updater 'View and Upgrade' window"
 msgstr "Öffnet das MX Updater 'Anzeige und Upgrade' Fenster"
 
-#: apt-notifier.py:965
+#: apt-notifier.py:974
+msgid "Automatically answer 'yes' to all prompts during full/basic upgrade"
+msgstr ""
+"Auomatisch mit 'yes' auf alle Eingabeabfragen während des "
+"vollständigen/teilweisen Aktualisierens antworten"
+
+#: apt-notifier.py:975
 msgid "automatically close terminal window when full/basic upgrade complete"
-msgstr ""
+msgstr "Terminal automatisch schließen nach Durchführung der Aktualisierung"
 
-#: apt-notifier.py:966
+#: apt-notifier.py:976
 msgid "check for autoremovable packages after full/basic upgrade"
-msgstr ""
+msgstr "Überprüfen auf automatisch entfernbare Pakete nach der Aktualisierung"
 
-#: apt-notifier.py:967
+#: apt-notifier.py:977
 msgid "Icons"
 msgstr "Symbole"
 
-#: apt-notifier.py:968
+#: apt-notifier.py:978
 msgid "classic"
 msgstr "klassisch"
 
-#: apt-notifier.py:969
+#: apt-notifier.py:979
 msgid "pulse"
 msgstr "pulse"
 
-#: apt-notifier.py:970
+#: apt-notifier.py:980
 msgid "wireframe"
 msgstr "wireframe"
 
-#: apt-notifier.py:971
+#: apt-notifier.py:981
 msgid "Auto-update"
-msgstr ""
+msgstr "Automatische Aktualisierung"
 
-#: apt-notifier.py:972
+#: apt-notifier.py:982
 msgid "update automatically   (will not add new or remove existing packages)"
 msgstr ""
+"Automatische Aktualisierung (es werden weder neue Pakete hinzugefügt noch "
+"installierte Pakete entfernt)"
 
-#: apt-notifier.py:973
+#: apt-notifier.py:983
 msgid ""
 "<b>Root privileges</b> are required to <b>enable</b> Auto Updates. Please "
 "enter <b>root's</b> password below."
 msgstr ""
+"Es sind <b>Systemadministratorrechte</b> notwendig zum <b>Einschalten</b> "
+"der automatischen Aktualisierung. Bitte <b>Root-Passwort</b> unten eingeben."
 
-#: apt-notifier.py:974
+#: apt-notifier.py:984
 msgid ""
 "<b>Root privileges</b> are required to <b>disable</b> Auto Updates. Please "
 "enter <b>root's</b> password below."
 msgstr ""
+"Es sind <b>Systemadministratorrechte</b> notwendig zum <b>Abschalten</b> der"
+" automatischen Aktualisierung. Bitte <b>Root-Passwort</b> unten eingeben."
