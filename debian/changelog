@@ -1,3 +1,9 @@
+apt-notifier (18.04.06mx17+1) mx; urgency=medium
+
+  * Converted to pyQt5. Thanks to "cliuser" from github for the contribution.
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Fri, 06 Apr 2018 09:01:16 -0400
+
 apt-notifier (18.04.04mx17+1) mx; urgency=medium
 
   * remove the upgrade <=> dist-upgrade toggle from the 'View and Upgrade'
