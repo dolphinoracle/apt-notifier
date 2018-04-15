@@ -39,6 +39,7 @@ def set_translations():
     global Apt_Notifier_Preferences    
     global Apt_History
     global Check_for_Updates
+    global About
     global Check_for_Updates_by_User
     Check_for_Updates_by_User = 'false'
     global ignoreClick
@@ -70,11 +71,12 @@ def set_translations():
     View_and_Upgrade                            = unicode (_("View and Upgrade")                       ,'utf-8')         
     Hide_until_updates_available                = unicode (_("Hide until updates available")           ,'utf-8')
     Quit_Apt_Notifier                           = unicode (_("Quit")                                   ,'utf-8')
-    Apt_Notifier_Help                           = unicode (_("MX Updater Help")                      ,'utf-8')
+    Apt_Notifier_Help                           = unicode (_("MX Updater Help")                        ,'utf-8')
     Synaptic_Help                               = unicode (_("Synaptic Help")                          ,'utf-8')
     Apt_Notifier_Preferences                    = unicode (_("Preferences")                            ,'utf-8')
-    Apt_History                                 = unicode (_("History")                            ,'utf-8')
+    Apt_History                                 = unicode (_("History")                                ,'utf-8')
     Check_for_Updates                           = unicode (_("Check for Updates")                      ,'utf-8')
+    About                                       = unicode (_("About")                                  ,'utf-8')
   
 # Check for updates, using subprocess.Popen
 def check_updates():
@@ -1495,6 +1497,7 @@ def add_hide_action():
     add_apt_notifier_help_action()
     add_synaptic_help_action()
     add_aptnotifier_prefs_action()
+    add_about_action()
     add_quit_action()
 
 def add_quit_action():
@@ -1588,6 +1591,65 @@ def add_apt_get_update_action():
     apt_get_update_action =  ActionsMenu.addAction(Check_for_Updates)
     apt_get_update_action.triggered.connect( apt_get_update )
 
+def add_about_action():
+    ActionsMenu.addSeparator()
+    about_action =  ActionsMenu.addAction( About )
+    about_action.triggered.connect( displayAbout )
+
+def displayAbout():
+
+    # Not really using the string variables below, but it makes it so that gettext is
+    # able to find translations for the strings in the embedded script that follows.
+
+    # ~~~ Localize 5 ~~~
+
+    MX_Updater                                  = unicode (_("MX Updater")                                              ,'utf-8')
+    About_MX_Updater                            = unicode (_("About MX Updater")                                        ,'utf-8')
+    License                                     = unicode (_("License")                                                 ,'utf-8')
+    Cancel                                      = unicode (_("Cancel")                                                  ,'utf-8')
+    Description                                 = unicode (_("Tray applet to notify of system and application updates") ,'utf-8')
+
+    # Using an embedded script to display the 'About' dialog text, because when run within the main python
+    # script, closing the dialog window was also causing the main python script (apt-notifier.py) to quit.
+    script = '''#!/usr/bin/python
+# -*- coding: utf-8 -*-
+import sys
+import subprocess
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QApplication, QPushButton, QMessageBox
+import gettext
+gettext.bindtextdomain('apt-notifier', '/usr/share/locale')
+gettext.textdomain('apt-notifier')
+_ = gettext.gettext
+gettext.install('apt-notifier')
+def About():
+    p = subprocess.check_output(['dpkg -l apt-notifier | grep apt-notifier | cut -f 6 -d " "' ], shell=True)
+    myversion = p.decode('utf-8').rstrip()
+    #p = subprocess.check_output(['apt-cache show apt-notifier="$(dpkg -l apt-notifier | grep apt-notifier | cut -f 6 -d \ )" | grep  Description: | cut -f2- -d " "' ], shell=True)
+    #description = p.decode('utf-8').rstrip()
+    aboutBox = QMessageBox()
+    aboutBox.setWindowTitle(_('About MX Updater'))
+    aboutBox.setText("<p align=center><b><h2>" + (_('MX Updater')) + "</h2></b></p><p align=center>Version: " + myversion + "</p><p align=center><h3>" 
+               + (_('Tray applet to notify of system and application updates')) 
+               + "</h3></p><p align=center><a href=http://mxlinux.org>http://mxlinux.org</a> \
+               <br></p><p align=center>" + "Copyright (c) MX Linux" + "<br /><br /></p>")
+    aboutBox.addButton( (_('Cancel')), QMessageBox.YesRole)
+    aboutBox.addButton( (_('License')), QMessageBox.NoRole)
+    reply = aboutBox.exec_()
+    if reply == 1:
+        p=subprocess.call(["/usr/bin/mx-viewer", "/usr/share/doc/apt-notifier/license.html", "MX Apt-notifier license"])
+main = QApplication(sys.argv)
+About()
+if __name__ == '__main__':
+    main()
+'''
+    script_file = tempfile.NamedTemporaryFile('wt')
+    script_file.write(script)
+    script_file.flush()
+    run = subprocess.Popen(["echo -n `python3 %s 2>/dev/null`" % script_file.name],shell=True, stdout=subprocess.PIPE)
+    run.stdout.read(128)
+    script_file.close()
+    
 # General application code	
 def main():
     # Define Core objects, Tray icon and QTimer 
