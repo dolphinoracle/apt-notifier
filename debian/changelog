@@ -1,3 +1,10 @@
+apt-notifier (18.04.21mx17+1) mx; urgency=medium
+
+  * 'About' dialog translations added.
+  * Added anacron dependency. 
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Sat, 21 Apr 2018 10:12:14 -0400
+
 apt-notifier (18.04.15mx17+1) mx; urgency=medium
 
   * 'About' dialog rightclick action added.
