@@ -38,6 +38,8 @@ def set_translations():
     global Synaptic_Help
     global Apt_Notifier_Preferences    
     global Apt_History
+    global View_Auto_Updates_Logs
+    global View_Auto_Updates_Dpkg_Logs
     global Check_for_Updates
     global About
     global Check_for_Updates_by_User
@@ -75,6 +77,8 @@ def set_translations():
     Synaptic_Help                               = unicode (_("Synaptic Help")                          ,'utf-8')
     Apt_Notifier_Preferences                    = unicode (_("Preferences")                            ,'utf-8')
     Apt_History                                 = unicode (_("History")                                ,'utf-8')
+    View_Auto_Updates_Logs                      = unicode (_("Auto-update log(s)")                     ,'utf-8') 
+    View_Auto_Updates_Dpkg_Logs                 = unicode (_("Auto-update dpkg log(s)")                ,'utf-8') 
     Check_for_Updates                           = unicode (_("Check for Updates")                      ,'utf-8')
     About                                       = unicode (_("About")                                  ,'utf-8')
   
@@ -1479,6 +1483,11 @@ def add_rightclick_actions():
         ActionsMenu.addSeparator()
         ActionsMenu.addAction(View_and_Upgrade).triggered.connect( viewandupgrade0 )
     add_apt_history_action()        
+    command_string = "test $(apt-config shell U APT::Periodic::Unattended-Upgrade | cut -f2 -d= | cut -c2- | rev | cut -c2- | rev) != 0"
+    exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
+    if exit_state == 0:
+        add_view_unattended_upgrades_logs_action()
+        add_view_unattended_upgrades_dpkg_logs_action()
     add_apt_get_update_action()
     add_apt_notifier_help_action()
     add_synaptic_help_action()
@@ -1493,6 +1502,11 @@ def add_hide_action():
         ActionsMenu.addSeparator()
         ActionsMenu.addAction(u"Synaptic").triggered.connect( start_synaptic0 )
     add_apt_history_action()    
+    command_string = "test $(apt-config shell U APT::Periodic::Unattended-Upgrade | cut -f2 -d= | cut -c2- | rev | cut -c2- | rev) != 0"
+    exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
+    if exit_state == 0:
+        add_view_unattended_upgrades_logs_action()
+        add_view_unattended_upgrades_dpkg_logs_action()
     add_apt_get_update_action()
     add_apt_notifier_help_action()
     add_synaptic_help_action()
@@ -1586,6 +1600,16 @@ def add_apt_history_action():
     apt_history_action =  ActionsMenu.addAction(Apt_History)
     apt_history_action.triggered.connect( apt_history )
 
+def add_view_unattended_upgrades_logs_action():
+    ActionsMenu.addSeparator()
+    view_unattended_upgrades_logs_action =  ActionsMenu.addAction(View_Auto_Updates_Logs)
+    view_unattended_upgrades_logs_action.triggered.connect( view_unattended_upgrades_logs )
+    
+def add_view_unattended_upgrades_dpkg_logs_action():
+    ActionsMenu.addSeparator()
+    view_unattended_upgrades_logs_action =  ActionsMenu.addAction(View_Auto_Updates_Dpkg_Logs)
+    view_unattended_upgrades_logs_action.triggered.connect( view_unattended_upgrades_dpkg_logs )
+    
 def add_apt_get_update_action():
     ActionsMenu.addSeparator()
     apt_get_update_action =  ActionsMenu.addAction(Check_for_Updates)
@@ -1650,6 +1674,129 @@ if __name__ == '__main__':
     run.stdout.read(128)
     script_file.close()
     
+def view_unattended_upgrades_logs():
+    # ~~~ Localize 6 ~~~
+    t01 = _("<b>Root privileges</b> are required to view the Auto-update log(s). Please enter <b>root's</b> password below.")
+    t02 = _("MX Auto-update  --  unattended-upgrades log viewer")
+    t03 = _("No logs found.")
+    t04 = _("For a less detailed view see 'Auto-update dpkg log(s)' or 'History'.")
+    shellvar = (
+        '    rootPasswordRequestMsg="' + t01 + '"\n'
+        '    Title="'                  + t02 + '"\n'
+        '    NoLogsFound="'            + t03 + '"\n'     
+        '    SeeHistory="'             + t04 + '"\n'   
+        )
+    script = '''#! /bin/bash
+''' + shellvar + '''
+    TMP=$(mktemp -d /tmp/apt_notifier_ViewUnattendUpgradesLogs.XXXXXX)
+    NoLogsFound="$(sed "s|[']|\\\\'|g" <<<"$NoLogsFound")"
+    SeeHistory="$(sed "s|[']|\\\\'|g" <<<"$SeeHistory")"
+    cat << EOF > "$TMP"/ViewLogs
+#! /bin/bash
+    if [ -f /var/log/unattended-upgrades/unattended-upgrades.log ]
+      then 
+        ls -1 /var/log/unattended-upgrades/unattended-upgrades.log* -tr | \\\\
+        xargs zcat -f                                                   | \\\\
+        sed 's/: \\\\[\\\\x27origin=/:\\\\[\\\\n\\\\x27origin=/'        | \\\\
+        sed 's/, \\\\x27a=/,\\\\n\\\\x27a=/g'                           | \\\\
+        sed 's/, \\\\x27c=/,\\\\n\\\\x27c=/g'                           | \\\\
+        sed 's/, \\\\x27l=/,\\\\n\\\\x27l=/g'                           | \\\\
+        sed 's/, \\\\x27n=/,\\\\n\\\\x27n=/g'                           | \\\\
+        sed 's/, \\\\x27o=/,\\\\n\\\\x27o=/g'                           | \\\\
+        sed 's/, \\\\x27archive=/,\\\\n\\\\x27archive=/g'               | \\\\
+        sed 's/, \\\\x27codename=/,\\\\n\\\\x27codename=/g'             | \\\\
+        sed 's/, \\\\x27component=/,\\\\n\\\\x27component=/g'           | \\\\
+        sed 's/, \\\\x27label=/,\\\\n\\\\x27label=/g'                   | \\\\
+        sed 's/, \\\\x27origin=/,\\\\n\\\\x27origin=/g'                 | \\\\
+        sed 's/, \\\\x27suite=/,\\\\n\\\\x27suite=/g'                   >  "$TMP"/Logs
+        echo -e \\\\\\\\n"$SeeHistory"\\\\\\\\n                         >> "$TMP"/Logs
+      else
+        echo -e \\\\\\\\n"$NoLogsFound"\\\\\\\\n                        >  "$TMP"/Logs
+    fi 
+cat "$TMP"/Logs | yad \\\\
+  --window-icon=ICON \\\\
+  --width=$(xprop -root | grep _NET_DESKTOP_GEOMETRY\(CARDINAL\) | awk '{print $3*.75}' | cut -f1 -d.) \\\\
+  --height=480 \\\\
+  --center \\\\
+  --title=TITLE \\\\
+  --text-info \\\\
+  --button=gtk-close \\\\
+  --margins=7 \\\\
+  --borders=5 \\\\
+  --wrap \\\\
+  --tail
+EOF
+    User=$(who | grep '(:0)' -m1 | awk '{print $1}')
+    if [ "$User" != "root" ]
+      then IconLook="$(grep IconLook /home/"$User"/.config/apt-notifierrc | cut -f2 -d=)"
+      else IconLook="$(grep IconLook /root/.config/apt-notifierrc | cut -f2 -d=)"
+    fi
+    sed -i 's|ICON|/usr/share/icons/mnotify-some-'"$IconLook"'.png|' "$TMP"/ViewLogs
+    Title="$(sed "s|[']|\\\\'|g" <<<"$Title")"    
+    sed -i "s|TITLE|"'"'"$Title"'"'"|"  "$TMP"/ViewLogs
+    gksu  --su-mode -m "$rootPasswordRequestMsg" bash "$TMP"/ViewLogs
+    rm -rf "$TMP"
+    '''
+    script_file = tempfile.NamedTemporaryFile('wt')
+    script_file.write(script)
+    script_file.flush()
+    run = subprocess.Popen(["echo -n `bash %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
+    run.stdout.read(128)
+    script_file.close()
+    
+def view_unattended_upgrades_dpkg_logs():
+    # ~~~ Localize 7 ~~~
+    t01 = _("<b>Root privileges</b> are required to view the Auto-update dpkg log(s). Please enter <b>root's</b> password below.")
+    t02 = _("MX Auto-update  --  unattended-upgrades dpkg log viewer")
+    t03 = _("No unattended-upgrades dpkg log(s) found.")
+    shellvar = (
+        '    rootPasswordRequestMsg="' + t01 + '"\n'
+        '    Title="'                  + t02 + '"\n'
+        '    NoLogsFound="'            + t03 + '"\n'     
+        )
+    script = '''#! /bin/bash
+''' + shellvar + '''
+    TMP=$(mktemp -d /tmp/apt_notifier_ViewUnattendUpgradesDpkgLogs.XXXXXX)
+    NoLogsFound="$(sed "s|[']|\\\\'|g" <<<"$NoLogsFound")"
+    cat << EOF > "$TMP"/ViewLogs
+#! /bin/bash
+    if [ -f /var/log/unattended-upgrades/unattended-upgrades-dpkg.log ]
+      then 
+        ls -1 /var/log/unattended-upgrades/unattended-upgrades-dpkg.log* -tr | xargs zcat -f > "$TMP"/Logs
+      else
+        echo -e \\\\\\\\n"$NoLogsFound"\\\\\\\\n > "$TMP"/Logs
+    fi 
+cat "$TMP"/Logs | yad \\\\
+  --window-icon=ICON \\\\
+  --width=$(xprop -root | grep _NET_DESKTOP_GEOMETRY\(CARDINAL\) | awk '{print $3*.75}' | cut -f1 -d.) \\\\
+  --height=480 \\\\
+  --center \\\\
+  --title=TITLE \\\\
+  --text-info \\\\
+  --button=gtk-close \\\\
+  --margins=7 \\\\
+  --borders=5 \\\\
+  --wrap \\\\
+  --tail
+EOF
+    User=$(who | grep '(:0)' -m1 | awk '{print $1}')
+    if [ "$User" != "root" ]
+      then IconLook="$(grep IconLook /home/"$User"/.config/apt-notifierrc | cut -f2 -d=)"
+      else IconLook="$(grep IconLook /root/.config/apt-notifierrc | cut -f2 -d=)"
+    fi
+    sed -i 's|ICON|/usr/share/icons/mnotify-some-'"$IconLook"'.png|' "$TMP"/ViewLogs
+    Title="$(sed "s|[']|\\\\'|g" <<<"$Title")"    
+    sed -i "s|TITLE|"'"'"$Title"'"'"|"  "$TMP"/ViewLogs
+    gksu  --su-mode -m "$rootPasswordRequestMsg" bash "$TMP"/ViewLogs
+    rm -rf "$TMP"
+    '''
+    script_file = tempfile.NamedTemporaryFile('wt')
+    script_file.write(script)
+    script_file.flush()
+    run = subprocess.Popen(["echo -n `bash %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
+    run.stdout.read(128)
+    script_file.close()
+
 # General application code	
 def main():
     # Define Core objects, Tray icon and QTimer 

@@ -1,3 +1,9 @@
+apt-notifier (18.05.07mx17+1) mx; urgency=medium
+
+  * Added options to view unattended-upgrades logs.
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Mon, 07 May 2018 09:35:53 -0400
+
 apt-notifier (18.04.21mx17+1) mx; urgency=medium
 
   * 'About' dialog translations added.
