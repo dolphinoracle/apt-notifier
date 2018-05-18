@@ -101,7 +101,7 @@ main() {
     Cache_Origins="$(grep ^\ [0-9]+ -A1 -E                                       <<<"$Cache_Origins")"
     Cache_Origins="$(grep -v -e--                                                <<<"$Cache_Origins")"
     Cache_Origins="$(sed 's/,\([abclno][=]\)/@\1/g'                              <<<"$Cache_Origins")"
-    Cache_Origins="$(sed 's/,/\\,/g'                                             <<<"$Cache_Origins")"
+    Cache_Origins="$(sed 's/,/\\_comma_/g'                                       <<<"$Cache_Origins")"
     Cache_Origins="$(sed 's/@/,/g'                                               <<<"$Cache_Origins")"
     Cache_Origins="$(sed 's/^[ ]* //g'                                           <<<"$Cache_Origins")"
     Cache_Origins="$(sed 's/^\([0-9]\)/\/\/  \1/'                                <<<"$Cache_Origins")"
@@ -119,6 +119,7 @@ main() {
     Cache_Origins="$(sed 's,////,//\n//,g'                                       <<<"$Cache_Origins")"
     Cache_Origins="$(sed 's,//$,\n//,g'                                          <<<"$Cache_Origins")"
     Cache_Origins="$(sed '/^$/d'                                                 <<<"$Cache_Origins")"
+    Cache_Origins="$(sed 's/\\_comma_/\\,/g'                                     <<<"$Cache_Origins")"
     Cache_Origins="$(sed 's/^\([aclno]=.*\)/   "\1";/'                           <<<"$Cache_Origins")"
 
    #Now Disable Unattended Upgrades for Debian Backports & Experimental repos
