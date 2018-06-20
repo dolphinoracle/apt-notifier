@@ -76,7 +76,7 @@ msgstr "Geçmiş"
 
 #: apt-notifier.py:80
 msgid "Auto-update log(s)"
-msgstr ""
+msgstr "Otomatik güncelleme günlüğü(leri)"
 
 #: apt-notifier.py:81
 msgid "Auto-update dpkg log(s)"
@@ -174,7 +174,7 @@ msgstr ""
 
 #: apt-notifier.py:366
 msgid "upgrade"
-msgstr ""
+msgstr "yükseltme"
 
 #: apt-notifier.py:367
 msgid "Using full upgrade"

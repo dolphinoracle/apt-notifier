@@ -76,11 +76,11 @@ msgstr "История"
 
 #: apt-notifier.py:80
 msgid "Auto-update log(s)"
-msgstr ""
+msgstr "Лог(и) авто-обновления"
 
 #: apt-notifier.py:81
 msgid "Auto-update dpkg log(s)"
-msgstr ""
+msgstr "Лог(и) dpkg авто-обновления"
 
 #: apt-notifier.py:82
 msgid "Check for Updates"
@@ -246,7 +246,7 @@ msgstr "классические"
 
 #: apt-notifier.py:985
 msgid "pulse"
-msgstr ""
+msgstr "pulse"
 
 #: apt-notifier.py:986
 msgid "wireframe"
@@ -303,29 +303,36 @@ msgid ""
 "<b>Root privileges</b> are required to view the Auto-update log(s). Please "
 "enter <b>root's</b> password below."
 msgstr ""
+"Для просмотра лог(ов) авто-обновления необходимы <b>root привилегии</b>. "
+"Пожалуйста, ниже введите пароль <b>root</b>."
 
 #: apt-notifier.py:1680
 msgid "MX Auto-update  --  unattended-upgrades log viewer"
-msgstr ""
+msgstr "MX Авто-обновление - просмотрщик логов не сопровождаемого обновления"
 
 #: apt-notifier.py:1681
 msgid "No logs found."
-msgstr ""
+msgstr "Нет найденных логов."
 
 #: apt-notifier.py:1682
 msgid "For a less detailed view see 'Auto-update dpkg log(s)' or 'History'."
 msgstr ""
+"Для менее детализированного отображения смотрите 'Лог(и) dpkg авто-"
+"обновления' или 'Историю'."
 
 #: apt-notifier.py:1749
 msgid ""
 "<b>Root privileges</b> are required to view the Auto-update dpkg log(s). "
 "Please enter <b>root's</b> password below."
 msgstr ""
+"Для просмотра лог(ов) dpkg авто-обновления необходимы <b>root "
+"привилегии</b>. Пожалуйста, ниже введите пароль<b>root</b>."
 
 #: apt-notifier.py:1750
 msgid "MX Auto-update  --  unattended-upgrades dpkg log viewer"
 msgstr ""
+"MX Авто-обновление - просмотрщик логов dpkg не сопровождаемого обновления"
 
 #: apt-notifier.py:1751
 msgid "No unattended-upgrades dpkg log(s) found."
-msgstr ""
+msgstr "Не найдено логов dpkg для несопровождаемых обновлений."

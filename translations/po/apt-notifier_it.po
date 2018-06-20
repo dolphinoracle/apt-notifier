@@ -76,11 +76,11 @@ msgstr "Cronologia"
 
 #: apt-notifier.py:80
 msgid "Auto-update log(s)"
-msgstr ""
+msgstr "Auto-aggiorna log(s)"
 
 #: apt-notifier.py:81
 msgid "Auto-update dpkg log(s)"
-msgstr ""
+msgstr "Auto-aggiorna dpkg log(s)"
 
 #: apt-notifier.py:82
 msgid "Check for Updates"
@@ -137,7 +137,7 @@ msgstr ""
 
 #: apt-notifier.py:353 apt-notifier.py:1280
 msgid "Reload"
-msgstr "Aggiorna"
+msgstr "Ricarica Info"
 
 #: apt-notifier.py:354
 msgid ""
@@ -183,7 +183,7 @@ msgstr "'apt-get autoremove' in esecuzione, se non sei sicuro digita 'n'."
 
 #: apt-notifier.py:366
 msgid "upgrade"
-msgstr "aggiornamento"
+msgstr "Aggiorna"
 
 #: apt-notifier.py:367
 msgid "Using full upgrade"
@@ -312,29 +312,41 @@ msgid ""
 "<b>Root privileges</b> are required to view the Auto-update log(s). Please "
 "enter <b>root's</b> password below."
 msgstr ""
+"Sono richiesti i <b>Privilegi di Root</b> per vedere il log(s) dell'Auto-"
+"aggiornamento. Inserisci qui sotto la password <b>root's</b>"
 
 #: apt-notifier.py:1680
 msgid "MX Auto-update  --  unattended-upgrades log viewer"
 msgstr ""
+"MX Auto-aggiorna  --  Visualizzatore del file log degli aggiornamenti "
+"automatici"
 
 #: apt-notifier.py:1681
 msgid "No logs found."
-msgstr ""
+msgstr "Non è stato trovato nessun file log."
 
 #: apt-notifier.py:1682
 msgid "For a less detailed view see 'Auto-update dpkg log(s)' or 'History'."
 msgstr ""
+"Per una vista meno dettagliata vedi 'Auto-update dpkg log(s)' o "
+"'Cronologia'."
 
 #: apt-notifier.py:1749
 msgid ""
 "<b>Root privileges</b> are required to view the Auto-update dpkg log(s). "
 "Please enter <b>root's</b> password below."
 msgstr ""
+"Sono richiesti i <b>privilegi di root</b> per vedere i log(s) di Auto-"
+"aggiorna dpkg. Inserisci qui sotto la password <b>di root</b>"
 
 #: apt-notifier.py:1750
 msgid "MX Auto-update  --  unattended-upgrades dpkg log viewer"
 msgstr ""
+"MX Auto-aggiorna -- Visualizzatore del file log degli aggiornamenti "
+"automatici di dpkg"
 
 #: apt-notifier.py:1751
 msgid "No unattended-upgrades dpkg log(s) found."
 msgstr ""
+"Non è stato trovato alcun file log(s) degli aggiornamenti automatici di "
+"dpkg."

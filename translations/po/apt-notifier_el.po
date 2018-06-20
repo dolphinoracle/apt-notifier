@@ -76,11 +76,11 @@ msgstr "Ιστορία"
 
 #: apt-notifier.py:80
 msgid "Auto-update log(s)"
-msgstr ""
+msgstr "Αυτόματη ενημέρωση αρχείων καταγραφής"
 
 #: apt-notifier.py:81
 msgid "Auto-update dpkg log(s)"
-msgstr ""
+msgstr "Αυτόματη ενημέρωση αρχείων καταγραφής dpkg"
 
 #: apt-notifier.py:82
 msgid "Check for Updates"
@@ -302,29 +302,38 @@ msgid ""
 "<b>Root privileges</b> are required to view the Auto-update log(s). Please "
 "enter <b>root's</b> password below."
 msgstr ""
+"Απαιτούνται <b>δικαιώματα root</b> για να ενεργοποιηθούν οι αυτόματες "
+"ενημερώσεις. Εισαγάγετε τον κωδικό πρόσβασης του  <b>root</b> παρακάτω."
 
 #: apt-notifier.py:1680
 msgid "MX Auto-update  --  unattended-upgrades log viewer"
 msgstr ""
+"Αυτόματη ενημέρωση - πρόγραμμα προβολής μη παρακολουθούμενων αναβαθμίσεων"
 
 #: apt-notifier.py:1681
 msgid "No logs found."
-msgstr ""
+msgstr "Δεν βρέθηκαν αρχεία καταγραφής."
 
 #: apt-notifier.py:1682
 msgid "For a less detailed view see 'Auto-update dpkg log(s)' or 'History'."
 msgstr ""
+"Για μια λιγότερο λεπτομερή προβολή, ανατρέξτε στην ενότητα 'Αυτόματη "
+"ενημέρωση του αρχείου καταγραφής dpkg' ή 'Ιστορικό'."
 
 #: apt-notifier.py:1749
 msgid ""
 "<b>Root privileges</b> are required to view the Auto-update dpkg log(s). "
 "Please enter <b>root's</b> password below."
 msgstr ""
+"Απαιτούνται <b>δικαιώματα root</b> για να ενεργοποιηθούν οι αυτόματες "
+"ενημερώσεις. Εισαγάγετε τον κωδικό πρόσβασης του  <b>root</b> παρακάτω."
 
 #: apt-notifier.py:1750
 msgid "MX Auto-update  --  unattended-upgrades dpkg log viewer"
 msgstr ""
+"Αυτόματη ενημέρωση - πρόγραμμα προβολής μη παρακολουθούμενων αναβαθμίσεων "
+"dpkg"
 
 #: apt-notifier.py:1751
 msgid "No unattended-upgrades dpkg log(s) found."
-msgstr ""
+msgstr "Δεν βρέθηκαν αρχεία καταγραφής dpkg"
