@@ -1629,6 +1629,7 @@ def displayAbout():
 
     MX_Updater                                  = unicode (_("MX Updater")                                              ,'utf-8')
     About_MX_Updater                            = unicode (_("About MX Updater")                                        ,'utf-8')
+    Changelog                                   = unicode (_("Changelog")                                               ,'utf-8')
     License                                     = unicode (_("License")                                                 ,'utf-8')
     Cancel                                      = unicode (_("Cancel")                                                  ,'utf-8')
     Description                                 = unicode (_("Tray applet to notify of system and application updates") ,'utf-8')
@@ -1657,9 +1658,23 @@ def About():
                <br></p><p align=center>" + "Copyright (c) MX Linux" + "<br /><br /></p>")
     aboutBox.addButton( (_('Cancel')), QMessageBox.YesRole)
     aboutBox.addButton( (_('License')), QMessageBox.NoRole)
+    aboutBox.addButton( (_('Changelog')), QMessageBox.NoRole)
     reply = aboutBox.exec_()
     if reply == 1:
         p=subprocess.call(["/usr/bin/mx-viewer", "/usr/share/doc/apt-notifier/license.html", "MX Apt-notifier license"])
+    if reply == 2:
+        command_string = "zcat /usr/share/doc/apt-notifier/changelog.gz | \
+                          yad --width=$(xprop -root | grep _NET_DESKTOP_GEOMETRY | grep CARDINAL | awk '{print $3*.75}' | cut -f1 -d.) \
+                              --height=480       \
+                              --center           \
+                              --button=gtk-close \
+                              --window-icon=''   \
+                              --title=''         \
+                              --fontname=mono    \
+                              --margins=7        \
+                              --borders=5        \
+                              --text-info"
+        p=subprocess.call([command_string], shell=True)
 main = QApplication(sys.argv)
 About()
 if __name__ == '__main__':
