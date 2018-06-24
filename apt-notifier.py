@@ -1649,8 +1649,6 @@ gettext.install('apt-notifier')
 def About():
     p = subprocess.check_output(['dpkg -l apt-notifier | grep apt-notifier | cut -f 6 -d " "' ], shell=True)
     myversion = p.decode('utf-8').rstrip()
-    #p = subprocess.check_output(['apt-cache show apt-notifier="$(dpkg -l apt-notifier | grep apt-notifier | cut -f 6 -d \ )" | grep  Description: | cut -f2- -d " "' ], shell=True)
-    #description = p.decode('utf-8').rstrip()
     aboutBox = QMessageBox()
     aboutBox.setWindowTitle(_('About MX Updater'))
     aboutBox.setText("<p align=center><b><h2>" + (_('MX Updater')) + "</h2></b></p><p align=center>Version: " + myversion + "</p><p align=center><h3>" 
