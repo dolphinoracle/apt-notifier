@@ -12,5 +12,9 @@ if [ "$?" = "0" ]
     :
 fi
 
+# Kill running apt-notifier.py(s) while still in unhide script
+pkill -f 'python /usr/bin/apt-notifier.py'
+sleep 2
+
 # start the notifier from the startup script
 /usr/bin/apt-notifier
