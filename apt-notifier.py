@@ -1762,7 +1762,7 @@ def view_unattended_upgrades_dpkg_logs():
 #! /bin/bash
     if [ -f /var/log/unattended-upgrades/unattended-upgrades-dpkg.log ]
       then 
-        ls -1 /var/log/unattended-upgrades/unattended-upgrades-dpkg.log* -tr | xargs zcat -f > "$TMP"/Logs
+        ls -1 /var/log/unattended-upgrades/unattended-upgrades-dpkg.log* -tr | xargs zcat -f | sed 's/%\\\\x0D/%\\\\n/g' | grep -v %$ > "$TMP"/Logs
       else
         echo -e \\\\\\\\n"$NoLogsFound"\\\\\\\\n > "$TMP"/Logs
     fi 
