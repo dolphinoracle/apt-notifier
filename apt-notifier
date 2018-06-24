@@ -3,6 +3,19 @@
 # Kill any notifier(s) running
 pkill -f 'python /usr/bin/apt-notifier.py'
 
+PARENT_COMMAND=$(ps -o args= $PPID | cut -f2 -d" " | xargs basename)
+if [ "$PARENT_COMMAND" = "apt-notifier-unhide-Icon" ]
+    then
+      :
+    else
+      sleep 2
+fi
+
+# Do a redundant kill of any running notifier(s)
+pkill -f 'python /usr/bin/apt-notifier.py'
+
+sleep 1
+
 # Remove any previously created /tmp/tmp****** files owned by current user,
 # that have -rw------ permissions, and contain the pattern "sorted_list_of_upgrades()".
 for i in $(cd /tmp; find . -user $USER -perm 600 -regextype posix-egrep -regex '\./tmp[[:print:]]{6}' 2>/dev/null | cut -c3-);
