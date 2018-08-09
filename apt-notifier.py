@@ -416,6 +416,7 @@ def viewandupgrade():
               else T=" --title='""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" Updater: "$reload"'"
             fi
         fi
+<<'Disabled'
         if (xprop -root | grep -q -i kde)
           then
 
@@ -500,7 +501,7 @@ def viewandupgrade():
             #
             # If x-terminal-emulator is set to xterm, use xfce4-terminal 
             # instead, if it's available (it is in MX)
-
+Disabled
             case $(readlink -e /usr/bin/x-terminal-emulator | xargs basename) in
 
               gnome-terminal.wrapper) su-to-root -X -c "gnome-terminal$G$T -e $3"
@@ -538,7 +539,7 @@ def viewandupgrade():
                                       ;;
 
             esac
-        fi
+        #fi
     }    
         
     DoUpgrade(){
@@ -1292,6 +1293,7 @@ def apt_get_update():
     G=" --geometry=80x25+"$TermXOffset"+"$TermYOffset
     I=" --icon=mnotify-some-""$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
     T=" --title='""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" Updater: $reload'"
+<<'Disabled'
     if (xprop -root | grep -q -i kde)
       then
         # Running KDE
@@ -1351,7 +1353,7 @@ def apt_get_update():
         #
         # If x-terminal-emulator is set to gnome-terminal.wrapper, use xfce4-terminal instead, if it's available (it is in MX), if not use gnome-terminal.
         # If x-terminal-emulator is set to xterm,                  use xfce4-terminal instead, if it's available (it is in MX), if not use xterm.
-
+Disabled
         case $(readlink -e /usr/bin/x-terminal-emulator | xargs basename) in
 
           gnome-terminal.wrapper) su-to-root -X -c "gnome-terminal$G$T -e 'apt-get update'"
@@ -1384,7 +1386,7 @@ def apt_get_update():
                                   ;;
 
         esac
-    fi
+    #fi
     
     '''
     script_file = tempfile.NamedTemporaryFile('wt')
