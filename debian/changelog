@@ -1,3 +1,9 @@
+apt-notifier (18.08.10mx17+1) mx; urgency=medium
+
+  * Use gksu for all desktops/window_managers.
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Fri, 10 Aug 2018 10:33:48 -0400
+
 apt-notifier (18.06.25mx17+1) mx; urgency=medium
 
   * Hide 'Reading database ...' progress lines when viewing unattended-upgrades
