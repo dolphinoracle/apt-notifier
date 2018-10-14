@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-09 18:34-0400\n"
+"POT-Creation-Date: 2018-10-14 11:41-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Geoff Gigg <geoffgigg@hotmail.com>, 2017\n"
+"Last-Translator: Владимир Н <ua3elr@gmail.com>, 2018\n"
 "Language-Team: Russian (https://www.transifex.com/anticapitalista/teams/10162/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -70,7 +70,7 @@ msgstr "Помощь по Synaptic"
 msgid "Preferences"
 msgstr "Предпочтения"
 
-#: apt-notifier.py:79 apt-notifier.py:1241
+#: apt-notifier.py:79 apt-notifier.py:1242
 msgid "History"
 msgstr "История"
 
@@ -110,7 +110,7 @@ msgstr "Автоматически отвечать 'yes' на все запро
 msgid "automatically close terminal window when upgrade complete"
 msgstr "автоматически закрыть окно терминала после завершения обновления"
 
-#: apt-notifier.py:348 apt-notifier.py:975
+#: apt-notifier.py:348 apt-notifier.py:976
 msgid "basic upgrade"
 msgstr "базовое обновление"
 
@@ -134,7 +134,7 @@ msgstr ""
 "Переключает тип выполняемого обновления между 'полным обновлением' и "
 "'базовым обновлением'"
 
-#: apt-notifier.py:353 apt-notifier.py:1280
+#: apt-notifier.py:353 apt-notifier.py:1281
 msgid "Reload"
 msgstr "Перезагрузить"
 
@@ -146,7 +146,7 @@ msgstr ""
 "Обновить информацию о пакетах, чтобы получить информацию о новых, удаленных "
 "или обновленных пакетах программного обеспечения. (apt-get update)"
 
-#: apt-notifier.py:357 apt-notifier.py:1279
+#: apt-notifier.py:357 apt-notifier.py:1280
 msgid ""
 "The action you requested needs <b>root privileges</b>. Please enter "
 "<b>root's</b> password below."
@@ -191,78 +191,78 @@ msgstr "Применять полное обновление"
 msgid "Using basic upgrade (not recommended)"
 msgstr "Применять базовое обновление (не рекомендуется)"
 
-#: apt-notifier.py:972
+#: apt-notifier.py:973
 msgid "MX Updater preferences"
 msgstr "Предпочтения MX Updater"
 
-#: apt-notifier.py:973
+#: apt-notifier.py:974
 msgid "Upgrade mode"
 msgstr "Режим обновления"
 
-#: apt-notifier.py:974
+#: apt-notifier.py:975
 msgid "full upgrade   (recommended)"
 msgstr "Полное обновление (рекомендовано)"
 
-#: apt-notifier.py:976
+#: apt-notifier.py:977
 msgid "Left-click behaviour   (when updates are available)"
 msgstr "Поведение при нажатии левой кнопки мыши (когда доступны обновления)"
 
-#: apt-notifier.py:977
+#: apt-notifier.py:978
 msgid "Other options"
 msgstr "Другие опции"
 
-#: apt-notifier.py:978
+#: apt-notifier.py:979
 msgid "opens Synaptic"
 msgstr "открыть Synaptic"
 
-#: apt-notifier.py:979
+#: apt-notifier.py:980
 msgid "opens MX Updater 'View and Upgrade' window"
 msgstr "открывает окно MX Updater 'Посмотреть и Обновить'"
 
-#: apt-notifier.py:980
+#: apt-notifier.py:981
 msgid "Automatically answer 'yes' to all prompts during full/basic upgrade"
 msgstr ""
 "Автоматически отвечать 'yes' на все запросы во время полного/базового "
 "обновления"
 
-#: apt-notifier.py:981
+#: apt-notifier.py:982
 msgid "automatically close terminal window when full/basic upgrade complete"
 msgstr ""
 "автоматически закрыть окно терминала после завершения полного/базового "
 "обновления"
 
-#: apt-notifier.py:982
+#: apt-notifier.py:983
 msgid "check for autoremovable packages after full/basic upgrade"
 msgstr ""
 "проверить наличие автоудаляемых пакетов после полного/базового обновления"
 
-#: apt-notifier.py:983
+#: apt-notifier.py:984
 msgid "Icons"
 msgstr "Значки"
 
-#: apt-notifier.py:984
+#: apt-notifier.py:985
 msgid "classic"
 msgstr "классические"
 
-#: apt-notifier.py:985
+#: apt-notifier.py:986
 msgid "pulse"
 msgstr "pulse"
 
-#: apt-notifier.py:986
+#: apt-notifier.py:987
 msgid "wireframe"
 msgstr "каркас"
 
-#: apt-notifier.py:987
+#: apt-notifier.py:988
 msgid "Auto-update"
 msgstr "Авто-обновление"
 
-#: apt-notifier.py:988
+#: apt-notifier.py:989
 msgid "update automatically   (will not add new or remove existing packages)"
 msgstr ""
 "обновлять автоматически (не будет добавлять или удалять от существующих "
 "пакетов)"
 
-#: apt-notifier.py:989
+#: apt-notifier.py:990
 msgid ""
 "<b>Root privileges</b> are required to <b>enable</b> Auto Updates. Please "
 "enter <b>root's</b> password below."
@@ -270,7 +270,7 @@ msgstr ""
 "Для <b>включения</b> авто обновлений необходимы <b>root привилегии</b>. "
 "Введите <b>root</b> пароль ниже."
 
-#: apt-notifier.py:990
+#: apt-notifier.py:991
 msgid ""
 "<b>Root privileges</b> are required to <b>disable</b> Auto Updates. Please "
 "enter <b>root's</b> password below."
@@ -278,27 +278,31 @@ msgstr ""
 "Для <b>отключения</b> авто обновлений необходимы <b>root привилегии</b>. "
 "Введите пароль <b>root</b> ниже."
 
-#: apt-notifier.py:1630
+#: apt-notifier.py:1632
 msgid "MX Updater"
 msgstr "MX Updater"
 
-#: apt-notifier.py:1631
+#: apt-notifier.py:1633
 msgid "About MX Updater"
 msgstr "О MX Updater"
 
-#: apt-notifier.py:1632
+#: apt-notifier.py:1634
+msgid "Changelog"
+msgstr "Список изменений"
+
+#: apt-notifier.py:1635
 msgid "License"
 msgstr "Лицензия"
 
-#: apt-notifier.py:1633
+#: apt-notifier.py:1636
 msgid "Cancel"
 msgstr "Отмена"
 
-#: apt-notifier.py:1634
+#: apt-notifier.py:1637
 msgid "Tray applet to notify of system and application updates"
 msgstr "Апплет для уведомления о наличии обновлений системы и приложений"
 
-#: apt-notifier.py:1679
+#: apt-notifier.py:1694
 msgid ""
 "<b>Root privileges</b> are required to view the Auto-update log(s). Please "
 "enter <b>root's</b> password below."
@@ -306,21 +310,21 @@ msgstr ""
 "Для просмотра лог(ов) авто-обновления необходимы <b>root привилегии</b>. "
 "Пожалуйста, ниже введите пароль <b>root</b>."
 
-#: apt-notifier.py:1680
+#: apt-notifier.py:1695
 msgid "MX Auto-update  --  unattended-upgrades log viewer"
 msgstr "MX Авто-обновление - просмотрщик логов не сопровождаемого обновления"
 
-#: apt-notifier.py:1681
+#: apt-notifier.py:1696
 msgid "No logs found."
 msgstr "Нет найденных логов."
 
-#: apt-notifier.py:1682
+#: apt-notifier.py:1697
 msgid "For a less detailed view see 'Auto-update dpkg log(s)' or 'History'."
 msgstr ""
 "Для менее детализированного отображения смотрите 'Лог(и) dpkg авто-"
 "обновления' или 'Историю'."
 
-#: apt-notifier.py:1749
+#: apt-notifier.py:1764
 msgid ""
 "<b>Root privileges</b> are required to view the Auto-update dpkg log(s). "
 "Please enter <b>root's</b> password below."
@@ -328,11 +332,11 @@ msgstr ""
 "Для просмотра лог(ов) dpkg авто-обновления необходимы <b>root "
 "привилегии</b>. Пожалуйста, ниже введите пароль<b>root</b>."
 
-#: apt-notifier.py:1750
+#: apt-notifier.py:1765
 msgid "MX Auto-update  --  unattended-upgrades dpkg log viewer"
 msgstr ""
 "MX Авто-обновление - просмотрщик логов dpkg не сопровождаемого обновления"
 
-#: apt-notifier.py:1751
+#: apt-notifier.py:1766
 msgid "No unattended-upgrades dpkg log(s) found."
 msgstr "Не найдено логов dpkg для несопровождаемых обновлений."

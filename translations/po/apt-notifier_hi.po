@@ -10,117 +10,117 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-14 11:41-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: En Kerro <inactive+ekeimaja@transifex.com>, 2018\n"
-"Language-Team: Finnish (https://www.transifex.com/anticapitalista/teams/10162/fi/)\n"
+"Last-Translator: Panwar108 <caspian7pena@gmail.com>, 2018\n"
+"Language-Team: Hindi (https://www.transifex.com/anticapitalista/teams/10162/hi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fi\n"
+"Language: hi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: apt-notifier.py:66
 msgid "0 updates available"
-msgstr "0 päivitystä saatavilla"
+msgstr "0 अपडेट उपलब्ध है"
 
 #: apt-notifier.py:67
 msgid "1 new update available"
-msgstr "1 uusi päivitys saatavilla"
+msgstr "1 अपडेट उपलब्ध है"
 
 #: apt-notifier.py:68
 msgid "$count new updates available"
-msgstr "$count uutta päivitystä saatavilla"
+msgstr "$count नई अपडेट उपलब्ध है"
 
 #: apt-notifier.py:69
 msgid "Updates"
-msgstr "Päivitykset"
+msgstr "अपडेट"
 
 #: apt-notifier.py:70
 msgid "You have 1 new update available"
-msgstr "Sinulla on 1 uusi päivitys saatavilla"
+msgstr "1 नई अपडेट उपलब्ध है"
 
 #: apt-notifier.py:71
 msgid "You have $count new updates available"
-msgstr "Sinulla on $count uutta päivitystä saatavilla"
+msgstr "$count नई अपडेट उपलब्ध है"
 
 #: apt-notifier.py:72
 msgid "Upgrade using Synaptic"
-msgstr "Päivitä käyttäen Synapticia"
+msgstr "सिनेप्टिक द्वारा अपग्रेड करें"
 
 #: apt-notifier.py:73
 msgid "View and Upgrade"
-msgstr "Katso ja päivitä"
+msgstr ""
 
 #: apt-notifier.py:74
 msgid "Hide until updates available"
-msgstr "Piilota kunnes päivityksiä on saatavilla"
+msgstr ""
 
 #: apt-notifier.py:75
 msgid "Quit"
-msgstr "Lopeta"
+msgstr "छोड़ें"
 
 #: apt-notifier.py:76
 msgid "MX Updater Help"
-msgstr "MX Päivitys -ohje"
+msgstr ""
 
 #: apt-notifier.py:77
 msgid "Synaptic Help"
-msgstr "Synaptic -ohje"
+msgstr ""
 
 #: apt-notifier.py:78
 msgid "Preferences"
-msgstr "Asetukset"
+msgstr ""
 
 #: apt-notifier.py:79 apt-notifier.py:1242
 msgid "History"
-msgstr "Historia"
+msgstr ""
 
 #: apt-notifier.py:80
 msgid "Auto-update log(s)"
-msgstr "Automaattipäivityksen loki(t)"
+msgstr ""
 
 #: apt-notifier.py:81
 msgid "Auto-update dpkg log(s)"
-msgstr "Päivitä dpkg loki(t) automaattisesti"
+msgstr ""
 
 #: apt-notifier.py:82
 msgid "Check for Updates"
-msgstr "Tarkista päivitykset"
+msgstr ""
 
 #: apt-notifier.py:83
 msgid "About"
-msgstr "Tietoja"
+msgstr "बारे में"
 
 #: apt-notifier.py:340
 msgid "MX Updater--View and Upgrade, previewing: basic upgrade"
-msgstr "MX Päivitys--Tarkista ja päivitä, katsotaan: tavallinen päivitys"
+msgstr ""
 
 #: apt-notifier.py:341
 msgid "MX Updater--View and Upgrade, previewing: full upgrade"
-msgstr "MX Päivitys--Tarkista ja päivitä, katsotaan: täydellinen päivitys"
+msgstr ""
 
 #: apt-notifier.py:343
 msgid "Automatically answer 'yes' to all prompts during upgrade"
-msgstr "Vastaa automaattisesti 'kyllä' päivityksen aikana"
+msgstr ""
 
 #: apt-notifier.py:345 apt-notifier.py:347
 msgid "automatically close terminal window when upgrade complete"
-msgstr "Sulje automaattisesti kaikki pääteikkunat päivityksen valmistuttua"
+msgstr ""
 
 #: apt-notifier.py:348 apt-notifier.py:976
 msgid "basic upgrade"
-msgstr "tavallinen päivitys"
+msgstr "सामान्य अपग्रेड"
 
 #: apt-notifier.py:349
 msgid "full upgrade"
-msgstr "täydellinen päivitys"
+msgstr "पूर्ण अपग्रेड "
 
 #: apt-notifier.py:350
 msgid "switch to basic upgrade"
-msgstr "siirry tavalliseen päivitystapaan"
+msgstr ""
 
 #: apt-notifier.py:351
 msgid "switch to full upgrade"
-msgstr "siirry täydelliseen päivitystapaan"
+msgstr ""
 
 #: apt-notifier.py:352
 msgid ""
@@ -130,155 +130,139 @@ msgstr ""
 
 #: apt-notifier.py:353 apt-notifier.py:1281
 msgid "Reload"
-msgstr "Päivitä"
+msgstr "पुनः लोड करें"
 
 #: apt-notifier.py:354
 msgid ""
 "Reload the package information to become informed about new, removed or "
 "upgraded software packages. (apt-get update)"
 msgstr ""
-"Päivitä pakettien tiedot saadaksesi tiedot uusista, poistetuista tai "
-"päivitetystä ohjelmistopaketeista. (apt-get update)"
 
 #: apt-notifier.py:357 apt-notifier.py:1280
 msgid ""
 "The action you requested needs <b>root privileges</b>. Please enter "
 "<b>root's</b> password below."
 msgstr ""
-"Haluamasi toiminto vaatii <b>pääkäyttäjän oikeudet</b>. Ole hyvä ja syötä "
-"<b>pääkäyttäjän</b> salasana alle."
 
 #: apt-notifier.py:360
 msgid "basic upgrade complete (or was canceled)"
-msgstr "tavallinen päivitys valmistui (tai keskeytettiin)"
+msgstr ""
 
 #: apt-notifier.py:361
 msgid "full upgrade complete (or was canceled)"
-msgstr "täydellinen päivitys valmistui (tai keskeytettiin)"
+msgstr ""
 
 #: apt-notifier.py:362
 msgid "this terminal window can now be closed"
-msgstr "tämän pääteikkunan voi nyt sulkea"
+msgstr ""
 
 #: apt-notifier.py:363
 msgid "press any key to close"
-msgstr "paina mitä tahansa näppäintä sulkeaksesi"
+msgstr ""
 
 #: apt-notifier.py:364
 msgid "Unneeded packages are installed that can be removed."
-msgstr "Turhia paketteja on asennettu jotka voidaan poistaa."
+msgstr ""
 
 #: apt-notifier.py:365
 msgid "Running apt-get autoremove, if you are unsure type 'n'."
-msgstr "Suoritetaan apt-get autoremove, jos olet epävarma, paina 'e'."
+msgstr ""
 
 #: apt-notifier.py:366
 msgid "upgrade"
-msgstr "päivitä"
+msgstr "अपग्रेड "
 
 #: apt-notifier.py:367
 msgid "Using full upgrade"
-msgstr "Käytetään täydellistä päivitystä"
+msgstr ""
 
 #: apt-notifier.py:368
 msgid "Using basic upgrade (not recommended)"
-msgstr "Käytetään tavallista päivitystä (ei suositeltu)"
+msgstr ""
 
 #: apt-notifier.py:973
 msgid "MX Updater preferences"
-msgstr "MX Päivitysohjelman asetukset"
+msgstr ""
 
 #: apt-notifier.py:974
 msgid "Upgrade mode"
-msgstr "Päivitystapa"
+msgstr ""
 
 #: apt-notifier.py:975
 msgid "full upgrade   (recommended)"
-msgstr "täydellinen päivitys   (suositeltu)"
+msgstr ""
 
 #: apt-notifier.py:977
 msgid "Left-click behaviour   (when updates are available)"
 msgstr ""
-"Vasemman hiiren painikkeen käyttäytyminen (kun päivityksiä on saatavilla)"
 
 #: apt-notifier.py:978
 msgid "Other options"
-msgstr "Muut asetukset"
+msgstr "अन्य विकल्प"
 
 #: apt-notifier.py:979
 msgid "opens Synaptic"
-msgstr "avaa Synapticin"
+msgstr ""
 
 #: apt-notifier.py:980
 msgid "opens MX Updater 'View and Upgrade' window"
-msgstr "avaa MX Päivitysohjelman 'Tarkasta ja päivitä' -ikkunan"
+msgstr ""
 
 #: apt-notifier.py:981
 msgid "Automatically answer 'yes' to all prompts during full/basic upgrade"
 msgstr ""
-"Vastaa automaattisesti 'kyllä' kaikkiin kohtiin täydellisen/tavallisen "
-"päivityksen aikana"
 
 #: apt-notifier.py:982
 msgid "automatically close terminal window when full/basic upgrade complete"
-msgstr "Sulje pääteikkuna täydellisen/tavallisen päivityksen valmistuttua"
+msgstr ""
 
 #: apt-notifier.py:983
 msgid "check for autoremovable packages after full/basic upgrade"
 msgstr ""
-"tarkasta kaikki automaattisesti poistettavat paketit täydellisen/tavallisen "
-"pävityksen jälkeen"
 
 #: apt-notifier.py:984
 msgid "Icons"
-msgstr "Kuvakkeet"
+msgstr ""
 
 #: apt-notifier.py:985
 msgid "classic"
-msgstr "classic"
+msgstr ""
 
 #: apt-notifier.py:986
 msgid "pulse"
-msgstr "pulse"
+msgstr ""
 
 #: apt-notifier.py:987
 msgid "wireframe"
-msgstr "ääriviivat"
+msgstr ""
 
 #: apt-notifier.py:988
 msgid "Auto-update"
-msgstr "Automaattipäivitys"
+msgstr "स्वतः अपडेट"
 
 #: apt-notifier.py:989
 msgid "update automatically   (will not add new or remove existing packages)"
 msgstr ""
-"päivitä automaattisesti (ei lisää uusia tai poista olemassaolevia paketteja)"
 
 #: apt-notifier.py:990
 msgid ""
 "<b>Root privileges</b> are required to <b>enable</b> Auto Updates. Please "
 "enter <b>root's</b> password below."
 msgstr ""
-"<b>pääkäyttäjän oikeudet</b> vaaditaan <b>ottaaksesi</b> "
-"automaattipäivitykset käyttöön. Ole hyvä ja syötä <b>pääkäyttäjän</b> "
-"salasana alapuolelle."
 
 #: apt-notifier.py:991
 msgid ""
 "<b>Root privileges</b> are required to <b>disable</b> Auto Updates. Please "
 "enter <b>root's</b> password below."
 msgstr ""
-"<b>Pääkäyttäjän oikeuksia</b> vaaditaan <b>poistaaksesi</b> "
-"automaattipäivityksen käytöstä. Ole hyvä ja syötä <b>pääkäyttäjän</b> "
-"salasana alapuolelle."
 
 #: apt-notifier.py:1632
 msgid "MX Updater"
-msgstr "MX Päivitys"
+msgstr "MX अपडेट साधन"
 
 #: apt-notifier.py:1633
 msgid "About MX Updater"
-msgstr "Tietoja MX Päivitys-sovelluksesta"
+msgstr "MX अपडेट साधन के बारे में "
 
 #: apt-notifier.py:1634
 msgid "Changelog"
@@ -286,24 +270,21 @@ msgstr ""
 
 #: apt-notifier.py:1635
 msgid "License"
-msgstr "Lisenssi"
+msgstr "लाइसेंस"
 
 #: apt-notifier.py:1636
 msgid "Cancel"
-msgstr "Peruuta"
+msgstr "रद्द करें"
 
 #: apt-notifier.py:1637
 msgid "Tray applet to notify of system and application updates"
 msgstr ""
-"Ilmaisinalueen sovelma joka ilmoittaa järjestelmä- ja sovelluspäivityksistä"
 
 #: apt-notifier.py:1694
 msgid ""
 "<b>Root privileges</b> are required to view the Auto-update log(s). Please "
 "enter <b>root's</b> password below."
 msgstr ""
-"<b>Pääkäyttäjän oikeuksia</b> vaaditaan automaattipäivityksen loki(e)n "
-"katsomiseen. Ole hyvä ja syötä <b>pääkäyttäjän</b> salasana alapuolelle."
 
 #: apt-notifier.py:1695
 msgid "MX Auto-update  --  unattended-upgrades log viewer"
@@ -311,7 +292,7 @@ msgstr ""
 
 #: apt-notifier.py:1696
 msgid "No logs found."
-msgstr "Lokeja ei löytynyt."
+msgstr "कोई लॉग फ़ाइलें नहीं मिली।"
 
 #: apt-notifier.py:1697
 msgid "For a less detailed view see 'Auto-update dpkg log(s)' or 'History'."
@@ -322,8 +303,6 @@ msgid ""
 "<b>Root privileges</b> are required to view the Auto-update dpkg log(s). "
 "Please enter <b>root's</b> password below."
 msgstr ""
-"<b>Pääkäyttäjän oikeuksia</b> vaaditaan automaattipäivityksen dpkg loki(e)n "
-"katseluun. Ole hyvä ja syötä <b>pääkäyttäjän</b> salasana alle."
 
 #: apt-notifier.py:1765
 msgid "MX Auto-update  --  unattended-upgrades dpkg log viewer"

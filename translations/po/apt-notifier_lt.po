@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-09 18:34-0400\n"
+"POT-Creation-Date: 2018-10-14 11:41-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Geoff Gigg <geoffgigg@hotmail.com>, 2017\n"
 "Language-Team: Lithuanian (https://www.transifex.com/anticapitalista/teams/10162/lt/)\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: lt\n"
-"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 1 : (n%10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 3 : n % 1 != 0 ? 4);\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 #: apt-notifier.py:66
 msgid "0 updates available"
@@ -60,7 +60,7 @@ msgstr "Išeiti"
 
 #: apt-notifier.py:76
 msgid "MX Updater Help"
-msgstr ""
+msgstr "MX atnaujinimų programos žinynas"
 
 #: apt-notifier.py:77
 msgid "Synaptic Help"
@@ -70,9 +70,9 @@ msgstr "Synaptic žinynas"
 msgid "Preferences"
 msgstr "Nuostatos"
 
-#: apt-notifier.py:79 apt-notifier.py:1241
+#: apt-notifier.py:79 apt-notifier.py:1242
 msgid "History"
-msgstr ""
+msgstr "Istorija"
 
 #: apt-notifier.py:80
 msgid "Auto-update log(s)"
@@ -106,7 +106,7 @@ msgstr ""
 msgid "automatically close terminal window when upgrade complete"
 msgstr ""
 
-#: apt-notifier.py:348 apt-notifier.py:975
+#: apt-notifier.py:348 apt-notifier.py:976
 msgid "basic upgrade"
 msgstr ""
 
@@ -128,7 +128,7 @@ msgid ""
 "forth between 'full upgrade' and 'basic upgrade'."
 msgstr ""
 
-#: apt-notifier.py:353 apt-notifier.py:1280
+#: apt-notifier.py:353 apt-notifier.py:1281
 msgid "Reload"
 msgstr "Įkelti iš naujo"
 
@@ -138,7 +138,7 @@ msgid ""
 "upgraded software packages. (apt-get update)"
 msgstr ""
 
-#: apt-notifier.py:357 apt-notifier.py:1279
+#: apt-notifier.py:357 apt-notifier.py:1280
 msgid ""
 "The action you requested needs <b>root privileges</b>. Please enter "
 "<b>root's</b> password below."
@@ -162,7 +162,7 @@ msgstr "norėdami užverti, paspauskite bet kurį klavišą"
 
 #: apt-notifier.py:364
 msgid "Unneeded packages are installed that can be removed."
-msgstr ""
+msgstr "Yra įdiegti nereikalingi paketai, kurie gali būti pašalinti."
 
 #: apt-notifier.py:365
 msgid "Running apt-get autoremove, if you are unsure type 'n'."
@@ -180,131 +180,136 @@ msgstr ""
 msgid "Using basic upgrade (not recommended)"
 msgstr ""
 
-#: apt-notifier.py:972
-msgid "MX Updater preferences"
-msgstr ""
-
 #: apt-notifier.py:973
-msgid "Upgrade mode"
-msgstr ""
+msgid "MX Updater preferences"
+msgstr "MX atnaujinimų programos nuostatos"
 
 #: apt-notifier.py:974
-msgid "full upgrade   (recommended)"
-msgstr ""
+msgid "Upgrade mode"
+msgstr "Naujinimo veiksena"
 
-#: apt-notifier.py:976
+#: apt-notifier.py:975
+msgid "full upgrade   (recommended)"
+msgstr "pilnas naujinimas   (rekomenduojama)"
+
+#: apt-notifier.py:977
 msgid "Left-click behaviour   (when updates are available)"
 msgstr ""
 "Kairiojo pelės mygtuko spustelėjimo elgsena (kai prieinami atnaujinimai)"
 
-#: apt-notifier.py:977
+#: apt-notifier.py:978
 msgid "Other options"
 msgstr "Kiti parametrai"
 
-#: apt-notifier.py:978
+#: apt-notifier.py:979
 msgid "opens Synaptic"
 msgstr "atveria Synaptic"
 
-#: apt-notifier.py:979
+#: apt-notifier.py:980
 msgid "opens MX Updater 'View and Upgrade' window"
 msgstr ""
 
-#: apt-notifier.py:980
+#: apt-notifier.py:981
 msgid "Automatically answer 'yes' to all prompts during full/basic upgrade"
 msgstr ""
 
-#: apt-notifier.py:981
+#: apt-notifier.py:982
 msgid "automatically close terminal window when full/basic upgrade complete"
 msgstr ""
 
-#: apt-notifier.py:982
+#: apt-notifier.py:983
 msgid "check for autoremovable packages after full/basic upgrade"
 msgstr ""
 
-#: apt-notifier.py:983
+#: apt-notifier.py:984
 msgid "Icons"
 msgstr "Piktogramos"
 
-#: apt-notifier.py:984
+#: apt-notifier.py:985
 msgid "classic"
 msgstr ""
 
-#: apt-notifier.py:985
+#: apt-notifier.py:986
 msgid "pulse"
 msgstr ""
 
-#: apt-notifier.py:986
+#: apt-notifier.py:987
 msgid "wireframe"
 msgstr ""
 
-#: apt-notifier.py:987
+#: apt-notifier.py:988
 msgid "Auto-update"
 msgstr ""
 
-#: apt-notifier.py:988
+#: apt-notifier.py:989
 msgid "update automatically   (will not add new or remove existing packages)"
 msgstr ""
 
-#: apt-notifier.py:989
+#: apt-notifier.py:990
 msgid ""
 "<b>Root privileges</b> are required to <b>enable</b> Auto Updates. Please "
 "enter <b>root's</b> password below."
 msgstr ""
 
-#: apt-notifier.py:990
+#: apt-notifier.py:991
 msgid ""
 "<b>Root privileges</b> are required to <b>disable</b> Auto Updates. Please "
 "enter <b>root's</b> password below."
 msgstr ""
 
-#: apt-notifier.py:1630
-msgid "MX Updater"
-msgstr ""
-
-#: apt-notifier.py:1631
-msgid "About MX Updater"
-msgstr ""
-
 #: apt-notifier.py:1632
+msgid "MX Updater"
+msgstr "MX atnaujinimų programa"
+
+#: apt-notifier.py:1633
+msgid "About MX Updater"
+msgstr "Apie MX atnaujinimų programa"
+
+#: apt-notifier.py:1634
+msgid "Changelog"
+msgstr "Keitinių žurnalas"
+
+#: apt-notifier.py:1635
 msgid "License"
 msgstr "Licencija"
 
-#: apt-notifier.py:1633
+#: apt-notifier.py:1636
 msgid "Cancel"
 msgstr "Atsisakyti"
 
-#: apt-notifier.py:1634
+#: apt-notifier.py:1637
 msgid "Tray applet to notify of system and application updates"
 msgstr ""
+"Dėklo programėlė, skirta pranešti apie sistemos ir programų atnaujinimus"
 
-#: apt-notifier.py:1679
+#: apt-notifier.py:1694
 msgid ""
 "<b>Root privileges</b> are required to view the Auto-update log(s). Please "
 "enter <b>root's</b> password below."
 msgstr ""
 
-#: apt-notifier.py:1680
+#: apt-notifier.py:1695
 msgid "MX Auto-update  --  unattended-upgrades log viewer"
 msgstr ""
 
-#: apt-notifier.py:1681
+#: apt-notifier.py:1696
 msgid "No logs found."
-msgstr ""
+msgstr "Nerasta jokių žurnalų."
 
-#: apt-notifier.py:1682
+#: apt-notifier.py:1697
 msgid "For a less detailed view see 'Auto-update dpkg log(s)' or 'History'."
 msgstr ""
 
-#: apt-notifier.py:1749
+#: apt-notifier.py:1764
 msgid ""
 "<b>Root privileges</b> are required to view the Auto-update dpkg log(s). "
 "Please enter <b>root's</b> password below."
 msgstr ""
 
-#: apt-notifier.py:1750
+#: apt-notifier.py:1765
 msgid "MX Auto-update  --  unattended-upgrades dpkg log viewer"
 msgstr ""
 
-#: apt-notifier.py:1751
+#: apt-notifier.py:1766
 msgid "No unattended-upgrades dpkg log(s) found."
 msgstr ""
