@@ -46,18 +46,10 @@ def set_translations():
     Check_for_Updates_by_User = 'false'
     global ignoreClick
     ignoreClick = '0'
-    global RepoListsHashNow
-    RepoListsHashNow = ''
-    global RepoListsHashPrevious
-    RepoListsHashPrevious= ''
-    global AptConfsAndPrefsNow
-    AptConfsAndPrefsNow = ''
-    global AptConfsAndPrefsPrevious
-    AptConfsAndPrefsPrevious = ''
-    global AptPkgCacheHashNow
-    AptPkgCacheHashNow = ''
-    global AptPkgCacheHashPrevious
-    AptPkgCacheHashPrevious = ''
+    global WatchedFilesAndDirsHashNow
+    WatchedFilesAndDirsHashNow = ''
+    global WatchedFilesAndDirsHashPrevious
+    WatchedFilesAndDirsHashPrevious = ''
     global text
     text = ''
 
@@ -86,12 +78,8 @@ def set_translations():
 def check_updates():
     global message_status
     global text
-    global RepoListsHashNow
-    global RepoListsHashPrevious
-    global AptConfsAndPrefsNow
-    global AptConfsAndPrefsPrevious
-    global AptPkgCacheHashNow
-    global AptPkgCacheHashPrevious
+    global WatchedFilesAndDirsHashNow
+    global WatchedFilesAndDirsHashPrevious
     global Check_for_Updates_by_User
     
     """
@@ -131,74 +119,40 @@ def check_updates():
     exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
     if exit_state == 0:
         return
-    
-    """
-    Get a hash of the /var/lib/apt/lists folder.
-    """
-    script = '''#!/bin/sh
-    find /var/lib/apt/lists/* 2>/dev/null | xargs md5sum 2>/dev/null | md5sum
-    '''
-    script_file = tempfile.NamedTemporaryFile('wt')
-    script_file.write(script)
-    script_file.flush()
-    run = subprocess.Popen(["echo -n `bash %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
-    RepoListsHashNow = run.stdout.read(128)
-    script_file.close()
 
     """
-    Get a hash of the /etc/apt/conf file and files in the .d folder,
-    and /etc/apt/preferences file and files in the .d folder.
-    """    
-    script = '''#!/bin/sh
-    find /etc/apt/{apt.conf*,preferences*} 2>/dev/null | grep -v .d$ | xargs md5sum  2>/dev/null | md5sum
-    '''
-    script_file = tempfile.NamedTemporaryFile('wt')
-    script_file.write(script)
-    script_file.flush()
-    run = subprocess.Popen(["echo -n `bash %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
-    AptConfsAndPrefsNow = run.stdout.read(128)
-    script_file.close()
-    
+    Get a hash of files and directories we are watching
     """
-    Get a hash of /var/cache/apt/pkgcache.bin.
-    """    
     script = '''#!/bin/sh
-    md5sum  /var/cache/apt/pkgcache.bin 2>/dev/null | md5sum
+    WatchedFilesAndDirs="$WatchedFilesAndDirs""/etc/apt/preferences "
+    WatchedFilesAndDirs="$WatchedFilesAndDirs""/etc/apt/preferences.d "
+    WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/lib/apt/lists "
+    WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/lib/apt/lists/partial "
+    WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/cache/apt "
+    ionice -c3 nice -n19 ls --full-time -ah $WatchedFilesAndDirs 2>/dev/null | nice -n19 md5sum
     '''
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
     script_file.flush()
     run = subprocess.Popen(["echo -n `bash %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
-    AptPkgCacheHashNow = run.stdout.read(128)
+    WatchedFilesAndDirsHashNow = run.stdout.read(128)
     script_file.close()
 
     """
     If
-        no changes in the Repo List hashes since last checked
-            AND 
-        the Apt Conf & Apt Preferences hashes same since last checked
-            AND
-        pkgcache.bin same since last checked
+        no changes in hash of files and directories being watched since last checked
             AND
         the call to check_updates wasn't initiated by user   
     then don't bother checking for updates.
     """
-    if RepoListsHashNow == RepoListsHashPrevious:
-        if AptConfsAndPrefsNow == AptConfsAndPrefsPrevious:
-            if AptPkgCacheHashNow == AptPkgCacheHashPrevious:
-                if Check_for_Updates_by_User == 'false':
-                    if text == '':
-                        text = '0'
-                    return
+    if WatchedFilesAndDirsHashNow == WatchedFilesAndDirsHashPrevious:    
+        if Check_for_Updates_by_User == 'false':
+            if text == '':
+                text = '0'
+            return
 
-    RepoListsHashPrevious = RepoListsHashNow
-    RepoListsHashNow = ''
-
-    AptConfsAndPrefsPrevious = AptConfsAndPrefsNow
-    AptConfsAndPrefsNow = ''
-    
-    AptPkgCacheHashPrevious = AptPkgCacheHashNow
-    AptPkgCacheHashNow = ''
+    WatchedFilesAndDirsHashPrevious = WatchedFilesAndDirsHashNow
+    WatchedFilesAndDirsHashNow = ''
     
     Check_for_Updates_by_User = 'false'
 
@@ -1777,7 +1731,7 @@ def view_unattended_upgrades_dpkg_logs():
 #! /bin/bash
     if [ -f /var/log/unattended-upgrades/unattended-upgrades-dpkg.log ]
       then 
-        ls -1 /var/log/unattended-upgrades/unattended-upgrades-dpkg.log* -tr | xargs zcat -f | sed 's/%\\\\x0D/%\\\\n/g' | grep -v %$ > "$TMP"/Logs
+        ls -1 /var/log/unattended-upgrades/unattended-upgrades-dpkg.log* -tr | xargs zcat -f -q --fast | sed 's/%\\\\x0D/%\\\\n/g' | grep -v %$ > "$TMP"/Logs
       else
         echo -e \\\\\\\\n"$NoLogsFound"\\\\\\\\n > "$TMP"/Logs
     fi 
