@@ -24,11 +24,17 @@ for i in $(cd /tmp; find . -user $USER -perm 600 -regextype posix-egrep -regex '
   done
 
 # create the apt-notifierrc file if it doesn't already exist
-if ! [ -f ~/.config/apt-notifierrc ]; 
-then 
-  echo -e '[General]\nAutoStart=true\n'> ~/.config/apt-notifierrc
+if ! [ -f ~/.config/apt-notifierrc ];
+then
+  touch ~/.config/apt-notifierrc
   chmod 644 ~/.config/apt-notifierrc
 fi
+
+# Remove unneeded/unused[General] line from apt-notifierrc file if present.
+sed -i '/^\[General\].*/Id' ~/.config/apt-notifierrc
+
+# Remove unneeded/unused AutoStart line from apt-notifierrc file if present.
+sed -i '/^AutoStart.*/Id' ~/.config/apt-notifierrc
 
 grep -q -e ^UpgradeType=upgrade -e ^UpgradeType=dist-upgrade ~/.config/apt-notifierrc
 if [ "$?" -eq 0 ]
@@ -40,12 +46,12 @@ if [ "$?" -eq 0 ]
   #or not equal to 'upgrade' or 'dist-upgrade'
   #set it to 'UpgradeType=dist-upgrade'
   #
-  sed -i '/^UpgradeType/d' ~/.config/apt-notifierrc 
+  sed -i '/^UpgradeType/d' ~/.config/apt-notifierrc
   echo -e 'UpgradeType=dist-upgrade\n'>> ~/.config/apt-notifierrc
 fi
 
 #test to see if ~/.config/apt-notifierrc contains any blank lines or lines with only whitespace
-grep -q ^[[:space:]]*$ ~/.config/apt-notifierrc 
+grep -q ^[[:space:]]*$ ~/.config/apt-notifierrc
 if [ "$?" = "0" ]
   then
   #cleanup any blank lines or lines with only whitespace
@@ -55,8 +61,8 @@ if [ "$?" = "0" ]
     :
 fi
 
-# start the notifier
-python /usr/bin/apt-notifier.py& disown -h
+# start the notifier (nicely)
+ionice -c3 nice -n19 python /usr/bin/apt-notifier.py& disown -h
 
 exit 0
 
