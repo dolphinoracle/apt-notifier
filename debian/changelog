@@ -1,3 +1,9 @@
+apt-notifier (18.11.30mx17+1) mx; urgency=medium
+
+  * Translations updated.
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Fri, 30 Nov 2018 19:23:26 -0500
+
 apt-notifier (18.11.18mx17+1) mx; urgency=medium
 
   * MX-18 icon default selection added
