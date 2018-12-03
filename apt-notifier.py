@@ -1234,8 +1234,11 @@ def apt_get_update():
 
     t01 = _("The action you requested needs <b>root privileges</b>. Please enter <b>root's</b> password below.")
     t02 = _("Reload")
-    shellvar = '    rootPasswordRequestMsg="' + t01 + '"\n'
-    shellvar = '    reload="' + t02 + '"\n'
+    
+    shellvar = (
+    '    rootPasswordRequestMsg="' + t01 + '"\n'
+    '    reload="' + t02 + '"\n'
+    )
     
     script = '''#! /bin/bash
 ''' + shellvar + '''
