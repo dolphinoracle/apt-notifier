@@ -475,7 +475,7 @@ Disabled
 
               xfce4-terminal.wrapper) if [ -x $(whereis gksu | awk '{print $2}') ]
                                         then
-                                          gksu --su-mode -m "$rootPasswordRequestMsg""\n\n'$2'" "xfce4-terminal$G$I$T -e $3"
+                                          gksu --su-mode -m "$rootPasswordRequestMsg""\n\n'""$2""'" "xfce4-terminal$G$I$T -e $3"
                                         else
                                           su-to-root -X -c "xfce4-terminal$G$I$T -e $3"
                                       fi                                      
@@ -516,7 +516,7 @@ Disabled
         8)
         BP="0"
         #chmod +x $TMP/upgradeScript
-        RunAptScriptInTerminal "" "update" "'apt-get update'"
+        RunAptScriptInTerminal "" "$reload" "'apt-get update'"
         sleep 1
         ;;
         
@@ -1326,9 +1326,9 @@ Disabled
 
           xfce4-terminal.wrapper) if [ -x $(whereis gksu | awk '{print $2}') ]
                                     then
-                                      gksu --su-mode -m "$rootPasswordRequestMsg""\n\n'apt-get update'" "xfce4-terminal$G$I$T -e 'apt-get update'"
+                                      gksu --su-mode -m "$rootPasswordRequestMsg""\n\n'""$reload""'" "xfce4-terminal$G$I$T -e 'apt-get update'"
                                     else
-                                      su-to-root -X -c "xfce4-terminal$G$I$T -e 'apt-get update"
+                                      su-to-root -X -c "xfce4-terminal$G$I$T -e 'apt-get update'"
                                   fi                                      
                                   ;;
 
