@@ -115,7 +115,7 @@ def check_updates():
     Don't bother checking for updates if processes for other package management tools
     appear to be runninng.
     """ 
-    command_string = "ps aux | grep -v grep | grep -E 'apt-get|aptitude|dpkg|gdebi|synaptic' -q"
+    command_string = "ps aux | grep -v grep | grep -E 'apt-get|aptitude|dpkg|gdebi|synaptic' > /dev/null"
     exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
     if exit_state == 0:
         return
@@ -371,7 +371,7 @@ def viewandupgrade():
             fi
         fi
 <<'Disabled'
-        if (xprop -root | grep -q -i kde)
+        if (xprop -root | grep -i kde > /dev/null)
           then
 
             # Running KDE
@@ -566,7 +566,7 @@ Disabled
         for i in $(find /etc/apt | grep -v -e .d$ -e apt.conf$ -e apt$); do ln -s $i "$TMP"/$(echo $i | cut -f2- -d/) 2>/dev/null; done
 
         #in etc/preferences test to see if there's a symlink to /var/lib/synaptic/preferences
-        ls -l /etc/apt/preferences* | grep ^l | grep -m1 /var/lib/synaptic/preferences$ -q
+        ls -l /etc/apt/preferences* | grep ^l | grep -m1 /var/lib/synaptic/preferences$ > /dev/null
 
         #if there isn't, create one if there are synaptic pinned packages
         if [ $? -eq 1 ]
@@ -659,15 +659,15 @@ Disabled
           then
             if [ "$(head -n1 "$TMP"/results | rev | awk -F \| '{ print $3}' | rev)" = "TRUE" ];
               then
-                grep UpgradeAssumeYes=true  ~/.config/apt-notifierrc -q || sed -i 's/UpgradeAssumeYes=false/UpgradeAssumeYes=true/' ~/.config/apt-notifierrc
+                grep UpgradeAssumeYes=true  ~/.config/apt-notifierrc > /dev/null || sed -i 's/UpgradeAssumeYes=false/UpgradeAssumeYes=true/' ~/.config/apt-notifierrc
               else
-                grep UpgradeAssumeYes=false ~/.config/apt-notifierrc -q || sed -i 's/UpgradeAssumeYes=true/UpgradeAssumeYes=false/' ~/.config/apt-notifierrc
+                grep UpgradeAssumeYes=false ~/.config/apt-notifierrc > /dev/null || sed -i 's/UpgradeAssumeYes=true/UpgradeAssumeYes=false/' ~/.config/apt-notifierrc
             fi
             if [ "$(head -n1 "$TMP"/results | rev | awk -F \| '{ print $2}' | rev)" = "TRUE" ];
               then
-                grep UpgradeAutoClose=true  ~/.config/apt-notifierrc -q || sed -i 's/UpgradeAutoClose=false/UpgradeAutoClose=true/' ~/.config/apt-notifierrc
+                grep UpgradeAutoClose=true  ~/.config/apt-notifierrc > /dev/null || sed -i 's/UpgradeAutoClose=false/UpgradeAutoClose=true/' ~/.config/apt-notifierrc
               else
-                grep UpgradeAutoClose=false ~/.config/apt-notifierrc -q || sed -i 's/UpgradeAutoClose=true/UpgradeAutoClose=false/' ~/.config/apt-notifierrc
+                grep UpgradeAutoClose=false ~/.config/apt-notifierrc > /dev/null || sed -i 's/UpgradeAutoClose=true/UpgradeAutoClose=false/' ~/.config/apt-notifierrc
             fi
           else
             :
@@ -694,7 +694,7 @@ Disabled
             echo '    SynapticPins=$(mktemp /etc/apt/preferences.d/synaptic-XXXXXX-pins)'>> "$TMP"/upgradeScript
             echo '    ln -sf /var/lib/synaptic/preferences "$SynapticPins" 2>/dev/null'>> "$TMP"/upgradeScript
             echo 'fi'>> "$TMP"/upgradeScript
-            echo 'file "$SynapticPins" | cut -f2- -d" " | grep -e"broken symbolic link" -e"empty" -q '>> "$TMP"/upgradeScript
+            echo 'file "$SynapticPins" | cut -f2- -d" " | grep -e"broken symbolic link" -e"empty" > /dev/null '>> "$TMP"/upgradeScript
             echo 'if [ $? -eq 0 ]; then find /etc/apt/preferences.d | grep -E synaptic-[0-9a-zA-Z]{6}-pins | xargs rm -f; fi'>> "$TMP"/upgradeScript
             if [ "$UpgradeAssumeYes" = "true" ];
               then
@@ -702,11 +702,11 @@ Disabled
               else
                 echo "apt-get -V "$UpgradeType>> "$TMP"/upgradeScript
             fi
-            grep ^CheckForAutoRemoves=true ~/.config/apt-notifierrc -q
+            grep ^CheckForAutoRemoves=true ~/.config/apt-notifierrc > /dev/null
             if [ $? -eq 0 ]
               then
                 echo "echo">> "$TMP"/upgradeScript
-                echo 'apt-get autoremove -s | grep ^Remv -q'>> "$TMP"/upgradeScript
+                echo 'apt-get autoremove -s | grep ^Remv > /dev/null'>> "$TMP"/upgradeScript
                 echo 'if [ $? -eq 0 ]; '>> "$TMP"/upgradeScript
                 echo '  then'>> "$TMP"/upgradeScript
                 echo 'echo "'"$autoremovable_packages_msg1"'"'>> "$TMP"/upgradeScript
@@ -777,7 +777,7 @@ def initialize_aptnotifier_prefs():
     script = '''#! /bin/bash
 
     #test if ~/.config/apt-notifierrc contains a UpgradeType=* line and that it's a valid entry
-    grep -q -e ^"UpgradeType=upgrade" -e^"UpgradeType=dist-upgrade" ~/.config/apt-notifierrc
+    grep -e ^"UpgradeType=upgrade" -e^"UpgradeType=dist-upgrade" ~/.config/apt-notifierrc > /dev/null
     if [ "$?" -eq 0 ]
       then
       #contains a valid entry so do nothing
@@ -793,7 +793,7 @@ def initialize_aptnotifier_prefs():
     fi
 
     #test if ~/.config/apt-notifierrc contains a UpgradeAssumeYes=* line and that it's a valid entry
-    grep -q -e ^"UpgradeAssumeYes=true" -e^"UpgradeAssumeYes=false" ~/.config/apt-notifierrc
+    grep -e ^"UpgradeAssumeYes=true" -e^"UpgradeAssumeYes=false" ~/.config/apt-notifierrc > /dev/null
     if [ "$?" -eq 0 ]
       then
       #contains a valid entry so do nothing
@@ -809,7 +809,7 @@ def initialize_aptnotifier_prefs():
     fi
 
     #test if ~/.config/apt-notifierrc contains a UpgradeAutoClose=* line and that it's a valid entry
-    grep -q -e ^"UpgradeAutoClose=true" -e^"UpgradeAutoClose=false" ~/.config/apt-notifierrc
+    grep -e ^"UpgradeAutoClose=true" -e^"UpgradeAutoClose=false" ~/.config/apt-notifierrc > /dev/null
     if [ "$?" -eq 0 ]
       then
       #contains a valid entry so do nothing
@@ -825,7 +825,7 @@ def initialize_aptnotifier_prefs():
     fi
 
     #test if ~/.config/apt-notifierrc contains a LeftClick=* line and that it's a valid entry
-    grep -q -e ^"LeftClick=ViewAndUpgrade" -e^"LeftClick=Synaptic" ~/.config/apt-notifierrc
+    grep -e ^"LeftClick=ViewAndUpgrade" -e^"LeftClick=Synaptic" ~/.config/apt-notifierrc > /dev/null
     if [ "$?" -eq 0 ]
       then
       #contains a valid entry so do nothing
@@ -841,7 +841,7 @@ def initialize_aptnotifier_prefs():
     fi
 
     #test if ~/.config/apt-notifierrc contains a CheckForAutoRemoves=* line and that it's a valid entry
-    grep -q -e ^"CheckForAutoRemoves=true" -e^"CheckForAutoRemoves=false" ~/.config/apt-notifierrc
+    grep -e ^"CheckForAutoRemoves=true" -e^"CheckForAutoRemoves=false" ~/.config/apt-notifierrc > /dev/null
     if [ "$?" -eq 0 ]
       then
       #contains a valid entry so do nothing
@@ -857,7 +857,7 @@ def initialize_aptnotifier_prefs():
     fi
 
     #test if ~/.config/apt-notifierrc contains a IconLook=* line and that it's a valid entry
-    grep -q -e ^"IconLook=wireframe" -e^"IconLook=classic" -e^"IconLook=pulse" ~/.config/apt-notifierrc
+    grep -e ^"IconLook=wireframe" -e^"IconLook=classic" -e^"IconLook=pulse" ~/.config/apt-notifierrc > /dev/null
     if [ "$?" -eq 0 ]
       then
       #contains a valid entry so do nothing
@@ -883,7 +883,7 @@ def initialize_aptnotifier_prefs():
     fi
 
     #test to see if ~/.config/apt-notifierrc contains any blank lines or lines with only whitespace
-    grep -q ^[[:space:]]*$ ~/.config/apt-notifierrc 
+    grep ^[[:space:]]*$ ~/.config/apt-notifierrc > /dev/null
     if [ "$?" = "0" ]
       then
       #cleanup any blank lines or lines with only whitespace
@@ -902,12 +902,12 @@ def initialize_aptnotifier_prefs():
 
     [ -e ~/.local/share/applications/mx-updater-menu-kde.desktop ] || cp /usr/share/applications/mx-updater-menu-kde.desktop ~/.local/share/applications/mx-updater-menu-kde.desktop
 
-    grep $(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) ~/.local/share/applications/mx-updater-menu-kde.desktop -q
+    grep $(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) ~/.local/share/applications/mx-updater-menu-kde.desktop > /dev/null
     [ $? -eq 0 ] || sed -i 's/mnotify-some.*/mnotify-some-'"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"'/' ~/.local/share/applications/mx-updater-menu-kde.desktop
 
     [ -e ~/.local/share/applications/mx-updater-menu-non-kde.desktop ] || cp /usr/share/applications/mx-updater-menu-non-kde.desktop ~/.local/share/applications/mx-updater-menu-non-kde.desktop
 
-    grep $(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) ~/.local/share/applications/mx-updater-menu-non-kde.desktop -q 
+    grep $(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) ~/.local/share/applications/mx-updater-menu-non-kde.desktop > /dev/null
     [ $? -eq 0 ] || sed -i 's/mnotify-some.*/mnotify-some-'"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"'/' ~/.local/share/applications/mx-updater-menu-non-kde.desktop
 
     '''
@@ -1132,7 +1132,7 @@ EOF
         
     gtkdialog --file="$TMP"/DIALOG >> "$TMP"/output
 
-    grep -q EXIT=.*OK.* "$TMP"/output
+    grep EXIT=.*OK.* "$TMP"/output > /dev/null
 
     if [ "$?" -eq 0 ];
       then
@@ -1167,11 +1167,11 @@ EOF
     rm -rf "$TMP"
 
     #update Icon= line in .local mx-updater-menu-kde.desktop file if icon not same as IconLook config setting in ~/.config/apt-notifierrc file
-    grep $(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) ~/.local/share/applications/mx-updater-menu-kde.desktop -q
+    grep $(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) ~/.local/share/applications/mx-updater-menu-kde.desktop > /dev/null
     [ $? -eq 0 ] || sed -i 's/mnotify-some.*/mnotify-some-'"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"'/' ~/.local/share/applications/mx-updater-menu-kde.desktop
 
     #update Icon= line in .local mx-updater-menu-non-kde.desktop file if icon not same as IconLook config setting in ~/.config/apt-notifierrc file
-    grep $(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) ~/.local/share/applications/mx-updater-menu-non-kde.desktop -q 
+    grep $(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) ~/.local/share/applications/mx-updater-menu-non-kde.desktop > /dev/null
     [ $? -eq 0 ] || sed -i 's/mnotify-some.*/mnotify-some-'"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"'/' ~/.local/share/applications/mx-updater-menu-non-kde.desktop
 
     #restart apt-notifier if IconLook setting has been changed 
@@ -1252,7 +1252,7 @@ def apt_get_update():
     I=" --icon=mnotify-some-""$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
     T=" --title='""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" Updater: $reload'"
 <<'Disabled'
-    if (xprop -root | grep -q -i kde)
+    if (xprop -root | grep -i kde > /dev/null)
       then
         # Running KDE
         #
@@ -1385,7 +1385,7 @@ def left_click():
         start_synaptic0()
     else:
         """Test ~/.config/apt-notifierrc for LeftClickViewAndUpgrade"""
-        command_string = "cat " + rc_file_name + " | grep -q LeftClick=ViewAndUpgrade"
+        command_string = "grep LeftClick=ViewAndUpgrade " + rc_file_name + " > /dev/null"
         exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
         if exit_state == 0:
             viewandupgrade0()
@@ -1399,7 +1399,7 @@ def left_click_activated(reason):
 
 def read_icon_config():
     """Reads ~/.config/apt-notifierrc, returns 'show' if file doesn't exist or does not contain DontShowIcon"""
-    command_string = "cat " + rc_file_name + " | grep -q DontShowIcon"
+    command_string = "grep DontShowIcon " + rc_file_name + " > /dev/null"
     exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
     if exit_state != 0:
         return "show"
@@ -1419,7 +1419,7 @@ def read_icon_look():
     
 def set_noicon():
     """Reads ~/.config/apt-notifierrc. If "DontShowIcon blah blah blah" is already there, don't write it again"""
-    command_string = "cat " + rc_file_name + " | grep -q DontShowIcon"
+    command_string = "grep DontShowIcon " + rc_file_name + " > /dev/null"
     exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
     if exit_state != 0:
         file = open(rc_file_name, 'a')
@@ -1432,7 +1432,7 @@ def set_noicon():
 def add_rightclick_actions():
     ActionsMenu.clear()
     """Test ~/.config/apt-notifierrc for LeftClickViewAndUpgrade"""
-    command_string = "cat " + rc_file_name + " | grep -q LeftClick=ViewAndUpgrade"
+    command_string = "grep LeftClick=ViewAndUpgrade " + rc_file_name + " > /dev/null"
     exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
     if exit_state == 0:
         ActionsMenu.addAction(View_and_Upgrade).triggered.connect( viewandupgrade0 )
@@ -1526,7 +1526,7 @@ def open_synaptic_help():
       else HelpUrl="$HelpUrlBase"
     fi
     #test to see if pdf or html (a 0 result = pdf)
-    echo $HelpUrl | grep \.pdf -q    
+    echo $HelpUrl | grep \.pdf > /dev/null
     if [ $? -eq 0 ]
       then
         TMP=$(mktemp -d /tmp/synaptic_help.XXXXXX)
