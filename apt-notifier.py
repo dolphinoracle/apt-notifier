@@ -702,7 +702,7 @@ Disabled
               else
                 echo "apt-get -V "$UpgradeType>> "$TMP"/upgradeScript
             fi
-            grep ^CheckForAutoRemoves=true ~/.config/apt-notifierrc > /dev/null
+            grep ^CheckForAutoRemovables=true ~/.config/apt-notifierrc > /dev/null
             if [ $? -eq 0 ]
               then
                 echo "echo">> "$TMP"/upgradeScript
@@ -840,20 +840,27 @@ def initialize_aptnotifier_prefs():
       echo "LeftClick=ViewAndUpgrade">> ~/.config/apt-notifierrc
     fi
 
-    #test if ~/.config/apt-notifierrc contains a CheckForAutoRemoves=* line and that it's a valid entry
-    grep -e ^"CheckForAutoRemoves=true" -e^"CheckForAutoRemoves=false" ~/.config/apt-notifierrc > /dev/null
+    #test if ~/.config/apt-notifierrc contains a CheckForAutoRemovables=* line and that it's a valid entry
+    grep -e ^"CheckForAutoRemovables=true" -e^"CheckForAutoRemovables=false" ~/.config/apt-notifierrc > /dev/null
     if [ "$?" -eq 0 ]
       then
       #contains a valid entry so do nothing
         :
       else
       #
-      #if a CheckForAutoRemoves=* line not present,
+      #if a CheckForAutoRemovables=* line not present,
       #or not equal to "true" or "false"
-      #intially set it to "CheckForAutoRemoves=false"
+      #intially set it to "CheckForAutoRemovables=false"
       #also delete multiple entries or what appears to be invalid entries
-      sed -i '/.*CheckForAutoRemoves.*/Id' ~/.config/apt-notifierrc 
-      echo "CheckForAutoRemoves=false">> ~/.config/apt-notifierrc
+      sed -i '/.*CheckForAutoRemovables.*/Id' ~/.config/apt-notifierrc 
+      echo "CheckForAutoRemovables=false">> ~/.config/apt-notifierrc
+    fi
+
+    #delete any 'CheckForAutoRemoves' config line(s), they've been replaced with 'CheckForAutoRemovables'
+    grep CheckForAutoRemoves ~/.config/apt-notifierrc > /dev/null
+    if [ "$?" -eq 0 ]
+      then
+        sed -i '/.*CheckForAutoRemoves.*/Id' ~/.config/apt-notifierrc
     fi
 
     #test if ~/.config/apt-notifierrc contains a IconLook=* line and that it's a valid entry
@@ -1014,11 +1021,11 @@ def aptnotifier_prefs():
             <variable>UpgradeAutoClose</variable>
             <action>:</action>
           </checkbox>
-          <checkbox active="@CheckForAutoRemoves@">
-            <label>@check_for_autoremoves@</label>
-            <variable>CheckForAutoRemoves</variable>
-            <action>:</action>
-          </checkbox>
+         #<checkbox active="@CheckForAutoRemovables@">
+         #  <label>@check_for_autoremoves@</label>
+         #  <variable>CheckForAutoRemovables</variable>
+         #  <action>:</action>
+         #</checkbox>
         </frame>
         <frame @Icons@>
           <hbox homogeneous="true">
@@ -1065,6 +1072,7 @@ def aptnotifier_prefs():
       </vbox>
     </window>
 EOF
+    sed '/\x23/d' -i "$TMP"/DIALOG
 
     cat << EOF > "$TMP"/enable_unattended_upgrades
     #!/bin/bash
@@ -1106,7 +1114,7 @@ EOF
     sed -i 's/@LeftClickBehaviourViewAndUpgrade@/'$(if [ $(grep LeftClick=ViewAndUpgrade ~/.config/apt-notifierrc) ]; then echo -n true; else echo -n false; fi)'/' "$TMP"/DIALOG
     sed -i 's/@UpgradeAssumeYes@/'$(grep UpgradeAssumeYes ~/.config/apt-notifierrc | cut -f2 -d=)'/' "$TMP"/DIALOG
     sed -i 's/@UpgradeAutoClose@/'$(grep UpgradeAutoClose ~/.config/apt-notifierrc | cut -f2 -d=)'/' "$TMP"/DIALOG
-    sed -i 's/@CheckForAutoRemoves@/'$(grep CheckForAutoRemoves ~/.config/apt-notifierrc | cut -f2 -d=)'/' "$TMP"/DIALOG
+    sed -i 's/@CheckForAutoRemovables@/'$(grep CheckForAutoRemovables ~/.config/apt-notifierrc | cut -f2 -d=)'/' "$TMP"/DIALOG
     sed -i 's/@IconLookWireframe@/'$(if [ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]; then echo -n true; else echo -n false; fi)'/' "$TMP"/DIALOG
     sed -i 's/@IconLookClassic@/'$(if [ $(grep IconLook=classic ~/.config/apt-notifierrc) ]; then echo -n true; else echo -n false; fi)'/' "$TMP"/DIALOG
     sed -i 's/@IconLookPulse@/'$(if [ $(grep IconLook=pulse ~/.config/apt-notifierrc) ]; then echo -n true; else echo -n false; fi)'/' "$TMP"/DIALOG
@@ -1144,8 +1152,8 @@ EOF
         if [ $(grep UpgradeAssumeYes=.*true.*         "$TMP"/output) ]; then sed -i 's/UpgradeAssumeYes=false/UpgradeAssumeYes=true/'       ~/.config/apt-notifierrc; fi
         if [ $(grep UpgradeAutoClose=.*false.*        "$TMP"/output) ]; then sed -i 's/UpgradeAutoClose=true/UpgradeAutoClose=false/'       ~/.config/apt-notifierrc; fi
         if [ $(grep UpgradeAutoClose=.*true.*         "$TMP"/output) ]; then sed -i 's/UpgradeAutoClose=false/UpgradeAutoClose=true/'       ~/.config/apt-notifierrc; fi
-        if [ $(grep CheckForAutoRemoves=.*false.*     "$TMP"/output) ]; then sed -i 's/CheckForAutoRemoves=true/CheckForAutoRemoves=false/' ~/.config/apt-notifierrc; fi
-        if [ $(grep CheckForAutoRemoves=.*true.*      "$TMP"/output) ]; then sed -i 's/CheckForAutoRemoves=false/CheckForAutoRemoves=true/' ~/.config/apt-notifierrc; fi
+        if [ $(grep CheckForAutoRemovables=.*false.*     "$TMP"/output) ]; then sed -i 's/CheckForAutoRemovables=true/CheckForAutoRemovables=false/' ~/.config/apt-notifierrc; fi
+        if [ $(grep CheckForAutoRemovables=.*true.*      "$TMP"/output) ]; then sed -i 's/CheckForAutoRemovables=false/CheckForAutoRemovables=true/' ~/.config/apt-notifierrc; fi
         if [ $(grep IconLook_wireframe=.*true.*       "$TMP"/output) ]; then sed -i 's/IconLook=classic/IconLook=wireframe/'                ~/.config/apt-notifierrc; fi
         if [ $(grep IconLook_wireframe=.*true.*       "$TMP"/output) ]; then sed -i 's/IconLook=pulse/IconLook=wireframe/'                  ~/.config/apt-notifierrc; fi
         if [ $(grep IconLook_classic=.*true.*         "$TMP"/output) ]; then sed -i 's/IconLook=wireframe/IconLook=classic/'                ~/.config/apt-notifierrc; fi
