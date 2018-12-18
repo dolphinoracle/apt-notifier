@@ -1,3 +1,11 @@
+apt-notifier (18.12.17mx17+1) mx; urgency=medium
+
+  * Fix gsku dialog for Reload (apt-get update) actions
+  * Changes to fix 'grep: write error: Broken pipe' error
+  * Autoremove option removed from Preferences dialog
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Mon, 17 Dec 2018 19:41:26 -0500
+
 apt-notifier (18.11.30mx17+1) mx; urgency=medium
 
   * Translations updated.
