@@ -3,13 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Translators:
+# anticapitalista <anticapitalista@riseup.net>, 2018
+# Guilherme Peev dos Santos <guilherme.peev@gmail.com>, 2018
+# José Vieira <jvieira33@sapo.pt>, 2018
+# cmenemrs <cmenemrs@gmail.com>, 2018
+# Danylo Sa <kaiserblast@gmail.com>, 2018
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-14 11:41-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2017-05-11 01:14+0000\n"
 "Last-Translator: Danylo Sa <kaiserblast@gmail.com>, 2018\n"
 "Language-Team: Portuguese (Brazil) (https://www.transifex.com/anticapitalista/teams/10162/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -20,39 +27,39 @@ msgstr ""
 
 #: apt-notifier.py:66
 msgid "0 updates available"
-msgstr "0 actualizações disponíveis"
+msgstr "0 atualizações disponíveis"
 
 #: apt-notifier.py:67
 msgid "1 new update available"
-msgstr "1 nova actualização disponível"
+msgstr "1 nova atualização disponível"
 
 #: apt-notifier.py:68
 msgid "$count new updates available"
-msgstr "$count novas actualizações disponíveis"
+msgstr "$count novas atualizações disponíveis"
 
 #: apt-notifier.py:69
 msgid "Updates"
-msgstr "Actualizações"
+msgstr "Atualizações"
 
 #: apt-notifier.py:70
 msgid "You have 1 new update available"
-msgstr "Há 1 nova actualização disponível"
+msgstr "Há 1 nova atualização disponível"
 
 #: apt-notifier.py:71
 msgid "You have $count new updates available"
-msgstr "Há $count novas actualizações disponíveis"
+msgstr "Há $count novas atualizações disponíveis"
 
 #: apt-notifier.py:72
 msgid "Upgrade using Synaptic"
-msgstr "Actualizar através do Synaptic"
+msgstr "Atualizar através do Synaptic"
 
 #: apt-notifier.py:73
 msgid "View and Upgrade"
-msgstr "Ver e actualizar"
+msgstr "Ver e Atualizar"
 
 #: apt-notifier.py:74
 msgid "Hide until updates available"
-msgstr "Ocultar até haver actualizações disponíveis"
+msgstr "Ocultar até haver atualizações disponíveis"
 
 #: apt-notifier.py:75
 msgid "Quit"
@@ -60,7 +67,7 @@ msgstr "Sair"
 
 #: apt-notifier.py:76
 msgid "MX Updater Help"
-msgstr "Ajuda do Actualizador do MX"
+msgstr "Ajuda do Notificador"
 
 #: apt-notifier.py:77
 msgid "Synaptic Help"
@@ -84,7 +91,7 @@ msgstr "Atualizar automaticamente log(s) do dpkg"
 
 #: apt-notifier.py:82
 msgid "Check for Updates"
-msgstr "Verificar se há actualizações"
+msgstr "Verificar se há atualizações"
 
 #: apt-notifier.py:83
 msgid "About"
@@ -93,47 +100,49 @@ msgstr "Sobre"
 #: apt-notifier.py:340
 msgid "MX Updater--View and Upgrade, previewing: basic upgrade"
 msgstr ""
-"Actualizador do MX -- Ver e Actualizar; visualização: actualizar pacotes"
+"Notificador de Atualizações--Ver e Atualizar; visualização: atualizar "
+"pacotes"
 
 #: apt-notifier.py:341
 msgid "MX Updater--View and Upgrade, previewing: full upgrade"
 msgstr ""
-"Actualizador do MX -- Ver e Actualizar; visualização: actualizar sistema"
+"Notificador de Atualizações--Ver e Atualizar; visualização: atualizar o "
+"sistema"
 
 #: apt-notifier.py:343
 msgid "Automatically answer 'yes' to all prompts during upgrade"
 msgstr ""
-"Durante a actualização responder automaticamente sim/yes a todas as "
+"Durante a atualização responder automaticamente 'sim' a todas as "
 "perguntas/pedidos de confirmação"
 
 #: apt-notifier.py:345 apt-notifier.py:347
 msgid "automatically close terminal window when upgrade complete"
 msgstr ""
-"fechar automaticamente a janela de terminal ao completar a actualização "
+"fechar automaticamente a janela de terminal ao completar a atualização "
 
 #: apt-notifier.py:348 apt-notifier.py:976
 msgid "basic upgrade"
-msgstr "actualizar pacotes"
+msgstr "atualizar pacotes"
 
 #: apt-notifier.py:349
 msgid "full upgrade"
-msgstr "actualizar sistema"
+msgstr "atualizar o sistema"
 
 #: apt-notifier.py:350
 msgid "switch to basic upgrade"
-msgstr "mudar para 'actualizar pacotes'"
+msgstr "mudar para 'atualizar pacotes'"
 
 #: apt-notifier.py:351
 msgid "switch to full upgrade"
-msgstr "mudar para 'actualizar sistema'"
+msgstr "mudar para 'atualizar o sistema'"
 
 #: apt-notifier.py:352
 msgid ""
 "Switches the type of Upgrade that will be performed, alternating back and "
 "forth between 'full upgrade' and 'basic upgrade'."
 msgstr ""
-"Altera o tipo de Actualização a efectuar, alternando entre 'actualizar "
-"sistema' e 'actualizar pacotes'"
+"Altera o tipo de Atualização a efectuar, alternando entre 'atualizar o "
+"sistema' e 'atualizar pacotes'"
 
 #: apt-notifier.py:353 apt-notifier.py:1281
 msgid "Reload"
@@ -144,8 +153,8 @@ msgid ""
 "Reload the package information to become informed about new, removed or "
 "upgraded software packages. (apt-get update)"
 msgstr ""
-"Recarregar a informação dos repositórios, actualizando-a (novos pacotes, "
-"pacotes removidos e pacotes actualizados). [apt-get update]"
+"Recarregar a informação dos repositórios, atualizando-a (novos pacotes, "
+"pacotes removidos e pacotes atualizados). [apt-get update]"
 
 #: apt-notifier.py:357 apt-notifier.py:1280
 msgid ""
@@ -157,11 +166,11 @@ msgstr ""
 
 #: apt-notifier.py:360
 msgid "basic upgrade complete (or was canceled)"
-msgstr "actualização dos pacotes terminada (ou foi cancelada)"
+msgstr "atualização de pacotes terminada (ou foi cancelada)"
 
 #: apt-notifier.py:361
 msgid "full upgrade complete (or was canceled)"
-msgstr "actualização do sistema terminada (ou foi cancelada)"
+msgstr "atualização do sistema terminada (ou foi cancelada)"
 
 #: apt-notifier.py:362
 msgid "this terminal window can now be closed"
@@ -181,31 +190,31 @@ msgstr "A executar o apt-get autoremove; em caso de dúvida, teclar 'n'."
 
 #: apt-notifier.py:366
 msgid "upgrade"
-msgstr "actualizar"
+msgstr "atualizar"
 
 #: apt-notifier.py:367
 msgid "Using full upgrade"
-msgstr "A usar 'actualização de sistema'"
+msgstr "A usar 'atualizar o sistema'"
 
 #: apt-notifier.py:368
 msgid "Using basic upgrade (not recommended)"
-msgstr "A usar 'actualização de pacotes' (não recomendado)"
+msgstr "A usar 'atualizar pacotes' (não recomendado)"
 
 #: apt-notifier.py:973
 msgid "MX Updater preferences"
-msgstr "Preferências do Actualizador do MX"
+msgstr "Preferências do Notificador de Actualizações"
 
 #: apt-notifier.py:974
 msgid "Upgrade mode"
-msgstr "Tipo de Actualização"
+msgstr "Tipo de Atualização"
 
 #: apt-notifier.py:975
 msgid "full upgrade   (recommended)"
-msgstr "'actualização de sistema' (recomendado)"
+msgstr "actualizar o sistema (recomendado)"
 
 #: apt-notifier.py:977
 msgid "Left-click behaviour   (when updates are available)"
-msgstr "Comportamento do botão esquerdo (quando há actualizações disponíveis)"
+msgstr "Comportamento do botão esquerdo (quando há atualizações disponíveis)"
 
 #: apt-notifier.py:978
 msgid "Other options"
@@ -217,22 +226,22 @@ msgstr "abre o Synaptic"
 
 #: apt-notifier.py:980
 msgid "opens MX Updater 'View and Upgrade' window"
-msgstr "abre a janela 'Ver e Actualizar' do Actualizador do MX"
+msgstr "abre a janela 'Ver e Actualizar' do Notificador de Actualizações"
 
 #: apt-notifier.py:981
 msgid "Automatically answer 'yes' to all prompts during full/basic upgrade"
 msgstr ""
-"Durante a actualização de pacotes/sistema responder automaticamente sim/yes "
-"a todas as perguntas/pedidos de confirmação"
+"Durante a atualização responder automaticamente 'sim' a todas as "
+"perguntas/pedidos de confirmação"
 
 #: apt-notifier.py:982
 msgid "automatically close terminal window when full/basic upgrade complete"
 msgstr ""
-"fechar automaticamente a janela de terminal/consola após a actualização"
+"fechar automaticamente a janela de terminal/consola após a atualização"
 
 #: apt-notifier.py:983
 msgid "check for autoremovable packages after full/basic upgrade"
-msgstr "procurar pacotes autoremovíveis após actualização"
+msgstr "procurar pacotes autoremovíveis após atualização"
 
 #: apt-notifier.py:984
 msgid "Icons"
@@ -248,16 +257,16 @@ msgstr "gráfico"
 
 #: apt-notifier.py:987
 msgid "wireframe"
-msgstr "caixa"
+msgstr "transparente"
 
 #: apt-notifier.py:988
 msgid "Auto-update"
-msgstr "Actualização automática"
+msgstr "Atualização automática"
 
 #: apt-notifier.py:989
 msgid "update automatically   (will not add new or remove existing packages)"
 msgstr ""
-"actualiza automaticamente a informação dos pacotes (não addiciona novos "
+"atualizar automaticamente a informação dos pacotes (não addiciona novos "
 "pacotes nem remove pacotes existentes)"
 
 #: apt-notifier.py:990
@@ -265,8 +274,8 @@ msgid ""
 "<b>Root privileges</b> are required to <b>enable</b> Auto Updates. Please "
 "enter <b>root's</b> password below."
 msgstr ""
-"São necessários<b>privilégios de root</b> para <b>activar</b> a Actualização"
-" Automática. Introduzir em baixo a senha de <b>root</b>."
+"São necessários<b>privilégios de root</b> para <b>activar</b> a Atualização "
+"Automática. Introduzir em baixo a senha de <b>root</b>."
 
 #: apt-notifier.py:991
 msgid ""
@@ -274,15 +283,15 @@ msgid ""
 "enter <b>root's</b> password below."
 msgstr ""
 "São necessários <b>privilégios de root</b> para <b>desactivar</b> a "
-"Actualização Automática. Introduzir em baixo a senha de <b>root</b>."
+"Atualização Automática. Introduzir em baixo a senha de <b>root</b>."
 
 #: apt-notifier.py:1632
 msgid "MX Updater"
-msgstr "Actualizador do MX"
+msgstr "Notificador de Atualizações"
 
 #: apt-notifier.py:1633
 msgid "About MX Updater"
-msgstr "Sobre o Actualizador do MX"
+msgstr "Sobre o Notificador de Atualizações"
 
 #: apt-notifier.py:1634
 msgid "Changelog"
@@ -299,8 +308,8 @@ msgstr "Cancelar"
 #: apt-notifier.py:1637
 msgid "Tray applet to notify of system and application updates"
 msgstr ""
-"Mini-aplicação de bandeja para notificar da existência de actualizações de "
-"sistema e de aplicações"
+"Mini-aplicação de bandeja para notificar da existência de atualizações de "
+"sistema e de pacotes/aplicações"
 
 #: apt-notifier.py:1694
 msgid ""
@@ -313,7 +322,8 @@ msgstr ""
 #: apt-notifier.py:1695
 msgid "MX Auto-update  --  unattended-upgrades log viewer"
 msgstr ""
-"MX Auto-update  --  visualizador de registros de atualizações autônomos."
+"Atualização automática  --  visualizador de registros de atualizações "
+"autônomos."
 
 #: apt-notifier.py:1696
 msgid "No logs found."
@@ -336,7 +346,8 @@ msgstr ""
 #: apt-notifier.py:1765
 msgid "MX Auto-update  --  unattended-upgrades dpkg log viewer"
 msgstr ""
-"MX Auto-update  --  visualizador de log do dpkg com atualização automática"
+"Atualização automática  --  visualizador de log do dpkg com atualização "
+"automática"
 
 #: apt-notifier.py:1766
 msgid "No unattended-upgrades dpkg log(s) found."
