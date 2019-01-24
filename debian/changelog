@@ -1,3 +1,9 @@
+apt-notifier (19.01.23mx17+1) mx; urgency=medium
+
+  * Translations updated.
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Wed, 23 Jan 2019 19:09:40 -0500
+
 apt-notifier (18.12.17mx17+1) mx; urgency=medium
 
   * Fix gsku dialog for Reload (apt-get update) actions
