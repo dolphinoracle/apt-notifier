@@ -1,3 +1,9 @@
+apt-notifier (19.01.31mx17+1) mx; urgency=medium
+
+  * Change to pkexec for actions requiring authentication
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Thu, 31 Jan 2019 22:29:20 -0500
+
 apt-notifier (19.01.23mx17+1) mx; urgency=medium
 
   * Translations updated.

@@ -274,7 +274,7 @@ def check_updates():
    
 def start_synaptic():
     global Check_for_Updates_by_User
-    run = subprocess.Popen(['/usr/bin/su-to-root -X -c synaptic'],shell=True).wait()
+    run = subprocess.Popen(['synaptic-pkexec'],shell=True).wait()
     Check_for_Updates_by_User = 'true'
     check_updates()
 
@@ -356,17 +356,17 @@ def viewandupgrade():
     RunAptScriptInTerminal(){
     #for MEPIS remove "MX" branding from the $window_title string
     window_title_term=$window_title
-    window_title_term=$(echo "$1"|sed 's/MX /'$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
+    window_title_term=$(echo "$2"|sed 's/MX /'$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
 
         TermXOffset="$(xwininfo -root|awk '/Width/{print $2/4}')"
         TermYOffset="$(xwininfo -root|awk '/Height/{print $2/4}')"
         G=" --geometry=80x25+"$TermXOffset"+"$TermYOffset
         I=" --icon=mnotify-some-""$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
-        if [ "$2" = "" ]
+        if [ "$3" = "" ]
           then T=""; I=""
           else 
-            if [ "$2" != "update" ]
-              then T=" --title='""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" Updater: "$2"'"
+            if [ "$3" != "update" ]
+              then T=" --title='""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" Updater: "$3"'"
               else T=" --title='""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" Updater: "$reload"'"
             fi
         fi
@@ -458,10 +458,10 @@ def viewandupgrade():
 Disabled
             case $(readlink -e /usr/bin/x-terminal-emulator | xargs basename) in
 
-              gnome-terminal.wrapper) su-to-root -X -c "gnome-terminal$G$T -e $3"
+              gnome-terminal.wrapper) "$1" "gnome-terminal$G$T -e $4"
                                       ;;
 
-                             konsole) su-to-root -X -c "konsole -e $3"
+                             konsole) "$1" "konsole -e $4"
                                       sleep 5
                                       while [ "$(ps aux | grep [0-9]' konsole -e apt-get update')" != "" ]
                                         do
@@ -470,26 +470,21 @@ Disabled
                                       sleep 1 
                                       ;;
 
-                             roxterm) su-to-root -X -c "roxterm$G$T --separate -e $3"
+                             roxterm) "$1" "roxterm$G$T --separate -e $4"
                                       ;;
 
-              xfce4-terminal.wrapper) if [ -x $(whereis gksu | awk '{print $2}') ]
-                                        then
-                                          gksu --su-mode -m "$rootPasswordRequestMsg""\n\n'""$2""'" "xfce4-terminal$G$I$T -e $3"
-                                        else
-                                          su-to-root -X -c "xfce4-terminal$G$I$T -e $3"
-                                      fi                                      
+              xfce4-terminal.wrapper) "$1" "xfce4-terminal$G$I$T -e $4" 2>/dev/null 1>/dev/null
                                       ;;
 
                                xterm) if [ -e /usr/bin/xfce4-terminal ]
                                         then
-                                          su-to-root -X -c "xfce4-terminal$G$I$T -e $3"
+                                          "$1" "xfce4-terminal$G$I$T -e $4"
                                         else
-                                          su-to-root -X -c "xterm -e $3"
+                                          "$1" "xterm -e $4"
                                       fi
                                       ;;
 
-                                   *) su-to-root -X -c "x-terminal-emulator -e $3"
+                                   *) "$1" "x-terminal-emulator -e $4"
                                       ;;
 
             esac
@@ -501,7 +496,7 @@ Disabled
         0)
         BP="1"
         chmod +x $TMP/upgradeScript
-        RunAptScriptInTerminal "$window_title" "$UpgradeTypeUserFriendlyName" "$TMP/upgradeScript"
+        RunAptScriptInTerminal mx-updater-"$(sed 's/^upgrade$/basic-upgrade/;s/dist-upgrade/full-upgrade/' <<<$UpgradeType)" "$window_title" "$UpgradeTypeUserFriendlyName" "$TMP/upgradeScript"
         ;;
 
         2)
@@ -516,7 +511,7 @@ Disabled
         8)
         BP="0"
         #chmod +x $TMP/upgradeScript
-        RunAptScriptInTerminal "" "$reload" "'apt-get update'"
+        RunAptScriptInTerminal "mx-updater-reload" "" "$reload" "'apt-get update'"
         sleep 1
         ;;
         
@@ -1322,33 +1317,28 @@ def apt_get_update():
 Disabled
         case $(readlink -e /usr/bin/x-terminal-emulator | xargs basename) in
 
-          gnome-terminal.wrapper) su-to-root -X -c "gnome-terminal$G$T -e 'apt-get update'"
+          gnome-terminal.wrapper) mx-updater-reload "gnome-terminal$G$T -e 'apt-get update'"
                                   ;;
 
-                         konsole) su-to-root -X -c "konsole -e apt-get update"
+                         konsole) mx-updater-reload "konsole -e apt-get update"
                                   sleep 5
                                   ;;
 
-                         roxterm) su-to-root -X -c "roxterm$G$T --separate -e apt-get update"
+                         roxterm) mx-updater-reload "roxterm$G$T --separate -e apt-get update"
                                   ;;
 
-          xfce4-terminal.wrapper) if [ -x $(whereis gksu | awk '{print $2}') ]
-                                    then
-                                      gksu --su-mode -m "$rootPasswordRequestMsg""\n\n'""$reload""'" "xfce4-terminal$G$I$T -e 'apt-get update'"
-                                    else
-                                      su-to-root -X -c "xfce4-terminal$G$I$T -e 'apt-get update'"
-                                  fi                                      
+          xfce4-terminal.wrapper) mx-updater-reload "xfce4-terminal$G$I$T -e 'apt-get update'"
                                   ;;
 
                            xterm) if [ -e /usr/bin/xfce4-terminal ]
                                     then
-                                      su-to-root -X -c "xfce4-terminal$G$I$T -e 'apt-get update'"
+                                      mx-updater-reload "xfce4-terminal$G$I$T -e 'apt-get update'"
                                     else
-                                      su-to-root -X -c "xterm -e apt-get update"
+                                      mx-updater-reload "xterm -e apt-get update"
                                   fi
                                   ;;
 
-                               *) su-to-root -X -c "x-terminal-emulator -e apt-get update"
+                               *) mx-updater-reload "x-terminal-emulator -e apt-get update"
                                   ;;
 
         esac
