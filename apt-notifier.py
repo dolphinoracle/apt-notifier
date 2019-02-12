@@ -307,9 +307,6 @@ def viewandupgrade():
     t11 = _("Reload")
     t12 = _("Reload the package information to become informed about new, removed or upgraded software packages. (apt-get update)")
     
-    # t13, gksu dialog
-    t13 = _("The action you requested needs root privileges. Please enter root's password below.")
-
     # t14 thru t19, strings for the upgrade (basic) / dist-upgrade (full) script that runs in the terminal window    
     t14 = _("basic upgrade complete (or was canceled)")
     t15 = _("full upgrade complete (or was canceled)")
@@ -334,7 +331,6 @@ def viewandupgrade():
     '    switch_tooltip="'              + t10 + '"\n'
     '    reload="'                      + t11 + '"\n'
     '    reload_tooltip="'              + t12 + '"\n'
-    '    rootPasswordRequestMsg="'      + t13 + '"\n'
     '    done1basic="'                  + t14 + '"\n'
     '    done1full="'                   + t15 + '"\n'
     '    done2="'                       + t16 + '"\n'
@@ -446,7 +442,7 @@ def viewandupgrade():
 
             # Running a non KDE desktop
             # 
-            # Use su-to-root for authentication, it should end up using gksu.
+            # Use pkexec for authentication.
             # 
             # If x-terminal-emulator is set to xfce4-terminal.wrapper, use 
             # xfce4-terminal instead because the --hold option doesn't work
@@ -944,8 +940,8 @@ def aptnotifier_prefs():
     t15 = _("wireframe")
     t16 = _("Auto-update")
     t17 = _("update automatically   (will not add new or remove existing packages)")
-    t18 = _("Root privileges are required to enable Auto Updates. Please enter root's password below.")
-    t19 = _("Root privileges are required to disable Auto Updates. Please enter root's password below.")
+    t18 = _("Enable Auto-updates")
+    t19 = _("Disable Auto Updates")
  
     shellvar = (
         '    window_title="'                             + t01 + '"\n'
@@ -965,8 +961,8 @@ def aptnotifier_prefs():
         '    label_wireframe="'                          + t15 + '"\n'
         '    frame_Auto_update="'                        + t16 + '"\n' 
         '    auto_update_checkbox_txt="'                 + t17 + '"\n'
-        '    rootPasswordRequestMsgEnableAutoUpdates="'  + t18 + '"\n'
-        '    rootPasswordRequestMsgDisableAutoUpdates="' + t19 + '"\n'
+        '    pkexecMsgEnableAutoUpdates="'               + t18 + '"\n'
+        '    pkexecMsgDisableAutoUpdates="'              + t19 + '"\n'
         )
     
     script = '''#! /bin/bash
@@ -1157,12 +1153,10 @@ EOF
         if [ $(grep IconLook_pulse=.*true.*           "$TMP"/output) ]; then sed -i 's/IconLook=classic/IconLook=pulse/'                    ~/.config/apt-notifierrc; fi
         if [ $Unattended_Upgrade_before_pref_dialog = "0" ] && [ $(grep AutoUpdate=.*true.* "$TMP"/output) ]
           then
-            #gksu --su-mode -m "$rootPasswordRequestMsgEnableAutoUpdates"  sh "$TMP"/enable_unattended_upgrades
             mx-updater-enable-auto-update  sh "$TMP"/enable_unattended_upgrades 2>/dev/null 1>/dev/null
         fi
         if [ $Unattended_Upgrade_before_pref_dialog = "1" ] && [ $(grep AutoUpdate=.*false.* "$TMP"/output) ]
           then
-            #gksu --su-mode -m "$rootPasswordRequestMsgDisableAutoUpdates" sh "$TMP"/disable_unattended_upgrades
             mx-updater-disable-auto-update  sh "$TMP"/disable_unattended_upgrades 2>/dev/null 1>/dev/null
         fi
       else
@@ -1237,12 +1231,10 @@ def apt_get_update():
     
     # ~~~ Localize 4 ~~~
 
-    t01 = _("The action you requested needs root privileges. Please enter root's password below.")
-    t02 = _("Reload")
+    t01 = _("Reload")
     
     shellvar = (
-    '    rootPasswordRequestMsg="' + t01 + '"\n'
-    '    reload="' + t02 + '"\n'
+    '    reload="' + t01 + '"\n'
     )
     
     script = '''#! /bin/bash
@@ -1307,7 +1299,7 @@ def apt_get_update():
       else
         # Running a non KDE desktop
         # 
-        # Use su-to-root for authentication, it should end up using gksu.
+        # Use pkexec for authentication.
         # 
         # If x-terminal-emulator is set to xfce4-terminal.wrapper, use 
         # xfce4-terminal instead because the --hold option doesn't work
@@ -1649,12 +1641,12 @@ if __name__ == '__main__':
     
 def view_unattended_upgrades_logs():
     # ~~~ Localize 6 ~~~
-    t01 = _("Root privileges are required to view the Auto-update log(s). Please enter root's password below.")
+    t01 = _("View Auto-update log(s)")
     t02 = _("MX Auto-update  --  unattended-upgrades log viewer")
     t03 = _("No logs found.")
     t04 = _("For a less detailed view see 'Auto-update dpkg log(s)' or 'History'.")
     shellvar = (
-        '    rootPasswordRequestMsg="' + t01 + '"\n'
+        '    pkexecMsg="'              + t01 + '"\n'
         '    Title="'                  + t02 + '"\n'
         '    NoLogsFound="'            + t03 + '"\n'     
         '    SeeHistory="'             + t04 + '"\n'   
@@ -1707,7 +1699,6 @@ EOF
     sed -i 's|ICON|/usr/share/icons/mnotify-some-'"$IconLook"'.png|' "$TMP"/ViewLogs
     Title="$(sed "s|[']|\\\\'|g" <<<"$Title")"    
     sed -i "s|TITLE|"'"'"$Title"'"'"|"  "$TMP"/ViewLogs
-    #gksu  --su-mode -m "$rootPasswordRequestMsg" bash "$TMP"/ViewLogs
     mx-updater-view-auto-update-logs bash "$TMP"/ViewLogs
     rm -rf "$TMP"
     '''
@@ -1720,11 +1711,11 @@ EOF
     
 def view_unattended_upgrades_dpkg_logs():
     # ~~~ Localize 7 ~~~
-    t01 = _("Root privileges are required to view the Auto-update dpkg log(s). Please enter root's password below.")
+    t01 = _("View Auto-update dpkg log(s)")
     t02 = _("MX Auto-update  --  unattended-upgrades dpkg log viewer")
     t03 = _("No unattended-upgrades dpkg log(s) found.")
     shellvar = (
-        '    rootPasswordRequestMsg="' + t01 + '"\n'
+        '    pkexecMsg="'              + t01 + '"\n'
         '    Title="'                  + t02 + '"\n'
         '    NoLogsFound="'            + t03 + '"\n'     
         )
@@ -1761,7 +1752,6 @@ EOF
     sed -i 's|ICON|/usr/share/icons/mnotify-some-'"$IconLook"'.png|' "$TMP"/ViewLogs
     Title="$(sed "s|[']|\\\\'|g" <<<"$Title")"    
     sed -i "s|TITLE|"'"'"$Title"'"'"|"  "$TMP"/ViewLogs
-    #gksu  --su-mode -m "$rootPasswordRequestMsg" bash "$TMP"/ViewLogs
     mx-updater-view-auto-update-dpkg-logs bash "$TMP"/ViewLogs
     rm -rf "$TMP"
     '''
