@@ -940,8 +940,8 @@ def aptnotifier_prefs():
     t15 = _("wireframe")
     t16 = _("Auto-update")
     t17 = _("update automatically   (will not add new or remove existing packages)")
-    t18 = _("Enable Auto-updates")
-    t19 = _("Disable Auto Updates")
+    t18 = _("Enable Auto-update")
+    t19 = _("Disable Auto-update")
  
     shellvar = (
         '    window_title="'                             + t01 + '"\n'
