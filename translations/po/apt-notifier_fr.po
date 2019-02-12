@@ -159,11 +159,11 @@ msgstr ""
 
 #: apt-notifier.py:357 apt-notifier.py:1280
 msgid ""
-"The action you requested needs <b>root privileges</b>. Please enter "
-"<b>root's</b> password below."
+"The action you requested needs root privileges. Please enter "
+"root's password below."
 msgstr ""
-"L'action requise nécessite <b>les droits du superutilisateur</b>. Veuillez "
-"saisir ci-dessous le mot de passe du <b>superutilisateur</b>."
+"L'action requise nécessite les droits du superutilisateur. Veuillez "
+"saisir ci-dessous le mot de passe du superutilisateur."
 
 #: apt-notifier.py:360
 msgid "basic upgrade complete (or was canceled)"
@@ -273,19 +273,19 @@ msgstr "Mettre automatiquement à jour (sans ajouter ou supprimer de paquets)"
 
 #: apt-notifier.py:990
 msgid ""
-"<b>Root privileges</b> are required to <b>enable</b> Auto Updates. Please "
-"enter <b>root's</b> password below."
+"Root privileges are required to enable Auto Updates. Please "
+"enter root's password below."
 msgstr ""
-"<b>Les privilèges Root</b> sont requis afin <b>d'activer</b> les mises à "
-"jour automatiques. Veuillez entrer le mot de passe <b>root</b> ci-dessous."
+"Les privilèges Root sont requis afin d'activer les mises à "
+"jour automatiques. Veuillez entrer le mot de passe root ci-dessous."
 
 #: apt-notifier.py:991
 msgid ""
-"<b>Root privileges</b> are required to <b>disable</b> Auto Updates. Please "
-"enter <b>root's</b> password below."
+"Root privileges are required to disable Auto Updates. Please "
+"enter root's password below."
 msgstr ""
-"<b>Les privilèges Root</b> sont requis afin de<b>désactiver</b> les mises à "
-"jour automatiques. Veuillez entrer le mot de passe <b>root</b> ci-dessous."
+"Les privilèges Root sont requis afin dedésactiver les mises à "
+"jour automatiques. Veuillez entrer le mot de passe root ci-dessous."
 
 #: apt-notifier.py:1632
 msgid "MX Updater"
@@ -315,11 +315,11 @@ msgstr ""
 
 #: apt-notifier.py:1694
 msgid ""
-"<b>Root privileges</b> are required to view the Auto-update log(s). Please "
-"enter <b>root's</b> password below."
+"Root privileges are required to view the Auto-update log(s). Please "
+"enter root's password below."
 msgstr ""
-"<b>Les droits de superutilisateur</b> sont requis pour visualiser les "
-"journaux de mise-à-jour-auto. Veuillez entrer le mot de passe <b>root</b> "
+"Les droits de superutilisateur sont requis pour visualiser les "
+"journaux de mise-à-jour-auto. Veuillez entrer le mot de passe root "
 "ci-dessous."
 
 #: apt-notifier.py:1695
@@ -339,12 +339,12 @@ msgstr ""
 
 #: apt-notifier.py:1764
 msgid ""
-"<b>Root privileges</b> are required to view the Auto-update dpkg log(s). "
-"Please enter <b>root's</b> password below."
+"Root privileges are required to view the Auto-update dpkg log(s). "
+"Please enter root's password below."
 msgstr ""
-"<b>Les droits de superutilisateur</b> sont requis pour visualiser les "
+"Les droits de superutilisateur sont requis pour visualiser les "
 "journaux de mise-à-jour-auto de dpkg. Veuillez entrer le mot de passe "
-"<b>root</b> ci-dessous."
+"root ci-dessous."
 
 #: apt-notifier.py:1765
 msgid "MX Auto-update  --  unattended-upgrades dpkg log viewer"

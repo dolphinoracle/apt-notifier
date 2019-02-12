@@ -308,7 +308,7 @@ def viewandupgrade():
     t12 = _("Reload the package information to become informed about new, removed or upgraded software packages. (apt-get update)")
     
     # t13, gksu dialog
-    t13 = _("The action you requested needs <b>root privileges</b>. Please enter <b>root's</b> password below.")
+    t13 = _("The action you requested needs root privileges. Please enter root's password below.")
 
     # t14 thru t19, strings for the upgrade (basic) / dist-upgrade (full) script that runs in the terminal window    
     t14 = _("basic upgrade complete (or was canceled)")
@@ -944,8 +944,8 @@ def aptnotifier_prefs():
     t15 = _("wireframe")
     t16 = _("Auto-update")
     t17 = _("update automatically   (will not add new or remove existing packages)")
-    t18 = _("<b>Root privileges</b> are required to <b>enable</b> Auto Updates. Please enter <b>root's</b> password below.")
-    t19 = _("<b>Root privileges</b> are required to <b>disable</b> Auto Updates. Please enter <b>root's</b> password below.")
+    t18 = _("Root privileges are required to enable Auto Updates. Please enter root's password below.")
+    t19 = _("Root privileges are required to disable Auto Updates. Please enter root's password below.")
  
     shellvar = (
         '    window_title="'                             + t01 + '"\n'
@@ -1157,11 +1157,13 @@ EOF
         if [ $(grep IconLook_pulse=.*true.*           "$TMP"/output) ]; then sed -i 's/IconLook=classic/IconLook=pulse/'                    ~/.config/apt-notifierrc; fi
         if [ $Unattended_Upgrade_before_pref_dialog = "0" ] && [ $(grep AutoUpdate=.*true.* "$TMP"/output) ]
           then
-            gksu --su-mode -m "$rootPasswordRequestMsgEnableAutoUpdates"  sh "$TMP"/enable_unattended_upgrades
+            #gksu --su-mode -m "$rootPasswordRequestMsgEnableAutoUpdates"  sh "$TMP"/enable_unattended_upgrades
+            mx-updater-enable-auto-update  sh "$TMP"/enable_unattended_upgrades 2>/dev/null 1>/dev/null
         fi
         if [ $Unattended_Upgrade_before_pref_dialog = "1" ] && [ $(grep AutoUpdate=.*false.* "$TMP"/output) ]
           then
-            gksu --su-mode -m "$rootPasswordRequestMsgDisableAutoUpdates" sh "$TMP"/disable_unattended_upgrades
+            #gksu --su-mode -m "$rootPasswordRequestMsgDisableAutoUpdates" sh "$TMP"/disable_unattended_upgrades
+            mx-updater-disable-auto-update  sh "$TMP"/disable_unattended_upgrades 2>/dev/null 1>/dev/null
         fi
       else
         :
@@ -1235,7 +1237,7 @@ def apt_get_update():
     
     # ~~~ Localize 4 ~~~
 
-    t01 = _("The action you requested needs <b>root privileges</b>. Please enter <b>root's</b> password below.")
+    t01 = _("The action you requested needs root privileges. Please enter root's password below.")
     t02 = _("Reload")
     
     shellvar = (
@@ -1647,7 +1649,7 @@ if __name__ == '__main__':
     
 def view_unattended_upgrades_logs():
     # ~~~ Localize 6 ~~~
-    t01 = _("<b>Root privileges</b> are required to view the Auto-update log(s). Please enter <b>root's</b> password below.")
+    t01 = _("Root privileges are required to view the Auto-update log(s). Please enter root's password below.")
     t02 = _("MX Auto-update  --  unattended-upgrades log viewer")
     t03 = _("No logs found.")
     t04 = _("For a less detailed view see 'Auto-update dpkg log(s)' or 'History'.")
@@ -1705,7 +1707,8 @@ EOF
     sed -i 's|ICON|/usr/share/icons/mnotify-some-'"$IconLook"'.png|' "$TMP"/ViewLogs
     Title="$(sed "s|[']|\\\\'|g" <<<"$Title")"    
     sed -i "s|TITLE|"'"'"$Title"'"'"|"  "$TMP"/ViewLogs
-    gksu  --su-mode -m "$rootPasswordRequestMsg" bash "$TMP"/ViewLogs
+    #gksu  --su-mode -m "$rootPasswordRequestMsg" bash "$TMP"/ViewLogs
+    mx-updater-view-auto-update-logs bash "$TMP"/ViewLogs
     rm -rf "$TMP"
     '''
     script_file = tempfile.NamedTemporaryFile('wt')
@@ -1717,7 +1720,7 @@ EOF
     
 def view_unattended_upgrades_dpkg_logs():
     # ~~~ Localize 7 ~~~
-    t01 = _("<b>Root privileges</b> are required to view the Auto-update dpkg log(s). Please enter <b>root's</b> password below.")
+    t01 = _("Root privileges are required to view the Auto-update dpkg log(s). Please enter root's password below.")
     t02 = _("MX Auto-update  --  unattended-upgrades dpkg log viewer")
     t03 = _("No unattended-upgrades dpkg log(s) found.")
     shellvar = (
@@ -1758,7 +1761,8 @@ EOF
     sed -i 's|ICON|/usr/share/icons/mnotify-some-'"$IconLook"'.png|' "$TMP"/ViewLogs
     Title="$(sed "s|[']|\\\\'|g" <<<"$Title")"    
     sed -i "s|TITLE|"'"'"$Title"'"'"|"  "$TMP"/ViewLogs
-    gksu  --su-mode -m "$rootPasswordRequestMsg" bash "$TMP"/ViewLogs
+    #gksu  --su-mode -m "$rootPasswordRequestMsg" bash "$TMP"/ViewLogs
+    mx-updater-view-auto-update-dpkg-logs bash "$TMP"/ViewLogs
     rm -rf "$TMP"
     '''
     script_file = tempfile.NamedTemporaryFile('wt')

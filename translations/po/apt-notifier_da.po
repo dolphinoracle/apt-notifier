@@ -148,11 +148,11 @@ msgstr ""
 
 #: apt-notifier.py:357 apt-notifier.py:1280
 msgid ""
-"The action you requested needs <b>root privileges</b>. Please enter "
-"<b>root's</b> password below."
+"The action you requested needs root privileges. Please enter "
+"root's password below."
 msgstr ""
-"Handlingen som du anmodede om behøver <b>root-privilegier</b>. Indtast "
-"venligst <b>roots</b> adgangskode nedenfor."
+"Handlingen som du anmodede om behøver root-privilegier. Indtast "
+"venligst roots adgangskode nedenfor."
 
 #: apt-notifier.py:360
 msgid "basic upgrade complete (or was canceled)"
@@ -259,19 +259,19 @@ msgstr "opdater automatisk (tilføjer ikke nye eller eksisterende pakker)"
 
 #: apt-notifier.py:990
 msgid ""
-"<b>Root privileges</b> are required to <b>enable</b> Auto Updates. Please "
-"enter <b>root's</b> password below."
+"Root privileges are required to enable Auto Updates. Please "
+"enter root's password below."
 msgstr ""
-"Der kræves <b>root-privilegier</b> for at <b>aktivere</b> automatiske "
-"opdateringer. Indtast venligst <b>roots</b> adgangskode nedenfor."
+"Der kræves root-privilegier for at aktivere automatiske "
+"opdateringer. Indtast venligst roots adgangskode nedenfor."
 
 #: apt-notifier.py:991
 msgid ""
-"<b>Root privileges</b> are required to <b>disable</b> Auto Updates. Please "
-"enter <b>root's</b> password below."
+"Root privileges are required to disable Auto Updates. Please "
+"enter root's password below."
 msgstr ""
-"Der kræves <b>root-privilegier</b> for at <b>deaktivere</b> automatiske "
-"opdateringer. Indtast venligst <b>roots</b> adgangskode nedenfor."
+"Der kræves root-privilegier for at deaktivere automatiske "
+"opdateringer. Indtast venligst roots adgangskode nedenfor."
 
 #: apt-notifier.py:1632
 msgid "MX Updater"
@@ -299,11 +299,11 @@ msgstr "Bakkeapplet til at informere om system- og programopdateringer"
 
 #: apt-notifier.py:1694
 msgid ""
-"<b>Root privileges</b> are required to view the Auto-update log(s). Please "
-"enter <b>root's</b> password below."
+"Root privileges are required to view the Auto-update log(s). Please "
+"enter root's password below."
 msgstr ""
-"Der kræves <b>root-privilegier</b> for at vise automatiske opdatering-"
-"log(ge). Indtast venligst <b>roots</b> adgangskode nedenfor."
+"Der kræves root-privilegier for at vise automatiske opdatering-"
+"log(ge). Indtast venligst roots adgangskode nedenfor."
 
 #: apt-notifier.py:1695
 msgid "MX Auto-update  --  unattended-upgrades log viewer"
@@ -321,11 +321,11 @@ msgstr ""
 
 #: apt-notifier.py:1764
 msgid ""
-"<b>Root privileges</b> are required to view the Auto-update dpkg log(s). "
-"Please enter <b>root's</b> password below."
+"Root privileges are required to view the Auto-update dpkg log(s). "
+"Please enter root's password below."
 msgstr ""
-"Der kræves <b>root-privilegier</b> for at vise automatiske opdatering dpkg-"
-"log(ge). Indtast venligst <b>roots</b> adgangskode nedenfor."
+"Der kræves root-privilegier for at vise automatiske opdatering dpkg-"
+"log(ge). Indtast venligst roots adgangskode nedenfor."
 
 #: apt-notifier.py:1765
 msgid "MX Auto-update  --  unattended-upgrades dpkg log viewer"
