@@ -60,8 +60,8 @@
       <allow_inactive>auth_admin</allow_inactive>
       <allow_active>auth_admin</allow_active>
     </defaults>
-    <annotate key="org.freedesktop.policykit.exec.path"></annotate>
-    <annotate key="org.freedesktop.policykit.exec.argv1"></annotate>
-    <annotate key="org.freedesktop.policykit.exec.allow_gui"></annotate>
+    <annotate key="org.freedesktop.policykit.exec.path">/usr/bin/mx-updater-disable-auto-update</annotate>
+    <annotate key="org.freedesktop.policykit.exec.argv1">--qtenv</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
   </action>
 </policyconfig>
