@@ -14,6 +14,7 @@ mnotify-none-wireframe.png                                       usr/share/icons
 mnotify-some-classic.png                                         usr/share/icons
 mnotify-some-pulse.png                                           usr/share/icons
 mnotify-some-wireframe.png                                       usr/share/icons
+mnotify-some-wireframe-pkexec.png                                usr/share/icons
 mx-updater-autostart-kde.desktop                                 usr/share/autostart
 mx-updater-autostart-xdg.desktop                                 etc/xdg/autostart
 mx-updater-basic-upgrade                                         usr/bin
@@ -23,7 +24,6 @@ mx-updater-full-upgrade                                          usr/bin
 mx-updater-menu-kde.desktop                                      usr/share/applications
 mx-updater-menu-non-kde.desktop                                  usr/share/applications
 mx-updater-reload                                                usr/bin
-mx-updater-synaptic                                              usr/bin
 mx-updater-view-auto-update-dpkg-logs                            usr/bin
 mx-updater-view-auto-update-logs                                 usr/bin
 org.mxlinux.pkexec.mx-updater-basic-upgrade.policy               usr/share/polkit-1/actions
@@ -31,7 +31,6 @@ org.mxlinux.pkexec.mx-updater-disable-auto-update.policy         usr/share/polki
 org.mxlinux.pkexec.mx-updater-enable-auto-update.policy          usr/share/polkit-1/actions
 org.mxlinux.pkexec.mx-updater-full-upgrade.policy                usr/share/polkit-1/actions
 org.mxlinux.pkexec.mx-updater-reload.policy                      usr/share/polkit-1/actions
-org.mxlinux.pkexec.mx-updater-synaptic.policy                    usr/share/polkit-1/actions
 org.mxlinux.pkexec.mx-updater-view-auto-update-dpkg-logs.policy  usr/share/polkit-1/actions
 org.mxlinux.pkexec.mx-updater-view-auto-update-logs.policy       usr/share/polkit-1/actions
 translations/mo/ca/apt-notifier.mo                               usr/share/locale/ca/LC_MESSAGES
