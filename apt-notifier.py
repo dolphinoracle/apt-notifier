@@ -492,7 +492,7 @@ Disabled
         0)
         BP="1"
         chmod +x $TMP/upgradeScript
-        RunAptScriptInTerminal mx-updater-"$(sed 's/^upgrade$/basic-upgrade/;s/dist-upgrade/full-upgrade/' <<<$UpgradeType)" "$window_title" "$UpgradeTypeUserFriendlyName" "$TMP/upgradeScript"
+        RunAptScriptInTerminal sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-"$(sed 's/^upgrade$/basic-upgrade/;s/dist-upgrade/full-upgrade/' <<<$UpgradeType)" "$window_title" "$UpgradeTypeUserFriendlyName" "$TMP/upgradeScript"
         ;;
 
         2)
