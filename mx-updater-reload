@@ -11,7 +11,7 @@ if [ "$EUID" != "0" ]; then
     QTENV="/tmp/mx-updater-reload-qtenv.$EUID.$PPID.$$.$RANDOM$RANDOM"
     env | grep -E '^QT_'  | sed -e 's/^/export /' 2>/dev/null  > "$QTENV"
     chmod +r "$QTENV"
-    pkexec /usr/bin/mx-updater-reload "--qtenv" "$QTENV" "${@}"
+    pkexec /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "--qtenv" "$QTENV" "${@}"
     if [ -f "$QTENV" ] ; then
         rm  $QTENV
     fi

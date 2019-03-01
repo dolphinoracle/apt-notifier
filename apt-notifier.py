@@ -507,7 +507,7 @@ Disabled
         8)
         BP="0"
         #chmod +x $TMP/upgradeScript
-        RunAptScriptInTerminal "mx-updater-reload" "" "$reload" "'apt-get update'"
+        RunAptScriptInTerminal "sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload" "" "$reload" "'apt-get update'"
         sleep 1
         ;;
         
@@ -1153,11 +1153,11 @@ EOF
         if [ $(grep IconLook_pulse=.*true.*           "$TMP"/output) ]; then sed -i 's/IconLook=classic/IconLook=pulse/'                    ~/.config/apt-notifierrc; fi
         if [ $Unattended_Upgrade_before_pref_dialog = "0" ] && [ $(grep AutoUpdate=.*true.* "$TMP"/output) ]
           then
-            mx-updater-enable-auto-update  sh "$TMP"/enable_unattended_upgrades 2>/dev/null 1>/dev/null
+            sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-enable-auto-update  sh "$TMP"/enable_unattended_upgrades 2>/dev/null 1>/dev/null
         fi
         if [ $Unattended_Upgrade_before_pref_dialog = "1" ] && [ $(grep AutoUpdate=.*false.* "$TMP"/output) ]
           then
-            mx-updater-disable-auto-update  sh "$TMP"/disable_unattended_upgrades 2>/dev/null 1>/dev/null
+            sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-disable-auto-update  sh "$TMP"/disable_unattended_upgrades 2>/dev/null 1>/dev/null
         fi
       else
         :
@@ -1311,28 +1311,28 @@ def apt_get_update():
 Disabled
         case $(readlink -e /usr/bin/x-terminal-emulator | xargs basename) in
 
-          gnome-terminal.wrapper) mx-updater-reload "gnome-terminal$G$T -e 'apt-get update'"
+          gnome-terminal.wrapper) sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "gnome-terminal$G$T -e 'apt-get update'"
                                   ;;
 
-                         konsole) mx-updater-reload "konsole -e apt-get update"
+                         konsole) sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "konsole -e apt-get update"
                                   sleep 5
                                   ;;
 
-                         roxterm) mx-updater-reload "roxterm$G$T --separate -e apt-get update"
+                         roxterm) sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "roxterm$G$T --separate -e apt-get update"
                                   ;;
 
-          xfce4-terminal.wrapper) mx-updater-reload "xfce4-terminal$G$I$T -e 'apt-get update'"
+          xfce4-terminal.wrapper) sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "xfce4-terminal$G$I$T -e 'apt-get update'"
                                   ;;
 
                            xterm) if [ -e /usr/bin/xfce4-terminal ]
                                     then
-                                      mx-updater-reload "xfce4-terminal$G$I$T -e 'apt-get update'"
+                                      sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "xfce4-terminal$G$I$T -e 'apt-get update'"
                                     else
-                                      mx-updater-reload "xterm -e apt-get update"
+                                      sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "xterm -e apt-get update"
                                   fi
                                   ;;
 
-                               *) mx-updater-reload "x-terminal-emulator -e apt-get update"
+                               *) sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "x-terminal-emulator -e apt-get update"
                                   ;;
 
         esac
@@ -1699,7 +1699,7 @@ EOF
     sed -i 's|ICON|/usr/share/icons/mnotify-some-'"$IconLook"'.png|' "$TMP"/ViewLogs
     Title="$(sed "s|[']|\\\\'|g" <<<"$Title")"    
     sed -i "s|TITLE|"'"'"$Title"'"'"|"  "$TMP"/ViewLogs
-    mx-updater-view-auto-update-logs bash "$TMP"/ViewLogs
+    sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-view-auto-update-logs bash "$TMP"/ViewLogs
     rm -rf "$TMP"
     '''
     script_file = tempfile.NamedTemporaryFile('wt')
@@ -1752,7 +1752,7 @@ EOF
     sed -i 's|ICON|/usr/share/icons/mnotify-some-'"$IconLook"'.png|' "$TMP"/ViewLogs
     Title="$(sed "s|[']|\\\\'|g" <<<"$Title")"    
     sed -i "s|TITLE|"'"'"$Title"'"'"|"  "$TMP"/ViewLogs
-    mx-updater-view-auto-update-dpkg-logs bash "$TMP"/ViewLogs
+    sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-view-auto-update-dpkg-logs bash "$TMP"/ViewLogs
     rm -rf "$TMP"
     '''
     script_file = tempfile.NamedTemporaryFile('wt')
