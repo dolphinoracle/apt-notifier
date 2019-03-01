@@ -6,7 +6,7 @@
 # adapted from mx-pkexec by dolphin_oracle for MX-Linux
 # original code by fehlix for MX-Linux
 
-if test "$EUID" != 0; then
+if [ "$EUID" != "0" ]; then
     # normal user
     QTENV="/tmp/mx-updater-view-auto-update-dpkg-logs-qtenv.$EUID.$PPID.$$.$RANDOM$RANDOM"
     env | grep -E '^QT_'  | sed -e 's/^/export /' 2>/dev/null  > "$QTENV"
@@ -16,7 +16,7 @@ if test "$EUID" != 0; then
         rm  $QTENV
     fi
 fi
-if test "$EUID" == 0; then
+if [ "$EUID" = "0" ]; then
     # root user
     if  [ "x$1" = "x--qtenv" ]; then
         QTENV="$2"
