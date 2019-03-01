@@ -940,8 +940,6 @@ def aptnotifier_prefs():
     t15 = _("wireframe")
     t16 = _("Auto-update")
     t17 = _("update automatically   (will not add new or remove existing packages)")
-    t18 = _("Enable Auto-update")
-    t19 = _("Disable Auto-update")
  
     shellvar = (
         '    window_title="'                             + t01 + '"\n'
@@ -961,8 +959,6 @@ def aptnotifier_prefs():
         '    label_wireframe="'                          + t15 + '"\n'
         '    frame_Auto_update="'                        + t16 + '"\n' 
         '    auto_update_checkbox_txt="'                 + t17 + '"\n'
-        '    pkexecMsgEnableAutoUpdates="'               + t18 + '"\n'
-        '    pkexecMsgDisableAutoUpdates="'              + t19 + '"\n'
         )
     
     script = '''#! /bin/bash
@@ -1641,15 +1637,13 @@ if __name__ == '__main__':
     
 def view_unattended_upgrades_logs():
     # ~~~ Localize 6 ~~~
-    t01 = _("View Auto-update log(s)")
-    t02 = _("MX Auto-update  --  unattended-upgrades log viewer")
-    t03 = _("No logs found.")
-    t04 = _("For a less detailed view see 'Auto-update dpkg log(s)' or 'History'.")
+    t01 = _("MX Auto-update  --  unattended-upgrades log viewer")
+    t02 = _("No logs found.")
+    t03 = _("For a less detailed view see 'Auto-update dpkg log(s)' or 'History'.")
     shellvar = (
-        '    pkexecMsg="'              + t01 + '"\n'
-        '    Title="'                  + t02 + '"\n'
-        '    NoLogsFound="'            + t03 + '"\n'     
-        '    SeeHistory="'             + t04 + '"\n'   
+        '    Title="'                  + t01 + '"\n'
+        '    NoLogsFound="'            + t02 + '"\n'     
+        '    SeeHistory="'             + t03 + '"\n'   
         )
     script = '''#! /bin/bash
 ''' + shellvar + '''
@@ -1711,13 +1705,11 @@ EOF
     
 def view_unattended_upgrades_dpkg_logs():
     # ~~~ Localize 7 ~~~
-    t01 = _("View Auto-update dpkg log(s)")
-    t02 = _("MX Auto-update  --  unattended-upgrades dpkg log viewer")
-    t03 = _("No unattended-upgrades dpkg log(s) found.")
+    t01 = _("MX Auto-update  --  unattended-upgrades dpkg log viewer")
+    t02 = _("No unattended-upgrades dpkg log(s) found.")
     shellvar = (
-        '    pkexecMsg="'              + t01 + '"\n'
-        '    Title="'                  + t02 + '"\n'
-        '    NoLogsFound="'            + t03 + '"\n'     
+        '    Title="'                  + t01 + '"\n'
+        '    NoLogsFound="'            + t02 + '"\n'     
         )
     script = '''#! /bin/bash
 ''' + shellvar + '''
