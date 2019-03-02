@@ -454,10 +454,10 @@ def viewandupgrade():
 Disabled
             case $(readlink -e /usr/bin/x-terminal-emulator | xargs basename) in
 
-              gnome-terminal.wrapper) "$1" "gnome-terminal$G$T -e $4"
+              gnome-terminal.wrapper) sh "$1" "gnome-terminal$G$T -e $4"
                                       ;;
 
-                             konsole) "$1" "konsole -e $4"
+                             konsole) sh "$1" "konsole -e $4"
                                       sleep 5
                                       while [ "$(ps aux | grep [0-9]' konsole -e apt-get update')" != "" ]
                                         do
@@ -466,21 +466,21 @@ Disabled
                                       sleep 1 
                                       ;;
 
-                             roxterm) "$1" "roxterm$G$T --separate -e $4"
+                             roxterm) sh "$1" "roxterm$G$T --separate -e $4"
                                       ;;
 
-              xfce4-terminal.wrapper) "$1" "xfce4-terminal$G$I$T -e $4" 2>/dev/null 1>/dev/null
+              xfce4-terminal.wrapper) sh "$1" "xfce4-terminal$G$I$T -e $4" 2>/dev/null 1>/dev/null
                                       ;;
 
                                xterm) if [ -e /usr/bin/xfce4-terminal ]
                                         then
-                                          "$1" "xfce4-terminal$G$I$T -e $4"
+                                          sh "$1" "xfce4-terminal$G$I$T -e $4"
                                         else
-                                          "$1" "xterm -e $4"
+                                          sh "$1" "xterm -e $4"
                                       fi
                                       ;;
 
-                                   *) "$1" "x-terminal-emulator -e $4"
+                                   *) sh "$1" "x-terminal-emulator -e $4"
                                       ;;
 
             esac
@@ -492,7 +492,7 @@ Disabled
         0)
         BP="1"
         chmod +x $TMP/upgradeScript
-        RunAptScriptInTerminal sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-"$(sed 's/^upgrade$/basic-upgrade/;s/dist-upgrade/full-upgrade/' <<<$UpgradeType)" "$window_title" "$UpgradeTypeUserFriendlyName" "$TMP/upgradeScript"
+        RunAptScriptInTerminal /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-"$(sed 's/^upgrade$/basic-upgrade/;s/dist-upgrade/full-upgrade/' <<<$UpgradeType)" "$window_title" "$UpgradeTypeUserFriendlyName" "$TMP/upgradeScript"
         ;;
 
         2)
@@ -507,7 +507,7 @@ Disabled
         8)
         BP="0"
         #chmod +x $TMP/upgradeScript
-        RunAptScriptInTerminal "sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload" "" "$reload" "'apt-get update'"
+        RunAptScriptInTerminal "/usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload" "" "$reload" "'apt-get update'"
         sleep 1
         ;;
         
