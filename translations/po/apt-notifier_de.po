@@ -154,11 +154,11 @@ msgstr ""
 
 #: apt-notifier.py:357 apt-notifier.py:1280
 msgid ""
-"The action you requested needs root privileges. Please enter "
-"root's password below."
+"The action you requested needs <b>root privileges</b>. Please enter "
+"<b>root's</b> password below."
 msgstr ""
-"Die Aktion benötigt Systemverwalterrechte. Bitte geben Sie das "
-"Passwort des Benutzers root ein."
+"Die Aktion benötigt <b>Systemverwalterrechte</b>. Bitte geben Sie das "
+"Passwort des Benutzers <b>root</b> ein."
 
 #: apt-notifier.py:360
 msgid "basic upgrade complete (or was canceled)"
@@ -267,20 +267,20 @@ msgstr ""
 
 #: apt-notifier.py:990
 msgid ""
-"Root privileges are required to enable Auto Updates. Please "
-"enter root's password below."
+"<b>Root privileges</b> are required to <b>enable</b> Auto Updates. Please "
+"enter <b>root's</b> password below."
 msgstr ""
-"Zum Einschalten der automatischen Aktualisierung sind "
-"Systemverwalterrechteerforderlich.Bitte das root-Passwort "
+"Zum <b>Einschalten</b> der automatischen Aktualisierung sind "
+"<b>Systemverwalterrechte</b>erforderlich.Bitte das <b>root</b>-Passwort "
 "unten eingeben."
 
 #: apt-notifier.py:991
 msgid ""
-"Root privileges are required to disable Auto Updates. Please "
-"enter root's password below."
+"<b>Root privileges</b> are required to <b>disable</b> Auto Updates. Please "
+"enter <b>root's</b> password below."
 msgstr ""
-"Zum Ausschaltender automatischen Aktualisierung sind "
-"Systemverwalterrechte erforderlich.Bitte das root-Passwort "
+"Zum <b>Ausschalten</b>der automatischen Aktualisierung sind "
+"<b>Systemverwalterrechte</b> erforderlich.Bitte das <b>root</b>-Passwort "
 "unten eingeben."
 
 #: apt-notifier.py:1632
@@ -311,11 +311,11 @@ msgstr ""
 
 #: apt-notifier.py:1694
 msgid ""
-"Root privileges are required to view the Auto-update log(s). Please "
-"enter root's password below."
+"<b>Root privileges</b> are required to view the Auto-update log(s). Please "
+"enter <b>root's</b> password below."
 msgstr ""
 "Um das/die Protokoll(e) der automatischen Aktualisierung anzuschauen, sind "
-"Systemverwalterrechte erforderlich. Bitte das root-Passwort "
+"<b>Systemverwalterrechte</b> erforderlich. Bitte das <b>root</b>-Passwort "
 "unten eingeben."
 
 #: apt-notifier.py:1695
@@ -335,11 +335,11 @@ msgstr ""
 
 #: apt-notifier.py:1764
 msgid ""
-"Root privileges are required to view the Auto-update dpkg log(s). "
-"Please enter root's password below."
+"<b>Root privileges</b> are required to view the Auto-update dpkg log(s). "
+"Please enter <b>root's</b> password below."
 msgstr ""
 "Um das/die dpkg-Protokoll(e) der automatischen Aktualisierung anzuschauen, "
-"sindSystemverwalterrechteerforderlich. Bitte das root-Passwort"
+"sind<b>Systemverwalterrechte</b>erforderlich. Bitte das <b>root</b>-Passwort"
 " unten eingeben."
 
 #: apt-notifier.py:1765

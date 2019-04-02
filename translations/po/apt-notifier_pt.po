@@ -156,11 +156,11 @@ msgstr ""
 
 #: apt-notifier.py:357 apt-notifier.py:1280
 msgid ""
-"The action you requested needs root privileges. Please enter "
-"root's password below."
+"The action you requested needs <b>root privileges</b>. Please enter "
+"<b>root's</b> password below."
 msgstr ""
-"A acção requerida necessita de privilégios de root (administrador). "
-"Introduzir a senha de root abaixo."
+"A acção requerida necessita de <b>privilégios de root (administrador)</b>. "
+"Introduzir a <b>senha de root</b> abaixo."
 
 #: apt-notifier.py:360
 msgid "basic upgrade complete (or was canceled)"
@@ -269,19 +269,19 @@ msgstr ""
 
 #: apt-notifier.py:990
 msgid ""
-"Root privileges are required to enable Auto Updates. Please "
-"enter root's password below."
+"<b>Root privileges</b> are required to <b>enable</b> Auto Updates. Please "
+"enter <b>root's</b> password below."
 msgstr ""
-"São necessáriosprivilégios de root para activar a Actualização"
-" Automática. Introduzir em baixo a senha de root."
+"São necessários<b>privilégios de root</b> para <b>activar</b> a Actualização"
+" Automática. Introduzir em baixo a senha de <b>root</b>."
 
 #: apt-notifier.py:991
 msgid ""
-"Root privileges are required to disable Auto Updates. Please "
-"enter root's password below."
+"<b>Root privileges</b> are required to <b>disable</b> Auto Updates. Please "
+"enter <b>root's</b> password below."
 msgstr ""
-"São necessários privilégios de root para desactivar a "
-"Actualização Automática. Introduzir em baixo a senha de root."
+"São necessários <b>privilégios de root</b> para <b>desactivar</b> a "
+"Actualização Automática. Introduzir em baixo a senha de <b>root</b>."
 
 #: apt-notifier.py:1632
 msgid "MX Updater"
@@ -311,12 +311,12 @@ msgstr ""
 
 #: apt-notifier.py:1694
 msgid ""
-"Root privileges are required to view the Auto-update log(s). Please "
-"enter root's password below."
+"<b>Root privileges</b> are required to view the Auto-update log(s). Please "
+"enter <b>root's</b> password below."
 msgstr ""
-"São necessários privilégios de administrador (root) para visualizar "
+"São necessários <b>privilégios de administrador (root)</b> para visualizar "
 "o(s) registo(s) de Actualização automática. Introduzir abaixo a senha de "
-"administrador (root)."
+"<b>administrador (root)</b>."
 
 #: apt-notifier.py:1695
 msgid "MX Auto-update  --  unattended-upgrades log viewer"
@@ -336,12 +336,12 @@ msgstr ""
 
 #: apt-notifier.py:1764
 msgid ""
-"Root privileges are required to view the Auto-update dpkg log(s). "
-"Please enter root's password below."
+"<b>Root privileges</b> are required to view the Auto-update dpkg log(s). "
+"Please enter <b>root's</b> password below."
 msgstr ""
-"São necessários privilégios de administrador (root) para visualizar "
+"São necessários <b>privilégios de administrador (root)</b> para visualizar "
 "o(s) registo(s) dpkg de Actualização automática. Introduzir abaixo a senha "
-"de administrador (root)."
+"de <b>administrador (root)</b>."
 
 #: apt-notifier.py:1765
 msgid "MX Auto-update  --  unattended-upgrades dpkg log viewer"

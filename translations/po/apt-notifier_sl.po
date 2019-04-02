@@ -148,11 +148,11 @@ msgstr ""
 
 #: apt-notifier.py:357 apt-notifier.py:1280
 msgid ""
-"The action you requested needs root privileges. Please enter "
-"root's password below."
+"The action you requested needs <b>root privileges</b>. Please enter "
+"<b>root's</b> password below."
 msgstr ""
-"Zahtevana akcija potrebuje root privileges. Prosim vnesite  "
-"root's geslo spodaj."
+"Zahtevana akcija potrebuje <b>root privileges</b>. Prosim vnesite <b> "
+"root's</b> geslo spodaj."
 
 #: apt-notifier.py:360
 msgid "basic upgrade complete (or was canceled)"
@@ -261,19 +261,19 @@ msgstr ""
 
 #: apt-notifier.py:990
 msgid ""
-"Root privileges are required to enable Auto Updates. Please "
-"enter root's password below."
+"<b>Root privileges</b> are required to <b>enable</b> Auto Updates. Please "
+"enter <b>root's</b> password below."
 msgstr ""
-"Root privileges so potrebne za  enable automatske posodobitve."
-" Spodaj prosim vnesite root's geslo."
+"<b>Root privileges</b> so potrebne za  <b>enable</b> automatske posodobitve."
+" Spodaj prosim vnesite <b>root's</b> geslo."
 
 #: apt-notifier.py:991
 msgid ""
-"Root privileges are required to disable Auto Updates. Please "
-"enter root's password below."
+"<b>Root privileges</b> are required to <b>disable</b> Auto Updates. Please "
+"enter <b>root's</b> password below."
 msgstr ""
-"Root privileges so potrebne za disable automatske posodobitve."
-" Spodaj prosim vnesite root's geslo."
+"<b>Root privileges</b> so potrebne za <b>disable</b> automatske posodobitve."
+" Spodaj prosim vnesite <b>root's</b> geslo."
 
 #: apt-notifier.py:1632
 msgid "MX Updater"
@@ -301,8 +301,8 @@ msgstr "Vrstica apleta za opombe sistemskih in aplikacijskih posodobitev"
 
 #: apt-notifier.py:1694
 msgid ""
-"Root privileges are required to view the Auto-update log(s). Please "
-"enter root's password below."
+"<b>Root privileges</b> are required to view the Auto-update log(s). Please "
+"enter <b>root's</b> password below."
 msgstr ""
 
 #: apt-notifier.py:1695
@@ -319,8 +319,8 @@ msgstr ""
 
 #: apt-notifier.py:1764
 msgid ""
-"Root privileges are required to view the Auto-update dpkg log(s). "
-"Please enter root's password below."
+"<b>Root privileges</b> are required to view the Auto-update dpkg log(s). "
+"Please enter <b>root's</b> password below."
 msgstr ""
 
 #: apt-notifier.py:1765

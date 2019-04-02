@@ -150,11 +150,11 @@ msgstr ""
 
 #: apt-notifier.py:357 apt-notifier.py:1280
 msgid ""
-"The action you requested needs root privileges. Please enter "
-"root's password below."
+"The action you requested needs <b>root privileges</b>. Please enter "
+"<b>root's</b> password below."
 msgstr ""
-"A l'acció que heu demanat li calen privilegis de root. Si us plau, "
-"introduïu la contrasenya de root tot seguit."
+"A l'acció que heu demanat li calen <b>privilegis de root</b>. Si us plau, "
+"introduïu la contrasenya de <b>root</b> tot seguit."
 
 #: apt-notifier.py:360
 msgid "basic upgrade complete (or was canceled)"
@@ -264,19 +264,19 @@ msgstr ""
 
 #: apt-notifier.py:990
 msgid ""
-"Root privileges are required to enable Auto Updates. Please "
-"enter root's password below."
+"<b>Root privileges</b> are required to <b>enable</b> Auto Updates. Please "
+"enter <b>root's</b> password below."
 msgstr ""
-"Cal tenir privilegis d'administrador per activar les "
-"actualitzacions automàtiques. Entreu la contrasenya de root a sota."
+"Cal tenir <b>privilegis d'administrador</b> per <b>activar</b> les "
+"actualitzacions automàtiques. Entreu la contrasenya de <b>root</b> a sota."
 
 #: apt-notifier.py:991
 msgid ""
-"Root privileges are required to disable Auto Updates. Please "
-"enter root's password below."
+"<b>Root privileges</b> are required to <b>disable</b> Auto Updates. Please "
+"enter <b>root's</b> password below."
 msgstr ""
-"Cal tenir privilegis d'administrador per desactivar les "
-"actualitzacions automàtiques. Entreu la contrasenya de root a sota."
+"Cal tenir <b>privilegis d'administrador</b> per <b>desactivar</b> les "
+"actualitzacions automàtiques. Entreu la contrasenya de <b>root</b> a sota."
 
 #: apt-notifier.py:1632
 msgid "MX Updater"
@@ -306,11 +306,11 @@ msgstr ""
 
 #: apt-notifier.py:1694
 msgid ""
-"Root privileges are required to view the Auto-update log(s). Please "
-"enter root's password below."
+"<b>Root privileges</b> are required to view the Auto-update log(s). Please "
+"enter <b>root's</b> password below."
 msgstr ""
-"Cal tenir privileges d'usuari principal per a veure els registres d"
-"'Auto-update. Si us plau, entreu la contrasenya d'usuari principal  a"
+"Cal tenir <b>privileges d'usuari principal</b> per a veure els registres d"
+"'Auto-update. Si us plau, entreu la contrasenya <b>d'usuari principal</b>  a"
 " sota."
 
 #: apt-notifier.py:1695
@@ -330,12 +330,12 @@ msgstr ""
 
 #: apt-notifier.py:1764
 msgid ""
-"Root privileges are required to view the Auto-update dpkg log(s). "
-"Please enter root's password below."
+"<b>Root privileges</b> are required to view the Auto-update dpkg log(s). "
+"Please enter <b>root's</b> password below."
 msgstr ""
-"Cal tenir privilegis d'usuari principal per a veure els registres d"
-"'Auto-update dpkg. Si us plau, entreu la contrasenya d'usuari "
-"principal a sota."
+"Cal tenir <b>privilegis d'usuari principal</b> per a veure els registres d"
+"'Auto-update dpkg. Si us plau, entreu la contrasenya <b>d'usuari "
+"principal</b> a sota."
 
 #: apt-notifier.py:1765
 msgid "MX Auto-update  --  unattended-upgrades dpkg log viewer"

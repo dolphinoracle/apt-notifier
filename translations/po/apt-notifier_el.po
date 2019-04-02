@@ -150,11 +150,11 @@ msgstr ""
 
 #: apt-notifier.py:357 apt-notifier.py:1280
 msgid ""
-"The action you requested needs root privileges. Please enter "
-"root's password below."
+"The action you requested needs <b>root privileges</b>. Please enter "
+"<b>root's</b> password below."
 msgstr ""
-"Η ενέργεια που ζητήσατε απαιτεί προνόμια root. Παρακαλώ εισάγετε τον "
-"κωδικό πρόσβασης του root παρακάτω."
+"Η ενέργεια που ζητήσατε απαιτεί <b>προνόμια root</b>. Παρακαλώ εισάγετε τον "
+"κωδικό πρόσβασης του <b>root</b> παρακάτω."
 
 #: apt-notifier.py:360
 msgid "basic upgrade complete (or was canceled)"
@@ -265,19 +265,19 @@ msgstr ""
 
 #: apt-notifier.py:990
 msgid ""
-"Root privileges are required to enable Auto Updates. Please "
-"enter root's password below."
+"<b>Root privileges</b> are required to <b>enable</b> Auto Updates. Please "
+"enter <b>root's</b> password below."
 msgstr ""
-"Απαιτούνται δικαιώματα root για να ενεργοποιηθούν οι αυτόματες"
-" ενημερώσεις. Εισαγάγετε τον κωδικό πρόσβασης του root παρακάτω."
+"Απαιτούνται <b>δικαιώματα root</b> για να <b>ενεργοποιηθούν</b> οι αυτόματες"
+" ενημερώσεις. Εισαγάγετε τον κωδικό πρόσβασης του <b>root</b> παρακάτω."
 
 #: apt-notifier.py:991
 msgid ""
-"Root privileges are required to disable Auto Updates. Please "
-"enter root's password below."
+"<b>Root privileges</b> are required to <b>disable</b> Auto Updates. Please "
+"enter <b>root's</b> password below."
 msgstr ""
-"Απαιτούνται δικαιώματα root για να απενεργοποιηθούν οι "
-"αυτόματες ενημερώσεις. Εισαγάγετε τον κωδικό πρόσβασης του root "
+"Απαιτούνται <b>δικαιώματα root</b> για να <b>απενεργοποιηθούν</b> οι "
+"αυτόματες ενημερώσεις. Εισαγάγετε τον κωδικό πρόσβασης του <b>root</b> "
 "παρακάτω."
 
 #: apt-notifier.py:1632
@@ -307,11 +307,11 @@ msgstr ""
 
 #: apt-notifier.py:1694
 msgid ""
-"Root privileges are required to view the Auto-update log(s). Please "
-"enter root's password below."
+"<b>Root privileges</b> are required to view the Auto-update log(s). Please "
+"enter <b>root's</b> password below."
 msgstr ""
-"Απαιτούνται δικαιώματα root για να ενεργοποιηθούν οι αυτόματες "
-"ενημερώσεις. Εισαγάγετε τον κωδικό πρόσβασης του  root παρακάτω."
+"Απαιτούνται <b>δικαιώματα root</b> για να ενεργοποιηθούν οι αυτόματες "
+"ενημερώσεις. Εισαγάγετε τον κωδικό πρόσβασης του  <b>root</b> παρακάτω."
 
 #: apt-notifier.py:1695
 msgid "MX Auto-update  --  unattended-upgrades log viewer"
@@ -330,11 +330,11 @@ msgstr ""
 
 #: apt-notifier.py:1764
 msgid ""
-"Root privileges are required to view the Auto-update dpkg log(s). "
-"Please enter root's password below."
+"<b>Root privileges</b> are required to view the Auto-update dpkg log(s). "
+"Please enter <b>root's</b> password below."
 msgstr ""
-"Απαιτούνται δικαιώματα root για να ενεργοποιηθούν οι αυτόματες "
-"ενημερώσεις. Εισαγάγετε τον κωδικό πρόσβασης του  root παρακάτω."
+"Απαιτούνται <b>δικαιώματα root</b> για να ενεργοποιηθούν οι αυτόματες "
+"ενημερώσεις. Εισαγάγετε τον κωδικό πρόσβασης του  <b>root</b> παρακάτω."
 
 #: apt-notifier.py:1765
 msgid "MX Auto-update  --  unattended-upgrades dpkg log viewer"

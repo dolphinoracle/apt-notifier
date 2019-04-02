@@ -27,7 +27,7 @@
     <message xml:lang="fr">Désactiver mise à jour automatique</message>
     <message xml:lang="he_IL">Disable Auto-update</message>
     <message xml:lang="hi">Disable Auto-update</message>
-    <message xml:lang="hr">Disable Auto-update</message>
+    <message xml:lang="hr">Onemogući samoažuriranje</message>
     <message xml:lang="hu">Disable Auto-update</message>
     <message xml:lang="id">Disable Auto-update</message>
     <message xml:lang="is">Disable Auto-update</message>
@@ -44,7 +44,7 @@
     <message xml:lang="pt_BR">Disable Auto-update</message>
     <message xml:lang="pt">Disable Auto-update</message>
     <message xml:lang="ro">Disable Auto-update</message>
-    <message xml:lang="ru">Disable Auto-update</message>
+    <message xml:lang="ru">Отключить автообновление</message>
     <message xml:lang="sk">Disable Auto-update</message>
     <message xml:lang="sl">Disable Auto-update</message>
     <message xml:lang="sq">Disable Auto-update</message>

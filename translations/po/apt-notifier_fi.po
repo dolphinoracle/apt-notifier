@@ -147,11 +147,11 @@ msgstr ""
 
 #: apt-notifier.py:357 apt-notifier.py:1280
 msgid ""
-"The action you requested needs root privileges. Please enter "
-"root's password below."
+"The action you requested needs <b>root privileges</b>. Please enter "
+"<b>root's</b> password below."
 msgstr ""
-"Haluamasi toiminto vaatii pääkäyttäjän oikeudet. Ole hyvä ja syötä "
-"pääkäyttäjän salasana alle."
+"Haluamasi toiminto vaatii <b>pääkäyttäjän oikeudet</b>. Ole hyvä ja syötä "
+"<b>pääkäyttäjän</b> salasana alle."
 
 #: apt-notifier.py:360
 msgid "basic upgrade complete (or was canceled)"
@@ -261,20 +261,20 @@ msgstr ""
 
 #: apt-notifier.py:990
 msgid ""
-"Root privileges are required to enable Auto Updates. Please "
-"enter root's password below."
+"<b>Root privileges</b> are required to <b>enable</b> Auto Updates. Please "
+"enter <b>root's</b> password below."
 msgstr ""
-"pääkäyttäjän oikeudet vaaditaan ottaaksesi "
-"automaattipäivitykset käyttöön. Ole hyvä ja syötä pääkäyttäjän "
+"<b>pääkäyttäjän oikeudet</b> vaaditaan <b>ottaaksesi</b> "
+"automaattipäivitykset käyttöön. Ole hyvä ja syötä <b>pääkäyttäjän</b> "
 "salasana alapuolelle."
 
 #: apt-notifier.py:991
 msgid ""
-"Root privileges are required to disable Auto Updates. Please "
-"enter root's password below."
+"<b>Root privileges</b> are required to <b>disable</b> Auto Updates. Please "
+"enter <b>root's</b> password below."
 msgstr ""
-"Pääkäyttäjän oikeuksia vaaditaan poistaaksesi "
-"automaattipäivityksen käytöstä. Ole hyvä ja syötä pääkäyttäjän "
+"<b>Pääkäyttäjän oikeuksia</b> vaaditaan <b>poistaaksesi</b> "
+"automaattipäivityksen käytöstä. Ole hyvä ja syötä <b>pääkäyttäjän</b> "
 "salasana alapuolelle."
 
 #: apt-notifier.py:1632
@@ -304,11 +304,11 @@ msgstr ""
 
 #: apt-notifier.py:1694
 msgid ""
-"Root privileges are required to view the Auto-update log(s). Please "
-"enter root's password below."
+"<b>Root privileges</b> are required to view the Auto-update log(s). Please "
+"enter <b>root's</b> password below."
 msgstr ""
-"Pääkäyttäjän oikeuksia vaaditaan automaattipäivityksen loki(e)n "
-"katsomiseen. Ole hyvä ja syötä pääkäyttäjän salasana alapuolelle."
+"<b>Pääkäyttäjän oikeuksia</b> vaaditaan automaattipäivityksen loki(e)n "
+"katsomiseen. Ole hyvä ja syötä <b>pääkäyttäjän</b> salasana alapuolelle."
 
 #: apt-notifier.py:1695
 msgid "MX Auto-update  --  unattended-upgrades log viewer"
@@ -324,11 +324,11 @@ msgstr ""
 
 #: apt-notifier.py:1764
 msgid ""
-"Root privileges are required to view the Auto-update dpkg log(s). "
-"Please enter root's password below."
+"<b>Root privileges</b> are required to view the Auto-update dpkg log(s). "
+"Please enter <b>root's</b> password below."
 msgstr ""
-"Pääkäyttäjän oikeuksia vaaditaan automaattipäivityksen dpkg loki(e)n "
-"katseluun. Ole hyvä ja syötä pääkäyttäjän salasana alle."
+"<b>Pääkäyttäjän oikeuksia</b> vaaditaan automaattipäivityksen dpkg loki(e)n "
+"katseluun. Ole hyvä ja syötä <b>pääkäyttäjän</b> salasana alle."
 
 #: apt-notifier.py:1765
 msgid "MX Auto-update  --  unattended-upgrades dpkg log viewer"
