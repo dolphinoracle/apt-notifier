@@ -1,3 +1,9 @@
+apt-notifier (19.04.05mx17+1) mx; urgency=medium
+
+  * Translations updated. (Thankyou Old Giza!)
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Fri, 05 Apr 2019 10:53:40 -0400
+
 apt-notifier (19.03.01mx17+1) mx; urgency=medium
 
   * Additional pkxexec related changes
