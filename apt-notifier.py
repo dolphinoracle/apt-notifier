@@ -1669,61 +1669,40 @@ def view_unattended_upgrades_logs():
     t01 = _("MX Auto-update  --  unattended-upgrades log viewer")
     t02 = _("No logs found.")
     t03 = _("For a less detailed view see 'Auto-update dpkg log(s)' or 'History'.")
+    t04 = _("Press 'h' for help, 'q' to quit")
     shellvar = (
         '    Title="'                  + t01 + '"\n'
-        '    NoLogsFound="'            + t02 + '"\n'     
-        '    SeeHistory="'             + t03 + '"\n'   
+        '    NoLogsFound="'            + t02 + '"\n'
+        '    SeeHistory="'             + t03 + '"\n'
+        '    LessPrompt="'             + t04 + '"\n'
         )
     script = '''#! /bin/bash
 ''' + shellvar + '''
-    TMP=$(mktemp -d /tmp/apt_notifier_ViewUnattendUpgradesLogs.XXXXXX)
-    NoLogsFound="$(sed "s|[']|\\\\'|g" <<<"$NoLogsFound")"
-    SeeHistory="$(sed "s|[']|\\\\'|g" <<<"$SeeHistory")"
-    cat << EOF > "$TMP"/ViewLogs
-#! /bin/bash
-    if [ -f /var/log/unattended-upgrades/unattended-upgrades.log ]
-      then 
-        ls -1 /var/log/unattended-upgrades/unattended-upgrades.log* -tr | \\\\
-        xargs zcat -f                                                   | \\\\
-        sed 's/: \\\\[\\\\x27origin=/:\\\\[\\\\n\\\\x27origin=/'        | \\\\
-        sed 's/, \\\\x27a=/,\\\\n\\\\x27a=/g'                           | \\\\
-        sed 's/, \\\\x27c=/,\\\\n\\\\x27c=/g'                           | \\\\
-        sed 's/, \\\\x27l=/,\\\\n\\\\x27l=/g'                           | \\\\
-        sed 's/, \\\\x27n=/,\\\\n\\\\x27n=/g'                           | \\\\
-        sed 's/, \\\\x27o=/,\\\\n\\\\x27o=/g'                           | \\\\
-        sed 's/, \\\\x27archive=/,\\\\n\\\\x27archive=/g'               | \\\\
-        sed 's/, \\\\x27codename=/,\\\\n\\\\x27codename=/g'             | \\\\
-        sed 's/, \\\\x27component=/,\\\\n\\\\x27component=/g'           | \\\\
-        sed 's/, \\\\x27label=/,\\\\n\\\\x27label=/g'                   | \\\\
-        sed 's/, \\\\x27origin=/,\\\\n\\\\x27origin=/g'                 | \\\\
-        sed 's/, \\\\x27suite=/,\\\\n\\\\x27suite=/g'                   >  "$TMP"/Logs
-        echo -e \\\\\\\\n"$SeeHistory"\\\\\\\\n                         >> "$TMP"/Logs
-      else
-        echo -e \\\\\\\\n"$NoLogsFound"\\\\\\\\n                        >  "$TMP"/Logs
-    fi 
-cat "$TMP"/Logs | yad \\\\
-  --window-icon=ICON \\\\
-  --width=$(xprop -root | grep _NET_DESKTOP_GEOMETRY\(CARDINAL\) | awk '{print $3*.75}' | cut -f1 -d.) \\\\
-  --height=480 \\\\
-  --center \\\\
-  --title=TITLE \\\\
-  --text-info \\\\
-  --button=gtk-close \\\\
-  --margins=7 \\\\
-  --borders=5 \\\\
-  --wrap \\\\
-  --tail
-EOF
+    Title="$(sed "s|[']|\\\\'|g" <<<"${Title}")"
     User=$(who | grep '(:0)' -m1 | awk '{print $1}')
     if [ "$User" != "root" ]
       then IconLook="$(grep IconLook /home/"$User"/.config/apt-notifierrc | cut -f2 -d=)"
       else IconLook="$(grep IconLook /root/.config/apt-notifierrc | cut -f2 -d=)"
     fi
-    sed -i 's|ICON|/usr/share/icons/mnotify-some-'"$IconLook"'.png|' "$TMP"/ViewLogs
-    Title="$(sed "s|[']|\\\\'|g" <<<"$Title")"    
-    sed -i "s|TITLE|"'"'"$Title"'"'"|"  "$TMP"/ViewLogs
-    sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-view-auto-update-logs bash "$TMP"/ViewLogs
-    rm -rf "$TMP"
+    pkexecWrapper="/usr/lib/apt-notifier/pkexec-wrappers/mx-updater-view-auto-update-logs"
+    terminalCMD="mx-updater_unattended_upgrades_log_view"
+    #Uncomment lines below to pass strings as arguments
+    #NoLogsFound="$(sed "s|[']|\\\\\\'|g" <<<"$NoLogsFound")"
+    #NoLogsFound="$(sed 's/ /\\\\ /g' <<<"$NoLogsFound")"
+    #SeeHistory="$(sed "s|[']|\\\\\\'|g" <<<"$SeeHistory")"
+    #SeeHistory="$(sed 's/ /\\\\ /g' <<<"$SeeHistory")"
+    #LessPrompt="$(sed "s|[']|\\\\\\'|g" <<<"$LessPrompt")"
+    #LessPrompt="$(sed 's/ /\\\\ /g' <<<"$LessPrompt")"
+    #terminalCMD="${terminalCMD}"" ""${SeeHistory}"
+    #terminalCMD="${terminalCMD}"" ""${NoLogsFound}"
+    #terminalCMD="${terminalCMD}"" ""${LessPrompt}"
+    if [ -x /usr/bin/xfce4-terminal ]
+      then
+        sh "${pkexecWrapper}" xfce4-terminal --icon=/usr/share/icons/mnotify-some-"$IconLook".png\
+           --title='"'"${Title}"'"' --hide-menubar -e "${terminalCMD}" 2>/dev/null
+      else
+        sh "${pkexecWrapper}" x-terminal-emulator  -e "${terminalCMD}" 2>/dev/null
+    fi
     '''
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
@@ -1731,50 +1710,41 @@ EOF
     run = subprocess.Popen(["echo -n `bash %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
     run.stdout.read(128)
     script_file.close()
-    
+
 def view_unattended_upgrades_dpkg_logs():
     # ~~~ Localize 7 ~~~
     t01 = _("MX Auto-update  --  unattended-upgrades dpkg log viewer")
     t02 = _("No unattended-upgrades dpkg log(s) found.")
+    t03 = _("Press 'h' for help, 'q' to quit")
     shellvar = (
         '    Title="'                  + t01 + '"\n'
-        '    NoLogsFound="'            + t02 + '"\n'     
+        '    NoLogsFound="'            + t02 + '"\n'
+        '    LessPrompt="'             + t03 + '"\n'
         )
     script = '''#! /bin/bash
 ''' + shellvar + '''
-    TMP=$(mktemp -d /tmp/apt_notifier_ViewUnattendUpgradesDpkgLogs.XXXXXX)
-    NoLogsFound="$(sed "s|[']|\\\\'|g" <<<"$NoLogsFound")"
-    cat << EOF > "$TMP"/ViewLogs
-#! /bin/bash
-    if [ -f /var/log/unattended-upgrades/unattended-upgrades-dpkg.log ]
-      then 
-        ls -1 /var/log/unattended-upgrades/unattended-upgrades-dpkg.log* -tr | xargs zcat -f -q --fast | sed 's/%\\\\x0D/%\\\\n/g' | grep -v %$ > "$TMP"/Logs
-      else
-        echo -e \\\\\\\\n"$NoLogsFound"\\\\\\\\n > "$TMP"/Logs
-    fi 
-cat "$TMP"/Logs | yad \\\\
-  --window-icon=ICON \\\\
-  --width=$(xprop -root | grep _NET_DESKTOP_GEOMETRY\(CARDINAL\) | awk '{print $3*.75}' | cut -f1 -d.) \\\\
-  --height=480 \\\\
-  --center \\\\
-  --title=TITLE \\\\
-  --text-info \\\\
-  --button=gtk-close \\\\
-  --margins=7 \\\\
-  --borders=5 \\\\
-  --wrap \\\\
-  --tail
-EOF
+    Title="$(sed "s|[']|\\\\'|g" <<<"${Title}")"
     User=$(who | grep '(:0)' -m1 | awk '{print $1}')
     if [ "$User" != "root" ]
       then IconLook="$(grep IconLook /home/"$User"/.config/apt-notifierrc | cut -f2 -d=)"
       else IconLook="$(grep IconLook /root/.config/apt-notifierrc | cut -f2 -d=)"
     fi
-    sed -i 's|ICON|/usr/share/icons/mnotify-some-'"$IconLook"'.png|' "$TMP"/ViewLogs
-    Title="$(sed "s|[']|\\\\'|g" <<<"$Title")"    
-    sed -i "s|TITLE|"'"'"$Title"'"'"|"  "$TMP"/ViewLogs
-    sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-view-auto-update-dpkg-logs bash "$TMP"/ViewLogs
-    rm -rf "$TMP"
+    pkexecWrapper="/usr/lib/apt-notifier/pkexec-wrappers/mx-updater-view-auto-update-dpkg-logs"
+    terminalCMD="mx-updater_unattended_upgrades_dpkg_log_view"
+    #Uncomment lines below to pass the strings as arguments
+    #NoLogsFound="$(sed "s|[']|\\\\\\'|g" <<<"$NoLogsFound")"
+    #NoLogsFound="$(sed 's/ /\\\\ /g' <<<"$NoLogsFound")"
+    #LessPrompt="$(sed "s|[']|\\\\\\'|g" <<<"$LessPrompt")"
+    #LessPrompt="$(sed 's/ /\\\\ /g' <<<"$LessPrompt")"
+    #terminalCMD="${terminalCMD}"" ""${NoLogsFound}"
+    #terminalCMD="${terminalCMD}"" ""${LessPrompt}"
+    if [ -x /usr/bin/xfce4-terminal ]
+      then
+        sh "${pkexecWrapper}" xfce4-terminal --icon=/usr/share/icons/mnotify-some-"$IconLook".png\
+           --title='"'"${Title}"'"' --hide-menubar -e "${terminalCMD}" 2>/dev/null
+      else
+        sh "${pkexecWrapper}" x-terminal-emulator  -e "${terminalCMD}" 2>/dev/null
+    fi
     '''
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)

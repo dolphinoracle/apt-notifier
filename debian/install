@@ -13,8 +13,8 @@ mnotify-none-pulse.png                                           usr/share/icons
 mnotify-none-wireframe.png                                       usr/share/icons
 mnotify-some-classic.png                                         usr/share/icons
 mnotify-some-pulse.png                                           usr/share/icons
-mnotify-some-wireframe.png                                       usr/share/icons
 mnotify-some-wireframe-pkexec.png                                usr/share/icons
+mnotify-some-wireframe.png                                       usr/share/icons
 mx-updater-autostart-kde.desktop                                 usr/share/autostart
 mx-updater-autostart-xdg.desktop                                 etc/xdg/autostart
 mx-updater-basic-upgrade                                         usr/lib/apt-notifier/pkexec-wrappers
@@ -24,6 +24,8 @@ mx-updater-full-upgrade                                          usr/lib/apt-not
 mx-updater-menu-kde.desktop                                      usr/share/applications
 mx-updater-menu-non-kde.desktop                                  usr/share/applications
 mx-updater-reload                                                usr/lib/apt-notifier/pkexec-wrappers
+mx-updater_unattended_upgrades_dpkg_log_view                     usr/local/bin
+mx-updater_unattended_upgrades_log_view                          usr/local/bin
 mx-updater-view-auto-update-dpkg-logs                            usr/lib/apt-notifier/pkexec-wrappers
 mx-updater-view-auto-update-logs                                 usr/lib/apt-notifier/pkexec-wrappers
 org.mxlinux.pkexec.mx-updater-basic-upgrade.policy               usr/share/polkit-1/actions
