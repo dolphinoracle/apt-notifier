@@ -476,7 +476,7 @@ Disabled
                                         then
                                           sh "$1" "xfce4-terminal$G$I$T -e $4"
                                         else
-                                          sh "$1" "xterm -e $4"
+                                          sh "$1" "xterm -fa monaco -fs 12 -bg black -fg white -e $4"
                                       fi
                                       ;;
 
@@ -506,8 +506,8 @@ Disabled
         
         8)
         BP="0"
-        #chmod +x $TMP/upgradeScript
-        RunAptScriptInTerminal "/usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload" "" "$reload" "'apt-get update'"
+        chmod +x $TMP/upgradeScript
+        RunAptScriptInTerminal "/usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload" "" "$reload" "$TMP/upgradeScript"
         sleep 1
         ;;
         
@@ -621,10 +621,11 @@ Disabled
             window_title="$window_title_full"
         fi
 
+        IFS="x" read screenWidth screenHeight < <(xdpyinfo | grep dimensions | grep -o "[0-9x]*" | head -n 1)
         yad \\
         --window-icon=/usr/share/icons/mnotify-some-"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)".png \\
-        --width=640 \\
-        --height=480 \\
+        --width="$(awk '{print ($1*.6666)+.5}' <<<$screenWidth | cut -f1 -d.)" \\
+        --height="$(awk '{print ($1*.6666)+.5}' <<<$screenHeight | cut -f1 -d.)" \\
         --center \\
         --title "$(echo "$window_title"|sed 's/MX /'$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)" "'/')" \\
         --form \\
@@ -643,18 +644,18 @@ Disabled
         # if the View and Upgrade yad window was closed by one of it's 4 buttons, 
         # then update the UpgradeAssumeYes & UpgradeAutoClose flags in the 
         # ~/.config/apt-notifierrc file to match the checkboxes
-        if [ $(tail -n1 "$TMP"/results) -eq 0 ]||\\
-           [ $(tail -n1 "$TMP"/results) -eq 2 ]||\\
-           [ $(tail -n1 "$TMP"/results) -eq 4 ]||\\
-           [ $(tail -n1 "$TMP"/results) -eq 8 ];
+        if [ $(tail -n 1 "$TMP"/results) -eq 0 ]||\\
+           [ $(tail -n 1 "$TMP"/results) -eq 2 ]||\\
+           [ $(tail -n 1 "$TMP"/results) -eq 4 ]||\\
+           [ $(tail -n 1 "$TMP"/results) -eq 8 ];
           then
-            if [ "$(head -n1 "$TMP"/results | rev | awk -F \| '{ print $3}' | rev)" = "TRUE" ];
+            if [ "$(head -n 1 "$TMP"/results | rev | awk -F \| '{ print $3}' | rev)" = "TRUE" ];
               then
                 grep UpgradeAssumeYes=true  ~/.config/apt-notifierrc > /dev/null || sed -i 's/UpgradeAssumeYes=false/UpgradeAssumeYes=true/' ~/.config/apt-notifierrc
               else
                 grep UpgradeAssumeYes=false ~/.config/apt-notifierrc > /dev/null || sed -i 's/UpgradeAssumeYes=true/UpgradeAssumeYes=false/' ~/.config/apt-notifierrc
             fi
-            if [ "$(head -n1 "$TMP"/results | rev | awk -F \| '{ print $2}' | rev)" = "TRUE" ];
+            if [ "$(head -n 1 "$TMP"/results | rev | awk -F \| '{ print $2}' | rev)" = "TRUE" ];
               then
                 grep UpgradeAutoClose=true  ~/.config/apt-notifierrc > /dev/null || sed -i 's/UpgradeAutoClose=false/UpgradeAutoClose=true/' ~/.config/apt-notifierrc
               else
@@ -667,17 +668,27 @@ Disabled
         # refresh UpgradeAssumeYes & UpgradeAutoClose 
         UpgradeAssumeYes=$(grep ^UpgradeAssumeYes ~/.config/apt-notifierrc | cut -f2 -d=)
         UpgradeAutoClose=$(grep ^UpgradeAutoClose ~/.config/apt-notifierrc | cut -f2 -d=)
-        
-        if [ $(tail -n1 "$TMP"/results) -eq 8 ];
+
+        #create first part of upgradeScript
+        cat << 'EOF' > "$TMP"/upgradeScript
+#!/bin/bash
+sleep 1
+IFS="x" read screenWidth screenHeight < <(xdpyinfo | grep dimensions | grep -o "[0-9x]*" | head -n 1)
+xdotool getactivewindow windowsize --usehints 67% 67%
+read width  < <(xdotool getactivewindow getwindowgeometry --shell | head -n 5 | tail -n 2 | cut -f2 -d= | head -n 1)
+read height < <(xdotool getactivewindow getwindowgeometry --shell | head -n 5 | tail -n 2 | cut -f2 -d= | tail -n 1)
+newPosX=$(((screenWidth-width)/2))
+newPosY=$(((screenHeight-height)/2))
+xdotool getactivewindow windowmove "$newPosX" "$newPosY"
+EOF
+        if [ $(tail -n 1 "$TMP"/results) -eq 8 ];
           then
             # build a upgrade script to do a apt-get update
-            echo "#!/bin/bash"> "$TMP"/upgradeScript
-            echo "echo 'update'">> "$TMP"/upgradeScript
+            echo "echo 'apt-get update'">> "$TMP"/upgradeScript
             echo "apt-get update">> "$TMP"/upgradeScript
 
           else
             # build a upgrade script to do the apt-get upgrade (basic upgrade) or dist-upgrade (full upgrade)
-            echo "#!/bin/bash"> "$TMP"/upgradeScript
             echo "echo ''"$UpgradeTypeUserFriendlyName>> "$TMP"/upgradeScript
             echo 'find /etc/apt/preferences.d | grep -E synaptic-[0-9a-zA-Z]{6}-pins | xargs rm -f'>> "$TMP"/upgradeScript 
             echo 'if [ -f /var/lib/synaptic/preferences -a -s /var/lib/synaptic/preferences ]'>> "$TMP"/upgradeScript
@@ -737,7 +748,7 @@ Disabled
             fi
         fi
 
-        DoUpgrade $(tail -n1 "$TMP"/results)
+        DoUpgrade $(tail -n 1 "$TMP"/results)
 
         rm -rf "$TMP"
 
@@ -868,7 +879,7 @@ def initialize_aptnotifier_prefs():
       #if a IconLook=* line not present,
       #or not equal to "wireframe" or "classic" or "pulse", then have default as follows for the various MX releases
       #
-       case $(grep DISTRIB_RELEASE /etc/lsb-release | grep -Eo [0-9.]+ | head -n1) in
+       case $(grep DISTRIB_RELEASE /etc/lsb-release | grep -Eo [0-9.]+ | head -n 1) in
          14  ) IconDefault="classic"   ;;
          15  ) IconDefault="classic"   ;;
          16  ) IconDefault="wireframe" ;;
@@ -1236,6 +1247,24 @@ def apt_get_update():
     script = '''#! /bin/bash
 ''' + shellvar + '''
 
+    TMP=$(mktemp -d /tmp/apt_update.XXXXXX)
+    #create first part of upgradeScript
+    cat << 'EOF' > "$TMP"/upgradeScript
+#!/bin/bash
+sleep 1
+IFS="x" read screenWidth screenHeight < <(xdpyinfo | grep dimensions | grep -o "[0-9x]*" | head -n 1)
+xdotool getactivewindow windowsize --usehints 67% 67%
+read width  < <(xdotool getactivewindow getwindowgeometry --shell | head -n 5 | tail -n 2 | cut -f2 -d= | head -n 1)
+read height < <(xdotool getactivewindow getwindowgeometry --shell | head -n 5 | tail -n 2 | cut -f2 -d= | tail -n 1)
+newPosX=$(((screenWidth-width)/2))
+newPosY=$(((screenHeight-height)/2))
+xdotool getactivewindow windowmove "$newPosX" "$newPosY"
+EOF
+    echo "echo 'apt-get update'">> "$TMP"/upgradeScript
+    echo "apt-get update">> "$TMP"/upgradeScript
+    echo "sleep 3">> "$TMP"/upgradeScript
+    chmod +x $TMP/upgradeScript
+
     #for MEPIS remove "MX" branding from the $window_title string
     window_title=$(echo "$window_title"|sed 's/MX /'$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
 
@@ -1307,33 +1336,33 @@ def apt_get_update():
 Disabled
         case $(readlink -e /usr/bin/x-terminal-emulator | xargs basename) in
 
-          gnome-terminal.wrapper) sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "gnome-terminal$G$T -e 'apt-get update'"
+          gnome-terminal.wrapper) sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "gnome-terminal$G$T -e $TMP/upgradeScript"
                                   ;;
 
-                         konsole) sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "konsole -e apt-get update"
+                         konsole) sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "konsole -e $TMP/upgradeScript"
                                   sleep 5
                                   ;;
 
-                         roxterm) sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "roxterm$G$T --separate -e apt-get update"
+                         roxterm) sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "roxterm$G$T --separate -e $TMP/upgradeScript"
                                   ;;
 
-          xfce4-terminal.wrapper) sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "xfce4-terminal$G$I$T -e 'apt-get update'"
+          xfce4-terminal.wrapper) sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "xfce4-terminal$G$I$T -e $TMP/upgradeScript"
                                   ;;
 
                            xterm) if [ -e /usr/bin/xfce4-terminal ]
                                     then
-                                      sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "xfce4-terminal$G$I$T -e 'apt-get update'"
+                                      sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "xfce4-terminal$G$I$T -e $TMP/upgradeScript"
                                     else
-                                      sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "xterm -e apt-get update"
+                                      sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "xterm -e $TMP/upgradeScript"
                                   fi
                                   ;;
 
-                               *) sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "x-terminal-emulator -e apt-get update"
+                               *) sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "x-terminal-emulator -e $TMP/upgradeScript"
                                   ;;
 
         esac
     #fi
-    
+    rm -rf "$TMP"
     '''
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
