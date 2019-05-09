@@ -1,3 +1,10 @@
+apt-notifier (19.05.08mx17+1) mx; urgency=medium
+
+  * Dynamically resize terminal windows to 2/3 of screen's Width and Height.
+  * View unattended-upgrade logs in terminal instead of yad.
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Wed, 08 May 2019 22:14:16 -0400
+
 apt-notifier (19.04.05mx17+1) mx; urgency=medium
 
   * Translations updated. (Thankyou Old Giza!)

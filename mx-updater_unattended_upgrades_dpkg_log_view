@@ -3,7 +3,8 @@
 #test to see if started by apt-notifier.py,
 #if it was resize terminal window to 67% of screenwidth & screenheight,
 #and reposition to the center of screen
-ps axjf | grep ^[[:space:]]*$$ -B7 -E | head -1 | grep apt-notifier.py$ -qo
+sleep 1
+ps axjf | grep ^[[:space:]]*$$ -B7 -E | grep apt-notifier.py$ -qo
 if [ "$?" = "0" ]
   then
     IFS='x' read screenWidth screenHeight < <(xdpyinfo | grep dimensions | grep -o '[0-9x]*' | head -n1)
