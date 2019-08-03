@@ -115,7 +115,7 @@ def check_updates():
     Don't bother checking for updates if processes for other package management tools
     appear to be runninng.
     """ 
-    command_string = "ps aux | grep -v grep | grep -E 'apt-get|aptitude|dpkg|gdebi|synaptic' > /dev/null"
+    command_string = "ps aux | grep -v grep | grep -E 'apt-get|aptitude|dpkg|gdebi|synaptic|unattended-upgrade' > /dev/null"
     exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
     if exit_state == 0:
         return
