@@ -3,8 +3,8 @@
 # Kill any notifier(s) running
 pkill -f 'python /usr/bin/apt-notifier.py'
 
-PARENT_COMMAND=$(ps -o args= $PPID | cut -f2 -d" " | xargs basename)
-if [ "$PARENT_COMMAND" = "apt-notifier-unhide-Icon" ]
+ps -o args= $PPID | grep -q /usr/bin/apt-notifier-unhide-Icon
+if [ "$?" -eq 0 ]
     then
       :
     else
