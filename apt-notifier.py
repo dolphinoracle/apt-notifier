@@ -885,7 +885,12 @@ def initialize_aptnotifier_prefs():
          16  ) IconDefault="wireframe" ;;
          16.1) IconDefault="wireframe" ;;
          17  ) IconDefault="wireframe" ;;
+         17.1) IconDefault="wireframe" ;;
          18  ) IconDefault="wireframe" ;;
+         18.1) IconDefault="wireframe" ;;
+         18.2) IconDefault="wireframe" ;;
+         18.3) IconDefault="wireframe" ;;
+         19  ) IconDefault="wireframe" ;;
             *) IconDefault="wireframe" ;;
        esac
        echo "IconLook=$IconDefault">> ~/.config/apt-notifierrc
