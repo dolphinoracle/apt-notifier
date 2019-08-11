@@ -1,3 +1,9 @@
+apt-notifier (19.08.11mx19+1) mx; urgency=medium
+
+  * MX-19 support added 
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Sun, 11 Aug 2019 09:19:11 -0400
+
 apt-notifier (19.05.08mx17+1) mx; urgency=medium
 
   * Dynamically resize terminal windows to 2/3 of screen's Width and Height.
