@@ -33,6 +33,7 @@ if [ "$EUID" = "0" ]; then
     shift
     echo Starting  "$RUN" "${@}"
     command -v "$RUN" >/dev/null || { echo "mx-updater-reload: Command '$RUN' not found"; exit 1; }
+    export NO_AT_BRIDGE=1
     exec "$RUN" "${@}"
 fi
 exit
