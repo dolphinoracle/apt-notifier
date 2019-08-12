@@ -21,12 +21,12 @@ ShowUnattendedUpgradesLogs()
                                                                 \
  xargs zcat -fq                                                |\
                                                                 \
- sed 's/: \[\x27origin=/:\[\n\x27origin=/'                     |\
+ sed 's/origin=/\norigin=/g'                                   |\
  sed 's/, \x27a=/,\n\x27a=/g'                                  |\
  sed 's/, \x27c=/,\n\x27c=/g'                                  |\
  sed 's/, \x27l=/,\n\x27l=/g'                                  |\
  sed 's/, \x27n=/,\n\x27n=/g'                                  |\
- sed 's/, \x27o=/,\n\x27o=/g'                                  |\
+ sed 's/, o=/,\no=/g'                                          |\
  sed 's/, \x27archive=/,\n\x27archive=/g'                      |\
  sed 's/, \x27codename=/,\n\x27codename=/g'                    |\
  sed 's/, \x27component=/,\n\x27component=/g'                  |\
@@ -41,7 +41,7 @@ SeeHistory="` gettext -d apt-notifier \"For a less detailed view see 'Auto-updat
 
 if [ -f /var/log/unattended-upgrades/unattended-upgrades.log ]
   then 
-    StartOfLatestEntry="$(ShowUnattendedUpgradesLogs | grep ':\[$' -B 3 | tail -n 4 | head -n 1)"
+    StartOfLatestEntry="$(ShowUnattendedUpgradesLogs | grep 'Initial blacklist : ' | awk '{print $1,$2}' | tail -n 1)"
     ShowUnattendedUpgradesLogs | sed -e "\$a\\\n${SeeHistory}\\\\\n" | sed 's/\\$//' | less -~ -R --prompt="--less--[$LessPrompt]" -p "${StartOfLatestEntry}"
   else
     echo -e \\n"${NoLogsFound}"\\n | less -~ -R --prompt="--less--[$LessPrompt]"
