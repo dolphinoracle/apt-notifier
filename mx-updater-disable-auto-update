@@ -9,7 +9,7 @@
 if [ "$EUID" != "0" ]; then
     # normal user
     QTENV="/tmp/mx-updater-disable-auto-update-qtenv.$EUID.$PPID.$$.$RANDOM$RANDOM"
-    env | grep -E '^QT_'  | sed -e 's/^/export /' 2>/dev/null  > "$QTENV"
+    env | grep -E '^QT_|^LANG='  | sed -e 's/^/export /' 2>/dev/null  > "$QTENV"
     chmod +r "$QTENV"
     pkexec /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-disable-auto-update "--qtenv" "$QTENV" "${@}"
     if [ -f "$QTENV" ] ; then
