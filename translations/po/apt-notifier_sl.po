@@ -6,15 +6,16 @@
 # Translators:
 # anticapitalista <anticapitalista@riseup.net>, 2017
 # Mario <al.manja@gmx.com>, 2018
+# Arnold Marko <arnold.marko@gmail.com>, 2019
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-14 11:41-0400\n"
+"POT-Creation-Date: 2019-08-21 15:02-0400\n"
 "PO-Revision-Date: 2017-05-11 01:14+0000\n"
-"Last-Translator: Mario <al.manja@gmx.com>, 2018\n"
+"Last-Translator: Arnold Marko <arnold.marko@gmail.com>, 2019\n"
 "Language-Team: Slovenian (https://www.transifex.com/anticapitalista/teams/10162/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,311 +23,282 @@ msgstr ""
 "Language: sl\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 
-#: apt-notifier.py:66
+#: apt-notifier.py:58
 msgid "0 updates available"
-msgstr "0 posodobitev na voljo"
+msgstr "Nobena posodobitev ni na voljo"
 
-#: apt-notifier.py:67
+#: apt-notifier.py:59
 msgid "1 new update available"
-msgstr "1 nova posodobitev na voljo"
+msgstr "Ena posodobitev je na voljo"
 
-#: apt-notifier.py:68
+#: apt-notifier.py:60
 msgid "$count new updates available"
-msgstr "$count nove posodobitve na voljo"
+msgstr "$countposodobitev je na voljo"
 
-#: apt-notifier.py:69
+#: apt-notifier.py:61
 msgid "Updates"
 msgstr "Posodobitve"
 
-#: apt-notifier.py:70
+#: apt-notifier.py:62
 msgid "You have 1 new update available"
-msgstr "Imate 1 novo posodobitev na voljo"
+msgstr "Na voljo imate eno posodobitev"
 
-#: apt-notifier.py:71
+#: apt-notifier.py:63
 msgid "You have $count new updates available"
-msgstr "Imate $count nove posodobitve na voljo"
+msgstr "Na voljo imate $count posodobitve"
 
-#: apt-notifier.py:72
+#: apt-notifier.py:64
 msgid "Upgrade using Synaptic"
 msgstr "Nadgradnja z uporabo Synaptic"
 
-#: apt-notifier.py:73
+#: apt-notifier.py:65
 msgid "View and Upgrade"
 msgstr "Preglej in nadgradi"
 
-#: apt-notifier.py:74
+#: apt-notifier.py:66
 msgid "Hide until updates available"
-msgstr "Skrij če ni posodobitev"
+msgstr "Skrij, dokler ne obstajajo nove posodobitve"
 
-#: apt-notifier.py:75
+#: apt-notifier.py:67
 msgid "Quit"
 msgstr "Končaj"
 
-#: apt-notifier.py:76
+#: apt-notifier.py:68
 msgid "MX Updater Help"
-msgstr "Pomoč MX nadgradnja"
+msgstr "MX nadgradnja pomoč"
 
-#: apt-notifier.py:77
+#: apt-notifier.py:69
 msgid "Synaptic Help"
-msgstr "Pomoč Synaptic"
+msgstr "Synaptic pomoč"
 
-#: apt-notifier.py:78
+#: apt-notifier.py:70
 msgid "Preferences"
 msgstr "Možnosti"
 
-#: apt-notifier.py:79 apt-notifier.py:1242
+#: apt-notifier.py:71 apt-notifier.py:1208
 msgid "History"
 msgstr "Zgodovina"
 
-#: apt-notifier.py:80
+#: apt-notifier.py:72
 msgid "Auto-update log(s)"
-msgstr ""
+msgstr "Samodejna posodobitev dnevnikov"
 
-#: apt-notifier.py:81
+#: apt-notifier.py:73
 msgid "Auto-update dpkg log(s)"
-msgstr ""
+msgstr "Samodejna posodobitev dpkg dnevnikov"
 
-#: apt-notifier.py:82
+#: apt-notifier.py:74
 msgid "Check for Updates"
 msgstr "Preveri za posodobitve"
 
-#: apt-notifier.py:83
+#: apt-notifier.py:75
 msgid "About"
 msgstr "O programu"
 
-#: apt-notifier.py:340
+#: apt-notifier.py:294
 msgid "MX Updater--View and Upgrade, previewing: basic upgrade"
-msgstr "MX Posodobitev--Ogled in Nadgraditev, predogled: osnovna nadgradnja"
+msgstr "MX Posodobitev--Oglej in nadgradi, predogled: osnovna nadgradnja"
 
-#: apt-notifier.py:341
+#: apt-notifier.py:295
 msgid "MX Updater--View and Upgrade, previewing: full upgrade"
-msgstr "MX Posodobitev--Ogled in Nadgraditev, predogled: celotna nadgradnja"
+msgstr "MX Posodobitev--Oglej in nadgradi, predogled: celotna nadgradnja"
 
-#: apt-notifier.py:343
+#: apt-notifier.py:297
 msgid "Automatically answer 'yes' to all prompts during upgrade"
-msgstr "Avtomatsko odgovori z 'yes' na vsa vprašanja med nadgradnjo"
+msgstr "Samodejno odgovori z 'yes' na vsa vprašanja med nadgradnjo"
 
-#: apt-notifier.py:345 apt-notifier.py:347
+#: apt-notifier.py:299 apt-notifier.py:301
 msgid "automatically close terminal window when upgrade complete"
-msgstr "automatsko zapri okno terminala po končani nadgradnji"
+msgstr "po končani nadgradnji samodejno zapri okno terminala"
 
-#: apt-notifier.py:348 apt-notifier.py:976
+#: apt-notifier.py:302 apt-notifier.py:945
 msgid "basic upgrade"
 msgstr "osnovna nadgradnja"
 
-#: apt-notifier.py:349
+#: apt-notifier.py:303
 msgid "full upgrade"
 msgstr "celotna nadgradnja"
 
-#: apt-notifier.py:350
+#: apt-notifier.py:304
 msgid "switch to basic upgrade"
 msgstr "preklop na osnovno nadgradnjo"
 
-#: apt-notifier.py:351
+#: apt-notifier.py:305
 msgid "switch to full upgrade"
 msgstr "preklop na celotno nadgradnjo"
 
-#: apt-notifier.py:352
+#: apt-notifier.py:306
 msgid ""
 "Switches the type of Upgrade that will be performed, alternating back and "
 "forth between 'full upgrade' and 'basic upgrade'."
 msgstr ""
-"Preklaplja med načinom nadgradnje ki se bo izvedla in nazaj, med celotno in "
-"osnovno nadgradnjo"
+"Preklaplja med načinom nadgradnje, ki se bo izvedla tj. med 'celotno "
+"nadgradnjo' in 'osnovno nadgradnjo'."
 
-#: apt-notifier.py:353 apt-notifier.py:1281
+#: apt-notifier.py:307 apt-notifier.py:1246
 msgid "Reload"
 msgstr "Ponovno naloži"
 
-#: apt-notifier.py:354
+#: apt-notifier.py:308
 msgid ""
 "Reload the package information to become informed about new, removed or "
 "upgraded software packages. (apt-get update)"
 msgstr ""
-"Osvežitev informacije, za priodobitev podatkov o novih, odstranjenih ali "
-"nadgrajenih programskih paketih. (apt-get update)"
+"Ponovno naloži podatke o paketih in tako osveži podatke o novih, "
+"odstranjenih ali nadgrajenih programskih paketih. (apt-get update)"
 
-#: apt-notifier.py:357 apt-notifier.py:1280
-msgid ""
-"The action you requested needs <b>root privileges</b>. Please enter "
-"<b>root's</b> password below."
-msgstr ""
-"Zahtevana akcija potrebuje <b>root privileges</b>. Prosim vnesite <b> "
-"root's</b> geslo spodaj."
-
-#: apt-notifier.py:360
+#: apt-notifier.py:311
 msgid "basic upgrade complete (or was canceled)"
 msgstr "osnovna nadgradnja je končana (če ni bila preklicana)"
 
-#: apt-notifier.py:361
+#: apt-notifier.py:312
 msgid "full upgrade complete (or was canceled)"
 msgstr "celotna nadgradnja je končana (če ni bila preklicana)"
 
-#: apt-notifier.py:362
+#: apt-notifier.py:313
 msgid "this terminal window can now be closed"
 msgstr "to okno terminala lahko sedaj zaprete"
 
-#: apt-notifier.py:363
+#: apt-notifier.py:314
 msgid "press any key to close"
 msgstr "pritisnite poljubno tipko za izhod"
 
-#: apt-notifier.py:364
+#: apt-notifier.py:315
 msgid "Unneeded packages are installed that can be removed."
-msgstr "Nameščene pakete, ki so neuporabljeni, lahko odstranite"
+msgstr "Nameščeni so nepotreni paketi, ki jih lahko odstranite."
 
-#: apt-notifier.py:365
+#: apt-notifier.py:316
 msgid "Running apt-get autoremove, if you are unsure type 'n'."
-msgstr ""
-"Zaganjanje apt-get avtomatska odstranitev, če ste v dvomu, odgovorite z 'n'"
+msgstr "Zaganja se apt-get autoremove. Će ste v dvomih, odgovorite z 'n'"
 
-#: apt-notifier.py:366
+#: apt-notifier.py:317
 msgid "upgrade"
 msgstr "nadgradnja"
 
-#: apt-notifier.py:367
+#: apt-notifier.py:318
 msgid "Using full upgrade"
 msgstr "Izvedba celotne posodobitve"
 
-#: apt-notifier.py:368
+#: apt-notifier.py:319
 msgid "Using basic upgrade (not recommended)"
 msgstr "Izvedba osnovne posodobitve (odsvetujemo)"
 
-#: apt-notifier.py:973
+#: apt-notifier.py:942
 msgid "MX Updater preferences"
-msgstr "MX nastavitve posodobitev"
+msgstr "Nastavitve za MX posodobitev"
 
-#: apt-notifier.py:974
+#: apt-notifier.py:943
 msgid "Upgrade mode"
 msgstr "Način nadgradnje"
 
-#: apt-notifier.py:975
+#: apt-notifier.py:944
 msgid "full upgrade   (recommended)"
 msgstr "celotna posodobitev (priporočeno)"
 
-#: apt-notifier.py:977
+#: apt-notifier.py:946
 msgid "Left-click behaviour   (when updates are available)"
-msgstr "Levi-klik obnašanje (ko so posodobitve na voljo)"
+msgstr "Obnašanje ob levem kliku (ko so posodobitve na voljo)"
 
-#: apt-notifier.py:978
+#: apt-notifier.py:947
 msgid "Other options"
 msgstr "Druge možnosti"
 
-#: apt-notifier.py:979
+#: apt-notifier.py:948
 msgid "opens Synaptic"
-msgstr "Odpre Synaptic"
+msgstr "odpre Synaptic"
 
-#: apt-notifier.py:980
+#: apt-notifier.py:949
 msgid "opens MX Updater 'View and Upgrade' window"
-msgstr "odpre okno MX Posodobitev, Ogled in Nadgraditev"
+msgstr "odpre okno MX posodobitev 'Ogled in nadgraditev'"
 
-#: apt-notifier.py:981
+#: apt-notifier.py:950
 msgid "Automatically answer 'yes' to all prompts during full/basic upgrade"
 msgstr ""
-"Automatsko odgovori z 'yes' na vsa vprašanja med celotno/osnovno nadgradnjo"
+"Samodejno odgovori z 'yes' na vsa vprašanja med celotno/osnovno nadgradnjo"
 
-#: apt-notifier.py:982
+#: apt-notifier.py:951
 msgid "automatically close terminal window when full/basic upgrade complete"
-msgstr "avtomatsko zapri okno terminala po končani celotni/osnovni nadgradnji"
+msgstr "samodejno zapri okno terminala po končani celotni/osnovni nadgradnji"
 
-#: apt-notifier.py:983
+#: apt-notifier.py:952
 msgid "check for autoremovable packages after full/basic upgrade"
 msgstr ""
-"po končani celotni/osnovni nadgradnji, preveri za automatsko odstranljive "
-"pakete"
+"po končani celotni/osnovni nadgradnji preveri, katere pakete je mogoče "
+"samodejno odstraniti"
 
-#: apt-notifier.py:984
+#: apt-notifier.py:953
 msgid "Icons"
 msgstr "Ikone"
 
-#: apt-notifier.py:985
+#: apt-notifier.py:954
 msgid "classic"
 msgstr "klasična"
 
-#: apt-notifier.py:986
+#: apt-notifier.py:955
 msgid "pulse"
 msgstr "pulz"
 
-#: apt-notifier.py:987
+#: apt-notifier.py:956
 msgid "wireframe"
 msgstr "obris"
 
-#: apt-notifier.py:988
+#: apt-notifier.py:957
 msgid "Auto-update"
-msgstr "Automatska posodobitev"
+msgstr "Samodejna posodobitev"
 
-#: apt-notifier.py:989
+#: apt-notifier.py:958
 msgid "update automatically   (will not add new or remove existing packages)"
 msgstr ""
-"Automatska posodobitev (ne bodo dodani novi in odstranjeni obstoječi paketi)"
+"Samodejna posodobitev (ne bodo dodani novi ali odstranjeni obstoječi paketi)"
 
-#: apt-notifier.py:990
-msgid ""
-"<b>Root privileges</b> are required to <b>enable</b> Auto Updates. Please "
-"enter <b>root's</b> password below."
-msgstr ""
-"<b>Root privileges</b> so potrebne za  <b>enable</b> automatske posodobitve."
-" Spodaj prosim vnesite <b>root's</b> geslo."
-
-#: apt-notifier.py:991
-msgid ""
-"<b>Root privileges</b> are required to <b>disable</b> Auto Updates. Please "
-"enter <b>root's</b> password below."
-msgstr ""
-"<b>Root privileges</b> so potrebne za <b>disable</b> automatske posodobitve."
-" Spodaj prosim vnesite <b>root's</b> geslo."
-
-#: apt-notifier.py:1632
+#: apt-notifier.py:1612
 msgid "MX Updater"
 msgstr "MX posodobitev"
 
-#: apt-notifier.py:1633
+#: apt-notifier.py:1613
 msgid "About MX Updater"
 msgstr "O MX posodobitvi"
 
-#: apt-notifier.py:1634
+#: apt-notifier.py:1614
 msgid "Changelog"
-msgstr ""
+msgstr "Dnevnik sprememb"
 
-#: apt-notifier.py:1635
+#: apt-notifier.py:1615
 msgid "License"
 msgstr "Licenca"
 
-#: apt-notifier.py:1636
+#: apt-notifier.py:1616
 msgid "Cancel"
 msgstr "Prekliči"
 
-#: apt-notifier.py:1637
+#: apt-notifier.py:1617
 msgid "Tray applet to notify of system and application updates"
-msgstr "Vrstica apleta za opombe sistemskih in aplikacijskih posodobitev"
+msgstr "Aplet v sistemski vrstici, ki opozarja na posodobitve"
 
-#: apt-notifier.py:1694
-msgid ""
-"<b>Root privileges</b> are required to view the Auto-update log(s). Please "
-"enter <b>root's</b> password below."
-msgstr ""
-
-#: apt-notifier.py:1695
+#: apt-notifier.py:1674
 msgid "MX Auto-update  --  unattended-upgrades log viewer"
-msgstr ""
+msgstr "MX samodejna posodobitev - ogled dnevnika za nenadzorovane nadgradnje"
 
-#: apt-notifier.py:1696
+#: apt-notifier.py:1675
 msgid "No logs found."
-msgstr ""
+msgstr "Noben dnevnik ni bil najden."
 
-#: apt-notifier.py:1697
+#: apt-notifier.py:1676
 msgid "For a less detailed view see 'Auto-update dpkg log(s)' or 'History'."
 msgstr ""
+"Za manj podroben prikaz si oglejte 'Dnevnik samodejne nadgradnje' ali "
+"'Zgodovina'."
 
-#: apt-notifier.py:1764
-msgid ""
-"<b>Root privileges</b> are required to view the Auto-update dpkg log(s). "
-"Please enter <b>root's</b> password below."
+#: apt-notifier.py:1677 apt-notifier.py:1723
+msgid "Press 'h' for help, 'q' to quit"
 msgstr ""
 
-#: apt-notifier.py:1765
+#: apt-notifier.py:1721
 msgid "MX Auto-update  --  unattended-upgrades dpkg log viewer"
 msgstr ""
+"MX samodejna posodobitev - prikazovalnik dpkg dnevnika za nenadzorovane "
+"nadgradnje"
 
-#: apt-notifier.py:1766
+#: apt-notifier.py:1722
 msgid "No unattended-upgrades dpkg log(s) found."
-msgstr ""
+msgstr "Dnevnik nenadzorovanih nadgradenj ni bil najden"
