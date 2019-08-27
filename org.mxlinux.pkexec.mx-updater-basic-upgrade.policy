@@ -41,8 +41,8 @@
     <message xml:lang="nb">basic upgrade</message>
     <message xml:lang="nl">basis opwaardering</message>
     <message xml:lang="pl">podstawowa aktualizacja</message>
-    <message xml:lang="pt_BR">atualizar pacotes</message>
-    <message xml:lang="pt">actualizar pacotes</message>
+    <message xml:lang="pt_BR">atualizar apenas os pacotes</message>
+    <message xml:lang="pt">actualizar apenas os pacotes</message>
     <message xml:lang="ro">basic upgrade</message>
     <message xml:lang="ru">базовое обновление</message>
     <message xml:lang="sk">basic upgrade</message>
