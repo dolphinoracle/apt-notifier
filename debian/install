@@ -26,7 +26,9 @@ mx-updater-menu-non-kde.desktop                                  usr/share/appli
 mx-updater-reload                                                usr/lib/apt-notifier/pkexec-wrappers
 mx-updater_unattended_upgrades_dpkg_log_view                     usr/local/bin
 mx-updater_unattended_upgrades_log_view                          usr/local/bin
+mx-updater-view-auto-update-dpkg-logs.sh                         usr/lib/apt-notifier/pkexec-wrappers
 mx-updater-view-auto-update-dpkg-logs                            usr/lib/apt-notifier/pkexec-wrappers
+mx-updater-view-auto-update-logs.sh                              usr/lib/apt-notifier/pkexec-wrappers
 mx-updater-view-auto-update-logs                                 usr/lib/apt-notifier/pkexec-wrappers
 org.mxlinux.pkexec.mx-updater-basic-upgrade.policy               usr/share/polkit-1/actions
 org.mxlinux.pkexec.mx-updater-disable-auto-update.policy         usr/share/polkit-1/actions
