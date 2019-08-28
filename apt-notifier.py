@@ -317,6 +317,7 @@ def viewandupgrade():
     t20 = _("upgrade")
     t21 = _("Using full upgrade")
     t22 = _("Using basic upgrade (not recommended)")
+    t23 = _("press any key to close")
 
     shellvar = (
     '    window_title_basic="'          + t01 + '"\n'
@@ -340,6 +341,7 @@ def viewandupgrade():
     '    upgrade="'                     + t20 + '"\n'
     '    upgrade_tooltip_full="'        + t21 + '"\n'
     '    upgrade_tooltip_basic="'       + t22 + '"\n'
+    '    PressAnyKey="'                 + t23 + '"\n'
     )
     
     script = '''#!/bin/bash
@@ -506,8 +508,16 @@ Disabled
         
         8)
         BP="0"
-        chmod +x $TMP/upgradeScript
-        RunAptScriptInTerminal "/usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload" "" "$reload" "$TMP/upgradeScript"
+        #chmod +x $TMP/upgradeScript
+        #RunAptScriptInTerminal "/usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload" "" "$reload" "$TMP/upgradeScript"
+        /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload \
+        " --title=""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" Updater: $reload" \
+        " --icon=mnotify-some-""$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)" \
+        "$PressAnyKey"
+        while [ "$(ps aux | grep -v grep | grep "bash -c".*"apt-get update".*"sleep".*"read.*-p")" ]
+          do
+            sleep 1
+          done
         sleep 1
         ;;
         
@@ -1244,9 +1254,11 @@ def apt_get_update():
     # ~~~ Localize 4 ~~~
 
     t01 = _("Reload")
+    t02 = _("press any key to close")
     
     shellvar = (
     '    reload="' + t01 + '"\n'
+    '    PressAnyKey="' + t02 + '"\n'
     )
     
     script = '''#! /bin/bash
@@ -1277,7 +1289,7 @@ EOF
     TermYOffset="$(xwininfo -root|awk '/Height/{print $2/4}')"
     G=" --geometry=80x25+"$TermXOffset"+"$TermYOffset
     I=" --icon=mnotify-some-""$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
-    T=" --title='""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" Updater: $reload'"
+    T=" --title=""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" Updater: $reload"
 <<'Disabled'
     if (xprop -root | grep -i kde > /dev/null)
       then
@@ -1339,33 +1351,7 @@ EOF
         # If x-terminal-emulator is set to gnome-terminal.wrapper, use xfce4-terminal instead, if it's available (it is in MX), if not use gnome-terminal.
         # If x-terminal-emulator is set to xterm,                  use xfce4-terminal instead, if it's available (it is in MX), if not use xterm.
 Disabled
-        case $(readlink -e /usr/bin/x-terminal-emulator | xargs basename) in
-
-          gnome-terminal.wrapper) sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "gnome-terminal$G$T -e $TMP/upgradeScript"
-                                  ;;
-
-                         konsole) sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "konsole -e $TMP/upgradeScript"
-                                  sleep 5
-                                  ;;
-
-                         roxterm) sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "roxterm$G$T --separate -e $TMP/upgradeScript"
-                                  ;;
-
-          xfce4-terminal.wrapper) sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "xfce4-terminal$G$I$T -e $TMP/upgradeScript"
-                                  ;;
-
-                           xterm) if [ -e /usr/bin/xfce4-terminal ]
-                                    then
-                                      sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "xfce4-terminal$G$I$T -e $TMP/upgradeScript"
-                                    else
-                                      sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "xterm -e $TMP/upgradeScript"
-                                  fi
-                                  ;;
-
-                               *) sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "x-terminal-emulator -e $TMP/upgradeScript"
-                                  ;;
-
-        esac
+    /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "$T" "$I" "$PressAnyKey"
     #fi
     rm -rf "$TMP"
     '''
@@ -1689,8 +1675,8 @@ def view_unattended_upgrades_logs():
       then IconLook="$(grep IconLook /home/"$User"/.config/apt-notifierrc | cut -f2 -d=)"
       else IconLook="$(grep IconLook /root/.config/apt-notifierrc | cut -f2 -d=)"
     fi
-    pkexecWrapper="/usr/lib/apt-notifier/pkexec-wrappers/mx-updater-view-auto-update-logs"
-    terminalCMD="mx-updater_unattended_upgrades_log_view"
+    #pkexecWrapper="/usr/lib/apt-notifier/pkexec-wrappers/mx-updater-view-auto-update-logs"
+    #terminalCMD="mx-updater_unattended_upgrades_log_view"
     #Uncomment lines below to pass strings as arguments
     #NoLogsFound="$(sed "s|[']|\\\\\\'|g" <<<"$NoLogsFound")"
     #NoLogsFound="$(sed 's/ /\\\\ /g' <<<"$NoLogsFound")"
@@ -1701,13 +1687,16 @@ def view_unattended_upgrades_logs():
     #terminalCMD="${terminalCMD}"" ""${SeeHistory}"
     #terminalCMD="${terminalCMD}"" ""${NoLogsFound}"
     #terminalCMD="${terminalCMD}"" ""${LessPrompt}"
-    if [ -x /usr/bin/xfce4-terminal ]
-      then
-        sh "${pkexecWrapper}" xfce4-terminal --icon=/usr/share/icons/mnotify-some-"$IconLook".png\
-           --title='"'"${Title}"'"' --hide-menubar -e "${terminalCMD}" 2>/dev/null
-      else
-        sh "${pkexecWrapper}" x-terminal-emulator  -e "${terminalCMD}" 2>/dev/null
-    fi
+    #if [ -x /usr/bin/xfce4-terminal ]
+    #  then
+    #    sh "${pkexecWrapper}" xfce4-terminal --icon=/usr/share/icons/mnotify-some-"$IconLook".png\
+    #       --title='"'"${Title}"'"' --hide-menubar -e "${terminalCMD}" 2>/dev/null
+    #  else
+    #    sh "${pkexecWrapper}" x-terminal-emulator  -e "${terminalCMD}" 2>/dev/null
+    #fi
+    /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-view-auto-update-logs \
+    '"'"${Title}"'"' \
+    '"'"mnotify-some-$IconLook"'"'
     '''
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
@@ -1734,8 +1723,8 @@ def view_unattended_upgrades_dpkg_logs():
       then IconLook="$(grep IconLook /home/"$User"/.config/apt-notifierrc | cut -f2 -d=)"
       else IconLook="$(grep IconLook /root/.config/apt-notifierrc | cut -f2 -d=)"
     fi
-    pkexecWrapper="/usr/lib/apt-notifier/pkexec-wrappers/mx-updater-view-auto-update-dpkg-logs"
-    terminalCMD="mx-updater_unattended_upgrades_dpkg_log_view"
+    #pkexecWrapper="/usr/lib/apt-notifier/pkexec-wrappers/mx-updater-view-auto-update-dpkg-logs"
+    #terminalCMD="mx-updater_unattended_upgrades_dpkg_log_view"
     #Uncomment lines below to pass the strings as arguments
     #NoLogsFound="$(sed "s|[']|\\\\\\'|g" <<<"$NoLogsFound")"
     #NoLogsFound="$(sed 's/ /\\\\ /g' <<<"$NoLogsFound")"
@@ -1743,13 +1732,16 @@ def view_unattended_upgrades_dpkg_logs():
     #LessPrompt="$(sed 's/ /\\\\ /g' <<<"$LessPrompt")"
     #terminalCMD="${terminalCMD}"" ""${NoLogsFound}"
     #terminalCMD="${terminalCMD}"" ""${LessPrompt}"
-    if [ -x /usr/bin/xfce4-terminal ]
-      then
-        sh "${pkexecWrapper}" xfce4-terminal --icon=/usr/share/icons/mnotify-some-"$IconLook".png\
-           --title='"'"${Title}"'"' --hide-menubar -e "${terminalCMD}" 2>/dev/null
-      else
-        sh "${pkexecWrapper}" x-terminal-emulator  -e "${terminalCMD}" 2>/dev/null
-    fi
+    #if [ -x /usr/bin/xfce4-terminal ]
+    #  then
+    #    sh "${pkexecWrapper}" xfce4-terminal --icon=/usr/share/icons/mnotify-some-"$IconLook".png\
+    #       --title='"'"${Title}"'"' --hide-menubar -e "${terminalCMD}" 2>/dev/null
+    #  else
+    #    sh "${pkexecWrapper}" x-terminal-emulator  -e "${terminalCMD}" 2>/dev/null
+    #fi
+    /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-view-auto-update-dpkg-logs \
+    '"'"${Title}"'"' \
+    '"'"mnotify-some-$IconLook"'"'
     '''
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
