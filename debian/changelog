@@ -1,3 +1,12 @@
+apt-notifier (19.08.28mx19+1) mx; urgency=medium
+
+  * pkexec security fixes for passwordless reload and
+    auto-update log viewing
+
+  * multi-display fixes for reload and auto-update terminals
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Wed, 28 Aug 2019 18:08:17 -0400
+
 apt-notifier (19.08.11mx19+2) mx; urgency=medium
 
   * fixed mx-updater_unattended_upgrades_log_view script 
