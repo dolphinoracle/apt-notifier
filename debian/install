@@ -23,6 +23,7 @@ mx-updater-enable-auto-update                                    usr/lib/apt-not
 mx-updater-full-upgrade                                          usr/lib/apt-notifier/pkexec-wrappers
 mx-updater-menu-kde.desktop                                      usr/share/applications
 mx-updater-menu-non-kde.desktop                                  usr/share/applications
+mx-updater-reload.sh                                             usr/lib/apt-notifier/pkexec-wrappers
 mx-updater-reload                                                usr/lib/apt-notifier/pkexec-wrappers
 mx-updater_unattended_upgrades_dpkg_log_view                     usr/local/bin
 mx-updater_unattended_upgrades_log_view                          usr/local/bin

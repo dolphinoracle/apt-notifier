@@ -1,60 +1,61 @@
 #!/bin/bash
-#set -x
 
-##############
-
-read DW DH < <(xdotool getdisplaygeometry)
-
-redraw-terminal() {
-  
-  sleep 1
-# read DW DH < <(xdotool getdisplaygeometry)
-
-  xdotool getactivewindow windowsize $(($DW/100*67)) $(($DH/100*67))
-
-  xdotool getactivewindow windowmove $((($DW - $DW/100*67)/2))  $((($DH - $DH/100*67)/2))
-}
-
-
-P="${3}"
-G="--geometry=$(($DW/100*67/10))x$(($DH/100*67/20))+$((($DW - $DW/100*67)/2))+$((($DH - $DH/100*67)/2))"
-
-C='bash -c "echo apt-get update; sleep 1; apt-get update; sleep 1; echo; read -n1 -sr -p'"'$P'"';"'
-# 
-# for test
-
-
+# parameter
 T="${1#*--title=}"
 I="${2#*--icon=}"
+P="${3}"
+D="--disable-server"
 
 : ${T:=MX-Updater: Reload}
 : ${I:=mnotify-some-classic}
 
+# xdo
 
-case $(readlink -e /usr/bin/x-terminal-emulator) in
+read DW DH < <(xdotool getdisplaygeometry)
+
+TW=$(($DW*2/3))  # desired terminal width
+TH=$(($DH*2/3))  # desired terminal hight
+
+XSIZE="xdotool getactivewindow windowsize $TW $TH"
+XMOVE="xdotool getactivewindow windowmove $((($DW-$TW)/2)) $((($DH-$TH)/2))"
+XDO="$XSIZE; $XMOVE"
+
+CW=10 # char width - rough default
+CH=20 # char hight - rough default
+
+G="--geometry=$(($TW/$CW))x$(($TH/$CH))+$((($DW-$TW)/2))+$((($DH-$TH)/2))"
+
+#G="--geometry=$(($DW*2/3/10))x$(($DH*2/3/20))+$((($DW - $DW*2/3)/2))+$((($DH - $DH*2/3)/2))"
+
+C='bash -c "echo apt-get update; sleep 1;'" $XDO;"' apt-get update; sleep 1; echo; read -n1 -sr -p'"'$P'"';"'
+
+# default to /usr/bin/xfce4-terminal
+
+XT=/usr/bin/x-terminal-emulator
+if [ -x /usr/bin/xfce4-terminal ];  then
+     XT=/usr/bin/xfce4-terminal
+fi
+
+case $(readlink -e $XT) in
   
-  *gnome-terminal.wrapper) gnome-terminal.wrapper $G -T "$T" -e "$C" & redraw-terminal
-                          ;;
-                 *konsole) konsole -e "$C"  & redraw-terminal
-                          sleep 5
-                          ;;
-                 *roxterm) roxterm "$G" -T "$T" --separate -e "$C"  & redraw-terminal
-                          ;;
-  *xfce4-terminal.wrapper) xfce4-terminal $G  --icon="$I"  -T "$T" -e "$C" & redraw-terminal
-                          ;;
-                   *xterm) if [ -e /usr/bin/xfce4-terminal ]
-                            then
-                              xfce4-terminal $G --icon="$I" -T "$T" -e "$C" & redraw-terminal
-                            else
-							  xterm -xrm 'XTerm.vt100.allowTitleOps: false' -T "$T"  -e "$C"  & redraw-terminal
-                          fi
-                          ;;
-                       *) x-terminal-emulator -T "$T" -e "$C"  & redraw-terminal
-                          ;;
+  *gnome-terminal.wrapper) 
+        gnome-terminal.wrapper $G -T "$T" -e "$C"
+        ;;
+  *konsole) 
+        konsole -e "$C" 
+        sleep 5
+        ;;
+  *roxterm) 
+        roxterm "$G" -T "$T" --separate -e "$C" 
+        ;;
+  *xfce4-terminal.wrapper | *xfce4-terminal) 
+        xfce4-terminal $D $G  --icon="$I"  -T "$T" -e "$C"
+        ;;
+  *xterm) 
+        xterm  -fa monaco -fs 12 -bg black -fg white  -xrm 'XTerm.vt100.allowTitleOps: false' -T "$T"  -e "$C" 
+        ;;
+  *) x-terminal-emulator -T "$T" -e "$C" 
+        ;;
 esac
 
 exit
-
-
-# 80x25
-# xfce4-terminal --geometry=80x25+$((($DW - 800)/2))+$((($DH - 500)/2))  -e 'bash -c "echo apt-get update;sleep 1; read -p ReadMe me"' & redraw-terminal

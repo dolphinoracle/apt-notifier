@@ -514,11 +514,13 @@ Disabled
         " --title=""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" Updater: $reload" \
         " --icon=mnotify-some-""$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)" \
         "$PressAnyKey"
-        while [ "$(ps aux | grep -v grep | grep "bash -c".*"apt-get update".*"sleep".*"read.*-p")" ]
-          do
-            sleep 1
-          done
-        sleep 1
+        if [ ! -x /usr/bin/xfce4-terminal ]; then
+          while [ "$(ps aux | grep -v grep | grep "bash -c".*"apt-get update".*"sleep".*"read.*-p")" ]
+            do
+	      sleep 1
+            done
+          sleep 1
+        fi
         ;;
         
         *)
