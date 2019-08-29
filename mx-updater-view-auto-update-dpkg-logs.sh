@@ -1,51 +1,57 @@
 #!/bin/bash
-#set -x
 
-##############
+# parameter
+T="$1"
+I="$2"
+D="--disable-server"
+
+# xdo
 
 read DW DH < <(xdotool getdisplaygeometry)
 
-redraw-terminal() {
-  
-  sleep 1
-# read DW DH < <(xdotool getdisplaygeometry)
+TW=$(($DW*2/3))  # desired terminal width
+TH=$(($DH*2/3))  # desired terminal hight
 
-  xdotool getactivewindow windowsize $(($DW/100*67)) $(($DH/100*67))
+XSIZE="xdotool getactivewindow windowsize $TW $TH"
+XMOVE="xdotool getactivewindow windowmove $((($DW-$TW)/2)) $((($DH-$TH)/2))"
+XDO="$XSIZE; $XMOVE"
 
-  xdotool getactivewindow windowmove $((($DW - $DW/100*67)/2))  $((($DH - $DH/100*67)/2))
-}
+CW=10 # char width - rough default
+CH=20 # char hight - rough default
 
-
-G="--geometry=$(($DW/100*67/10))x$(($DH/100*67/20))+$((($DW - $DW/100*67)/2))+$((($DH - $DH/100*67)/2))"
+G="--geometry=$(($TW/$CW))x$(($TH/$CH))+$((($DW-$TW)/2))+$((($DH-$TH)/2))"
 
 C='bash -c mx-updater_unattended_upgrades_dpkg_log_view'
-# 
-# for test
 
 
-#T="${1#*--title=}"
-#I="${2#*--icon=}"
+# default to /usr/bin/xfce4-terminal
 
-case $(readlink -e /usr/bin/x-terminal-emulator) in
+XT=/usr/bin/x-terminal-emulator
+if [ -x /usr/bin/xfce4-terminal ];  then
+     XT=/usr/bin/xfce4-terminal
+fi
+
+
+case $(readlink -e $XT) in
   
-  *gnome-terminal.wrapper) gnome-terminal.wrapper $G -T "$T" -e "$C" & redraw-terminal
-                          ;;
-                 *konsole) konsole -e "$C"  & redraw-terminal
-                          sleep 5
-                          ;;
-                 *roxterm) roxterm "$G" -T "$T" --separate -e "$C"  & redraw-terminal
-                          ;;
-  *xfce4-terminal.wrapper) xfce4-terminal $G  --icon="$2"  --title="$1" -e "$C" 2>/dev/null & redraw-terminal
-                          ;;
-                   *xterm) if [ -e /usr/bin/xfce4-terminal ]
-                            then
-                              xfce4-terminal $G --icon="$I" -T "$T" -e "$C" & redraw-terminal
-                            else
-							  xterm -xrm 'XTerm.vt100.allowTitleOps: false' -T "$T"  -e "$C"  & redraw-terminal
-                          fi
-                          ;;
-                       *) x-terminal-emulator -T "$T" -e "$C"  & redraw-terminal
-                          ;;
+  *gnome-terminal.wrapper) 
+        gnome-terminal.wrapper $G -T "$T" -e "$C"
+        ;;
+  *konsole) 
+        konsole -e "$C" 
+        sleep 5
+        ;;
+  *roxterm) 
+        roxterm "$G" -T "$T" --separate -e "$C" 
+        ;;
+  *xfce4-terminal.wrapper | *xfce4-terminal) 
+        xfce4-terminal $D $G  --icon="$I"  -T "$T" -e "$C"
+        ;;
+  *xterm) 
+        xterm  -fa monaco -fs 12 -bg black -fg white  -xrm 'XTerm.vt100.allowTitleOps: false' -T "$T"  -e "$C" 
+        ;;
+  *) x-terminal-emulator -T "$T" -e "$C" 
+        ;;
 esac
 
 exit
