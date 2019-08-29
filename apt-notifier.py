@@ -633,11 +633,12 @@ Disabled
             window_title="$window_title_full"
         fi
 
-        IFS="x" read screenWidth screenHeight < <(xdpyinfo | grep dimensions | grep -o "[0-9x]*" | head -n 1)
+        # IFS="x" read screenWidth screenHeight < <(xdpyinfo | grep dimensions | grep -o "[0-9x]*" | head -n 1)
+        read screenWidth screenHeight < <(xdotool getdisplaygeometry)
         yad \\
         --window-icon=/usr/share/icons/mnotify-some-"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)".png \\
-        --width="$(awk '{print ($1*.6666)+.5}' <<<$screenWidth | cut -f1 -d.)" \\
-        --height="$(awk '{print ($1*.6666)+.5}' <<<$screenHeight | cut -f1 -d.)" \\
+        --width=$(($screenWidth*2/3)) \\
+        --height=$(($screenHeight*2/3)) \\
         --center \\
         --title "$(echo "$window_title"|sed 's/MX /'$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)" "'/')" \\
         --form \\
@@ -1226,10 +1227,12 @@ def apt_history():
     TMP=$(mktemp -d /tmp/apt_history.XXXXXX)
     
     apt-history | sed 's/:all/ all/;s/:i386/ i386/;s/:amd64/ amd64/' | column -t > "$TMP"/APT_HISTORY
-    
+
+    read screenWidth screenHeight < <(xdotool getdisplaygeometry)
+
     yad --window-icon=/usr/share/icons/mnotify-some-"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)".png \\
-        --width=$(xprop -root | grep _NET_DESKTOP_GEOMETRY\(CARDINAL\) | awk '{print $3*.75}' | cut -f1 -d.) \\
-        --height=480 \\
+        --width=$(($screenWidth*3/4)) \\
+        --height=$(($screenHeight*2/3))  \\
         --center \\
         --title "$AptHistory" \\
         --text-info \\
@@ -1462,6 +1465,7 @@ def add_rightclick_actions():
     add_apt_notifier_help_action()
     add_synaptic_help_action()
     add_aptnotifier_prefs_action()
+    add_about_action()
     add_quit_action()
 
 def add_hide_action():
@@ -1633,9 +1637,10 @@ def About():
     if reply == 1:
         p=subprocess.call(["/usr/bin/mx-viewer", "/usr/share/doc/apt-notifier/license.html", "MX Apt-notifier license"])
     if reply == 2:
-        command_string = "zcat /usr/share/doc/apt-notifier/changelog.gz | \
-                          yad --width=$(xprop -root | grep _NET_DESKTOP_GEOMETRY | grep CARDINAL | awk '{print $3*.75}' | cut -f1 -d.) \
-                              --height=480       \
+        command_string = "read screenWidth screenHeight < <(xdotool getdisplaygeometry) ; \ 
+                          zcat /usr/share/doc/apt-notifier/changelog.gz | \
+                          yad --width=$(($screenWidth*3/4))   \
+                              --height=$(($screenHeight*2/3)) \
                               --center           \
                               --button=gtk-close \
                               --window-icon=''   \
