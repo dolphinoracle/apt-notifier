@@ -1637,10 +1637,9 @@ def About():
     if reply == 1:
         p=subprocess.call(["/usr/bin/mx-viewer", "/usr/share/doc/apt-notifier/license.html", "MX Apt-notifier license"])
     if reply == 2:
-        command_string = "read screenWidth screenHeight < <(xdotool getdisplaygeometry) ; \ 
-                          zcat /usr/share/doc/apt-notifier/changelog.gz | \
-                          yad --width=$(($screenWidth*3/4))   \
-                              --height=$(($screenHeight*2/3)) \
+        command_string = "zcat /usr/share/doc/apt-notifier/changelog.gz | \
+                          yad --width=$(xdotool getdisplaygeometry | awk '{print $1*3/4}') \
+                              --height=$(xdotool getdisplaygeometry | awk '{print $2*2/3}') \
                               --center           \
                               --button=gtk-close \
                               --window-icon=''   \

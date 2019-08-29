@@ -1,3 +1,9 @@
+apt-notifier (19.08.29mx19+2) unstable; urgency=medium
+
+  * another About fix
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Thu, 29 Aug 2019 14:35:45 -0400
+
 apt-notifier (19.08.29mx19+1) UNRELEASED; urgency=medium
 
   * yad multi-monitor fixes
