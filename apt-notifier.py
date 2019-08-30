@@ -503,7 +503,7 @@ Disabled
           then
             /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-full-upgrade  '"'"$T"'"' "$I" "$TMP/upgradeScript"
           else
-            /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-basic-upgrade "$T" "$I" "$TMP/upgradeScript"
+            /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-basic-upgrade '"'"$T"'"' "$I" "$TMP/upgradeScript"
         fi
             
         if [ ! -x /usr/bin/xfce4-terminal ]; then
