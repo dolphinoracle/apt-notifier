@@ -494,7 +494,25 @@ Disabled
         0)
         BP="1"
         chmod +x $TMP/upgradeScript
-        RunAptScriptInTerminal /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-"$(sed 's/^upgrade$/basic-upgrade/;s/dist-upgrade/full-upgrade/' <<<$UpgradeType)" "$window_title" "$UpgradeTypeUserFriendlyName" "$TMP/upgradeScript"
+        
+      
+        T="$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2) Updater: $UpgradeTypeUserFriendlyName"
+        I="mnotify-some-$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
+        
+        if [ "$(grep UpgradeType ~/.config/apt-notifierrc | cut -f2 -d=)" = "dist-upgrade" ]
+          then
+            /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-full-upgrade  '"'"$T"'"' "$I" "$TMP/upgradeScript"
+          else
+            /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-basic-upgrade "$T" "$I" "$TMP/upgradeScript"
+        fi
+            
+        if [ ! -x /usr/bin/xfce4-terminal ]; then
+          while [ "$(ps aux | grep -v grep | grep bash.*/usr/lib/apt-notifier/pkexec-wrappers/mx-updater-full-upgrade.*MX.*mnotify-some.*/tmp/apt-notifier.*/upgradeScript)" ]
+            do
+	          sleep 1
+            done
+          sleep 1
+        fi
         ;;
 
         2)
@@ -513,11 +531,11 @@ Disabled
         /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload \
         " --title=""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" Updater: $reload" \
         " --icon=mnotify-some-""$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)" \
-        "$PressAnyKey"
+        #"$PressAnyKey"
         if [ ! -x /usr/bin/xfce4-terminal ]; then
           while [ "$(ps aux | grep -v grep | grep "bash -c".*"apt-get update".*"sleep".*"read.*-p")" ]
             do
-	      sleep 1
+	          sleep 1
             done
           sleep 1
         fi
@@ -685,14 +703,6 @@ Disabled
         #create first part of upgradeScript
         cat << 'EOF' > "$TMP"/upgradeScript
 #!/bin/bash
-sleep 1
-IFS="x" read screenWidth screenHeight < <(xdpyinfo | grep dimensions | grep -o "[0-9x]*" | head -n 1)
-xdotool getactivewindow windowsize --usehints 67% 67%
-read width  < <(xdotool getactivewindow getwindowgeometry --shell | head -n 5 | tail -n 2 | cut -f2 -d= | head -n 1)
-read height < <(xdotool getactivewindow getwindowgeometry --shell | head -n 5 | tail -n 2 | cut -f2 -d= | tail -n 1)
-newPosX=$(((screenWidth-width)/2))
-newPosY=$(((screenHeight-height)/2))
-xdotool getactivewindow windowmove "$newPosX" "$newPosY"
 EOF
         if [ $(tail -n 1 "$TMP"/results) -eq 8 ];
           then

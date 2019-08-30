@@ -29,8 +29,9 @@ if [ "$EUID" = "0" ]; then
         PATH="/usr/local/bin:$PATH"
     fi
     eval set "$@"
-    RUN="$1"
-    shift
+    #RUN="$1"
+    RUN="/usr/lib/apt-notifier/pkexec-wrappers/mx-updater-full-upgrade.sh"
+    #shift
     echo Starting  "$RUN" "${@}"
     command -v "$RUN" >/dev/null || { echo "mx-updater-full-upgrade: Command '$RUN' not found"; exit 1; }
     export NO_AT_BRIDGE=1
