@@ -1642,8 +1642,8 @@ def About():
                               --height=$(xdotool getdisplaygeometry | awk '{print $2*2/3}') \
                               --center           \
                               --button=gtk-close \
-                              --window-icon=''   \
-                              --title=''         \
+                              --window-icon=mnotify-some-$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) \
+                              --title=\\\"$(gettext -d apt-notifier Changelog)\\\" \
                               --fontname=mono    \
                               --margins=7        \
                               --borders=5        \

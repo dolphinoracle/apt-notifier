@@ -1,4 +1,10 @@
-apt-notifier (19.08.29mx19+2) unstable; urgency=medium
+apt-notifier (19.08.30mx19+1) unstable; urgency=medium
+
+  * About yad Changelog viewer, title and icon fixed 
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Fri, 30 Aug 2019 09:16:40 -0400
+
+apt-notifier (19.08.29mx19+2) UNRELEASED; urgency=medium
 
   * another About fix
 
