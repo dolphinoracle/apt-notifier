@@ -21,9 +21,7 @@ CH=20 # char hight - rough default
 
 G="--geometry=$(($TW/$CW))x$(($TH/$CH))+$((($DW-$TW)/2))+$((($DH-$TH)/2))"
 
-#C='bash -c ....'
-C="$3"
-
+C='bash -c "'$XDO'; '$3';"'
 
 # default to /usr/bin/xfce4-terminal
 
