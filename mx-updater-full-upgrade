@@ -28,7 +28,7 @@ if [ "$EUID" = "0" ]; then
         fi
         PATH="/usr/local/bin:$PATH"
     fi
-    eval set "$@"
+    #eval set "$@"
     #RUN="$1"
     RUN="/usr/lib/apt-notifier/pkexec-wrappers/mx-updater-full-upgrade.sh"
     #shift

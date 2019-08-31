@@ -21,7 +21,7 @@ CH=20 # char hight - rough default
 
 G="--geometry=$(($TW/$CW))x$(($TH/$CH))+$((($DW-$TW)/2))+$((($DH-$TH)/2))"
 
-C='bash -c "sleep .1; '$XDO'; mx-updater_unattended_upgrades_dpkg_log_view;"'
+C='bash -c "sleep 1; '$XDO'; mx-updater_unattended_upgrades_dpkg_log_view"'
 
 # default to /usr/bin/xfce4-terminal
 
