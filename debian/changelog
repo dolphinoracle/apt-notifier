@@ -1,4 +1,10 @@
-apt-notifier (19.08.30mx19+3) unstable; urgency=medium
+apt-notifier (19.08.31mx19+1) mx; urgency=medium
+
+  * pkexec-wrapper & pkexec-wrapper.sh fixes
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Sat, 31 Aug 2019 12:49:44 -0400
+
+apt-notifier (19.08.30mx19+3) UNRELEASED; urgency=medium
 
   * add .sh scripts to debian/install file
 
