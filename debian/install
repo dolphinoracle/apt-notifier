@@ -27,6 +27,7 @@ mx-updater-menu-kde.desktop                                      usr/share/appli
 mx-updater-menu-non-kde.desktop                                  usr/share/applications
 mx-updater-reload.sh                                             usr/lib/apt-notifier/pkexec-wrappers
 mx-updater-reload                                                usr/lib/apt-notifier/pkexec-wrappers
+mx-updater_reload                                                usr/local/bin
 mx-updater_unattended_upgrades_dpkg_log_view                     usr/local/bin
 mx-updater_unattended_upgrades_log_view                          usr/local/bin
 mx-updater-view-auto-update-dpkg-logs.sh                         usr/lib/apt-notifier/pkexec-wrappers

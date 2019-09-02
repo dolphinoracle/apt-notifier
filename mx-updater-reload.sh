@@ -27,7 +27,7 @@ G="--geometry=$(($TW/$CW))x$(($TH/$CH))+$((($DW-$TW)/2))+$((($DH-$TH)/2))"
 
 #G="--geometry=$(($DW*2/3/10))x$(($DH*2/3/20))+$((($DW - $DW*2/3)/2))+$((($DH - $DH*2/3)/2))"
 
-C='bash -c "echo apt-get update; sleep 1;'" $XDO;"' apt-get update; sleep 1; echo; read -n1 -sr -p'"'$P'"';"'
+C='bash -c "echo apt-get update; sleep 1;'" $XDO;"' mx-updater_reload; sleep 6; echo; read -n1 -sr -p'"'$P'"';"'
 
 # default to /usr/bin/xfce4-terminal
 

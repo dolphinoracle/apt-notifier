@@ -208,7 +208,7 @@ def check_updates():
             #/var/lib/synaptic/preferences is a non-zero size file, which means there are packages pinned in Synaptic. 
             #Remove from the sorted_list_of_upgrades, packages that are pinned in Synaptic, and then get a count of remaining.
             
-            sorted_list_of_upgrades | grep -vx $(grep 'Package:' /var/lib/synaptic/preferences 2>/dev/null | awk {'print "-e " $2'}) | wc -l
+            sorted_list_of_upgrades | grep -vx $(grep ^'Package:' /var/lib/synaptic/preferences 2>/dev/null | awk {'print "-e " $2'}) | wc -l
         
         else 
             #/var/lib/synaptic/preferences is either a zero byte file, meaning packages were pinned in Synaptic at some time in 
@@ -533,9 +533,9 @@ Disabled
         " --icon=mnotify-some-""$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)" \
         #"$PressAnyKey"
         if [ ! -x /usr/bin/xfce4-terminal ]; then
-          while [ "$(ps aux | grep -v grep | grep "bash -c".*"apt-get update".*"sleep".*"read.*-p")" ]
+          while [ "$(ps aux | grep -v grep | grep "bash -c".*"apt-get update".*"sleep".*"mx-updater_reload".*"read.*-p")" ]
             do
-	          sleep 1
+	      sleep 1
             done
           sleep 1
         fi
@@ -1366,7 +1366,7 @@ EOF
         # If x-terminal-emulator is set to gnome-terminal.wrapper, use xfce4-terminal instead, if it's available (it is in MX), if not use gnome-terminal.
         # If x-terminal-emulator is set to xterm,                  use xfce4-terminal instead, if it's available (it is in MX), if not use xterm.
 Disabled
-    /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "$T" "$I" "$PressAnyKey"
+    /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "$T" "$I" #"$PressAnyKey"
     #fi
     rm -rf "$TMP"
     '''
