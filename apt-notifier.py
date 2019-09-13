@@ -113,9 +113,11 @@ def check_updates():
     
     """
     Don't bother checking for updates if processes for other package management tools
-    appear to be runninng.
+    appear to be runninng. For unattended-upgrade, use '/usr/bin/unattended-upgrade'
+    to avoid getting a hit on /usr/share/unattended-upgrades/unattended-upgrade-shutdown
+    which appears to be started automatically when using systemd as init.
     """ 
-    command_string = "ps aux | grep -v grep | grep -E 'apt-get|aptitude|dpkg|gdebi|synaptic|unattended-upgrade' > /dev/null"
+    command_string = "ps aux | grep -v grep | grep -E 'apt-get|aptitude|dpkg|gdebi|synaptic|/usr/bin/unattended-upgrade' > /dev/null"
     exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
     if exit_state == 0:
         return
