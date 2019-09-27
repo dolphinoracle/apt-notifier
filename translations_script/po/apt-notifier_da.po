@@ -289,7 +289,7 @@ msgstr ""
 
 #: apt-notifier.py:1677 apt-notifier.py:1723
 msgid "Press 'h' for help, 'q' to quit"
-msgstr ""
+msgstr "Tryk på 'h' for hjælp, 'q' for afslut"
 
 #: apt-notifier.py:1721
 msgid "MX Auto-update  --  unattended-upgrades dpkg log viewer"
