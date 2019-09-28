@@ -1,3 +1,9 @@
+apt-notifier (19.09.28mx19+1) mx; urgency=medium
+
+  * Translations updated, Marathi (mr) added. 
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Sat, 28 Sep 2019 15:44:32 -0400
+
 apt-notifier (19.09.14mx19+1) mx; urgency=medium
 
   * fix no rightclick menu problem with SystemD
