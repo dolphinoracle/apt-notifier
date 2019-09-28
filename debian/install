@@ -68,7 +68,7 @@ translations_script/mo/kk/apt-notifier.mo                        usr/share/local
 translations_script/mo/ko/apt-notifier.mo                        usr/share/locale/ko/LC_MESSAGES
 translations_script/mo/lt/apt-notifier.mo                        usr/share/locale/lt/LC_MESSAGES
 translations_script/mo/mk/apt-notifier.mo                        usr/share/locale/mk/LC_MESSAGES
-translations_script/mo/mk/apt-notifier.mo                        usr/share/locale/mr/LC_MESSAGES
+translations_script/mo/mr/apt-notifier.mo                        usr/share/locale/mr/LC_MESSAGES
 translations_script/mo/nb/apt-notifier.mo                        usr/share/locale/nb/LC_MESSAGES
 translations_script/mo/nl/apt-notifier.mo                        usr/share/locale/nl/LC_MESSAGES
 translations_script/mo/pl/apt-notifier.mo                        usr/share/locale/pl/LC_MESSAGES
