@@ -1,3 +1,9 @@
+apt-notifier (19.10.08mx19+1) mx; urgency=medium
+
+  *  Suppress balloon notification when fullscreen apps are running
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Tue, 08 Oct 2019 15:38:56 -0400
+
 apt-notifier (19.09.28mx19+1) mx; urgency=medium
 
   * Translations updated, Marathi (mr) added. 
