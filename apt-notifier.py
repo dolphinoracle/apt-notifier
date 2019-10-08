@@ -251,9 +251,12 @@ def check_updates():
             add_rightclick_actions()
             # Shows the pop up message only if not displayed before 
             if message_status == "not displayed":
-                def show_message():
-                    AptIcon.showMessage(popup_title, popup_msg_1_new_update_available)
-                Timer.singleShot(1000, show_message)
+                command_string = "for WID in $(wmctrl -l | cut -d\  -f1); do xprop -id $WID | grep NET_WM_STATE\(ATOM\); done | grep -sq _NET_WM_STATE_FULLSCREEN"
+                exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
+                if exit_state == 1:
+                    def show_message():
+                        AptIcon.showMessage(popup_title, popup_msg_1_new_update_available)
+                    Timer.singleShot(1000, show_message)
                 message_status = "displayed"
         else:
             AptIcon.setIcon(NewUpdatesIcon)
@@ -264,14 +267,17 @@ def check_updates():
             add_rightclick_actions()
             # Shows the pop up message only if not displayed before 
             if message_status == "not displayed":
-                # ~~~ Localize 1b ~~~
-                # Use embedded count placeholder.
-                popup_template=Template(popup_msg_multiple_new_updates_available)
-                popup_with_count=popup_template.substitute(count=text)
-                def show_message():
-                    #AptIcon.showMessage(popup_title, popup_msg_multiple_new_updates_available_begin + text + popup_msg_multiple_new_updates_available_end)
-                    AptIcon.showMessage(popup_title, popup_with_count)
-                Timer.singleShot(1000, show_message)
+                command_string = "for WID in $(wmctrl -l | cut -d\  -f1); do xprop -id $WID | grep NET_WM_STATE\(ATOM\); done | grep -sq _NET_WM_STATE_FULLSCREEN"
+                exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
+                if exit_state == 1:
+                    # ~~~ Localize 1b ~~~
+                    # Use embedded count placeholder.
+                    popup_template=Template(popup_msg_multiple_new_updates_available)
+                    popup_with_count=popup_template.substitute(count=text)
+                    def show_message():
+                        #AptIcon.showMessage(popup_title, popup_msg_multiple_new_updates_available_begin + text + popup_msg_multiple_new_updates_available_end)
+                        AptIcon.showMessage(popup_title, popup_with_count)
+                    Timer.singleShot(1000, show_message)
                 message_status = "displayed"
    
 def start_synaptic():
