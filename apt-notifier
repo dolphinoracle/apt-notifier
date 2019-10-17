@@ -62,7 +62,7 @@ if [ "$?" = "0" ]
 fi
 
 # start the notifier (nicely)
-ionice -c3 nice -n19 python /usr/bin/apt-notifier.py& disown -h
+ionice -c3 nice -n19 python /usr/bin/apt-notifier.py& disown -h; deartifact-xfce-systray-icons 30 2>&1 1>/dev/null &
 
 exit 0
 

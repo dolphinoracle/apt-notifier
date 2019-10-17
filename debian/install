@@ -7,6 +7,7 @@ apt-notifier.py                                                  usr/bin
 apt-notifier-unhide-Icon                                         usr/bin
 apt-notifier                                                     usr/bin
 apt.systemd.daily                                                usr/lib/apt-notifier
+deartifact-xfce-systray-icons                                    usr/local/bin
 license.html                                                     usr/share/doc/apt-notifier
 mnotify-none-classic.png                                         usr/share/icons
 mnotify-none-pulse.png                                           usr/share/icons

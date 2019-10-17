@@ -1,0 +1,35 @@
+#!/bin/bash
+
+toggle_square_icon_setting()
+{
+for i in $(xfconf-query -l -c xfce4-panel | grep square-icons)
+  do
+    if [ $(xfconf-query -c xfce4-panel -p $i) = 'false' ]
+      then
+        xfconf-query -c xfce4-panel -p $i -s 'true'
+        xfconf-query -c xfce4-panel -p $i -s 'false'
+      else
+        xfconf-query -c xfce4-panel -p $i -s 'false'
+        xfconf-query -c xfce4-panel -p $i -s 'true'
+    fi
+  done
+}
+
+
+xprop -root | grep XFCE_DESKTOP -q
+if [ "$?" -eq 0 ]
+  then
+    # If running Xfce
+    # wait n seconds (or 0 seconds if no passed arguments)
+    sleep "$1" 2>/dev/null
+
+    # then toggle the systray square icons setting
+    # on  then back off (if currently off)
+    # off then back on  (if currently on)
+    toggle_square_icon_setting
+  else
+    :
+fi
+
+exit
+
