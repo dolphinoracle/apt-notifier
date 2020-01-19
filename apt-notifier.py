@@ -52,6 +52,7 @@ def set_translations():
     WatchedFilesAndDirsHashPrevious = ''
     global text
     text = ''
+    global MX_Package_Installer
 
     # ~~~ Localize 1 ~~~
 
@@ -73,6 +74,7 @@ def set_translations():
     View_Auto_Updates_Dpkg_Logs                 = unicode (_("Auto-update dpkg log(s)")                ,'utf-8') 
     Check_for_Updates                           = unicode (_("Check for Updates")                      ,'utf-8')
     About                                       = unicode (_("About")                                  ,'utf-8')
+    MX_Package_Installer                        = unicode (_("MX Package Installer")                   ,'utf-8')
   
 # Check for updates, using subprocess.Popen
 def check_updates():
@@ -1386,6 +1388,12 @@ Disabled
     Check_for_Updates_by_User = 'true'
     check_updates()
 
+def start_MXPI():
+    global Check_for_Updates_by_User
+    run = subprocess.Popen(['su-to-root -X -c mx-packageinstaller'],shell=True).wait()
+    Check_for_Updates_by_User = 'true'
+    check_updates()
+
 def re_enable_click():
     global ignoreClick
     ignoreClick = '0'
@@ -1405,6 +1413,16 @@ def viewandupgrade0():
     global Timer
     if ignoreClick != '1':
         viewandupgrade()    
+        ignoreClick = '1'
+        Timer.singleShot(50, re_enable_click)
+    else:
+        pass
+
+def start_MXPI_0():
+    global ignoreClick
+    global Timer
+    if ignoreClick != '1':
+        start_MXPI()    
         ignoreClick = '1'
         Timer.singleShot(50, re_enable_click)
     else:
@@ -1473,6 +1491,10 @@ def add_rightclick_actions():
         ActionsMenu.addAction(Upgrade_using_Synaptic).triggered.connect( start_synaptic0)
         ActionsMenu.addSeparator()
         ActionsMenu.addAction(View_and_Upgrade).triggered.connect( viewandupgrade0 )
+    command_string = "test -e /usr/bin/mx-packageinstaller > /dev/null"
+    exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
+    if exit_state == 0:
+        add_MXPI_action()
     add_apt_history_action()        
     command_string = "test $(apt-config shell U APT::Periodic::Unattended-Upgrade | cut -f2 -d= | cut -c2- | rev | cut -c2- | rev) != 0"
     exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
@@ -1493,6 +1515,10 @@ def add_hide_action():
         hide_action.triggered.connect( set_noicon )
         ActionsMenu.addSeparator()
         ActionsMenu.addAction(u"Synaptic").triggered.connect( start_synaptic0 )
+    command_string = "test -e /usr/bin/mx-packageinstaller > /dev/null"
+    exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
+    if exit_state == 0:
+        add_MXPI_action()
     add_apt_history_action()    
     command_string = "test $(apt-config shell U APT::Periodic::Unattended-Upgrade | cut -f2 -d= | cut -c2- | rev | cut -c2- | rev) != 0"
     exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
@@ -1586,6 +1612,11 @@ def add_aptnotifier_prefs_action():
     ActionsMenu.addSeparator()
     aptnotifier_prefs_action =  ActionsMenu.addAction(Apt_Notifier_Preferences)
     aptnotifier_prefs_action.triggered.connect( aptnotifier_prefs )
+
+def add_MXPI_action():
+    ActionsMenu.addSeparator()
+    MXPI_action =  ActionsMenu.addAction(MX_Package_Installer)
+    MXPI_action.triggered.connect( start_MXPI_0 )
 
 def add_apt_history_action():
     ActionsMenu.addSeparator()
