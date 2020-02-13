@@ -503,12 +503,17 @@ Disabled
       case $1 in
         0)
         BP="1"
-        chmod +x $TMP/upgradeScript
-        
-      
+        chmod +x $TMP/upgradeScript      
         T="$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2) Updater: $UpgradeTypeUserFriendlyName"
         I="mnotify-some-$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
-        
+        if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
+          then
+            if [ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]
+              then
+                I="mx-updater"
+            fi
+        fi
+
         if [ "$(grep UpgradeType ~/.config/apt-notifierrc | cut -f2 -d=)" = "dist-upgrade" ]
           then
             /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-full-upgrade  "$T" "$I" "$TMP/upgradeScript"
@@ -663,8 +668,25 @@ Disabled
 
         # IFS="x" read screenWidth screenHeight < <(xdpyinfo | grep dimensions | grep -o "[0-9x]*" | head -n 1)
         read screenWidth screenHeight < <(xdotool getdisplaygeometry)
+        case "$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)" in 
+          classic    ) windowIcon=mnotify-some-classic
+                       ButtonIcon=mnotify-some-classic 
+                       ;;
+          pulse      ) windowIcon=mnotify-some-pulse
+                       ButtonIcon=mnotify-some-pulse
+                       ;;
+          wireframe|*) if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
+                         then
+                           windowIcon=mx-updater
+                           ButtonIcon=/usr/share/icons/mnotify-some-wireframe.png
+                         else
+                           windowIcon=/usr/share/icons/mnotify-some-wireframe.png
+                           ButtonIcon=/usr/share/icons/mnotify-some-wireframe.png
+                       fi
+                       ;;
+        esac
         yad \\
-        --window-icon=/usr/share/icons/mnotify-some-"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)".png \\
+        --window-icon="$windowIcon" \\
         --width=$(($screenWidth*2/3)) \\
         --height=$(($screenHeight*2/3)) \\
         --center \\
@@ -674,7 +696,7 @@ Disabled
           --field="$use_apt_get_dash_dash_yes":CHK $UpgradeAssumeYes \\
           --field="$auto_close_label":CHK $UpgradeAutoClose \\
         --button "$reload"!reload!"$reload_tooltip":8 \\
-        --button ''"$upgrade_label"!mnotify-some-"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"!"$upgrade_tooltip":0 \\
+        --button ''"$upgrade_label"!"$ButtonIcon"!"$upgrade_tooltip":0 \\
         --button gtk-cancel:2 \\
         --buttons-layout=spread \\
         2>/dev/null \\
@@ -924,6 +946,7 @@ def initialize_aptnotifier_prefs():
          18.2) IconDefault="wireframe" ;;
          18.3) IconDefault="wireframe" ;;
          19  ) IconDefault="wireframe" ;;
+         19.1) IconDefault="wireframe" ;;
             *) IconDefault="wireframe" ;;
        esac
        echo "IconLook=$IconDefault">> ~/.config/apt-notifierrc
@@ -947,18 +970,50 @@ def initialize_aptnotifier_prefs():
     #also not a preference, but remove obsolete ~/.config/autostart/apt-notifier-autostart-xdg.desktop file if present
     rm -f ~/.config/autostart/apt-notifier-autostart-xdg.desktop
 
-    [ -e ~/.local/share/applications/mx-updater-menu-kde.desktop ] || cp /usr/share/applications/mx-updater-menu-kde.desktop ~/.local/share/applications/mx-updater-menu-kde.desktop
+    #copy mx-updater-menu-* .desktop files to the ~/.local/share/applications/ folder if they haven't been already
+    [ -e ~/.local/share/applications ] || mkdir -p  ~/.local/share/applications
+    if [ ! -e ~/.local/share/applications/mx-updater-menu-kde.desktop ]
+      then
+        cp /usr/share/applications/mx-updater-menu-kde.desktop ~/.local/share/applications/mx-updater-menu-kde.desktop
+    fi
+    if [ ! -e ~/.local/share/applications/mx-updater-menu-non-kde.desktop ]
+      then
+        cp /usr/share/applications/mx-updater-menu-non-kde.desktop ~/.local/share/applications/mx-updater-menu-non-kde.desktop
+    fi    
 
-    grep $(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) ~/.local/share/applications/mx-updater-menu-kde.desktop > /dev/null
-    [ $? -eq 0 ] || sed -i 's/mnotify-some.*/mnotify-some-'"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"'/' ~/.local/share/applications/mx-updater-menu-kde.desktop
-
-    [ -e ~/.local/share/applications/mx-updater-menu-non-kde.desktop ] || cp /usr/share/applications/mx-updater-menu-non-kde.desktop ~/.local/share/applications/mx-updater-menu-non-kde.desktop
-
-    grep $(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) ~/.local/share/applications/mx-updater-menu-non-kde.desktop > /dev/null
-    [ $? -eq 0 ] || sed -i 's/mnotify-some.*/mnotify-some-'"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"'/' ~/.local/share/applications/mx-updater-menu-non-kde.desktop
-
+    for desktopfile in mx-updater-menu-kde.desktop mx-updater-menu-non-kde.desktop
+      do
+        case "$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)" in 
+          classic    ) if [ ! $(grep Icon=mnotify-some-classic ~/.local/share/applications/$desktopfile) ]
+                         then
+                           sed -i 's/Icon=.*/Icon=mnotify-some-classic/' ~/.local/share/applications/$desktopfile
+                       fi
+                       ;;
+                     
+          pulse      ) if [ ! $(grep Icon=mnotify-some-pulse ~/.local/share/applications/$desktopfile) ]
+                         then
+                           sed -i 's/Icon=.*/Icon=mnotify-some-pulse/' ~/.local/share/applications/$desktopfile
+                       fi
+                       ;;
+                   
+          wireframe|*) if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
+                         then
+                           if [ ! $(grep Icon=mx-updater ~/.local/share/applications/$desktopfile) ]
+                             then
+                               sed -i 's/Icon=.*/Icon=mx-updater/' ~/.local/share/applications/$desktopfile
+                           fi
+                         else
+                           if [ ! $(grep Icon=mnotify-some-wireframe ~/.local/share/applications/$desktopfile) ]
+                             then
+                               sed -i 's/Icon=.*/Icon=mnotify-some-wireframe/' ~/.local/share/applications/$desktopfile
+                           fi
+                       fi
+                       ;;
+        esac
+      done
+                                                      
     '''
-
+           
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
     script_file.flush()
@@ -1071,11 +1126,14 @@ def aptnotifier_prefs():
                 <variable>IconLook_wireframe</variable>
                 <action>:</action>
               </radiobutton>
+              <vseparator></vseparator>
               <radiobutton active="@IconLookClassic@">
                 <label>@classic@</label>
                 <variable>IconLook_classic</variable>
                 <action>:</action>
               </radiobutton>
+              <vseparator></vseparator>
+              <vseparator></vseparator>
               <radiobutton active="@IconLookPulse@">
                 <label>@pulse@</label>
                 <variable>IconLook_pulse</variable>
@@ -1084,13 +1142,13 @@ def aptnotifier_prefs():
             </vbox>
             <vbox>
               <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-some-wireframe.png"</input></pixmap>
-              <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-some-classic.png"</input></pixmap>
-              <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-some-pulse.png"</input></pixmap>
+              <pixmap icon_size="2"><input file icon="mnotify-some-classic"></input></pixmap>
+              <pixmap icon_size="2"><input file icon="mnotify-some-pulse"></input></pixmap>
             </vbox>
             <vbox>
-              <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-none-wireframe.png"</input></pixmap>
-              <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-none-classic.png"</input></pixmap>
-              <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-none-pulse.png"</input></pixmap>
+              <pixmap icon_size="2"><input file icon="mnotify-none-wireframe"></input></pixmap>
+              <pixmap icon_size="2"><input file icon="mnotify-none-classic"></input></pixmap>
+              <pixmap icon_size="2"><input file icon="mnotify-none-pulse"></input></pixmap>
             </vbox>
           </hbox>
         </frame>
@@ -1156,7 +1214,23 @@ EOF
     sed -i 's/@IconLookPulse@/'$(if [ $(grep IconLook=pulse ~/.config/apt-notifierrc) ]; then echo -n true; else echo -n false; fi)'/' "$TMP"/DIALOG
 
     # edit placeholder for window icon placeholder in "$TMP"/DIALOG
-    sed -i 's/@mnotify-some@/mnotify-some-'$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d= | xargs echo -n)'/' "$TMP"/DIALOG
+    
+    if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
+      then
+        if [[ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]]
+          then
+            sed -i 's/@mnotify-some@/mx-updater/' "$TMP"/DIALOG
+          else
+            sed -i 's/@mnotify-some@/mnotify-some-'$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d= | xargs echo -n)'/' "$TMP"/DIALOG
+        fi
+      else       
+        sed -i 's/@mnotify-some@/mnotify-some-'$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d= | xargs echo -n)'/' "$TMP"/DIALOG
+    fi    
+    
+    if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
+      then
+        sed -i 's/file>"\/usr\/share\/icons\/mnotify-some-wireframe.png"/file icon="mx-updater">/' "$TMP"/DIALOG
+    fi    
     
     # edit AutoUpdate related translateable string placeholders in "$TMP"/DIALOG
     sed -i 's/@Auto_update_label@/'"$frame_Auto_update"'/' "$TMP"/DIALOG
@@ -1210,14 +1284,6 @@ EOF
 
     rm -rf "$TMP"
 
-    #update Icon= line in .local mx-updater-menu-kde.desktop file if icon not same as IconLook config setting in ~/.config/apt-notifierrc file
-    grep $(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) ~/.local/share/applications/mx-updater-menu-kde.desktop > /dev/null
-    [ $? -eq 0 ] || sed -i 's/mnotify-some.*/mnotify-some-'"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"'/' ~/.local/share/applications/mx-updater-menu-kde.desktop
-
-    #update Icon= line in .local mx-updater-menu-non-kde.desktop file if icon not same as IconLook config setting in ~/.config/apt-notifierrc file
-    grep $(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) ~/.local/share/applications/mx-updater-menu-non-kde.desktop > /dev/null
-    [ $? -eq 0 ] || sed -i 's/mnotify-some.*/mnotify-some-'"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"'/' ~/.local/share/applications/mx-updater-menu-non-kde.desktop
-
     #restart apt-notifier if IconLook setting has been changed 
     if [ "$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)" != "$IconLookBegin" ]
       then
@@ -1249,8 +1315,24 @@ def apt_history():
     apt-history | sed 's/:all/ all/;s/:i386/ i386/;s/:amd64/ amd64/' | column -t > "$TMP"/APT_HISTORY
 
     read screenWidth screenHeight < <(xdotool getdisplaygeometry)
+    
+    case "$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)" in 
+      classic    ) windowIcon=/usr/share/icons/mnotify-some-classic.png
+                   windowIcon=mnotify-some-classic
+                   ;;
+      pulse      ) windowIcon=/usr/share/icons/mnotify-some-pulse.png
+                   windowIcon=mnotify-some-pulse
+                   ;;
+      wireframe|*) if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]] 
+                     then
+                       windowIcon=mx-updater
+                     else
+                       windowIcon=/usr/share/icons/mnotify-some-wireframe.png
+                   fi
+                   ;;
+    esac
 
-    yad --window-icon=/usr/share/icons/mnotify-some-"$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)".png \\
+    yad --window-icon=$windowIcon \\
         --width=$(($screenWidth*3/4)) \\
         --height=$(($screenHeight*2/3))  \\
         --center \\
@@ -1313,7 +1395,14 @@ EOF
     TermXOffset="$(xwininfo -root|awk '/Width/{print $2/4}')"
     TermYOffset="$(xwininfo -root|awk '/Height/{print $2/4}')"
     G=" --geometry=80x25+"$TermXOffset"+"$TermYOffset
-    I=" --icon=mnotify-some-""$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
+    I="mnotify-some-""$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
+    if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
+      then 
+        if [ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]
+          then 
+            I="mx-updater"
+        fi
+    fi    
     T=" --title=""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" Updater: $reload"
 <<'Disabled'
     if (xprop -root | grep -i kde > /dev/null)
@@ -1507,6 +1596,8 @@ def add_rightclick_actions():
     add_aptnotifier_prefs_action()
     add_about_action()
     add_quit_action()
+    command_string = "deartifact-xfce-systray-icons 1 &"
+    subprocess.call([command_string], shell=True)               
 
 def add_hide_action():
     ActionsMenu.clear()
@@ -1531,6 +1622,8 @@ def add_hide_action():
     add_aptnotifier_prefs_action()
     add_about_action()
     add_quit_action()
+    command_string = "deartifact-xfce-systray-icons 1 &"
+    subprocess.call([command_string], shell=True)                  
 
 def add_quit_action():
     ActionsMenu.addSeparator()
@@ -1686,12 +1779,12 @@ def About():
     if reply == 1:
         p=subprocess.call(["/usr/bin/mx-viewer", "/usr/share/doc/apt-notifier/license.html", "MX Apt-notifier license"])
     if reply == 2:
-        command_string = "zcat /usr/share/doc/apt-notifier/changelog.gz | \
+        command_string = "windowIcon=mx-updater && zcat /usr/share/doc/apt-notifier/changelog.gz | \
                           yad --width=$(xdotool getdisplaygeometry | awk '{print $1*3/4}') \
                               --height=$(xdotool getdisplaygeometry | awk '{print $2*2/3}') \
                               --center           \
                               --button=gtk-close \
-                              --window-icon=mnotify-some-$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) \
+                              --window-icon=$windowIcon \
                               --title=\\\"$(gettext -d apt-notifier Changelog)\\\" \
                               --fontname=mono    \
                               --margins=7        \
@@ -1843,10 +1936,10 @@ def main():
     Timer.timeout.connect( check_updates )
     # Integrate it together,apply checking of updated packages and set timer to every 1 minute(s) (1 second = 1000)
     AptIcon.setIcon(NoUpdatesIcon)
+    check_updates()
     AptIcon.setContextMenu(ActionsMenu)
     if icon_config == "show":
         AptIcon.show()
-    check_updates()
     Timer.start(60000)
     if AptNotify.isSessionRestored():
         sys.exit(1)

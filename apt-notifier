@@ -1,20 +1,20 @@
 #!/bin/bash
 
 # Kill any notifier(s) running
-pkill -f 'python /usr/bin/apt-notifier.py'
+pkill -f 'python .*/usr/bin/apt-notifier.py'
 
 ps -o args= $PPID | grep -q /usr/bin/apt-notifier-unhide-Icon
 if [ "$?" -eq 0 ]
     then
       :
     else
-      sleep 2
+      sleep .2
 fi
 
 # Do a redundant kill of any running notifier(s)
-pkill -f 'python /usr/bin/apt-notifier.py'
+pkill -f 'python .*/usr/bin/apt-notifier.py'
 
-sleep 1
+sleep .1
 
 # Remove any previously created /tmp/tmp****** files owned by current user,
 # that have -rw------ permissions, and contain the pattern "sorted_list_of_upgrades()".
@@ -62,7 +62,11 @@ if [ "$?" = "0" ]
 fi
 
 # start the notifier (nicely)
-ionice -c3 nice -n19 python /usr/bin/apt-notifier.py& disown -h; deartifact-xfce-systray-icons 30 2>&1 1>/dev/null &
+ionice -c3 nice -n19 python -m pdb /usr/bin/apt-notifier.py < <(sleep .250; echo c)& disown -h
+
+# Fix Systray Icons - fehlix's method, not using
+#sleep 3
+#declare -A B=([true]=false [false]=true); xp() { xfconf-query -c xfce4-panel -p "${@}" ;}; SF=$(xp /plugins  --list | grep -m1 /show-frame 2>/dev/null) || exit 0; xp $SF -n -t bool -s ${B[$(xp $SF)]}; xp $SF -n -t bool -s ${B[$(xp $SF)]};
 
 exit 0
 
