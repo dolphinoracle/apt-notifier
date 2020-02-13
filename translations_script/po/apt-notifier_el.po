@@ -6,16 +6,16 @@
 # Translators:
 # Geoff Gigg <geoffgigg@hotmail.com>, 2017
 # Ioannis LM, 2019
-# anticapitalista <anticapitalista@riseup.net>, 2019
+# anticapitalista <anticapitalista@riseup.net>, 2020
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-21 15:02-0400\n"
+"POT-Creation-Date: 2020-02-12 19:34-0600\n"
 "PO-Revision-Date: 2017-05-11 01:14+0000\n"
-"Last-Translator: anticapitalista <anticapitalista@riseup.net>, 2019\n"
+"Last-Translator: anticapitalista <anticapitalista@riseup.net>, 2020\n"
 "Language-Team: Greek (https://www.transifex.com/anticapitalista/teams/10162/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,113 +23,117 @@ msgstr ""
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: apt-notifier.py:58
+#: apt-notifier.py:59
 msgid "0 updates available"
 msgstr "0 διαθέσιμες ενημερώσεις"
 
-#: apt-notifier.py:59
+#: apt-notifier.py:60
 msgid "1 new update available"
 msgstr "1 νέα διαθέσιμη ενημέρωση"
 
-#: apt-notifier.py:60
+#: apt-notifier.py:61
 msgid "$count new updates available"
 msgstr " $count νέες διαθέσιμες ενημερώσεις"
 
-#: apt-notifier.py:61
+#: apt-notifier.py:62
 msgid "Updates"
 msgstr "Ενημερώσεις"
 
-#: apt-notifier.py:62
+#: apt-notifier.py:63
 msgid "You have 1 new update available"
 msgstr "Έχετε 1 νέα διαθέσιμη ενημέρωση"
 
-#: apt-notifier.py:63
+#: apt-notifier.py:64
 msgid "You have $count new updates available"
 msgstr "Έχετε $count  νέες διαθέσιμες ενημερώσεις"
 
-#: apt-notifier.py:64
+#: apt-notifier.py:65
 msgid "Upgrade using Synaptic"
 msgstr "Αναβάθμιση χρησιμοποιώντας το Synaptic"
 
-#: apt-notifier.py:65
+#: apt-notifier.py:66
 msgid "View and Upgrade"
 msgstr "Προβολή και Αναβάθμιση"
 
-#: apt-notifier.py:66
+#: apt-notifier.py:67
 msgid "Hide until updates available"
 msgstr "Απόκρυψη μέχρι να βρεθούν διαθέσιμες ενημερώσεις"
 
-#: apt-notifier.py:67
+#: apt-notifier.py:68
 msgid "Quit"
 msgstr "Έξοδος "
 
-#: apt-notifier.py:68
+#: apt-notifier.py:69
 msgid "MX Updater Help"
 msgstr "Βοήθεια του MX Updater"
 
-#: apt-notifier.py:69
+#: apt-notifier.py:70
 msgid "Synaptic Help"
 msgstr "Βοήθεια του Synaptic"
 
-#: apt-notifier.py:70
+#: apt-notifier.py:71
 msgid "Preferences"
 msgstr "Προτιμήσεις"
 
-#: apt-notifier.py:71 apt-notifier.py:1208
+#: apt-notifier.py:72 apt-notifier.py:1241
 msgid "History"
 msgstr "Ιστορικό"
 
-#: apt-notifier.py:72
+#: apt-notifier.py:73
 msgid "Auto-update log(s)"
 msgstr "Αυτόματη ενημέρωση αρχείων καταγραφής"
 
-#: apt-notifier.py:73
+#: apt-notifier.py:74
 msgid "Auto-update dpkg log(s)"
 msgstr "Αυτόματη ενημέρωση αρχείων καταγραφής dpkg"
 
-#: apt-notifier.py:74
+#: apt-notifier.py:75
 msgid "Check for Updates"
 msgstr "Έλεγχος για ενημερώσεις"
 
-#: apt-notifier.py:75
+#: apt-notifier.py:76
 msgid "About"
 msgstr "Περί"
 
-#: apt-notifier.py:294
+#: apt-notifier.py:77
+msgid "MX Package Installer"
+msgstr "Εγκατάσταση πακέτων του MX"
+
+#: apt-notifier.py:304
 msgid "MX Updater--View and Upgrade, previewing: basic upgrade"
 msgstr "MX Updater--Προβολή και αναβάθμιση, προεπισκόπηση: βασική αναβάθμιση"
 
-#: apt-notifier.py:295
+#: apt-notifier.py:305
 msgid "MX Updater--View and Upgrade, previewing: full upgrade"
 msgstr "MX Updater--Προβολή και αναβάθμιση, προεπισκόπηση: πλήρη αναβάθμιση"
 
-#: apt-notifier.py:297
+#: apt-notifier.py:307
 msgid "Automatically answer 'yes' to all prompts during upgrade"
 msgstr "Απαντήστε αυτόματα \"ναι\" σε όλες τις προτροπές κατά την αναβάθμιση"
 
-#: apt-notifier.py:299 apt-notifier.py:301
+#: apt-notifier.py:309 apt-notifier.py:311
 msgid "automatically close terminal window when upgrade complete"
 msgstr ""
 "Να κλείσει αυτόματα το παράθυρο τερματικού όταν η αναβάθμιση έχει "
 "ολοκληρωθεί"
 
-#: apt-notifier.py:302 apt-notifier.py:945
+#: apt-notifier.py:312 apt-notifier.py:978
 msgid "basic upgrade"
 msgstr "βασική αναβάθμιση"
 
-#: apt-notifier.py:303
+#: apt-notifier.py:313
 msgid "full upgrade"
 msgstr "πλήρης αναβάθμιση"
 
-#: apt-notifier.py:304
+#: apt-notifier.py:314
 msgid "switch to basic upgrade"
 msgstr "αλλαγή σε βασική αναβάθμιση"
 
-#: apt-notifier.py:305
+#: apt-notifier.py:315
 msgid "switch to full upgrade"
 msgstr "αλλαγή σε πλήρη αναβάθμιση"
 
-#: apt-notifier.py:306
+#: apt-notifier.py:316
 msgid ""
 "Switches the type of Upgrade that will be performed, alternating back and "
 "forth between 'full upgrade' and 'basic upgrade'."
@@ -137,11 +141,11 @@ msgstr ""
 "Αλλάζει τον τύπο της αναβάθμισης που θα εκτελεστεί, εναλλασσόμενος μεταξύ "
 "των 'βασική αναβάθμιση' και 'πλήρης αναβάθμιση'"
 
-#: apt-notifier.py:307 apt-notifier.py:1246
+#: apt-notifier.py:317 apt-notifier.py:1281
 msgid "Reload"
 msgstr "Ανανέωση"
 
-#: apt-notifier.py:308
+#: apt-notifier.py:318
 msgid ""
 "Reload the package information to become informed about new, removed or "
 "upgraded software packages. (apt-get update)"
@@ -149,164 +153,164 @@ msgstr ""
 "Ανανέωση των πληροφοριών του πακέτου ώστε να γίνει ενημέρωση για νέα, "
 "αναβαθμισμένα ή απομακρυθέντα πακέτα λογισμικού. (apt-get update)"
 
-#: apt-notifier.py:311
+#: apt-notifier.py:321
 msgid "basic upgrade complete (or was canceled)"
 msgstr "%s ολοκληρώθηκε (ή ακυρώθηκε)"
 
-#: apt-notifier.py:312
+#: apt-notifier.py:322
 msgid "full upgrade complete (or was canceled)"
 msgstr "Η πλήρης αναβάθμιση ολοκληρώθηκε (ή ακυρώθηκε)"
 
-#: apt-notifier.py:313
+#: apt-notifier.py:323
 msgid "this terminal window can now be closed"
 msgstr "Αυτό το παράθυρο τερματικού μπορεί να κλείσει"
 
-#: apt-notifier.py:314
+#: apt-notifier.py:324 apt-notifier.py:330 apt-notifier.py:1282
 msgid "press any key to close"
 msgstr "πατήστε οποιοδήποτε πλήκτρο να κλείσει"
 
-#: apt-notifier.py:315
+#: apt-notifier.py:325
 msgid "Unneeded packages are installed that can be removed."
 msgstr "Περιττά εγκαταστημένα πακέτα που μπορεί να αφαιρεθούν"
 
-#: apt-notifier.py:316
+#: apt-notifier.py:326
 msgid "Running apt-get autoremove, if you are unsure type 'n'."
 msgstr ""
 "Εκτέλεση του apt-get autoremove, αν δεν είστε σίγουροι, πληκτρολογήστε 'ο'."
 
-#: apt-notifier.py:317
+#: apt-notifier.py:327
 msgid "upgrade"
 msgstr "αναβάθμιση"
 
-#: apt-notifier.py:318
+#: apt-notifier.py:328
 msgid "Using full upgrade"
 msgstr "Πλήρης αναβάθμιση"
 
-#: apt-notifier.py:319
+#: apt-notifier.py:329
 msgid "Using basic upgrade (not recommended)"
 msgstr "Βασική αναβάθμιση (δεν συνιστάται)"
 
-#: apt-notifier.py:942
+#: apt-notifier.py:975
 msgid "MX Updater preferences"
 msgstr "Προτιμήσεις του MX Updater "
 
-#: apt-notifier.py:943
+#: apt-notifier.py:976
 msgid "Upgrade mode"
 msgstr "Τρόπος αναβάθμισης"
 
-#: apt-notifier.py:944
+#: apt-notifier.py:977
 msgid "full upgrade   (recommended)"
 msgstr "πλήρης αναβάθμιση (συνιστάται)"
 
-#: apt-notifier.py:946
+#: apt-notifier.py:979
 msgid "Left-click behaviour   (when updates are available)"
 msgstr "Αριστερό κλικ (όταν υπάρχουν διαθέσιμες ενημερώσεις)"
 
-#: apt-notifier.py:947
+#: apt-notifier.py:980
 msgid "Other options"
 msgstr "Άλλες επιλογές"
 
-#: apt-notifier.py:948
+#: apt-notifier.py:981
 msgid "opens Synaptic"
 msgstr "ανοίγει το  Synaptic"
 
-#: apt-notifier.py:949
+#: apt-notifier.py:982
 msgid "opens MX Updater 'View and Upgrade' window"
 msgstr "ανοίγει το παράθυρο 'Προβολή και Αναβάθμιση' του MX Updater"
 
-#: apt-notifier.py:950
+#: apt-notifier.py:983
 msgid "Automatically answer 'yes' to all prompts during full/basic upgrade"
 msgstr ""
 "Απαντήστε αυτόματα \"ναι\" σε όλες τις προτροπές κατά την πλήρη/βασική "
 "αναβάθμιση"
 
-#: apt-notifier.py:951
+#: apt-notifier.py:984
 msgid "automatically close terminal window when full/basic upgrade complete"
 msgstr ""
 "Να κλείσει αυτόματα το παράθυρο τερματικού όταν η πλήρης/βασική αναβάθμιση "
 "έχει ολοκληρωθεί"
 
-#: apt-notifier.py:952
+#: apt-notifier.py:985
 msgid "check for autoremovable packages after full/basic upgrade"
 msgstr ""
 "Έλεγχος για αυτόματα αφαιρούμενα πακέτα μετά την πλήρη/βασική αναβάθμιση"
 
-#: apt-notifier.py:953
+#: apt-notifier.py:986
 msgid "Icons"
 msgstr "Εικονίδια"
 
-#: apt-notifier.py:954
+#: apt-notifier.py:987
 msgid "classic"
 msgstr "κλασσικός"
 
-#: apt-notifier.py:955
+#: apt-notifier.py:988
 msgid "pulse"
 msgstr "pulse"
 
-#: apt-notifier.py:956
+#: apt-notifier.py:989
 msgid "wireframe"
 msgstr "wireframe"
 
-#: apt-notifier.py:957
+#: apt-notifier.py:990
 msgid "Auto-update"
 msgstr "Αυτόματη ενημέρωση"
 
-#: apt-notifier.py:958
+#: apt-notifier.py:991
 msgid "update automatically   (will not add new or remove existing packages)"
 msgstr ""
 "Αυτόματη ενημέρωση (δεν θα προσθέσει νέα ή θα αφαιρέσει υπάρχοντα πακέτα)"
 
-#: apt-notifier.py:1612
+#: apt-notifier.py:1653
 msgid "MX Updater"
 msgstr "MX Updater"
 
-#: apt-notifier.py:1613
+#: apt-notifier.py:1654
 msgid "About MX Updater"
 msgstr "Περί MX Updater"
 
-#: apt-notifier.py:1614
+#: apt-notifier.py:1655
 msgid "Changelog"
 msgstr "Καταγραφή αλλαγών"
 
-#: apt-notifier.py:1615
+#: apt-notifier.py:1656
 msgid "License"
 msgstr "Άδεια"
 
-#: apt-notifier.py:1616
+#: apt-notifier.py:1657
 msgid "Cancel"
 msgstr "Ακύρωση"
 
-#: apt-notifier.py:1617
+#: apt-notifier.py:1658
 msgid "Tray applet to notify of system and application updates"
 msgstr ""
 "Μικρο-εφαρμογή δίσκου για ειδοποίηση στις ενημερώσεις συστήματος και "
 "εφαρμογών"
 
-#: apt-notifier.py:1674
+#: apt-notifier.py:1715
 msgid "MX Auto-update  --  unattended-upgrades log viewer"
 msgstr ""
 "Αυτόματη ενημέρωση - πρόγραμμα προβολής μη παρακολουθούμενων αναβαθμίσεων"
 
-#: apt-notifier.py:1675
+#: apt-notifier.py:1716
 msgid "No logs found."
 msgstr "Δεν βρέθηκαν αρχεία καταγραφής."
 
-#: apt-notifier.py:1676
+#: apt-notifier.py:1717
 msgid "For a less detailed view see 'Auto-update dpkg log(s)' or 'History'."
 msgstr ""
 "Για μια λιγότερο λεπτομερή προβολή, ανατρέξτε στην ενότητα 'Αυτόματη "
 "ενημέρωση του αρχείου καταγραφής dpkg' ή 'Ιστορικό'."
 
-#: apt-notifier.py:1677 apt-notifier.py:1723
+#: apt-notifier.py:1718 apt-notifier.py:1767
 msgid "Press 'h' for help, 'q' to quit"
 msgstr "Πατήστε 'h' για βοήθεια, 'q' για να τερματίσετε"
 
-#: apt-notifier.py:1721
+#: apt-notifier.py:1765
 msgid "MX Auto-update  --  unattended-upgrades dpkg log viewer"
 msgstr ""
 "Αυτόματη ενημέρωση - πρόγραμμα προβολής μη παρακολουθούμενων αναβαθμίσεων "
 "dpkg"
 
-#: apt-notifier.py:1722
+#: apt-notifier.py:1766
 msgid "No unattended-upgrades dpkg log(s) found."
 msgstr "Δεν βρέθηκαν αρχεία καταγραφής dpkg."

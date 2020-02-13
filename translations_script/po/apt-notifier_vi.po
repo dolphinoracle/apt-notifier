@@ -4,8 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Catur Susetyo <satyafree@gmail.com>, 2018
-# donny widi <citozpremium@gmail.com>, 2019
+# 03af277ad179d6d1cbad62d4a0e288c2, 2019
 # 
 #, fuzzy
 msgid ""
@@ -14,12 +13,12 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-12 19:34-0600\n"
 "PO-Revision-Date: 2017-05-11 01:14+0000\n"
-"Last-Translator: donny widi <citozpremium@gmail.com>, 2019\n"
-"Language-Team: Indonesian (https://www.transifex.com/anticapitalista/teams/10162/id/)\n"
+"Last-Translator: 03af277ad179d6d1cbad62d4a0e288c2, 2019\n"
+"Language-Team: Vietnamese (https://www.transifex.com/anticapitalista/teams/10162/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: id\n"
+"Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: apt-notifier.py:59
@@ -60,7 +59,7 @@ msgstr ""
 
 #: apt-notifier.py:68
 msgid "Quit"
-msgstr "Keluar"
+msgstr "Thoát"
 
 #: apt-notifier.py:69
 msgid "MX Updater Help"
@@ -92,7 +91,7 @@ msgstr ""
 
 #: apt-notifier.py:76
 msgid "About"
-msgstr ""
+msgstr "Về ứng dụng này"
 
 #: apt-notifier.py:77
 msgid "MX Package Installer"
@@ -256,15 +255,15 @@ msgstr ""
 
 #: apt-notifier.py:1655
 msgid "Changelog"
-msgstr "Changelog"
+msgstr "Nhật kí thay đổi"
 
 #: apt-notifier.py:1656
 msgid "License"
-msgstr "Lisensi"
+msgstr "Giấy phép"
 
 #: apt-notifier.py:1657
 msgid "Cancel"
-msgstr "Batal"
+msgstr "Hủy bỏ"
 
 #: apt-notifier.py:1658
 msgid "Tray applet to notify of system and application updates"
