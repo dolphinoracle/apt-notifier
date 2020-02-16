@@ -1831,6 +1831,14 @@ def view_unattended_upgrades_logs():
       then IconLook="$(grep IconLook /home/"$User"/.config/apt-notifierrc | cut -f2 -d=)"
       else IconLook="$(grep IconLook /root/.config/apt-notifierrc | cut -f2 -d=)"
     fi
+    Icon="mnotify-some-""$IconLook"
+    if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
+      then
+        if [ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]
+          then
+            Icon="mx-updater"
+        fi
+    fi     
     #pkexecWrapper="/usr/lib/apt-notifier/pkexec-wrappers/mx-updater-view-auto-update-logs"
     #terminalCMD="mx-updater_unattended_upgrades_log_view"
     #Uncomment lines below to pass strings as arguments
@@ -1851,8 +1859,8 @@ def view_unattended_upgrades_logs():
     #    sh "${pkexecWrapper}" x-terminal-emulator  -e "${terminalCMD}" 2>/dev/null
     #fi
     /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-view-auto-update-logs \
-    '"'"${Title}"'"' \
-    '"'"mnotify-some-$IconLook"'"'
+    "${Title}" \
+    "$Icon"
     '''
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
@@ -1879,6 +1887,14 @@ def view_unattended_upgrades_dpkg_logs():
       then IconLook="$(grep IconLook /home/"$User"/.config/apt-notifierrc | cut -f2 -d=)"
       else IconLook="$(grep IconLook /root/.config/apt-notifierrc | cut -f2 -d=)"
     fi
+    Icon="mnotify-some-""$IconLook"
+    if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
+      then
+        if [ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]
+          then
+            Icon="mx-updater"
+        fi
+    fi     
     #pkexecWrapper="/usr/lib/apt-notifier/pkexec-wrappers/mx-updater-view-auto-update-dpkg-logs"
     #terminalCMD="mx-updater_unattended_upgrades_dpkg_log_view"
     #Uncomment lines below to pass the strings as arguments
@@ -1896,8 +1912,8 @@ def view_unattended_upgrades_dpkg_logs():
     #    sh "${pkexecWrapper}" x-terminal-emulator  -e "${terminalCMD}" 2>/dev/null
     #fi
     /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-view-auto-update-dpkg-logs \
-    '"'"${Title}"'"' \
-    '"'"mnotify-some-$IconLook"'"'
+    "${Title}" \
+    "$Icon"
     '''
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
