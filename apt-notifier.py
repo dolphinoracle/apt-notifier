@@ -1787,7 +1787,16 @@ def About():
     if reply == 1:
         p=subprocess.call(["/usr/bin/mx-viewer", "/usr/share/doc/apt-notifier/license.html", "MX Apt-notifier license"])
     if reply == 2:
-        command_string = "windowIcon=mx-updater && zcat /usr/share/doc/apt-notifier/changelog.gz | \
+        command_string = "windowIcon=mnotify-some-$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) && \
+                          bash -c '[[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]' && \
+                          if [ $? -eq 0 ]; \
+                            then \
+                              if [ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]; \
+                                then windowIcon=mx-updater; \
+                              fi; \
+                          fi \
+                          && \
+                          zcat /usr/share/doc/apt-notifier/changelog.gz | \
                           yad --width=$(xdotool getdisplaygeometry | awk '{print $1*3/4}') \
                               --height=$(xdotool getdisplaygeometry | awk '{print $2*2/3}') \
                               --center           \
