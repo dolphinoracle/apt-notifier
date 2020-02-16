@@ -1764,8 +1764,9 @@ def displayAbout():
 # -*- coding: utf-8 -*-
 import sys
 import subprocess
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtWidgets import QApplication, QPushButton, QMessageBox
+from PyQt5.QtGui import QIcon
 import gettext
 gettext.bindtextdomain('apt-notifier', '/usr/share/locale')
 gettext.textdomain('apt-notifier')
@@ -1776,6 +1777,7 @@ def About():
     myversion = p.decode('utf-8').rstrip()
     aboutBox = QMessageBox()
     aboutBox.setWindowTitle(_('About MX Updater'))
+    aboutBox.setWindowIcon(QtGui.QIcon('/usr/share/icons/Papirus/16x16/apps/mx-updater.svg'))
     aboutBox.setText("<p align=center><b><h2>" + (_('MX Updater')) + "</h2></b></p><p align=center>Version: " + myversion + "</p><p align=center><h3>" 
                + (_('Tray applet to notify of system and application updates')) 
                + "</h3></p><p align=center><a href=http://mxlinux.org>http://mxlinux.org</a> \
