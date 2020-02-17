@@ -1,3 +1,9 @@
+apt-notifier (20.02.17mx19+1) mx; urgency=medium
+
+  * More fixes for papirus mx-updater icon
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Mon, 17 Feb 2020 10:14:37 -0500
+
 apt-notifier (20.02.13mx19+1) mx; urgency=medium
 
   * More deartifact changes
