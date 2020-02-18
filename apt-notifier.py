@@ -1018,6 +1018,8 @@ def initialize_aptnotifier_prefs():
                        fi
                        ;;
         esac
+        #Add a "Type=Application" line to beginning of the .desktop files if there isn't one.
+        grep  -sq '^Type=Application' ~/.local/share/applications/$desktopfile || sed -i '/^\[Desktop Entry\]/aType=Application' ~/.local/share/applications/$desktopfile
       done
                                                       
     '''
