@@ -1,3 +1,9 @@
+apt-notifier (20.02.17mx19+2) mx; urgency=medium
+
+  * Add a fallback symlink mnotify-some-wireframe.png > mx-updater.png
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Tue, 18 Feb 2020 12:37:31 -0500
+
 apt-notifier (20.02.17mx19+1) mx; urgency=medium
 
   * More fixes for papirus mx-updater icon
