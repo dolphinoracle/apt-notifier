@@ -1,3 +1,9 @@
+apt-notifier (20.02.17mx19+4) mx; urgency=medium
+
+  * add a 'Type=Application' line to the .local desktop files if there isn't one
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Tue, 18 Feb 2020 18:05:04 -0500
+
 apt-notifier (20.02.17mx19+3) mx; urgency=medium
 
   * fehlix's .desktop file suggested changes
