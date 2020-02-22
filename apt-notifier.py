@@ -510,7 +510,7 @@ Disabled
           then
             if [ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]
               then
-                I="mx-updater"
+                I="/usr/share/icons/Papirus/64x64/apps/mx-updater.svg"
             fi
         fi
 
@@ -548,7 +548,7 @@ Disabled
           then
             if [ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]
               then
-                I="mx-updater"
+                I="/usr/share/icons/Papirus/64x64/apps/mx-updater.svg"
             fi
         fi        
         /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload \
@@ -685,7 +685,12 @@ Disabled
                        ;;
           wireframe|*) if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
                          then
-                           windowIcon=mx-updater
+                           if [[ $(xfconf-query -lvc xsettings | grep IconThemeName | grep .*Papirus.* -i) ]]
+                             then
+                               windowIcon=mx-updater
+                             else
+                               windowIcon=mnotify-some-wireframe
+                           fi                          
                            ButtonIcon=/usr/share/icons/mnotify-some-wireframe.png
                          else
                            windowIcon=/usr/share/icons/mnotify-some-wireframe.png
@@ -1229,7 +1234,12 @@ EOF
       then
         if [[ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]]
           then
-            sed -i 's/@mnotify-some@/mx-updater/' "$TMP"/DIALOG
+            if [[ $(xfconf-query -lvc xsettings | grep IconThemeName | grep .*Papirus.* -i) ]]
+              then
+                sed -i 's/@mnotify-some@/mx-updater/' "$TMP"/DIALOG
+              else
+                sed -i 's/@mnotify-some@/mnotify-some-wireframe/' "$TMP"/DIALOG
+            fi
           else
             sed -i 's/@mnotify-some@/mnotify-some-'$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d= | xargs echo -n)'/' "$TMP"/DIALOG
         fi
@@ -1335,7 +1345,12 @@ def apt_history():
                    ;;
       wireframe|*) if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]] 
                      then
-                       windowIcon=mx-updater
+                       if [[ $(xfconf-query -lvc xsettings | grep IconThemeName | grep .*Papirus.* -i) ]]
+                         then
+                           windowIcon=mx-updater
+                         else
+                           windowIcon=mnotify-some-wireframe
+                       fi
                      else
                        windowIcon=/usr/share/icons/mnotify-some-wireframe.png
                    fi
@@ -1410,7 +1425,7 @@ EOF
       then 
         if [ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]
           then 
-            I="mx-updater"
+            I="/usr/share/icons/Papirus/64x64/apps/mx-updater.svg"
         fi
     fi    
     T=" --title=""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" Updater: $reload"
@@ -1796,7 +1811,14 @@ def About():
                           if [ $? -eq 0 ]; \
                             then \
                               if [ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]; \
-                                then windowIcon=mx-updater; \
+                                then \
+                                  xfconf-query -lvc xsettings | grep IconThemeName | grep .*Papirus.* -iq ; \
+                                  if [ $? -eq 0 ]; \
+                                    then \
+                                      windowIcon=mx-updater; \
+                                    else \
+                                      windowIcon=mnotify-some-wireframe; \
+                                  fi; \
                               fi; \
                           fi \
                           && \
@@ -1849,7 +1871,12 @@ def view_unattended_upgrades_logs():
       then
         if [ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]
           then
-            Icon="mx-updater"
+            if [[ $(xfconf-query -lvc xsettings | grep IconThemeName | grep .*Papirus.* -i) ]]
+              then
+                Icon=mx-updater
+              else
+                Icon=mnotify-some-wireframe
+            fi
         fi
     fi     
     #pkexecWrapper="/usr/lib/apt-notifier/pkexec-wrappers/mx-updater-view-auto-update-logs"
@@ -1905,7 +1932,12 @@ def view_unattended_upgrades_dpkg_logs():
       then
         if [ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]
           then
-            Icon="mx-updater"
+            if [[ $(xfconf-query -lvc xsettings | grep IconThemeName | grep .*Papirus.* -i) ]]
+              then
+                Icon=mx-updater
+              else
+                Icon=mnotify-some-wireframe
+            fi
         fi
     fi     
     #pkexecWrapper="/usr/lib/apt-notifier/pkexec-wrappers/mx-updater-view-auto-update-dpkg-logs"
