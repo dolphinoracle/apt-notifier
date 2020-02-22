@@ -1,3 +1,9 @@
+apt-notifier (20.02.22mx19+1) mx; urgency=medium
+
+  * fix/show mx-updater window decoration icon when using non Papirus icon themes
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Sat, 22 Feb 2020 11:15:45 -0500
+
 apt-notifier (20.02.17mx19+4) mx; urgency=medium
 
   * add a 'Type=Application' line to the .local desktop files if there isn't one
