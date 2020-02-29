@@ -131,7 +131,7 @@ def check_updates():
     """
     Get a hash of files and directories we are watching
     """
-    script = '''#!/bin/sh
+    script = '''#!/bin/bash
     WatchedFilesAndDirs="$WatchedFilesAndDirs""/etc/apt/preferences "
     WatchedFilesAndDirs="$WatchedFilesAndDirs""/etc/apt/preferences.d "
     WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/lib/apt "
@@ -171,7 +171,7 @@ def check_updates():
     Check_for_Updates_by_User = 'false'
 
     #Create an inline script (what used to be /usr/bin/apt-notifier-check-Updates) and then run it to get the number of updates.
-    script = '''#!/bin/sh
+    script = '''#!/bin/bash
     
     #Create a temporary folder and redirect the apt-get upgrade and dist-upgrade output to them; doing this so only have to run the apt command 2 times.
     TMP=$(mktemp -d /tmp/apt-notifier.check_updates.XXXXXX)
@@ -853,7 +853,7 @@ def initialize_aptnotifier_prefs():
     """if they don't already exist. Remove multiple entries and those that """
     """appear to be invalid.                                               """ 
 
-    script = '''#! /bin/bash
+    script = '''#!/bin/bash
 
     #test if ~/.config/apt-notifierrc contains a UpgradeType=* line and that it's a valid entry
     grep -e ^"UpgradeType=upgrade" -e^"UpgradeType=dist-upgrade" ~/.config/apt-notifierrc > /dev/null
@@ -1089,7 +1089,7 @@ def aptnotifier_prefs():
         '    auto_update_checkbox_txt="'                 + t17 + '"\n'
         )
     
-    script = '''#! /bin/bash
+    script = '''#!/bin/bash
 ''' + shellvar + '''    
 
     #for MEPIS remove "MX" branding from the $window_title and $left_click_ViewandUpgrade strings
@@ -1336,7 +1336,7 @@ def apt_history():
     t01 = _("History")
     shellvar = '    AptHistory="' + t01 + '"\n'
 
-    script = '''#! /bin/bash
+    script = '''#!/bin/bash
 ''' + shellvar + '''
     
     TMP=$(mktemp -d /tmp/apt_history.XXXXXX)
@@ -1402,7 +1402,7 @@ def apt_get_update():
     '    PressAnyKey="' + t02 + '"\n'
     )
     
-    script = '''#! /bin/bash
+    script = '''#!/bin/bash
 ''' + shellvar + '''
 
     TMP=$(mktemp -d /tmp/apt_update.XXXXXX)
@@ -1577,7 +1577,7 @@ def read_icon_config():
         return "show"
 
 def read_icon_look():
-    script = '''#! /bin/bash
+    script = '''#!/bin/bash
     grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=
     '''
     script_file = tempfile.NamedTemporaryFile('wt')
@@ -1670,7 +1670,7 @@ def add_apt_notifier_help_action():
     apt_notifier_help_action.triggered.connect(open_apt_notifier_help)
     
 def open_apt_notifier_help():
-    script = '''#! /bin/bash
+    script = '''#!/bin/bash
     case $(echo $LANG | cut -f1 -d_) in
       fr) HelpUrl="https://mxlinux.org/wiki/help-files/help-mx-apt-notifier-notificateur-dapt" ;;
        *) HelpUrl="https://mxlinux.org/wiki/help-files/help-mx-apt-notifier" ;;
@@ -1696,7 +1696,7 @@ def add_synaptic_help_action():
     synaptic_help_action.triggered.connect(open_synaptic_help)
     
 def open_synaptic_help():
-    script = '''#! /bin/bash
+    script = '''#!/bin/bash
     HelpUrlBase="https://mxlinux.org/wiki/help-files/help-synaptic"
     #english     HelpUrl = HelpUrlBase
     #non-english HelpUrl = HelpUrlBase + "-" + "{2 character suffix - de, es, fr, it, etc.}"
@@ -1867,7 +1867,7 @@ def view_unattended_upgrades_logs():
         '    SeeHistory="'             + t03 + '"\n'
         '    LessPrompt="'             + t04 + '"\n'
         )
-    script = '''#! /bin/bash
+    script = '''#!/bin/bash
 ''' + shellvar + '''
     Title="$(sed "s|[']|\\\\'|g" <<<"${Title}")"
     User=$(who | grep '(:0)' -m1 | awk '{print $1}')
@@ -1928,7 +1928,7 @@ def view_unattended_upgrades_dpkg_logs():
         '    NoLogsFound="'            + t02 + '"\n'
         '    LessPrompt="'             + t03 + '"\n'
         )
-    script = '''#! /bin/bash
+    script = '''#!/bin/bash
 ''' + shellvar + '''
     Title="$(sed "s|[']|\\\\'|g" <<<"${Title}")"
     User=$(who | grep '(:0)' -m1 | awk '{print $1}')
