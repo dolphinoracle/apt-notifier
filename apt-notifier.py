@@ -135,7 +135,7 @@ def check_updates():
     WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/lib/apt/lists/partial "
     WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/lib/dpkg "
     WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/cache/apt "
-    ls --full-time -ah $WatchedFilesAndDirs 2>/dev/null | nice -n19 md5sum
+    ls --full-time -ah $WatchedFilesAndDirs 2>/dev/null | md5sum
     '''
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
