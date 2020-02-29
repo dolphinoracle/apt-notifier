@@ -92,7 +92,7 @@ def check_updates():
     isn't present. This should only happen in a Live session before the repository
     lists have been loaded for the first time.
     """ 
-    command_string = "[ ! -e /var/lib/apt/periodic/update-stamp ] && [ ! -e /var/lib/apt/lists/lock ]"
+    command_string = "bash -c '[ ! -e /var/lib/apt/periodic/update-stamp ] && [ ! -e /var/lib/apt/lists/lock ]'"
     exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
     if exit_state == 0:
         if text == '':
