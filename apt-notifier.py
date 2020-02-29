@@ -41,6 +41,8 @@ def set_translations():
     global View_Auto_Updates_Logs
     global View_Auto_Updates_Dpkg_Logs
     global Check_for_Updates
+    global Force_Check_Counter
+    Force_Check_Counter = 0
     global About
     global Check_for_Updates_by_User
     Check_for_Updates_by_User = 'false'
@@ -83,6 +85,7 @@ def check_updates():
     global WatchedFilesAndDirsHashNow
     global WatchedFilesAndDirsHashPrevious
     global Check_for_Updates_by_User
+    global Force_Check_Counter
     
     """
     Don't bother checking for updates when /var/lib/apt/periodic/update-stamp
@@ -122,6 +125,7 @@ def check_updates():
     command_string = "ps aux | grep -v grep | grep -E 'apt-get|aptitude|dpkg|gdebi|synaptic|/usr/bin/unattended-upgrade' > /dev/null"
     exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
     if exit_state == 0:
+        Force_Check_Counter = 5
         return
 
     """
@@ -153,12 +157,16 @@ def check_updates():
     """
     if WatchedFilesAndDirsHashNow == WatchedFilesAndDirsHashPrevious:    
         if Check_for_Updates_by_User == 'false':
-            if text == '':
-                text = '0'
-            return
+            if Force_Check_Counter < 5:
+                Force_Check_Counter = Force_Check_Counter + 1            
+                if text == '':
+                    text = '0'
+                return
 
     WatchedFilesAndDirsHashPrevious = WatchedFilesAndDirsHashNow
     WatchedFilesAndDirsHashNow = ''
+    
+    Force_Check_Counter = 1
     
     Check_for_Updates_by_User = 'false'
 
