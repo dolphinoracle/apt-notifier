@@ -130,10 +130,12 @@ def check_updates():
     script = '''#!/bin/sh
     WatchedFilesAndDirs="$WatchedFilesAndDirs""/etc/apt/preferences "
     WatchedFilesAndDirs="$WatchedFilesAndDirs""/etc/apt/preferences.d "
+    WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/lib/apt "
     WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/lib/apt/lists "
     WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/lib/apt/lists/partial "
+    WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/lib/dpkg "
     WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/cache/apt "
-    ionice -c3 nice -n19 ls --full-time -ah $WatchedFilesAndDirs 2>/dev/null | nice -n19 md5sum
+    ls --full-time -ah $WatchedFilesAndDirs 2>/dev/null | nice -n19 md5sum
     '''
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
