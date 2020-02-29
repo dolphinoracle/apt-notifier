@@ -168,28 +168,27 @@ def check_updates():
     #Create a temporary folder and redirect the apt-get upgrade and dist-upgrade output to them; doing this so only have to run the apt command 2 times.
     TMP=$(mktemp -d /tmp/apt-notifier.check_updates.XXXXXX)
 
-    LC_ALL=en_US apt-get -o Debug::NoLocking=true --trivial-only -V upgrade      2>/dev/null > "$TMP"/upgrade
-    LC_ALL=en_US apt-get -o Debug::NoLocking=true --trivial-only -V dist-upgrade 2>/dev/null > "$TMP"/dist-upgrade
-    
-    #Suppress 'updates available' notification if apt-get upgrade & dist-upgrade output are the same, and Unattended-Upgrades are enabled (>=1)
-    diff "$TMP"/upgrade "$TMP"/dist-upgrade 1>/dev/null 2>/dev/null
-    if [ $? -eq 0 ]
-        then 
-            Unattended_Upgrade=0
-            eval $(apt-config shell Unattended_Upgrade APT::Periodic::Unattended-Upgrade)
-            if [ $Unattended_Upgrade != 0 ]
-                then
-                    rm -rf "$TMP"
-                    echo 0
-                exit
+    #Suppress 'updates available' notification if Unattended-Upgrades are enabled (>=1) AND apt-get upgrade & dist-upgrade output are the same    
+    Unattended_Upgrade=0
+    eval $(apt-config shell Unattended_Upgrade APT::Periodic::Unattended-Upgrade)
+    if [ $Unattended_Upgrade != 0 ]
+        then
+            LC_ALL=en_US apt-get -o Debug::NoLocking=true --trivial-only -V upgrade      2>/dev/null > "$TMP"/upgrade
+            LC_ALL=en_US apt-get -o Debug::NoLocking=true --trivial-only -V dist-upgrade 2>/dev/null > "$TMP"/dist-upgrade
+            diff "$TMP"/upgrade "$TMP"/dist-upgrade 1>/dev/null 2>/dev/null
+            if [ $? -eq 0 ]
+               then
+                   rm -rf "$TMP"
+                   echo 0
+                   exit
+               else
+                   mv "$TMP"/dist-upgrade "$TMP"/updates
             fi
     fi
     
-    if [ $(grep ^UpgradeType ~/.config/apt-notifierrc | cut -f2 -d=) = upgrade ]
+    if [ ! -e "$TMP"/updates ]
         then
-            mv "$TMP"/upgrade      "$TMP"/updates
-        else
-            mv "$TMP"/dist-upgrade "$TMP"/updates
+            LC_ALL=en_US apt-get -o Debug::NoLocking=true --trivial-only -V $(grep ^UpgradeType ~/.config/apt-notifierrc | cut -f2 -d=) 2>/dev/null > "$TMP"/updates
     fi
     
     #Suppress the 'updates available' notification if all of the updates are from a backports repo (jessie-backports, stretch-backports, etc.)
