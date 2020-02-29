@@ -122,7 +122,7 @@ def check_updates():
     to avoid getting a hit on /usr/share/unattended-upgrades/unattended-upgrade-shutdown
     which appears to be started automatically when using systemd as init.
     """ 
-    command_string = "ps aux | grep -v grep | grep -E 'apt-get|aptitude|dpkg|gdebi|synaptic|/usr/bin/unattended-upgrade' > /dev/null"
+    command_string = "bash -c 'sudo lsof /var/lib/dpkg/lock /var/lib/dpkg/lock-frontend /var/lib/apt/lists/lock /var/cache/apt/archives/lock 2>/dev/null | tail -1 | grep lock$\|lock-frontend$ -Eq'"
     exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
     if exit_state == 0:
         Force_Check_Counter = 5
