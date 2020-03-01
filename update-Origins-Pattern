@@ -98,7 +98,7 @@ main() {
     Cache_Origins="$(cat                                                         <<<"$Cache__policy")"
     Cache_Origins="$(grep -v Translation-[a-z]{2}$ -E                            <<<"$Cache_Origins")"
     Cache_Origins="$(grep -v 'Pinned packages:'                                  <<<"$Cache_Origins")"
-    Cache_Origins="$(grep ^\ [0-9]+ -A1 -E                                       <<<"$Cache_Origins")"
+    Cache_Origins="$(grep ^[\ ]\{0,3\}[\-]\{0,1\}[0-9]\{1,4\} -A1 -E             <<<"$Cache_Origins")"
     Cache_Origins="$(grep -v -e--                                                <<<"$Cache_Origins")"
     Cache_Origins="$(sed 's/,\([abclno][=]\)/@\1/g'                              <<<"$Cache_Origins")"
     Cache_Origins="$(sed 's/,/\\_comma_/g'                                       <<<"$Cache_Origins")"
