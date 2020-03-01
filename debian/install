@@ -42,9 +42,11 @@ org.mxlinux.pkexec.mx-updater-full-upgrade.policy                usr/share/polki
 org.mxlinux.pkexec.mx-updater-reload.policy                      usr/share/polkit-1/actions
 org.mxlinux.pkexec.mx-updater-view-auto-update-dpkg-logs.policy  usr/share/polkit-1/actions
 org.mxlinux.pkexec.mx-updater-view-auto-update-logs.policy       usr/share/polkit-1/actions
+sudoers/*                                                        etc/sudoers.d
 translations_script/mo/am/apt-notifier.mo                        usr/share/locale/am/LC_MESSAGES
 translations_script/mo/ar/apt-notifier.mo                        usr/share/locale/ar/LC_MESSAGES
 translations_script/mo/bg/apt-notifier.mo                        usr/share/locale/bg/LC_MESSAGES
+translations_script/mo/bn/apt-notifier.mo                        usr/share/locale/bn/LC_MESSAGES
 translations_script/mo/ca/apt-notifier.mo                        usr/share/locale/ca/LC_MESSAGES
 translations_script/mo/cs/apt-notifier.mo                        usr/share/locale/cs/LC_MESSAGES
 translations_script/mo/da/apt-notifier.mo                        usr/share/locale/da/LC_MESSAGES
@@ -55,6 +57,7 @@ translations_script/mo/et/apt-notifier.mo                        usr/share/local
 translations_script/mo/eu/apt-notifier.mo                        usr/share/locale/eu/LC_MESSAGES
 translations_script/mo/fa/apt-notifier.mo                        usr/share/locale/fa/LC_MESSAGES
 translations_script/mo/fi/apt-notifier.mo                        usr/share/locale/fi/LC_MESSAGES
+translations_script/mo/fil_PH/apt-notifier.mo                    usr/share/locale/fil_PH/LC_MESSAGES
 translations_script/mo/fr/apt-notifier.mo                        usr/share/locale/fr/LC_MESSAGES
 translations_script/mo/he_IL/apt-notifier.mo                     usr/share/locale/he_IL/LC_MESSAGES
 translations_script/mo/hi/apt-notifier.mo                        usr/share/locale/hi/LC_MESSAGES
@@ -84,6 +87,7 @@ translations_script/mo/sr/apt-notifier.mo                        usr/share/local
 translations_script/mo/sv/apt-notifier.mo                        usr/share/locale/sv/LC_MESSAGES
 translations_script/mo/tr/apt-notifier.mo                        usr/share/locale/tr/LC_MESSAGES
 translations_script/mo/uk/apt-notifier.mo                        usr/share/locale/uk/LC_MESSAGES
+translations_script/mo/vi/apt-notifier.mo                        usr/share/locale/vi/LC_MESSAGES
 translations_script/mo/zh_CN/apt-notifier.mo                     usr/share/locale/zh_CN/LC_MESSAGES
 translations_script/mo/zh_TW/apt-notifier.mo                     usr/share/locale/zh_TW/LC_MESSAGES
 update-Origins-Pattern                                           usr/local/bin
