@@ -1,3 +1,19 @@
+apt-notifier (20.03.01mx19+1) mx; urgency=medium
+
+  * Add /var/lib/apt and /var/lib/dpkg to files and folders that being watched.
+  * Force a check for updates once every 5 minutes even if no changes have been
+    seen in the watched files and directories.
+  * Detect package management activity with lsof.
+  * Add a /etc/sudoers.d/lsof-mx file to allow using lsof without a password.
+  * Include repos with a 1,2 & 4 digit pin-priorities in the Unattended 
+    Upgrades Origins patterns. Previously it only included repos with 3 digit 
+    pin-priorities (500, 100, etc).
+  * Only simulate both apt-get dist-upgrade and apt-get upgrade when
+    Unattended Upgrades are enabled, otherwise only simulate the selected
+    upgrade type (dist-upgrade, or upgrade).
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Sun, 01 Mar 2020 20:37:02 -0500
+
 apt-notifier (20.02.22mx19+1) mx; urgency=medium
 
   * fix/show mx-updater window decoration icon when using non Papirus icon themes
