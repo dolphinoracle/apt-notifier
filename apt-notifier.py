@@ -139,7 +139,8 @@ def check_updates():
     WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/lib/apt/lists/partial "
     WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/lib/dpkg "
     WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/cache/apt "
-    ls --full-time -ah $WatchedFilesAndDirs 2>/dev/null | md5sum
+    #ls --full-time -ah $WatchedFilesAndDirs 2>/dev/null | md5sum
+    stat -c %Z $WatchedFilesAndDirs 2>/dev/null | md5sum
     '''
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
@@ -216,18 +217,18 @@ def check_updates():
     #suppress updates available indication if 2 or more Release.reverify entries found
     #if [ $(ls -1 /var/lib/apt/lists/partial/ | grep Release.reverify$ | wc -l) -ge 2 ]; then echo 0; exit; fi 
     
-    if [ -s /var/lib/synaptic/preferences ]; 
-        then 
-            #/var/lib/synaptic/preferences is a non-zero size file, which means there are packages pinned in Synaptic. 
-            #Remove from the sorted_list_of_upgrades, packages that are pinned in Synaptic, and then get a count of remaining.
-            
-            sorted_list_of_upgrades | grep -vx $(grep ^'Package:' /var/lib/synaptic/preferences 2>/dev/null | awk {'print "-e " $2'}) | wc -l
-        
+    if [ -f /var/lib/synaptic/preferences ]; 
+        then
+            if [[ $(grep ^Package: /var/lib/synaptic/preferences -m1) ]]
+                then
+                    #Packages are pinned in Synaptic, remove from the sorted_list_of_upgrades packages that are pinned in Synaptic, then get a count of those remaining.
+                    sorted_list_of_upgrades | grep -vx $(grep ^'Package:' /var/lib/synaptic/preferences 2>/dev/null | awk {'print "-e " $2'}) | wc -l
+                else     
+                    #/var/lib/synaptic/preferences file exists but no packages are currently pinned, so just get a count of upgradeable packages
+                    sorted_list_of_upgrades | wc -l
+            fi
         else 
-            #/var/lib/synaptic/preferences is either a zero byte file, meaning packages were pinned in Synaptic at some time in 
-            # the past but none are currently pinned. Or the file is not present, meaning packages have never been pinned using 
-            # Synaptic. In either case, just get a count of how many upgradeable packages are in the list.
-            
+            #/var/lib/synaptic/preferences not present, packages have never been pinned using Synaptic, just get a count of upgradeable packages.
             sorted_list_of_upgrades | wc -l
     fi
     rm -rf "$TMP"
