@@ -1,3 +1,11 @@
+apt-notifier (20.03.14mx19+1) mx; urgency=medium
+
+  * "MX Updater not turning green" fix, needed due to the Synaptic 
+    /var/lib/synaptic/preferences file nolonger being an empty file when all
+    pinning has been removed.
+
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Sat, 14 Mar 2020 16:54:53 -0400
+
 apt-notifier (20.03.01mx19+1) mx; urgency=medium
 
   * Add /var/lib/apt and /var/lib/dpkg to files and folders that being watched.
