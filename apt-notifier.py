@@ -217,16 +217,11 @@ def check_updates():
     #suppress updates available indication if 2 or more Release.reverify entries found
     #if [ $(ls -1 /var/lib/apt/lists/partial/ | grep Release.reverify$ | wc -l) -ge 2 ]; then echo 0; exit; fi 
     
-    if [ -f /var/lib/synaptic/preferences ]; 
+    if [ -e /var/lib/synaptic/preferences ]; 
         then
-            if [[ $(grep ^Package: /var/lib/synaptic/preferences -m1) ]]
-                then
-                    #Packages are pinned in Synaptic, remove from the sorted_list_of_upgrades packages that are pinned in Synaptic, then get a count of those remaining.
-                    sorted_list_of_upgrades | grep -vx $(grep ^'Package:' /var/lib/synaptic/preferences 2>/dev/null | awk {'print "-e " $2'}) | wc -l
-                else     
-                    #/var/lib/synaptic/preferences file exists but no packages are currently pinned, so just get a count of upgradeable packages
-                    sorted_list_of_upgrades | wc -l
-            fi
+            #/var/lib/synaptic/preferences files exists, so exclude any Packages that are currently pinned from the update count.
+            count_available=$(( $(sorted_list_of_upgrades|wc -l) - $((sorted_list_of_upgrades; sed -n 's/Package: //p' /var/lib/synaptic/preferences 2>/dev/null) | sort | uniq -d | wc -l) ))
+            echo $count_available
         else 
             #/var/lib/synaptic/preferences not present, packages have never been pinned using Synaptic, just get a count of upgradeable packages.
             sorted_list_of_upgrades | wc -l
