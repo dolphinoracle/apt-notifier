@@ -1,3 +1,12 @@
+apt-notifier (20.04.07mx19+1) mx; urgency=medium
+
+  * ja_JP translations removed.
+  * Unused/disabled code in apt_get_update removed.
+  * Check updates without using temporary file(s).
+  * Also watch /etc/apt/apt.conf* and synaptic prefs.
+ 
+ -- Kent Mathern <maintainer@mepiscommunity.org>  Tue, 07 Apr 2020 15:29:32 -0400
+
 apt-notifier (20.03.14mx19+1) mx; urgency=medium
 
   * "MX Updater not turning green" fix, needed due to the Synaptic 
