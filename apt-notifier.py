@@ -174,59 +174,37 @@ def check_updates():
     #Create an inline script (what used to be /usr/bin/apt-notifier-check-Updates) and then run it to get the number of updates.
     script = '''#!/bin/bash
     
-    #Create a temporary folder and redirect the apt-get upgrade and dist-upgrade output to them; doing this so only have to run the apt command 2 times.
-    TMP=$(mktemp -d /tmp/apt-notifier.check_updates.XXXXXX)
-
+    Updates=""
+    
     #Suppress 'updates available' notification if Unattended-Upgrades are enabled (>=1) AND apt-get upgrade & dist-upgrade output are the same    
     Unattended_Upgrade=0
     eval $(apt-config shell Unattended_Upgrade APT::Periodic::Unattended-Upgrade)
     if [ $Unattended_Upgrade != 0 ]
         then
-            LC_ALL=en_US apt-get -o Debug::NoLocking=true --trivial-only -V upgrade      2>/dev/null > "$TMP"/upgrade
-            LC_ALL=en_US apt-get -o Debug::NoLocking=true --trivial-only -V dist-upgrade 2>/dev/null > "$TMP"/dist-upgrade
-            diff "$TMP"/upgrade "$TMP"/dist-upgrade 1>/dev/null 2>/dev/null
-            if [ $? -eq 0 ]
+            Upgrade="$(    LC_ALL=en_US apt-get -o Debug::NoLocking=true --trivial-only -V      upgrade 2>/dev/null)"
+            DistUpgrade="$(LC_ALL=en_US apt-get -o Debug::NoLocking=true --trivial-only -V dist-upgrade 2>/dev/null)"
+            if [ "$Upgrade" = "$DistUpgrade" ]
                then
-                   rm -rf "$TMP"
                    echo 0
                    exit
                else
-                   mv "$TMP"/dist-upgrade "$TMP"/updates
+                   Updates="$DistUpgrade"
             fi
     fi
     
-    if [ ! -e "$TMP"/updates ]
+    if [ -z "$Updates" ]
         then
-            LC_ALL=en_US apt-get -o Debug::NoLocking=true --trivial-only -V $(grep ^UpgradeType ~/.config/apt-notifierrc | cut -f2 -d=) 2>/dev/null > "$TMP"/updates
+            Updates="$(LC_ALL=en_US apt-get -o Debug::NoLocking=true --trivial-only -V $(grep ^UpgradeType ~/.config/apt-notifierrc | cut -f2 -d=) 2>/dev/null)"
     fi
     
     #Suppress the 'updates available' notification if all of the updates are from a backports repo (jessie-backports, stretch-backports, etc.)
-    if [ "$(grep " => " "$TMP"/updates | wc -l)" = "$(grep " => " "$TMP"/updates | grep -E ~bpo[0-9]+[+][0-9]+[\)]$ | wc -l)" ]
+    if [ "$(grep " => " <<<"$Updates" | wc -l)" = "$(grep " => " <<<"$Updates" | grep -E ~bpo[0-9]+[+][0-9]+[\)]$ | wc -l)" ]
         then
-            rm -rf "$TMP"
             echo 0
             exit
     fi
-   
-    sorted_list_of_upgrades() 
-    {
-        #Create a sorted list of the names of the packages that are upgradeable.
-        cat "$TMP"/updates  |  sed -n '/upgraded:/,$p' | grep ^'  ' | awk '{ print $1 }' | sort
-    }
-    
-    #suppress updates available indication if 2 or more Release.reverify entries found
-    #if [ $(ls -1 /var/lib/apt/lists/partial/ | grep Release.reverify$ | wc -l) -ge 2 ]; then echo 0; exit; fi 
-    
-    if [ -e /var/lib/synaptic/preferences ]; 
-        then
-            #/var/lib/synaptic/preferences files exists, so exclude any Packages that are currently pinned from the update count.
-            count_available=$(( $(sorted_list_of_upgrades|wc -l) - $((sorted_list_of_upgrades; sed -n 's/Package: //p' /var/lib/synaptic/preferences 2>/dev/null) | sort | uniq -d | wc -l) ))
-            echo $count_available
-        else 
-            #/var/lib/synaptic/preferences not present, packages have never been pinned using Synaptic, just get a count of upgradeable packages.
-            sorted_list_of_upgrades | wc -l
-    fi
-    rm -rf "$TMP"
+
+    echo $(( $(grep ' => ' <<<"$Updates" | awk '{print $1}' | wc -l) - $((grep ' => ' <<<"$Updates" | awk '{print $1}'; sed -n 's/Package: //p' /var/lib/synaptic/preferences 2>/dev/null) | uniq -d | wc -l) ))
     '''
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
