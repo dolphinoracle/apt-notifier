@@ -132,15 +132,15 @@ def check_updates():
     Get a hash of files and directories we are watching
     """
     script = '''#!/bin/bash
-    WatchedFilesAndDirs="$WatchedFilesAndDirs""/etc/apt/preferences "
-    WatchedFilesAndDirs="$WatchedFilesAndDirs""/etc/apt/preferences.d "
-    WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/lib/apt "
+    WatchedFilesAndDirs="$WatchedFilesAndDirs""/etc/apt/apt.conf* "
+    WatchedFilesAndDirs="$WatchedFilesAndDirs""/etc/apt/preferences* "
+    WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/lib/apt* "
     WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/lib/apt/lists "
     WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/lib/apt/lists/partial "
     WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/lib/dpkg "
+    WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/lib/synaptic/preferences "
     WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/cache/apt "
-    #ls --full-time -ah $WatchedFilesAndDirs 2>/dev/null | md5sum
-    stat -c %Z $WatchedFilesAndDirs 2>/dev/null | md5sum
+    stat -c %Y,%Z $WatchedFilesAndDirs 2>/dev/null | md5sum
     '''
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
