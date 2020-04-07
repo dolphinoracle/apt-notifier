@@ -1391,40 +1391,13 @@ def apt_get_update():
     # ~~~ Localize 4 ~~~
 
     t01 = _("Reload")
-    t02 = _("press any key to close")
     
     shellvar = (
     '    reload="' + t01 + '"\n'
-    '    PressAnyKey="' + t02 + '"\n'
     )
     
     script = '''#!/bin/bash
 ''' + shellvar + '''
-
-    TMP=$(mktemp -d /tmp/apt_update.XXXXXX)
-    #create first part of upgradeScript
-    cat << 'EOF' > "$TMP"/upgradeScript
-#!/bin/bash
-sleep 1
-IFS="x" read screenWidth screenHeight < <(xdpyinfo | grep dimensions | grep -o "[0-9x]*" | head -n 1)
-xdotool getactivewindow windowsize --usehints 67% 67%
-read width  < <(xdotool getactivewindow getwindowgeometry --shell | head -n 5 | tail -n 2 | cut -f2 -d= | head -n 1)
-read height < <(xdotool getactivewindow getwindowgeometry --shell | head -n 5 | tail -n 2 | cut -f2 -d= | tail -n 1)
-newPosX=$(((screenWidth-width)/2))
-newPosY=$(((screenHeight-height)/2))
-xdotool getactivewindow windowmove "$newPosX" "$newPosY"
-EOF
-    echo "echo 'apt-get update'">> "$TMP"/upgradeScript
-    echo "apt-get update">> "$TMP"/upgradeScript
-    echo "sleep 3">> "$TMP"/upgradeScript
-    chmod +x $TMP/upgradeScript
-
-    #for MEPIS remove "MX" branding from the $window_title string
-    window_title=$(echo "$window_title"|sed 's/MX /'$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
-
-    TermXOffset="$(xwininfo -root|awk '/Width/{print $2/4}')"
-    TermYOffset="$(xwininfo -root|awk '/Height/{print $2/4}')"
-    G=" --geometry=80x25+"$TermXOffset"+"$TermYOffset
     I="mnotify-some-""$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
     if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
       then 
@@ -1434,70 +1407,7 @@ EOF
         fi
     fi    
     T=" --title=""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" Updater: $reload"
-<<'Disabled'
-    if (xprop -root | grep -i kde > /dev/null)
-      then
-        # Running KDE
-        #
-        # Can't get su-to-root to work in newer KDE's, so use kdesu for authentication.
-        #  
-        # If x-terminal-emulator is set to xfce4-terminal.wrapper, use     
-        # xfce4-terminal instead because the --hold option doesn't work with
-        # the wrapper. Also need to enclose the apt-get command in single quotes.
-        #
-        # If x-terminal-emulator is set to gnome-terminal.wrapper, use konsole instead, if it's available (it should be), if not do nothing.
-        # If x-terminal-emulator is set to xterm,                  use konsole instead, if it's available (it should be), if not use xterm.
-
-        case $(readlink -e /usr/bin/x-terminal-emulator | xargs basename) in
-        
-          gnome-terminal.wrapper) if [ -e /usr/bin/konsole ]
-                                    then
-                                      $(kde4-config --path libexec)kdesu -c "konsole -e apt-get update"
-                                      sleep 5
-                                    else
-                                      :
-                                  fi
-                                  ;;
-
-                         konsole) $(kde4-config --path libexec)kdesu -c "konsole -e apt-get update"
-                                  sleep 5
-                                  ;;
-
-                         roxterm) $(kde4-config --path libexec)kdesu -c "roxterm$G$T --separare -e apt-get update"
-                                  ;;
-
-          xfce4-terminal.wrapper) $(kde4-config --path libexec)kdesu -c "xfce4-terminal$G$I$T -e 'apt-get update'"
-                                  ;;
-
-                           xterm) if [ -e /usr/bin/konsole ]
-                                    then
-                                      $(kde4-config --path libexec)kdesu -c "konsole -e apt-get update"
-                                      sleep 5
-                                    else
-                                      $(kde4-config --path libexec)kdesu -c "xterm -e apt-get update"
-                                  fi
-                                  ;;
-
-                               *) $(kde4-config --path libexec)kdesu -c "x-terminal-emulator -e apt-get update"
-                                  ;;
-        esac
-
-      else
-        # Running a non KDE desktop
-        # 
-        # Use pkexec for authentication.
-        # 
-        # If x-terminal-emulator is set to xfce4-terminal.wrapper, use 
-        # xfce4-terminal instead because the --hold option doesn't work
-        # with the wrapper. Also need to enclose the apt-get command in
-        # single quotes.
-        #
-        # If x-terminal-emulator is set to gnome-terminal.wrapper, use xfce4-terminal instead, if it's available (it is in MX), if not use gnome-terminal.
-        # If x-terminal-emulator is set to xterm,                  use xfce4-terminal instead, if it's available (it is in MX), if not use xterm.
-Disabled
-    /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "$T" "$I" #"$PressAnyKey"
-    #fi
-    rm -rf "$TMP"
+    /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "$T" "$I"
     '''
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
