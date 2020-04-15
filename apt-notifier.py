@@ -204,7 +204,7 @@ def check_updates():
             exit
     fi
 
-    echo $(( $(grep ' => ' <<<"$Updates" | awk '{print $1}' | wc -l) - $((grep ' => ' <<<"$Updates" | awk '{print $1}'; sed -n 's/Package: //p' /var/lib/synaptic/preferences 2>/dev/null) | uniq -d | wc -l) ))
+    echo $(( $(grep ' => ' <<<"$Updates" | awk '{print $1}' | wc -l) - $((grep ' => ' <<<"$Updates" | awk '{print $1}'; sed -n 's/Package: //p' /var/lib/synaptic/preferences 2>/dev/null) | sort | uniq -d | wc -l) ))
     '''
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
