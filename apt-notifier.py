@@ -731,6 +731,9 @@ Disabled
         #create first part of upgradeScript
         cat << 'EOF' > "$TMP"/upgradeScript
 #!/bin/bash
+
+if [ ! -e /etc/apt/sources.list ]; then echo -e "#This source is empty by default in MX Linux and is only included to avoid\\n#error messages from some package install scripts that expect to find it.\\n#Sources are under /etc/apt/sources.list.d" > /etc/apt/sources.list; fi
+
 EOF
         if [ $(tail -n 1 "$TMP"/results) -eq 8 ];
           then
