@@ -6,8 +6,9 @@
 # Translators:
 # night1ynx <night1ynxd@gmail.com>, 2017
 # James Bowlin <BitJam@gmail.com>, 2018
-# Geoff Gigg <geoffgigg@hotmail.com>, 2018
-# ふうせん Fu-sen. | BALLOON a.k.a. Fu-sen., 2020
+# ふうせん Fu-sen. | BALLOON a.k.a. Fu-sen., 2018
+# Geoff Gigg <geoffgigg@hotmail.com>, 2020
+# user green, 2020
 # 
 #, fuzzy
 msgid ""
@@ -16,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-12 19:34-0600\n"
 "PO-Revision-Date: 2017-05-11 01:14+0000\n"
-"Last-Translator: ふうせん Fu-sen. | BALLOON a.k.a. Fu-sen., 2020\n"
+"Last-Translator: user green, 2020\n"
 "Language-Team: Japanese (https://www.transifex.com/anticapitalista/teams/10162/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,7 +27,7 @@ msgstr ""
 
 #: apt-notifier.py:59
 msgid "0 updates available"
-msgstr "0 新たな更新はありません"
+msgstr "新しい更新はありません"
 
 #: apt-notifier.py:60
 msgid "1 new update available"
@@ -34,7 +35,7 @@ msgstr "1 つの新たな更新が入手可能です"
 
 #: apt-notifier.py:61
 msgid "$count new updates available"
-msgstr "$count つの新たな更新が入手可能です"
+msgstr "$count 新しい更新が入手可能です"
 
 #: apt-notifier.py:62
 msgid "Updates"
@@ -46,11 +47,11 @@ msgstr "1 つの新たな更新が入手可能です"
 
 #: apt-notifier.py:64
 msgid "You have $count new updates available"
-msgstr "$count つの新たな更新が入手可能です"
+msgstr "$count 新たな更新が入手可能です"
 
 #: apt-notifier.py:65
 msgid "Upgrade using Synaptic"
-msgstr "更新に Synaptic を使用する"
+msgstr "Synaptic を使って更新します"
 
 #: apt-notifier.py:66
 msgid "View and Upgrade"
@@ -58,7 +59,7 @@ msgstr "表示・更新"
 
 #: apt-notifier.py:67
 msgid "Hide until updates available"
-msgstr "入手可能な更新の非表示"
+msgstr "入手可能な更新がないときは非表示"
 
 #: apt-notifier.py:68
 msgid "Quit"
@@ -66,11 +67,11 @@ msgstr "終了"
 
 #: apt-notifier.py:69
 msgid "MX Updater Help"
-msgstr ""
+msgstr "MXアップデーターのヘルプ"
 
 #: apt-notifier.py:70
 msgid "Synaptic Help"
-msgstr "Synaptic ヘルプ"
+msgstr "Synaptic のヘルプ"
 
 #: apt-notifier.py:71
 msgid "Preferences"
@@ -78,65 +79,65 @@ msgstr "設定"
 
 #: apt-notifier.py:72 apt-notifier.py:1241
 msgid "History"
-msgstr ""
+msgstr "履歴"
 
 #: apt-notifier.py:73
 msgid "Auto-update log(s)"
-msgstr ""
+msgstr "自動更新のログ"
 
 #: apt-notifier.py:74
 msgid "Auto-update dpkg log(s)"
-msgstr ""
+msgstr "自動更新された dpkg のログ"
 
 #: apt-notifier.py:75
 msgid "Check for Updates"
-msgstr ""
+msgstr "更新をチェック"
 
 #: apt-notifier.py:76
 msgid "About"
-msgstr "About"
+msgstr "これについて"
 
 #: apt-notifier.py:77
 msgid "MX Package Installer"
-msgstr "MX Package Installer"
+msgstr "MX パッケージ・インストーラー"
 
 #: apt-notifier.py:304
 msgid "MX Updater--View and Upgrade, previewing: basic upgrade"
-msgstr ""
+msgstr "MX アップデーター--表示とアップグレード、基本アップグレードのプレビュー"
 
 #: apt-notifier.py:305
 msgid "MX Updater--View and Upgrade, previewing: full upgrade"
-msgstr ""
+msgstr "MX アップデーター--表示とアップグレード、フルアップグレードのプレビュー"
 
 #: apt-notifier.py:307
 msgid "Automatically answer 'yes' to all prompts during upgrade"
-msgstr ""
+msgstr "アップグレード中の質問には全て「はい」と答えます"
 
 #: apt-notifier.py:309 apt-notifier.py:311
 msgid "automatically close terminal window when upgrade complete"
-msgstr ""
+msgstr "アップグレードが完了したらターミナルを自動的に終了します"
 
 #: apt-notifier.py:312 apt-notifier.py:978
 msgid "basic upgrade"
-msgstr ""
+msgstr "基本のアップグレード"
 
 #: apt-notifier.py:313
 msgid "full upgrade"
-msgstr ""
+msgstr "フルアップグレード"
 
 #: apt-notifier.py:314
 msgid "switch to basic upgrade"
-msgstr ""
+msgstr "基本アップグレードへ変更"
 
 #: apt-notifier.py:315
 msgid "switch to full upgrade"
-msgstr ""
+msgstr "フルアップグレードへ変更"
 
 #: apt-notifier.py:316
 msgid ""
 "Switches the type of Upgrade that will be performed, alternating back and "
 "forth between 'full upgrade' and 'basic upgrade'."
-msgstr ""
+msgstr "実行するアップグレードのタイプを切り替えます。基本アップグレードとフルアップグレードを交互に切り替えられます。"
 
 #: apt-notifier.py:317 apt-notifier.py:1281
 msgid "Reload"
@@ -151,11 +152,11 @@ msgstr ""
 
 #: apt-notifier.py:321
 msgid "basic upgrade complete (or was canceled)"
-msgstr ""
+msgstr "基本アップグレードが完了しました (または中止しました)"
 
 #: apt-notifier.py:322
 msgid "full upgrade complete (or was canceled)"
-msgstr ""
+msgstr "フルアップグレードが完了しました (または中止しました)"
 
 #: apt-notifier.py:323
 msgid "this terminal window can now be closed"
@@ -167,35 +168,35 @@ msgstr "何かキーを押して閉じる"
 
 #: apt-notifier.py:325
 msgid "Unneeded packages are installed that can be removed."
-msgstr ""
+msgstr "削除可能な不要なパッケージがインストールされています。"
 
 #: apt-notifier.py:326
 msgid "Running apt-get autoremove, if you are unsure type 'n'."
-msgstr ""
+msgstr "APT 自動削除を実行しますが、よく分からないのなら 'n' をタイプしてください。"
 
 #: apt-notifier.py:327
 msgid "upgrade"
-msgstr ""
+msgstr "アップグレード"
 
 #: apt-notifier.py:328
 msgid "Using full upgrade"
-msgstr ""
+msgstr "フルアップグレードを実行"
 
 #: apt-notifier.py:329
 msgid "Using basic upgrade (not recommended)"
-msgstr ""
+msgstr "基本アップグレードを実行 (非推奨)"
 
 #: apt-notifier.py:975
 msgid "MX Updater preferences"
-msgstr ""
+msgstr "MX アップデーターの設定"
 
 #: apt-notifier.py:976
 msgid "Upgrade mode"
-msgstr ""
+msgstr "アップグレード方法"
 
 #: apt-notifier.py:977
 msgid "full upgrade   (recommended)"
-msgstr ""
+msgstr "フルアップグレード (推奨)"
 
 #: apt-notifier.py:979
 msgid "Left-click behaviour   (when updates are available)"
@@ -203,7 +204,7 @@ msgstr "左クリックの動作 (更新が可能な場合)"
 
 #: apt-notifier.py:980
 msgid "Other options"
-msgstr ""
+msgstr "その他のオプション"
 
 #: apt-notifier.py:981
 msgid "opens Synaptic"
@@ -211,55 +212,55 @@ msgstr "Synaptic を開く"
 
 #: apt-notifier.py:982
 msgid "opens MX Updater 'View and Upgrade' window"
-msgstr ""
+msgstr "MX アップデーターの詳細を画面表示"
 
 #: apt-notifier.py:983
 msgid "Automatically answer 'yes' to all prompts during full/basic upgrade"
-msgstr ""
+msgstr "基本/フルアップグレード中、プロンプトで全ての質問にはいと答えます"
 
 #: apt-notifier.py:984
 msgid "automatically close terminal window when full/basic upgrade complete"
-msgstr ""
+msgstr "基本/フルアップグレードか完了したらターミナルを閉じます"
 
 #: apt-notifier.py:985
 msgid "check for autoremovable packages after full/basic upgrade"
-msgstr ""
+msgstr "基本/フルアップグレード後、自動削除可能なパッケージをチェック"
 
 #: apt-notifier.py:986
 msgid "Icons"
-msgstr ""
+msgstr "アイコン"
 
 #: apt-notifier.py:987
 msgid "classic"
-msgstr ""
+msgstr "クラシック"
 
 #: apt-notifier.py:988
 msgid "pulse"
-msgstr ""
+msgstr "パルス"
 
 #: apt-notifier.py:989
 msgid "wireframe"
-msgstr ""
+msgstr "ワイヤーフレーム"
 
 #: apt-notifier.py:990
 msgid "Auto-update"
-msgstr ""
+msgstr "自動更新"
 
 #: apt-notifier.py:991
 msgid "update automatically   (will not add new or remove existing packages)"
-msgstr ""
+msgstr "自動更新 (新規のパッケージやインストール済のパッケージの削除をしない)"
 
 #: apt-notifier.py:1653
 msgid "MX Updater"
-msgstr ""
+msgstr "MX アップデーター"
 
 #: apt-notifier.py:1654
 msgid "About MX Updater"
-msgstr ""
+msgstr "MX アップデーターについて"
 
 #: apt-notifier.py:1655
 msgid "Changelog"
-msgstr ""
+msgstr "更新履歴"
 
 #: apt-notifier.py:1656
 msgid "License"
@@ -271,28 +272,28 @@ msgstr "キャンセル"
 
 #: apt-notifier.py:1658
 msgid "Tray applet to notify of system and application updates"
-msgstr ""
+msgstr "システムおよびアプリケーションの更新通知トレイアプレット"
 
 #: apt-notifier.py:1715
 msgid "MX Auto-update  --  unattended-upgrades log viewer"
-msgstr ""
+msgstr "MX 自動更新 -- 自動更新ログビューア"
 
 #: apt-notifier.py:1716
 msgid "No logs found."
-msgstr ""
+msgstr "ログはありません。"
 
 #: apt-notifier.py:1717
 msgid "For a less detailed view see 'Auto-update dpkg log(s)' or 'History'."
-msgstr ""
+msgstr "簡易なビューについては「自動更新の dpkg ログ」または「履歴」を参照してください。"
 
 #: apt-notifier.py:1718 apt-notifier.py:1767
 msgid "Press 'h' for help, 'q' to quit"
-msgstr ""
+msgstr "「h」キーでヘルプを表示し「q」キーで終了します。"
 
 #: apt-notifier.py:1765
 msgid "MX Auto-update  --  unattended-upgrades dpkg log viewer"
-msgstr ""
+msgstr "MX 自動更新 -- 自動更新の dpkg ログビューアー"
 
 #: apt-notifier.py:1766
 msgid "No unattended-upgrades dpkg log(s) found."
-msgstr ""
+msgstr "自動更新された dpkg のログは見つかりません。"

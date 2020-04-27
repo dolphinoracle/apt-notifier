@@ -245,7 +245,7 @@ msgstr ""
 
 #: apt-notifier.py:991
 msgid "update automatically   (will not add new or remove existing packages)"
-msgstr ""
+msgstr "atnaujinti automatiškai   (nepridės naujų arba nešalins esamų paketų)"
 
 #: apt-notifier.py:1653
 msgid "MX Updater"
