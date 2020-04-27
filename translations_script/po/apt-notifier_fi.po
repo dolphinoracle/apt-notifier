@@ -7,6 +7,7 @@
 # anticapitalista <anticapitalista@riseup.net>, 2017
 # James Bowlin <BitJam@gmail.com>, 2018
 # En Kerro <inactive+ekeimaja@transifex.com>, 2020
+# Oi Suomi On! <oisuomion@protonmail.com>, 2020
 # 
 #, fuzzy
 msgid ""
@@ -15,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-12 19:34-0600\n"
 "PO-Revision-Date: 2017-05-11 01:14+0000\n"
-"Last-Translator: En Kerro <inactive+ekeimaja@transifex.com>, 2020\n"
+"Last-Translator: Oi Suomi On! <oisuomion@protonmail.com>, 2020\n"
 "Language-Team: Finnish (https://www.transifex.com/anticapitalista/teams/10162/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -136,6 +137,8 @@ msgid ""
 "Switches the type of Upgrade that will be performed, alternating back and "
 "forth between 'full upgrade' and 'basic upgrade'."
 msgstr ""
+"Vaihtaa suoritettavan päivitysmallin, vaihdellen edes-takaisin "
+"'täyspäivityksen' ja 'peruspäivityksen' välillä."
 
 #: apt-notifier.py:317 apt-notifier.py:1281
 msgid "Reload"
@@ -283,6 +286,7 @@ msgstr ""
 #: apt-notifier.py:1715
 msgid "MX Auto-update  --  unattended-upgrades log viewer"
 msgstr ""
+"MX automaattipäivitys - valvomattomien päivitysten ylöskirjauskatselin "
 
 #: apt-notifier.py:1716
 msgid "No logs found."
@@ -291,15 +295,19 @@ msgstr "Lokeja ei löytynyt."
 #: apt-notifier.py:1717
 msgid "For a less detailed view see 'Auto-update dpkg log(s)' or 'History'."
 msgstr ""
+"Vähemmän yksityiskohtaista näkymää varten katso 'Automaattipäivitysten dpkg-"
+"ylöskirjaus (kirjaukset)' tai 'Historia'"
 
 #: apt-notifier.py:1718 apt-notifier.py:1767
 msgid "Press 'h' for help, 'q' to quit"
-msgstr ""
+msgstr "Paina 'h' saadaksesi apua, 'q' lopettaaksesi"
 
 #: apt-notifier.py:1765
 msgid "MX Auto-update  --  unattended-upgrades dpkg log viewer"
 msgstr ""
+"MX automaattipäivitys -- valvomattomien päivitysten dpkg-ylöskirjauskatselin"
 
 #: apt-notifier.py:1766
 msgid "No unattended-upgrades dpkg log(s) found."
 msgstr ""
+"Valvomattomien päivitysten dpkg-ylöskirjaustietoa (tietoja) ei löytynyt."

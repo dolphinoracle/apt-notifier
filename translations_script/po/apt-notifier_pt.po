@@ -107,7 +107,7 @@ msgstr ""
 #: apt-notifier.py:305
 msgid "MX Updater--View and Upgrade, previewing: full upgrade"
 msgstr ""
-"Actualizador do MX -- Ver e Actualizar; visualização: Actualização completa"
+"Actualizador do MX -- Ver e Actualizar; visualização: Actualização geral"
 
 #: apt-notifier.py:307
 msgid "Automatically answer 'yes' to all prompts during upgrade"
@@ -126,7 +126,7 @@ msgstr "Actualização básica"
 
 #: apt-notifier.py:313
 msgid "full upgrade"
-msgstr "Actualização completa"
+msgstr "Actualização geral"
 
 #: apt-notifier.py:314
 msgid "switch to basic upgrade"
@@ -134,7 +134,7 @@ msgstr "mudar para Actualização básica"
 
 #: apt-notifier.py:315
 msgid "switch to full upgrade"
-msgstr "mudar para Actualização completa"
+msgstr "mudar para Actualização geral"
 
 #: apt-notifier.py:316
 msgid ""
@@ -142,7 +142,7 @@ msgid ""
 "forth between 'full upgrade' and 'basic upgrade'."
 msgstr ""
 "Altera o tipo de Actualização a efectuar, alternando entre 'Actualização "
-"completa' e 'Actualização básica'"
+"geral' e 'Actualização básica'"
 
 #: apt-notifier.py:317 apt-notifier.py:1281
 msgid "Reload"
@@ -162,7 +162,7 @@ msgstr "Actualização básica terminada (ou foi cancelada)"
 
 #: apt-notifier.py:322
 msgid "full upgrade complete (or was canceled)"
-msgstr "Actualização completa terminada (ou foi cancelada)"
+msgstr "Actualização geral terminada (ou foi cancelada)"
 
 #: apt-notifier.py:323
 msgid "this terminal window can now be closed"
@@ -178,7 +178,7 @@ msgstr "Estão instalados pacotes não necessários que podem ser removidos."
 
 #: apt-notifier.py:326
 msgid "Running apt-get autoremove, if you are unsure type 'n'."
-msgstr "A executar o apt-get autoremove; em caso de dúvida, teclar 'n'."
+msgstr "A executar 'apt-get autoremove'; em caso de dúvida, teclar 'n'."
 
 #: apt-notifier.py:327
 msgid "upgrade"
@@ -186,7 +186,7 @@ msgstr "actualizar"
 
 #: apt-notifier.py:328
 msgid "Using full upgrade"
-msgstr "A usar Actualização completa"
+msgstr "A usar Actualização geral"
 
 #: apt-notifier.py:329
 msgid "Using basic upgrade (not recommended)"
@@ -202,7 +202,7 @@ msgstr "Tipo de Actualização"
 
 #: apt-notifier.py:977
 msgid "full upgrade   (recommended)"
-msgstr "Actualização completa (recomendado)"
+msgstr "Actualização geral (recomendado)"
 
 #: apt-notifier.py:979
 msgid "Left-click behaviour   (when updates are available)"

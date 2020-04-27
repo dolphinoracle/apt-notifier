@@ -6,6 +6,8 @@
 # Translators:
 # anticapitalista <anticapitalista@riseup.net>, 2017
 # James Bowlin <BitJam@gmail.com>, 2018
+# EldersJavas Jiang <eldersjavas@gmail.com>, 2020
+# 邢家朋 <xingjiapeng10@163.com>, 2020
 # 
 #, fuzzy
 msgid ""
@@ -14,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-12 19:34-0600\n"
 "PO-Revision-Date: 2017-05-11 01:14+0000\n"
-"Last-Translator: James Bowlin <BitJam@gmail.com>, 2018\n"
+"Last-Translator: 邢家朋 <xingjiapeng10@163.com>, 2020\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/anticapitalista/teams/10162/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -92,7 +94,7 @@ msgstr ""
 
 #: apt-notifier.py:76
 msgid "About"
-msgstr ""
+msgstr "关于"
 
 #: apt-notifier.py:77
 msgid "MX Package Installer"
@@ -138,7 +140,7 @@ msgstr ""
 
 #: apt-notifier.py:317 apt-notifier.py:1281
 msgid "Reload"
-msgstr ""
+msgstr "重新加载"
 
 #: apt-notifier.py:318
 msgid ""
@@ -256,11 +258,11 @@ msgstr ""
 
 #: apt-notifier.py:1655
 msgid "Changelog"
-msgstr ""
+msgstr "更新日志"
 
 #: apt-notifier.py:1656
 msgid "License"
-msgstr ""
+msgstr "许可证"
 
 #: apt-notifier.py:1657
 msgid "Cancel"
