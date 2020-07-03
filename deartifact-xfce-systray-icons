@@ -3,7 +3,7 @@
 toggle_frame_or_square_icon_setting()
 {
 for i in $(xfconf-query -l -c xfce4-panel | grep show-frame -m1 | cut -f1-3 -d/)
-  do if [ $(xfconf-query -c xfce4-panel -p $i/square-icons) = 'false' ]
+  do if [ x$(xfconf-query -c xfce4-panel -p $i/square-icons 2>/dev/null) = x'false' ]
        then 
          declare -A B=([true]=false [false]=true)
          xp()
