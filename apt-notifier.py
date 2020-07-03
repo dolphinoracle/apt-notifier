@@ -1011,49 +1011,63 @@ def initialize_aptnotifier_prefs():
     #also not a preference, but remove obsolete ~/.config/autostart/apt-notifier-autostart-xdg.desktop file if present
     rm -f ~/.config/autostart/apt-notifier-autostart-xdg.desktop
 
+    #------------------------------------------------------
+    # remove obsolete desktop files
+    #
+    for desktopfile in mx-updater-menu-kde.desktop mx-updater-menu-non-kde.desktop; do
+        desktoppath="$HOME/.local/share/applications/$desktopfile" 
+        [ -f "$desktoppath" ] && rm -f "$desktoppath"
+    done
+    #------------------------------------------------------
+    #
+    # below not used anymore, as we keep only one mx-updater.desktop file with a fixed icon "mx-updater"
+    #
     #copy mx-updater-menu-* .desktop files to the ~/.local/share/applications/ folder if they haven't been already
-    [ -e ~/.local/share/applications ] || mkdir -p  ~/.local/share/applications
-    if [ ! -e ~/.local/share/applications/mx-updater-menu-kde.desktop ]
-      then
-        cp /usr/share/applications/mx-updater-menu-kde.desktop ~/.local/share/applications/mx-updater-menu-kde.desktop
-    fi
-    if [ ! -e ~/.local/share/applications/mx-updater-menu-non-kde.desktop ]
-      then
-        cp /usr/share/applications/mx-updater-menu-non-kde.desktop ~/.local/share/applications/mx-updater-menu-non-kde.desktop
-    fi    
+    #
+    #
+    #[ -e ~/.local/share/applications ] || mkdir -p  ~/.local/share/applications
+    #if [ ! -e ~/.local/share/applications/mx-updater-menu-kde.desktop ]
+    #  then
+    #    cp /usr/share/applications/mx-updater-menu-kde.desktop ~/.local/share/applications/mx-updater-menu-kde.desktop
+    #fi
+    #if [ ! -e ~/.local/share/applications/mx-updater-menu-non-kde.desktop ]
+    #  then
+    #    cp /usr/share/applications/mx-updater-menu-non-kde.desktop ~/.local/share/applications/mx-updater-menu-non-kde.desktop
+    #fi    
 
-    for desktopfile in mx-updater-menu-kde.desktop mx-updater-menu-non-kde.desktop
-      do
-        case "$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)" in 
-          classic    ) if [ ! $(grep Icon=mnotify-some-classic ~/.local/share/applications/$desktopfile) ]
-                         then
-                           sed -i 's/Icon=.*/Icon=mnotify-some-classic/' ~/.local/share/applications/$desktopfile
-                       fi
-                       ;;
-                     
-          pulse      ) if [ ! $(grep Icon=mnotify-some-pulse ~/.local/share/applications/$desktopfile) ]
-                         then
-                           sed -i 's/Icon=.*/Icon=mnotify-some-pulse/' ~/.local/share/applications/$desktopfile
-                       fi
-                       ;;
-                   
-          wireframe|*) if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
-                         then
-                           if [ ! $(grep Icon=mx-updater ~/.local/share/applications/$desktopfile) ]
-                             then
-                               sed -i 's/Icon=.*/Icon=mx-updater/' ~/.local/share/applications/$desktopfile
-                           fi
-                         else
-                           if [ ! $(grep Icon=mnotify-some-wireframe ~/.local/share/applications/$desktopfile) ]
-                             then
-                               sed -i 's/Icon=.*/Icon=mnotify-some-wireframe/' ~/.local/share/applications/$desktopfile
-                           fi
-                       fi
-                       ;;
-        esac
-        #Add a "Type=Application" line to beginning of the .desktop files if there isn't one.
-        grep  -sq '^Type=Application' ~/.local/share/applications/$desktopfile || sed -i '/^\[Desktop Entry\]/aType=Application' ~/.local/share/applications/$desktopfile
-      done
+    #for desktopfile in mx-updater-menu-kde.desktop mx-updater-menu-non-kde.desktop
+    #  do
+    #    case "$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)" in 
+    #      classic    ) if [ ! $(grep Icon=mnotify-some-classic ~/.local/share/applications/$desktopfile) ]
+    #                     then
+    #                       sed -i 's/Icon=.*/Icon=mnotify-some-classic/' ~/.local/share/applications/$desktopfile
+    #                   fi
+    #                   ;;
+    #                 
+    #      pulse      ) if [ ! $(grep Icon=mnotify-some-pulse ~/.local/share/applications/$desktopfile) ]
+    #                     then
+    #                       sed -i 's/Icon=.*/Icon=mnotify-some-pulse/' ~/.local/share/applications/$desktopfile
+    #                   fi
+    #                   ;;
+    #               
+    #      wireframe|*) if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
+    #                     then
+    #                       if [ ! $(grep Icon=mx-updater ~/.local/share/applications/$desktopfile) ]
+    #                         then
+    #                           sed -i 's/Icon=.*/Icon=mx-updater/' ~/.local/share/applications/$desktopfile
+    #                       fi
+    #                     else
+    #                       if [ ! $(grep Icon=mnotify-some-wireframe ~/.local/share/applications/$desktopfile) ]
+    #                         then
+    #                           sed -i 's/Icon=.*/Icon=mnotify-some-wireframe/' ~/.local/share/applications/$desktopfile
+    #                       fi
+    #                   fi
+    #                   ;;
+    #    esac
+    #    #Add a "Type=Application" line to beginning of the .desktop files if there isn't one.
+    #    grep  -sq '^Type=Application' ~/.local/share/applications/$desktopfile || sed -i '/^\[Desktop Entry\]/aType=Application' ~/.local/share/applications/$desktopfile
+    #  done
+    #------------------------------------------------------
                                                       
     '''
            
