@@ -170,7 +170,7 @@ def check_updates():
     WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/lib/apt/lists/partial "
     WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/lib/dpkg "
 
-    if which synaptic > /dev/null; then
+    if which synaptic-pkexec > /dev/null; then
        WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/lib/synaptic/preferences "
     fi
     
@@ -241,7 +241,7 @@ def check_updates():
 
     echo $(( $( grep ' => ' <<<"$Updates" | awk '{print $1}' | wc -l) 
            - $( ( grep ' => ' <<<"$Updates" | awk '{print $1}'; 
-                  which synaptic > /dev/null && \
+                  which synaptic-pkexec > /dev/null && \
                   sed -n 's/Package: //p' /var/lib/synaptic/preferences 2>/dev/null
                 ) | \
                 sort | uniq -d | wc -l
@@ -640,7 +640,7 @@ Disabled
         #if there isn't, create one if there are synaptic pinned packages
         if [ $? -eq 1 ]
           then
-            if which synaptic > /dev/null && [ -s /var/lib/synaptic/preferences ]; then 
+            if which synaptic-pkexec > /dev/null && [ -s /var/lib/synaptic/preferences ]; then 
                ln -s /var/lib/synaptic/preferences "$TMP"/etc/apt/preferences.d/synaptic-pins 2>/dev/null
             fi
         fi
