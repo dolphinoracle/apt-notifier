@@ -1,3 +1,10 @@
+apt-notifier (20.07.03mx19) mx; urgency=medium
+
+  * Non-maintainer upload.
+  * patches to use muon or synaptic (fehlix)
+
+ -- Dolpin Oracle <dolphinoracle@gmail.com>  Fri, 03 Jul 2020 11:23:36 -0400
+
 apt-notifier (20.04.15mx19+1) mx; urgency=medium
 
   * During upgrade, add empty /etc/apt/sources.list if one doesn't already exist.
