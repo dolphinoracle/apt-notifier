@@ -9,6 +9,31 @@ from os import environ
 from PyQt5 import QtWidgets, QtGui
 from PyQt5 import QtCore
 
+from distutils import spawn 
+
+def package_manager():
+    global package_manager
+    global package_manager_name
+    global package_manager_exec
+    
+    if spawn.find_executable("synaptic-pkexec"):
+        package_manager = "synaptic"
+        package_manager_exec = "synaptic-pkexec"
+        package_manager_name = "Synaptic"
+
+        
+    elif spawn.find_executable("muon"):
+        package_manager = "muon"
+        package_manager_exec = "muon"
+        package_manager_name = "Muon"
+        
+    else:
+        package_manager = None
+        sys.exit("Error: No package manager found! Synaptic or Muon are required.")
+    
+
+package_manager()
+
 rc_file_name = environ.get('HOME') + '/.config/apt-notifierrc'
 message_status = "not displayed"
 
@@ -23,6 +48,7 @@ gettext.install('apt-notifier.py')
 
 from string import Template	# for simple string substitution (popup_msg...)
 
+
 def set_translations():
     global tooltip_0_updates_available
     global tooltip_1_new_update_available
@@ -30,12 +56,12 @@ def set_translations():
     global popup_title
     global popup_msg_1_new_update_available
     global popup_msg_multiple_new_updates_available
-    global Upgrade_using_Synaptic
+    global Upgrade_using_package_manager
     global View_and_Upgrade
     global Hide_until_updates_available
     global Quit_Apt_Notifier
     global Apt_Notifier_Help
-    global Synaptic_Help
+    global Package_Manager_Help
     global Apt_Notifier_Preferences    
     global Apt_History
     global View_Auto_Updates_Logs
@@ -64,12 +90,16 @@ def set_translations():
     popup_title                                 = unicode (_("Updates")                                ,'utf-8')
     popup_msg_1_new_update_available            = unicode (_("You have 1 new update available")        ,'utf-8')
     popup_msg_multiple_new_updates_available    = unicode (_("You have $count new updates available")  ,'utf-8')
-    Upgrade_using_Synaptic                      = unicode (_("Upgrade using Synaptic")                 ,'utf-8')
+    Upgrade_using_package_manager               = unicode (_("Upgrade using Synaptic")                 ,'utf-8')
+    Upgrade_using_package_manager = Upgrade_using_package_manager.replace('Synaptic', package_manager_name)
+    
     View_and_Upgrade                            = unicode (_("View and Upgrade")                       ,'utf-8')         
     Hide_until_updates_available                = unicode (_("Hide until updates available")           ,'utf-8')
     Quit_Apt_Notifier                           = unicode (_("Quit")                                   ,'utf-8')
     Apt_Notifier_Help                           = unicode (_("MX Updater Help")                        ,'utf-8')
-    Synaptic_Help                               = unicode (_("Synaptic Help")                          ,'utf-8')
+    Package_Manager_Help                        = unicode (_("Synaptic Help")                          ,'utf-8')
+    Package_Manager_Help = Package_Manager_Help.replace("Synaptic", package_manager_name)
+    
     Apt_Notifier_Preferences                    = unicode (_("Preferences")                            ,'utf-8')
     Apt_History                                 = unicode (_("History")                                ,'utf-8')
     View_Auto_Updates_Logs                      = unicode (_("Auto-update log(s)")                     ,'utf-8') 
@@ -78,6 +108,7 @@ def set_translations():
     About                                       = unicode (_("About")                                  ,'utf-8')
     MX_Package_Installer                        = unicode (_("MX Package Installer")                   ,'utf-8')
   
+
 # Check for updates, using subprocess.Popen
 def check_updates():
     global message_status
@@ -138,7 +169,11 @@ def check_updates():
     WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/lib/apt/lists "
     WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/lib/apt/lists/partial "
     WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/lib/dpkg "
-    WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/lib/synaptic/preferences "
+
+    if which synaptic > /dev/null; then
+       WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/lib/synaptic/preferences "
+    fi
+    
     WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/cache/apt "
     stat -c %Y,%Z $WatchedFilesAndDirs 2>/dev/null | md5sum
     '''
@@ -204,7 +239,14 @@ def check_updates():
             exit
     fi
 
-    echo $(( $(grep ' => ' <<<"$Updates" | awk '{print $1}' | wc -l) - $((grep ' => ' <<<"$Updates" | awk '{print $1}'; sed -n 's/Package: //p' /var/lib/synaptic/preferences 2>/dev/null) | sort | uniq -d | wc -l) ))
+    echo $(( $( grep ' => ' <<<"$Updates" | awk '{print $1}' | wc -l) 
+           - $( ( grep ' => ' <<<"$Updates" | awk '{print $1}'; 
+                  which synaptic > /dev/null && \
+                  sed -n 's/Package: //p' /var/lib/synaptic/preferences 2>/dev/null
+                ) | \
+                sort | uniq -d | wc -l
+              ) 
+          ))
     '''
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
@@ -265,9 +307,9 @@ def check_updates():
                     Timer.singleShot(1000, show_message)
                 message_status = "displayed"
    
-def start_synaptic():
+def start_package_manager():
     global Check_for_Updates_by_User
-    run = subprocess.Popen(['synaptic-pkexec'],shell=True).wait()
+    run = subprocess.Popen([package_manager_exec],shell=True).wait()
     Check_for_Updates_by_User = 'true'
     check_updates()
 
@@ -598,8 +640,8 @@ Disabled
         #if there isn't, create one if there are synaptic pinned packages
         if [ $? -eq 1 ]
           then
-            if [ -s /var/lib/synaptic/preferences ]
-              then ln -s /var/lib/synaptic/preferences "$TMP"/etc/apt/preferences.d/synaptic-pins 2>/dev/null
+            if which synaptic > /dev/null && [ -s /var/lib/synaptic/preferences ]; then 
+               ln -s /var/lib/synaptic/preferences "$TMP"/etc/apt/preferences.d/synaptic-pins 2>/dev/null
             fi
         fi
 
@@ -881,7 +923,7 @@ def initialize_aptnotifier_prefs():
     fi
 
     #test if ~/.config/apt-notifierrc contains a LeftClick=* line and that it's a valid entry
-    grep -e ^"LeftClick=ViewAndUpgrade" -e^"LeftClick=Synaptic" ~/.config/apt-notifierrc > /dev/null
+    grep -e ^"LeftClick=ViewAndUpgrade" -e^"LeftClick=PackageManager" ~/.config/apt-notifierrc > /dev/null
     if [ "$?" -eq 0 ]
       then
       #contains a valid entry so do nothing
@@ -889,7 +931,7 @@ def initialize_aptnotifier_prefs():
       else
       #
       #if a LeftClick line not present,
-      #or not equal to "ViewAndUpgrade" or "Synaptic"
+      #or not equal to "ViewAndUpgrade" or "PackageManager"
       #initially set it to "LeftClick=ViewAndUpgrade"
       #also delete multiple entries or what appears to be invalid entries
       sed -i '/.*LeftClick.*/Id' ~/.config/apt-notifierrc 
@@ -1035,6 +1077,8 @@ def aptnotifier_prefs():
     t05 = _("Left-click behaviour   (when updates are available)")
     t06 = _("Other options")
     t07 = _("opens Synaptic")
+    t07 = t07.replace("Synaptic", package_manager_name)
+
     t08 = _("opens MX Updater 'View and Upgrade' window")
     t09 = _("Automatically answer 'yes' to all prompts during full/basic upgrade")
     t10 = _("automatically close terminal window when full/basic upgrade complete")
@@ -1053,7 +1097,7 @@ def aptnotifier_prefs():
         '    basic_upgrade="'                            + t04 + '"\n'
         '    frame_left_click_behaviour="'               + t05 + '"\n'
         '    frame_other_options="'                      + t06 + '"\n'
-        '    left_click_Synaptic="'                      + t07 + '"\n'
+        '    left_click_package_manager="'               + t07 + '"\n'
         '    left_click_ViewandUpgrade="'                + t08 + '"\n'
         '    use_apt_get_dash_dash_yes="'                + t09 + '"\n'
         '    auto_close_term_window_when_complete="'     + t10 + '"\n'
@@ -1091,9 +1135,9 @@ def aptnotifier_prefs():
           </radiobutton>
         </frame>
         <frame @leftclick_behaviour@>
-          <radiobutton active="@LeftClickBehaviourSynaptic@">
-            <label>@opens_Synaptic@</label>
-            <variable>LeftClickSynaptic</variable>
+          <radiobutton active="@LeftClickBehaviourPackageManager@">
+            <label>@opens_package_manager@</label>
+            <variable>LeftClickPackageManager</variable>
             <action>:</action>
           </radiobutton>
           <radiobutton active="@LeftClickBehaviourViewAndUpgrade@">
@@ -1193,7 +1237,7 @@ EOF
     sed -i 's/@leftclick_behaviour@/'"$frame_left_click_behaviour"'/' "$TMP"/DIALOG
     sed -i 's/@Other_options@/'"$frame_other_options"'/' "$TMP"/DIALOG
     sed -i 's/@Icons@/'"$frame_Icons"'/' "$TMP"/DIALOG
-    sed -i 's/@opens_Synaptic@/"'"$left_click_Synaptic"'"/' "$TMP"/DIALOG
+    sed -i 's/@opens_package_manager@/"'"$left_click_package_manager"'"/' "$TMP"/DIALOG
     sed -i 's/@opens_View_and_Upgrade@/"'"$left_click_ViewandUpgrade"'"/' "$TMP"/DIALOG
     sed -i 's|@use_apt_get_yes@|"'"$use_apt_get_dash_dash_yes"'"|' "$TMP"/DIALOG
     sed -i 's|@auto_close_term_window@|"'"$auto_close_term_window_when_complete"'"|' "$TMP"/DIALOG
@@ -1205,7 +1249,7 @@ EOF
     # edit placeholders in "$TMP"/DIALOG to set initial settings of the radiobuttons & checkboxes 
     sed -i 's/@UpgradeBehaviourAptGetUpgrade@/'$(if [ $(grep UpgradeType=upgrade ~/.config/apt-notifierrc) ]; then echo -n true; else echo -n false; fi)'/' "$TMP"/DIALOG
     sed -i 's/@UpgradeBehaviourAptGetDistUpgrade@/'$(if [ $(grep UpgradeType=dist-upgrade ~/.config/apt-notifierrc) ]; then echo -n true; else echo -n false; fi)'/' "$TMP"/DIALOG
-    sed -i 's/@LeftClickBehaviourSynaptic@/'$(if [ $(grep LeftClick=Synaptic ~/.config/apt-notifierrc) ]; then echo -n true; else echo -n false; fi)'/' "$TMP"/DIALOG
+    sed -i 's/@LeftClickBehaviourPackageManager@/'$(if [ $(grep LeftClick=PackageManager ~/.config/apt-notifierrc) ]; then echo -n true; else echo -n false; fi)'/' "$TMP"/DIALOG
     sed -i 's/@LeftClickBehaviourViewAndUpgrade@/'$(if [ $(grep LeftClick=ViewAndUpgrade ~/.config/apt-notifierrc) ]; then echo -n true; else echo -n false; fi)'/' "$TMP"/DIALOG
     sed -i 's/@UpgradeAssumeYes@/'$(grep UpgradeAssumeYes ~/.config/apt-notifierrc | cut -f2 -d=)'/' "$TMP"/DIALOG
     sed -i 's/@UpgradeAutoClose@/'$(grep UpgradeAutoClose ~/.config/apt-notifierrc | cut -f2 -d=)'/' "$TMP"/DIALOG
@@ -1262,8 +1306,8 @@ EOF
       then
         if [ $(grep UpgradeType_upgrade=.*true.*      "$TMP"/output) ]; then sed -i 's/UpgradeType=dist-upgrade/UpgradeType=upgrade/'       ~/.config/apt-notifierrc; fi
         if [ $(grep UpgradeType_dist-upgrade=.*true.* "$TMP"/output) ]; then sed -i 's/UpgradeType=upgrade/UpgradeType=dist-upgrade/'       ~/.config/apt-notifierrc; fi
-        if [ $(grep LeftClickViewAndUpgrade=.*true.*  "$TMP"/output) ]; then sed -i 's/LeftClick=Synaptic/LeftClick=ViewAndUpgrade/'        ~/.config/apt-notifierrc; fi
-        if [ $(grep LeftClickSynaptic=.*true.*        "$TMP"/output) ]; then sed -i 's/LeftClick=ViewAndUpgrade/LeftClick=Synaptic/'        ~/.config/apt-notifierrc; fi
+        if [ $(grep LeftClickViewAndUpgrade=.*true.*  "$TMP"/output) ]; then sed -i 's/LeftClick=PackageManager/LeftClick=ViewAndUpgrade/'        ~/.config/apt-notifierrc; fi
+        if [ $(grep LeftClickPackageManager=.*true.*        "$TMP"/output) ]; then sed -i 's/LeftClick=ViewAndUpgrade/LeftClick=PackageManager/'        ~/.config/apt-notifierrc; fi
         if [ $(grep UpgradeAssumeYes=.*false.*        "$TMP"/output) ]; then sed -i 's/UpgradeAssumeYes=true/UpgradeAssumeYes=false/'       ~/.config/apt-notifierrc; fi
         if [ $(grep UpgradeAssumeYes=.*true.*         "$TMP"/output) ]; then sed -i 's/UpgradeAssumeYes=false/UpgradeAssumeYes=true/'       ~/.config/apt-notifierrc; fi
         if [ $(grep UpgradeAutoClose=.*false.*        "$TMP"/output) ]; then sed -i 's/UpgradeAutoClose=true/UpgradeAutoClose=false/'       ~/.config/apt-notifierrc; fi
@@ -1408,11 +1452,11 @@ def re_enable_click():
     global ignoreClick
     ignoreClick = '0'
 
-def start_synaptic0():
+def start_package_manager0():
     global ignoreClick
     global Timer
     if ignoreClick != '1':
-        start_synaptic()    
+        start_package_manager()    
         ignoreClick = '1'
         Timer.singleShot(50, re_enable_click)
     else:
@@ -1441,7 +1485,7 @@ def start_MXPI_0():
 # Define the command to run when left clicking on the Tray Icon
 def left_click():
     if text.startswith( "0" ):
-        start_synaptic0()
+        start_package_manager0()
     else:
         """Test ~/.config/apt-notifierrc for LeftClickViewAndUpgrade"""
         command_string = "grep LeftClick=ViewAndUpgrade " + rc_file_name + " > /dev/null"
@@ -1449,7 +1493,7 @@ def left_click():
         if exit_state == 0:
             viewandupgrade0()
         else:
-            start_synaptic0()
+            start_package_manager0()
 
 # Define the action when left clicking on Tray Icon
 def left_click_activated(reason):
@@ -1496,9 +1540,9 @@ def add_rightclick_actions():
     if exit_state == 0:
         ActionsMenu.addAction(View_and_Upgrade).triggered.connect( viewandupgrade0 )
         ActionsMenu.addSeparator()
-        ActionsMenu.addAction(Upgrade_using_Synaptic).triggered.connect( start_synaptic0 )
+        ActionsMenu.addAction(Upgrade_using_package_manager).triggered.connect( start_package_manager0 )
     else:
-        ActionsMenu.addAction(Upgrade_using_Synaptic).triggered.connect( start_synaptic0)
+        ActionsMenu.addAction(Upgrade_using_package_manager).triggered.connect( start_package_manager0)
         ActionsMenu.addSeparator()
         ActionsMenu.addAction(View_and_Upgrade).triggered.connect( viewandupgrade0 )
     command_string = "test -e /usr/bin/mx-packageinstaller > /dev/null"
@@ -1513,7 +1557,7 @@ def add_rightclick_actions():
         add_view_unattended_upgrades_dpkg_logs_action()
     add_apt_get_update_action()
     add_apt_notifier_help_action()
-    add_synaptic_help_action()
+    add_package_manager_help_action()
     add_aptnotifier_prefs_action()
     add_about_action()
     add_quit_action()
@@ -1526,7 +1570,7 @@ def add_hide_action():
         hide_action = ActionsMenu.addAction(Hide_until_updates_available)
         hide_action.triggered.connect( set_noicon )
         ActionsMenu.addSeparator()
-        ActionsMenu.addAction(u"Synaptic").triggered.connect( start_synaptic0 )
+        ActionsMenu.addAction(package_manager_name).triggered.connect( start_package_manager0 )
     command_string = "test -e /usr/bin/mx-packageinstaller > /dev/null"
     exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
     if exit_state == 0:
@@ -1539,7 +1583,7 @@ def add_hide_action():
         add_view_unattended_upgrades_dpkg_logs_action()
     add_apt_get_update_action()
     add_apt_notifier_help_action()
-    add_synaptic_help_action()
+    add_package_manager_help_action()
     add_aptnotifier_prefs_action()
     add_about_action()
     add_quit_action()
@@ -1577,14 +1621,20 @@ def open_apt_notifier_help():
     run.stdout.read(128)
     script_file.close()
 
-def add_synaptic_help_action():
+def add_package_manager_help_action():
     ActionsMenu.addSeparator()
-    synaptic_help_action = ActionsMenu.addAction(HelpIcon,Synaptic_Help)
-    synaptic_help_action.triggered.connect(open_synaptic_help)
+    package_manager_help_action = ActionsMenu.addAction(HelpIcon,Package_Manager_Help)
+    package_manager_help_action.triggered.connect(open_package_manager_help)
     
-def open_synaptic_help():
+def open_package_manager_help():
+    
+    HelpUrlBase="https://mxlinux.org/wiki/help-files/help-" + package_manager
     script = '''#!/bin/bash
-    HelpUrlBase="https://mxlinux.org/wiki/help-files/help-synaptic"
+
+    '''
+    script = script +  "HelpUrlBase=" + HelpUrlBase
+    script = script +  '''
+
     #english     HelpUrl = HelpUrlBase
     #non-english HelpUrl = HelpUrlBase + "-" + "{2 character suffix - de, es, fr, it, etc.}"
     case $(echo $LANG | cut -f1 -d_) in
@@ -1601,7 +1651,7 @@ def open_synaptic_help():
     echo $HelpUrl | grep \.pdf > /dev/null
     if [ $? -eq 0 ]
       then
-        TMP=$(mktemp -d /tmp/synaptic_help.XXXXXX)
+        TMP=$(mktemp -d /tmp/package_manager_help.XXXXXX)
         curl $HelpUrl -o "$TMP"/$(basename $HelpUrl)
         qpdfview "$TMP"/$(basename $HelpUrl)#$SynapticPage
         rm -rf "$TMP"        
