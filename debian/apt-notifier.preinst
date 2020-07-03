@@ -8,9 +8,10 @@ set -e
 
 case "$1" in
   install|upgrade)
-    rm -f /etc/xdg/autostart/apt-notifier-autostart-xdg.desktop
-    rm -f /etc/xdg/autostart/mx-apt-notifier-autostart-xdg.desktop
-    rm -f /etc/cron.d/mx-Unattended-Origins-Pattern-update
+    rm -f /etc/xdg/autostart/apt-notifier-autostart-xdg.desktop     || :
+    rm -f /etc/xdg/autostart/mx-apt-notifier-autostart-xdg.desktop  || :
+    rm -f /etc/xdg/autostart/mx-updater-autostart-xdg.desktop       || :
+    rm -f /etc/cron.d/mx-Unattended-Origins-Pattern-update          || :
   ;;
   *)
     :
