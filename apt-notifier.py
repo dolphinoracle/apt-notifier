@@ -24,11 +24,15 @@ def package_manager():
         
     elif spawn.find_executable("muon"):
         package_manager = "muon"
-        # package_manager_exec = "muon"
-        # run with mx-pkxec through su-to-root
-        package_manager_exec = "su-to-root -X -c muon"
         package_manager_name = "Muon"
-        
+
+        if spawn.find_executable("muon-pkexec"):
+            package_manager_exec = "muon-pkexec"
+        elif spawn.find_executable("mx-pkexec"):
+            package_manager_exec = "mx-pkexec muon"
+        else:
+            package_manager_exec = "su-to-root -X -c muon"
+
     else:
         package_manager = None
         sys.exit("Error: No package manager found! Synaptic or Muon are required.")
