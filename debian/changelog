@@ -1,3 +1,11 @@
+apt-notifier (20.07.05mx19) mx; urgency=medium
+
+  * fix window-icon for prefrence window
+  * call packagemanager without blocking right-click menu
+  * call muon through mx-pkexec(su-to-root) to avoid kdesu crash
+
+ -- fehlix <fehlix@mxlinux.org>  Thu, 09 Jul 2020 22:24:33 +0200
+
 apt-notifier (20.07.04mx19) mx; urgency=medium
 
   [ fehlix ] 

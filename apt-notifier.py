@@ -24,9 +24,15 @@ def package_manager():
         
     elif spawn.find_executable("muon"):
         package_manager = "muon"
-        package_manager_exec = "muon"
         package_manager_name = "Muon"
-        
+
+        if spawn.find_executable("muon-pkexec"):
+            package_manager_exec = "muon-pkexec"
+        elif spawn.find_executable("mx-pkexec"):
+            package_manager_exec = "mx-pkexec muon"
+        else:
+            package_manager_exec = "su-to-root -X -c muon"
+
     else:
         package_manager = None
         sys.exit("Error: No package manager found! Synaptic or Muon are required.")
@@ -309,7 +315,8 @@ def check_updates():
    
 def start_package_manager():
     global Check_for_Updates_by_User
-    run = subprocess.Popen([package_manager_exec],shell=True).wait()
+    run = subprocess.Popen([package_manager_exec],shell=True)
+    # disabled blocking .wait()
     Check_for_Updates_by_User = 'true'
     check_updates()
 
@@ -1134,7 +1141,7 @@ def aptnotifier_prefs():
     TMP=$(mktemp -d /tmp/apt_notifier_preferences_dialog.XXXXXX)
     touch "$TMP"/output
     cat << EOF > "$TMP"/DIALOG
-    <window title="@title@" icon-name="@mnotify-some@">
+    <window title="@title@" icon-name="mx-updater">
       <vbox>
         <frame @upgrade_behaviour@>
           <radiobutton active="@UpgradeBehaviourAptGetDistUpgrade@">
@@ -1274,27 +1281,31 @@ EOF
 
     # edit placeholder for window icon placeholder in "$TMP"/DIALOG
     
-    if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
-      then
-        if [[ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]]
-          then
-            if [[ $(xfconf-query -lvc xsettings | grep IconThemeName | grep .*Papirus.* -i) ]]
-              then
-                sed -i 's/@mnotify-some@/mx-updater/' "$TMP"/DIALOG
-              else
-                sed -i 's/@mnotify-some@/mnotify-some-wireframe/' "$TMP"/DIALOG
-            fi
-          else
-            sed -i 's/@mnotify-some@/mnotify-some-'$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d= | xargs echo -n)'/' "$TMP"/DIALOG
-        fi
-      else       
-        sed -i 's/@mnotify-some@/mnotify-some-'$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d= | xargs echo -n)'/' "$TMP"/DIALOG
-    fi    
-    
-    if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
-      then
-        sed -i 's/file>"\/usr\/share\/icons\/mnotify-some-wireframe.png"/file icon="mx-updater">/' "$TMP"/DIALOG
-    fi    
+    #--------------------------------------------------------------
+    # commented out below, to use mx-updater as windowIcon
+    #
+    #if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
+    #  then
+    #    if [[ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]]
+    #      then
+    #        if [[ $(xfconf-query -lvc xsettings | grep IconThemeName | grep .*Papirus.* -i) ]]
+    #          then
+    #            sed -i 's/@mnotify-some@/mx-updater/' "$TMP"/DIALOG
+    #          else
+    #            sed -i 's/@mnotify-some@/mnotify-some-wireframe/' "$TMP"/DIALOG
+    #        fi
+    #      else
+    #        sed -i 's/@mnotify-some@/mnotify-some-'$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d= | xargs echo -n)'/' "$TMP"/DIALOG
+    #    fi
+    #  else       
+    #    sed -i 's/@mnotify-some@/mnotify-some-'$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d= | xargs echo -n)'/' "$TMP"/DIALOG
+    #fi    
+    #
+    #if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
+    #  then
+    #    sed -i 's/file>"\/usr\/share\/icons\/mnotify-some-wireframe.png"/file icon="mx-updater">/' "$TMP"/DIALOG
+    #fi    
+    #--------------------------------------------------------------
     
     # edit AutoUpdate related translateable string placeholders in "$TMP"/DIALOG
     sed -i 's/@Auto_update_label@/'"$frame_Auto_update"'/' "$TMP"/DIALOG
@@ -1458,7 +1469,8 @@ def apt_get_update():
 
 def start_MXPI():
     global Check_for_Updates_by_User
-    run = subprocess.Popen(['su-to-root -X -c mx-packageinstaller'],shell=True).wait()
+    run = subprocess.Popen(['su-to-root -X -c mx-packageinstaller'],shell=True)
+    # disbaled blocking: .wait()
     Check_for_Updates_by_User = 'true'
     check_updates()
 
