@@ -446,7 +446,7 @@ def viewandupgrade():
                                       ;;
 
                              konsole) $(kde4-config --path libexec)kdesu -c "konsole -e $3"
-                                      sleep 5
+                                      pgrep -x plasmashell >/dev/null || sleep 5
                                       while [ "$(ps aux | grep [0-9]' konsole -e apt-get update')" != "" ]
                                         do
                                           sleep 1
@@ -463,7 +463,7 @@ def viewandupgrade():
                                xterm) if [ -e /usr/bin/konsole ]
                                         then
                                           $(kde4-config --path libexec)kdesu -c "konsole -e $3"
-                                          sleep 5
+                                          pgrep -x plasmashell >/dev/null || sleep 5
                                           while [ "$(ps aux | grep [0-9]' konsole -e apt-get update')" != "" ]
                                             do
                                               sleep 1
@@ -504,7 +504,7 @@ Disabled
                                       ;;
 
                              konsole) sh "$1" "konsole -e $4"
-                                      sleep 5
+                                      pgrep -x plasmashell >/dev/null || sleep 5
                                       while [ "$(ps aux | grep [0-9]' konsole -e apt-get update')" != "" ]
                                         do
                                           sleep 1
