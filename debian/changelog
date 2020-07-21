@@ -1,4 +1,11 @@
-apt-notifier (20.07.06mx19~1) mx; urgency=medium
+apt-notifier (20.07.06mx19~2) mx; urgency=medium
+
+  [ fehlix ] 
+  * adjust plasmashell-check
+
+ -- fehlix <fehlix@mxlinux.org>  Tue, 21 Jul 2020 22:31:42 +0200
+
+apt-notifier (20.07.06mx19~2) mx; urgency=medium
 
   [ fehlix ] 
   * add dbus call to move icon from/to hidden section of systray
