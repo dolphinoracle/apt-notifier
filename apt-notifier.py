@@ -315,13 +315,15 @@ def check_updates():
    
 def start_package_manager():
     global Check_for_Updates_by_User
-    run = subprocess.Popen([package_manager_exec],shell=True)
-    # disabled blocking .wait()
+    systray_icon_hide()
+    run = subprocess.Popen([ package_manager_exec ],shell=True).wait()
     Check_for_Updates_by_User = 'true'
+    systray_icon_show()
     check_updates()
 
 def viewandupgrade():
     global Check_for_Updates_by_User
+    systray_icon_hide()
     initialize_aptnotifier_prefs()
     
     # ~~~ Localize 2 ~~~
@@ -857,7 +859,7 @@ EOF
 
       done
 
-    sleep 2
+    #sleep 2
     PID=`pidof apt-get | cut -f 1 -d " "`
     if [ $PID ]; then
         while (ps -p $PID > /dev/null); do
@@ -869,8 +871,10 @@ EOF
     script_file.write(script)
     script_file.flush()
     run = subprocess.Popen(['bash %s' % script_file.name],shell=True).wait()
+
     script_file.close()
     Check_for_Updates_by_User = 'true'
+    systray_icon_show()
     check_updates()
 
 def initialize_aptnotifier_prefs():
@@ -1082,11 +1086,14 @@ def initialize_aptnotifier_prefs():
     script_file.write(script)
     script_file.flush()
     run = subprocess.Popen(['bash %s' % script_file.name],shell=True).wait()
+
     script_file.close()
 
 
 def aptnotifier_prefs():
     global Check_for_Updates_by_User
+    systray_icon_hide()
+
     initialize_aptnotifier_prefs()
     
     # ~~~ Localize 3 ~~~
@@ -1370,13 +1377,16 @@ EOF
     script_file.write(script)
     script_file.flush()
     run = subprocess.Popen(['bash %s' % script_file.name],shell=True).wait()
+    
     script_file.close()
     Check_for_Updates_by_User = 'true'
+    systray_icon_show()
     check_updates()
 
 def apt_history():
     global Check_for_Updates_by_User
 
+    systray_icon_hide()
     # ~~~ Localize 5 ~~~
 
     t01 = _("History")
@@ -1431,13 +1441,16 @@ def apt_history():
     script_file.write(script)
     script_file.flush()
     run = subprocess.Popen(['bash %s' % script_file.name],shell=True).wait()
+    
     script_file.close()
     Check_for_Updates_by_User = 'true'
+    systray_icon_show()
     check_updates()
     
 def apt_get_update():
     global Check_for_Updates_by_User
-    
+    systray_icon_hide()
+
     # ~~~ Localize 4 ~~~
 
     t01 = _("Reload")
@@ -1465,13 +1478,15 @@ def apt_get_update():
     run = subprocess.Popen(['bash %s' % script_file.name],shell=True).wait()
     script_file.close()
     Check_for_Updates_by_User = 'true'
+    systray_icon_show()
     check_updates()
 
 def start_MXPI():
     global Check_for_Updates_by_User
-    run = subprocess.Popen(['su-to-root -X -c mx-packageinstaller'],shell=True)
-    # disbaled blocking: .wait()
+    systray_icon_hide()
+    run = subprocess.Popen(['su-to-root -X -c mx-packageinstaller'],shell=True).wait()
     Check_for_Updates_by_User = 'true'
+    systray_icon_show()
     check_updates()
 
 def re_enable_click():
@@ -1627,6 +1642,7 @@ def add_apt_notifier_help_action():
     apt_notifier_help_action.triggered.connect(open_apt_notifier_help)
     
 def open_apt_notifier_help():
+    systray_icon_hide()
     script = '''#!/bin/bash
     case $(echo $LANG | cut -f1 -d_) in
       fr) HelpUrl="https://mxlinux.org/wiki/help-files/help-mx-apt-notifier-notificateur-dapt" ;;
@@ -1646,6 +1662,7 @@ def open_apt_notifier_help():
     run = subprocess.Popen(["echo -n `bash %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
     run.stdout.read(128)
     script_file.close()
+    systray_icon_show()
 
 def add_package_manager_help_action():
     ActionsMenu.addSeparator()
@@ -1653,6 +1670,7 @@ def add_package_manager_help_action():
     package_manager_help_action.triggered.connect(open_package_manager_help)
     
 def open_package_manager_help():
+    systray_icon_hide()
     
     HelpUrlBase="https://mxlinux.org/wiki/help-files/help-" + package_manager
     script = '''#!/bin/bash
@@ -1697,6 +1715,7 @@ def open_package_manager_help():
     run = subprocess.Popen(["echo -n `bash %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
     run.stdout.read(128)
     script_file.close()
+    systray_icon_show()
 
 def add_aptnotifier_prefs_action():
     ActionsMenu.addSeparator()
@@ -1980,11 +1999,78 @@ def main():
     check_updates()
     AptIcon.setContextMenu(ActionsMenu)
     if icon_config == "show":
+        systray_icon_show()
         AptIcon.show()
     Timer.start(60000)
     if AptNotify.isSessionRestored():
         sys.exit(1)
     sys.exit(AptNotify.exec_())
+
+
+def systray_icon_hide():
+
+    running_in_plasma = subprocess.call(["pgrep  -f -x /usr/bin/plasmashell >/dev/null && exit 1"], shell=True, stdout=subprocess.PIPE)
+    if not running_in_plasma:
+       return
+
+    if not spawn.find_executable("qdbus"):
+       return
+
+    Script='''
+    var iconName = 'apt-notifier.py';
+    for (var i in panels()) { 
+        p = panels()[i]; 
+        for (var j in p.widgets()) { 
+            w = p.widgets()[j];  
+            if (w.type == 'org.kde.plasma.systemtray') { 
+                s = desktopById(w.readConfig('SystrayContainmentId')); 
+                s.currentConfigGroup = ['General']; 
+                var shownItems = s.readConfig('shownItems').split(',');
+                if (shownItems.indexOf(iconName) >= 0) {
+                    shownItems.splice(shownItems.indexOf(iconName), 1);
+                }
+                s.writeConfig('shownItems', shownItems);
+                s.reloadConfig();  
+            } 
+        }  
+    }
+    '''
+    run = subprocess.Popen(['qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "' + Script + '" '],shell=True).wait()
+
+
+def systray_icon_show():
+
+    running_in_plasma = subprocess.call(["pgrep -f -x /usr/bin/plasmashell >/dev/null && exit 1"], shell=True, stdout=subprocess.PIPE)
+    if not running_in_plasma:
+       return
+
+    if not spawn.find_executable("qdbus"):
+       return
+
+    Script='''
+    var iconName = 'apt-notifier.py';
+    for (var i in panels()) { 
+        p = panels()[i]; 
+        for (var j in p.widgets()) { 
+            w = p.widgets()[j];  
+            if (w.type == 'org.kde.plasma.systemtray') { 
+                s = desktopById(w.readConfig('SystrayContainmentId')); 
+                s.currentConfigGroup = ['General']; 
+                var shownItems = s.readConfig('shownItems').split(',');
+                if (( shownItems.length == 0 ) || ( shownItems.length == 1 && shownItems[0].length == 0 )) {
+                    shownItems = [ iconName ];
+                }
+                else if (shownItems.indexOf(iconName) === -1) {
+                    shownItems.push(iconName)
+                }
+                s.writeConfig('shownItems', shownItems);
+                s.reloadConfig();  
+            } 
+        }  
+    }
+    '''
+    run = subprocess.Popen(['qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "' + Script + '" '],shell=True).wait()
+
 
 if __name__ == '__main__':
     main()
