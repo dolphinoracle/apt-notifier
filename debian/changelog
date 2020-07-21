@@ -2,7 +2,7 @@ apt-notifier (20.07.06mx19~1) mx; urgency=medium
 
   [ fehlix ] 
   * add dbus call to move icon from/to hidden section of systray
-  * remove "sleep 5" when running in plsmashell konsole
+  * remove "sleep 5" when running in plasmashell konsole
 
  -- fehlix <fehlix@mxlinux.org>  Tue, 21 Jul 2020 13:11:51 +0200
 
