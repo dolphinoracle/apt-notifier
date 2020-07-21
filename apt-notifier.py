@@ -739,7 +739,7 @@ Disabled
         --center \\
         --title "$(echo "$window_title"|sed 's/MX /'$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)" "'/')" \\
         --form \\
-          --field :TXT "$(sed 's/^/  /' "$TMP"/upgrades)" \\
+          --field=:TXT "$(sed 's/^/  /' $TMP/upgrades)" \\
           --field="$use_apt_get_dash_dash_yes":CHK $UpgradeAssumeYes \\
           --field="$auto_close_label":CHK $UpgradeAutoClose \\
         --button "$reload"!reload!"$reload_tooltip":8 \\
@@ -2009,7 +2009,7 @@ def main():
 
 def systray_icon_hide():
 
-    running_in_plasma = subprocess.call(["pgrep  -f -x /usr/bin/plasmashell >/dev/null && exit 1"], shell=True, stdout=subprocess.PIPE)
+    running_in_plasma = subprocess.call(["pgrep  -x plasmashell >/dev/null && exit 1 || exit 0"], shell=True, stdout=subprocess.PIPE)
     if not running_in_plasma:
        return
 
@@ -2035,12 +2035,12 @@ def systray_icon_hide():
         }  
     }
     '''
-    run = subprocess.Popen(['qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "' + Script + '" '],shell=True).wait()
+    run = subprocess.Popen(['qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "' + Script + '" '],shell=True)
 
 
 def systray_icon_show():
 
-    running_in_plasma = subprocess.call(["pgrep -f -x /usr/bin/plasmashell >/dev/null && exit 1"], shell=True, stdout=subprocess.PIPE)
+    running_in_plasma = subprocess.call(["pgrep -x plasmashell >/dev/null && exit 1 || exit 0"], shell=True, stdout=subprocess.PIPE)
     if not running_in_plasma:
        return
 
@@ -2069,7 +2069,7 @@ def systray_icon_show():
         }  
     }
     '''
-    run = subprocess.Popen(['qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "' + Script + '" '],shell=True).wait()
+    run = subprocess.Popen(['qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "' + Script + '" '],shell=True)
 
 
 if __name__ == '__main__':
