@@ -38,7 +38,7 @@ case $(readlink -e $XT) in
         ;;
   *konsole) 
         konsole -e "$C" 
-        sleep 5
+        pgrep -x plasmashell >/dev/null || sleep 5
         ;;
   *roxterm) 
         roxterm "$G" -T "$T" --separate -e "$C" 
