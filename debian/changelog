@@ -1,3 +1,10 @@
+apt-notifier (20.07.06mx19~4) mx; urgency=medium
+
+  [ fehlix ] 
+  * further window-icon adjustments
+
+ -- fehlix <fehlix@mxlinux.org>  Wed, 22 Jul 2020 00:52:43 +0212
+
 apt-notifier (20.07.06mx19~3) mx; urgency=medium
 
   [ fehlix ] 
