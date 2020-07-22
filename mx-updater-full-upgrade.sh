@@ -49,7 +49,7 @@ case $(readlink -e $XT) in
         roxterm "$G" -T "$T" --separate -e "$C" 
         ;;
   *xfce4-terminal.wrapper | *xfce4-terminal) 
-        xfce4-terminal $D $G  --icon="$I"  -T "$T" -e "$C"
+        xfce4-terminal --hide-menubar $D $G  --icon="$I"  -T "$T" -e "$C"
         ;;
   *xterm) 
         xterm  -fa monaco -fs 12 -bg black -fg white  -xrm 'XTerm.vt100.allowTitleOps: false' -T "$T"  -e "$C" 

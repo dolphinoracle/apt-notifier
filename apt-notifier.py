@@ -403,7 +403,8 @@ def viewandupgrade():
         TermXOffset="$(xwininfo -root|awk '/Width/{print $2/4}')"
         TermYOffset="$(xwininfo -root|awk '/Height/{print $2/4}')"
         G=" --geometry=80x25+"$TermXOffset"+"$TermYOffset
-        I=" --icon=mnotify-some-""$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
+        # I=" --icon=mnotify-some-""$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
+        I=" --icon=mx-updater"
         if [ "$3" = "" ]
           then T=""; I=""
           else 
@@ -515,12 +516,12 @@ Disabled
                              roxterm) sh "$1" "roxterm$G$T --separate -e $4"
                                       ;;
 
-              xfce4-terminal.wrapper) sh "$1" "xfce4-terminal$G$I$T -e $4" 2>/dev/null 1>/dev/null
+              xfce4-terminal.wrapper) sh "$1" "xfce4-terminal --hide-menubar $G$I$T -e $4" 2>/dev/null 1>/dev/null
                                       ;;
 
                                xterm) if [ -e /usr/bin/xfce4-terminal ]
                                         then
-                                          sh "$1" "xfce4-terminal$G$I$T -e $4"
+                                          sh "$1" "xfce4-terminal --hide-menubar $G$I$T -e $4"
                                         else
                                           sh "$1" "xterm -fa monaco -fs 12 -bg black -fg white -e $4"
                                       fi
@@ -539,14 +540,15 @@ Disabled
         BP="1"
         chmod +x $TMP/upgradeScript      
         T="$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2) Updater: $UpgradeTypeUserFriendlyName"
-        I="mnotify-some-$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
-        if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
-          then
-            if [ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]
-              then
-                I="/usr/share/icons/Papirus/64x64/apps/mx-updater.svg"
-            fi
-        fi
+        # I="mnotify-some-$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
+        I="mx-updater"
+        #if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
+        #  then
+        #    if [ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]
+        #      then
+        #        I="/usr/share/icons/Papirus/64x64/apps/mx-updater.svg"
+        #    fi
+        #fi
 
         if [ "$(grep UpgradeType ~/.config/apt-notifierrc | cut -f2 -d=)" = "dist-upgrade" ]
           then
@@ -577,14 +579,15 @@ Disabled
         BP="0"
         #chmod +x $TMP/upgradeScript
         #RunAptScriptInTerminal "/usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload" "" "$reload" "$TMP/upgradeScript"
-        I="mnotify-some-$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
-        if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
-          then
-            if [ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]
-              then
-                I="/usr/share/icons/Papirus/64x64/apps/mx-updater.svg"
-            fi
-        fi        
+        #I="mnotify-some-$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
+        #if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
+        #  then
+        #    if [ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]
+        #      then
+        #        I="/usr/share/icons/Papirus/64x64/apps/mx-updater.svg"
+        #    fi
+        #fi
+        I="mx-updater"
         /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload \
         " --title=""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" Updater: $reload" \
         " --icon=$I" \
@@ -1467,14 +1470,15 @@ def apt_get_update():
     
     script = '''#!/bin/bash
 ''' + shellvar + '''
-    I="mnotify-some-""$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
-    if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
-      then 
-        if [ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]
-          then 
-            I="/usr/share/icons/Papirus/64x64/apps/mx-updater.svg"
-        fi
-    fi    
+    #I="mnotify-some-""$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
+    #if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
+    #  then 
+    #    if [ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]
+    #      then 
+    #        I="/usr/share/icons/Papirus/64x64/apps/mx-updater.svg"
+    #    fi
+    #fi 
+    I="mx-updater"   
     T=" --title=""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" Updater: $reload"
     /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "$T" "$I"
     '''
