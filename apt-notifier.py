@@ -1222,14 +1222,14 @@ def aptnotifier_prefs():
               </radiobutton>
             </vbox>
             <vbox>
-              <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-some-wireframe.png"</input></pixmap>
-              <pixmap icon_size="2"><input file icon="mnotify-some-classic"></input></pixmap>
-              <pixmap icon_size="2"><input file icon="mnotify-some-pulse"></input></pixmap>
+              <pixmap icon_size="2"><input file>/usr/share/icons/mnotify-some-wireframe.png</input></pixmap>
+              <pixmap icon_size="2"><input file>/usr/share/icons/mnotify-some-classic.png</input></pixmap>
+              <pixmap icon_size="2"><input file>/usr/share/icons/mnotify-some-pulse.png</input></pixmap>
             </vbox>
             <vbox>
-              <pixmap icon_size="2"><input file icon="mnotify-none-wireframe"></input></pixmap>
-              <pixmap icon_size="2"><input file icon="mnotify-none-classic"></input></pixmap>
-              <pixmap icon_size="2"><input file icon="mnotify-none-pulse"></input></pixmap>
+              <pixmap icon_size="2"><input file>/usr/share/icons/mnotify-none-wireframe.png</input></pixmap>
+              <pixmap icon_size="2"><input file>/usr/share/icons/mnotify-none-classic.png</input></pixmap>
+              <pixmap icon_size="2"><input file>/usr/share/icons/mnotify-none-pulse.png</input></pixmap>
             </vbox>
           </hbox>
         </frame>
