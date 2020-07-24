@@ -1,3 +1,11 @@
+apt-notifier (20.07.06mx19~6) mx; urgency=medium
+
+  [ fehlix ] 
+  * show in pref window the installed mnotify-icons,
+    but not the icons from papirus icon theme
+
+ -- fehlix <fehlix@mxlinux.org>  Sat, 25 Jul 2020 00:39:40 +0200
+
 apt-notifier (20.07.06mx19~5) mx; urgency=medium
 
   [ fehlix ] 
