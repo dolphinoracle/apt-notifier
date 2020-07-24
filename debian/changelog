@@ -1,7 +1,15 @@
+apt-notifier (20.07.06mx19~5) mx; urgency=medium
+
+  [ fehlix ] 
+  * icon-adjustment: mnotify-[none,some]-wireframe and mx-updater
+  * pkexec-wrapper adjustments
+
+ -- fehlix <fehlix@mxlinux.org>  Fri, 24 Jul 2020 18:15:34 +0200
+
 apt-notifier (20.07.06mx19~4) mx; urgency=medium
 
   [ fehlix ] 
-  * further window-icon adjustments
+  * further window icon adjustments
 
  -- fehlix <fehlix@mxlinux.org>  Wed, 22 Jul 2020 00:52:43 +0212
 

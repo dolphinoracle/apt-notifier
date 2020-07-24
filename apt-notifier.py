@@ -1796,7 +1796,8 @@ def About():
     aboutBox = QMessageBox()
     aboutBox.setWindowTitle(_('About MX Updater'))
     #aboutBox.setWindowIcon(QtGui.QIcon('/usr/share/icons/Papirus/16x16/apps/mx-updater.svg'))
-    aboutBox.setWindowIcon(QtGui.QIcon('/usr/share/icons/hicolor/16x16/apps/mx-updater.svg'))
+    #aboutBox.setWindowIcon(QtGui.QIcon('/usr/share/icons/hicolor/16x16/apps/mx-updater.svg'))
+    aboutBox.setWindowIcon(QtGui.QIcon('/usr/share/icons/hicolor/scalable/mx-updater.svg'))
     aboutBox.setText("<p align=center><b><h2>" + (_('MX Updater')) + "</h2></b></p><p align=center>Version: " + myversion + "</p><p align=center><h3>" 
                + (_('Tray applet to notify of system and application updates')) 
                + "</h3></p><p align=center><a href=http://mxlinux.org>http://mxlinux.org</a> \
