@@ -1,3 +1,50 @@
+apt-notifier (20.07.06mx19~6) mx; urgency=medium
+
+  [ fehlix ] 
+  * show in pref window the installed mnotify-icons,
+    but not the icons from papirus icon theme
+
+ -- fehlix <fehlix@mxlinux.org>  Sat, 25 Jul 2020 00:39:40 +0200
+
+apt-notifier (20.07.06mx19~5) mx; urgency=medium
+
+  [ fehlix ] 
+  * icon-adjustment: mnotify-[none,some]-wireframe and mx-updater
+  * pkexec-wrapper adjustments
+
+ -- fehlix <fehlix@mxlinux.org>  Fri, 24 Jul 2020 18:15:34 +0200
+
+apt-notifier (20.07.06mx19~4) mx; urgency=medium
+
+  [ fehlix ] 
+  * further window icon adjustments
+
+ -- fehlix <fehlix@mxlinux.org>  Wed, 22 Jul 2020 00:52:43 +0212
+
+apt-notifier (20.07.06mx19~3) mx; urgency=medium
+
+  [ fehlix ] 
+  * adjust konsole placement in plasmashell
+  * remove xfconf-query detection of papirus icon theme
+  * fix About window icon
+
+ -- fehlix <fehlix@mxlinux.org>  Wed, 22 Jul 2020 00:25:32 +0200
+
+apt-notifier (20.07.06mx19~2) mx; urgency=medium
+
+  [ fehlix ] 
+  * adjust plasmashell-check
+
+ -- fehlix <fehlix@mxlinux.org>  Tue, 21 Jul 2020 22:31:42 +0200
+
+apt-notifier (20.07.06mx19~2) mx; urgency=medium
+
+  [ fehlix ] 
+  * add dbus call to move icon from/to hidden section of systray
+  * remove "sleep 5" when running in plasmashell konsole
+
+ -- fehlix <fehlix@mxlinux.org>  Tue, 21 Jul 2020 13:11:51 +0200
+
 apt-notifier (20.07.05mx19) mx; urgency=medium
 
   * fix window-icon for prefrence window
