@@ -315,13 +315,15 @@ def check_updates():
    
 def start_package_manager():
     global Check_for_Updates_by_User
-    run = subprocess.Popen([package_manager_exec],shell=True)
-    # disabled blocking .wait()
+    systray_icon_hide()
+    run = subprocess.Popen([ package_manager_exec ],shell=True).wait()
     Check_for_Updates_by_User = 'true'
+    systray_icon_show()
     check_updates()
 
 def viewandupgrade():
     global Check_for_Updates_by_User
+    systray_icon_hide()
     initialize_aptnotifier_prefs()
     
     # ~~~ Localize 2 ~~~
@@ -401,7 +403,8 @@ def viewandupgrade():
         TermXOffset="$(xwininfo -root|awk '/Width/{print $2/4}')"
         TermYOffset="$(xwininfo -root|awk '/Height/{print $2/4}')"
         G=" --geometry=80x25+"$TermXOffset"+"$TermYOffset
-        I=" --icon=mnotify-some-""$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
+        # I=" --icon=mnotify-some-""$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
+        I=" --icon=mx-updater"
         if [ "$3" = "" ]
           then T=""; I=""
           else 
@@ -444,7 +447,7 @@ def viewandupgrade():
                                       ;;
 
                              konsole) $(kde4-config --path libexec)kdesu -c "konsole -e $3"
-                                      sleep 5
+                                      pgrep -x plasmashell >/dev/null || sleep 5
                                       while [ "$(ps aux | grep [0-9]' konsole -e apt-get update')" != "" ]
                                         do
                                           sleep 1
@@ -461,7 +464,7 @@ def viewandupgrade():
                                xterm) if [ -e /usr/bin/konsole ]
                                         then
                                           $(kde4-config --path libexec)kdesu -c "konsole -e $3"
-                                          sleep 5
+                                          pgrep -x plasmashell >/dev/null || sleep 5
                                           while [ "$(ps aux | grep [0-9]' konsole -e apt-get update')" != "" ]
                                             do
                                               sleep 1
@@ -502,7 +505,7 @@ Disabled
                                       ;;
 
                              konsole) sh "$1" "konsole -e $4"
-                                      sleep 5
+                                      pgrep -x plasmashell >/dev/null || sleep 5
                                       while [ "$(ps aux | grep [0-9]' konsole -e apt-get update')" != "" ]
                                         do
                                           sleep 1
@@ -513,12 +516,12 @@ Disabled
                              roxterm) sh "$1" "roxterm$G$T --separate -e $4"
                                       ;;
 
-              xfce4-terminal.wrapper) sh "$1" "xfce4-terminal$G$I$T -e $4" 2>/dev/null 1>/dev/null
+              xfce4-terminal.wrapper) sh "$1" "xfce4-terminal --hide-menubar $G$I$T -e $4" 2>/dev/null 1>/dev/null
                                       ;;
 
                                xterm) if [ -e /usr/bin/xfce4-terminal ]
                                         then
-                                          sh "$1" "xfce4-terminal$G$I$T -e $4"
+                                          sh "$1" "xfce4-terminal --hide-menubar $G$I$T -e $4"
                                         else
                                           sh "$1" "xterm -fa monaco -fs 12 -bg black -fg white -e $4"
                                       fi
@@ -537,14 +540,15 @@ Disabled
         BP="1"
         chmod +x $TMP/upgradeScript      
         T="$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2) Updater: $UpgradeTypeUserFriendlyName"
-        I="mnotify-some-$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
-        if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
-          then
-            if [ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]
-              then
-                I="/usr/share/icons/Papirus/64x64/apps/mx-updater.svg"
-            fi
-        fi
+        # I="mnotify-some-$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
+        I="mx-updater"
+        #if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
+        #  then
+        #    if [ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]
+        #      then
+        #        I="/usr/share/icons/Papirus/64x64/apps/mx-updater.svg"
+        #    fi
+        #fi
 
         if [ "$(grep UpgradeType ~/.config/apt-notifierrc | cut -f2 -d=)" = "dist-upgrade" ]
           then
@@ -575,14 +579,15 @@ Disabled
         BP="0"
         #chmod +x $TMP/upgradeScript
         #RunAptScriptInTerminal "/usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload" "" "$reload" "$TMP/upgradeScript"
-        I="mnotify-some-$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
-        if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
-          then
-            if [ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]
-              then
-                I="/usr/share/icons/Papirus/64x64/apps/mx-updater.svg"
-            fi
-        fi        
+        #I="mnotify-some-$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
+        #if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
+        #  then
+        #    if [ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]
+        #      then
+        #        I="/usr/share/icons/Papirus/64x64/apps/mx-updater.svg"
+        #    fi
+        #fi
+        I="mx-updater"
         /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload \
         " --title=""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" Updater: $reload" \
         " --icon=$I" \
@@ -715,21 +720,26 @@ Disabled
           pulse      ) windowIcon=mnotify-some-pulse
                        ButtonIcon=mnotify-some-pulse
                        ;;
-          wireframe|*) if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
-                         then
-                           if [[ $(xfconf-query -lvc xsettings | grep IconThemeName | grep .*Papirus.* -i) ]]
-                             then
-                               windowIcon=mx-updater
-                             else
-                               windowIcon=mnotify-some-wireframe
-                           fi                          
-                           ButtonIcon=/usr/share/icons/mnotify-some-wireframe.png
-                         else
-                           windowIcon=/usr/share/icons/mnotify-some-wireframe.png
-                           ButtonIcon=/usr/share/icons/mnotify-some-wireframe.png
-                       fi
+          wireframe|*) #if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
+                       #  then
+                       #    if [[ $(xfconf-query -lvc xsettings | grep IconThemeName | grep .*Papirus.* -i) ]]
+                       #      then
+                       #        windowIcon=mx-updater
+                       #      else
+                       #        windowIcon=mnotify-some-wireframe
+                       #    fi                          
+                       #    ButtonIcon=/usr/share/icons/mnotify-some-wireframe.png
+                       #  else
+                       #    windowIcon=/usr/share/icons/mnotify-some-wireframe.png
+                       #    ButtonIcon=/usr/share/icons/mnotify-some-wireframe.png
+                       #fi
+                       #windowIcon=/usr/share/icons/mnotify-some-wireframe.png
+                       windowIcon=mx-updater
+                       ButtonIcon=/usr/share/icons/mnotify-some-wireframe.png
                        ;;
         esac
+        windowIcon=mx-updater
+
         yad \\
         --window-icon="$windowIcon" \\
         --width=$(($screenWidth*2/3)) \\
@@ -737,7 +747,7 @@ Disabled
         --center \\
         --title "$(echo "$window_title"|sed 's/MX /'$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)" "'/')" \\
         --form \\
-          --field :TXT "$(sed 's/^/  /' "$TMP"/upgrades)" \\
+          --field=:TXT "$(sed 's/^/  /' $TMP/upgrades)" \\
           --field="$use_apt_get_dash_dash_yes":CHK $UpgradeAssumeYes \\
           --field="$auto_close_label":CHK $UpgradeAutoClose \\
         --button "$reload"!reload!"$reload_tooltip":8 \\
@@ -857,7 +867,7 @@ EOF
 
       done
 
-    sleep 2
+    #sleep 2
     PID=`pidof apt-get | cut -f 1 -d " "`
     if [ $PID ]; then
         while (ps -p $PID > /dev/null); do
@@ -869,8 +879,10 @@ EOF
     script_file.write(script)
     script_file.flush()
     run = subprocess.Popen(['bash %s' % script_file.name],shell=True).wait()
+
     script_file.close()
     Check_for_Updates_by_User = 'true'
+    systray_icon_show()
     check_updates()
 
 def initialize_aptnotifier_prefs():
@@ -1082,11 +1094,14 @@ def initialize_aptnotifier_prefs():
     script_file.write(script)
     script_file.flush()
     run = subprocess.Popen(['bash %s' % script_file.name],shell=True).wait()
+
     script_file.close()
 
 
 def aptnotifier_prefs():
     global Check_for_Updates_by_User
+    systray_icon_hide()
+
     initialize_aptnotifier_prefs()
     
     # ~~~ Localize 3 ~~~
@@ -1207,14 +1222,14 @@ def aptnotifier_prefs():
               </radiobutton>
             </vbox>
             <vbox>
-              <pixmap icon_size="2"><input file>"/usr/share/icons/mnotify-some-wireframe.png"</input></pixmap>
-              <pixmap icon_size="2"><input file icon="mnotify-some-classic"></input></pixmap>
-              <pixmap icon_size="2"><input file icon="mnotify-some-pulse"></input></pixmap>
+              <pixmap icon_size="2"><input file>/usr/share/icons/mnotify-some-wireframe.png</input></pixmap>
+              <pixmap icon_size="2"><input file>/usr/share/icons/mnotify-some-classic.png</input></pixmap>
+              <pixmap icon_size="2"><input file>/usr/share/icons/mnotify-some-pulse.png</input></pixmap>
             </vbox>
             <vbox>
-              <pixmap icon_size="2"><input file icon="mnotify-none-wireframe"></input></pixmap>
-              <pixmap icon_size="2"><input file icon="mnotify-none-classic"></input></pixmap>
-              <pixmap icon_size="2"><input file icon="mnotify-none-pulse"></input></pixmap>
+              <pixmap icon_size="2"><input file>/usr/share/icons/mnotify-none-wireframe.png</input></pixmap>
+              <pixmap icon_size="2"><input file>/usr/share/icons/mnotify-none-classic.png</input></pixmap>
+              <pixmap icon_size="2"><input file>/usr/share/icons/mnotify-none-pulse.png</input></pixmap>
             </vbox>
           </hbox>
         </frame>
@@ -1370,13 +1385,16 @@ EOF
     script_file.write(script)
     script_file.flush()
     run = subprocess.Popen(['bash %s' % script_file.name],shell=True).wait()
+    
     script_file.close()
     Check_for_Updates_by_User = 'true'
+    systray_icon_show()
     check_updates()
 
 def apt_history():
     global Check_for_Updates_by_User
 
+    systray_icon_hide()
     # ~~~ Localize 5 ~~~
 
     t01 = _("History")
@@ -1398,19 +1416,20 @@ def apt_history():
       pulse      ) windowIcon=/usr/share/icons/mnotify-some-pulse.png
                    windowIcon=mnotify-some-pulse
                    ;;
-      wireframe|*) if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]] 
-                     then
-                       if [[ $(xfconf-query -lvc xsettings | grep IconThemeName | grep .*Papirus.* -i) ]]
-                         then
-                           windowIcon=mx-updater
-                         else
-                           windowIcon=mnotify-some-wireframe
-                       fi
-                     else
-                       windowIcon=/usr/share/icons/mnotify-some-wireframe.png
-                   fi
+      wireframe|*)# if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]] 
+                  #   then
+                  #     if [[ $(xfconf-query -lvc xsettings | grep IconThemeName | grep .*Papirus.* -i) ]]
+                  #       then
+                  #         windowIcon=mx-updater
+                  #       else
+                  #         windowIcon=mnotify-some-wireframe
+                  #     fi
+                  #   else
+                  #      windowIcon=/usr/share/icons/mnotify-some-wireframe.png
+                  # fi
                    ;;
     esac
+    windowIcon=mx-updater
 
     yad --window-icon=$windowIcon \\
         --width=$(($screenWidth*3/4)) \\
@@ -1431,13 +1450,16 @@ def apt_history():
     script_file.write(script)
     script_file.flush()
     run = subprocess.Popen(['bash %s' % script_file.name],shell=True).wait()
+    
     script_file.close()
     Check_for_Updates_by_User = 'true'
+    systray_icon_show()
     check_updates()
     
 def apt_get_update():
     global Check_for_Updates_by_User
-    
+    systray_icon_hide()
+
     # ~~~ Localize 4 ~~~
 
     t01 = _("Reload")
@@ -1448,14 +1470,15 @@ def apt_get_update():
     
     script = '''#!/bin/bash
 ''' + shellvar + '''
-    I="mnotify-some-""$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
-    if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
-      then 
-        if [ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]
-          then 
-            I="/usr/share/icons/Papirus/64x64/apps/mx-updater.svg"
-        fi
-    fi    
+    #I="mnotify-some-""$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
+    #if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
+    #  then 
+    #    if [ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]
+    #      then 
+    #        I="/usr/share/icons/Papirus/64x64/apps/mx-updater.svg"
+    #    fi
+    #fi 
+    I="mx-updater"   
     T=" --title=""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" Updater: $reload"
     /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "$T" "$I"
     '''
@@ -1465,13 +1488,15 @@ def apt_get_update():
     run = subprocess.Popen(['bash %s' % script_file.name],shell=True).wait()
     script_file.close()
     Check_for_Updates_by_User = 'true'
+    systray_icon_show()
     check_updates()
 
 def start_MXPI():
     global Check_for_Updates_by_User
-    run = subprocess.Popen(['su-to-root -X -c mx-packageinstaller'],shell=True)
-    # disbaled blocking: .wait()
+    systray_icon_hide()
+    run = subprocess.Popen(['su-to-root -X -c mx-packageinstaller'],shell=True).wait()
     Check_for_Updates_by_User = 'true'
+    systray_icon_show()
     check_updates()
 
 def re_enable_click():
@@ -1627,6 +1652,7 @@ def add_apt_notifier_help_action():
     apt_notifier_help_action.triggered.connect(open_apt_notifier_help)
     
 def open_apt_notifier_help():
+    systray_icon_hide()
     script = '''#!/bin/bash
     case $(echo $LANG | cut -f1 -d_) in
       fr) HelpUrl="https://mxlinux.org/wiki/help-files/help-mx-apt-notifier-notificateur-dapt" ;;
@@ -1646,6 +1672,7 @@ def open_apt_notifier_help():
     run = subprocess.Popen(["echo -n `bash %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
     run.stdout.read(128)
     script_file.close()
+    systray_icon_show()
 
 def add_package_manager_help_action():
     ActionsMenu.addSeparator()
@@ -1653,6 +1680,7 @@ def add_package_manager_help_action():
     package_manager_help_action.triggered.connect(open_package_manager_help)
     
 def open_package_manager_help():
+    systray_icon_hide()
     
     HelpUrlBase="https://mxlinux.org/wiki/help-files/help-" + package_manager
     script = '''#!/bin/bash
@@ -1697,6 +1725,7 @@ def open_package_manager_help():
     run = subprocess.Popen(["echo -n `bash %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
     run.stdout.read(128)
     script_file.close()
+    systray_icon_show()
 
 def add_aptnotifier_prefs_action():
     ActionsMenu.addSeparator()
@@ -1766,7 +1795,9 @@ def About():
     myversion = p.decode('utf-8').rstrip()
     aboutBox = QMessageBox()
     aboutBox.setWindowTitle(_('About MX Updater'))
-    aboutBox.setWindowIcon(QtGui.QIcon('/usr/share/icons/Papirus/16x16/apps/mx-updater.svg'))
+    #aboutBox.setWindowIcon(QtGui.QIcon('/usr/share/icons/Papirus/16x16/apps/mx-updater.svg'))
+    #aboutBox.setWindowIcon(QtGui.QIcon('/usr/share/icons/hicolor/16x16/apps/mx-updater.svg'))
+    aboutBox.setWindowIcon(QtGui.QIcon('/usr/share/icons/hicolor/scalable/mx-updater.svg'))
     aboutBox.setText("<p align=center><b><h2>" + (_('MX Updater')) + "</h2></b></p><p align=center>Version: " + myversion + "</p><p align=center><h3>" 
                + (_('Tray applet to notify of system and application updates')) 
                + "</h3></p><p align=center><a href=http://mxlinux.org>http://mxlinux.org</a> \
@@ -1778,21 +1809,7 @@ def About():
     if reply == 1:
         p=subprocess.call(["/usr/bin/mx-viewer", "/usr/share/doc/apt-notifier/license.html", "MX Apt-notifier license"])
     if reply == 2:
-        command_string = "windowIcon=mnotify-some-$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=) && \
-                          bash -c '[[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]' && \
-                          if [ $? -eq 0 ]; \
-                            then \
-                              if [ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]; \
-                                then \
-                                  xfconf-query -lvc xsettings | grep IconThemeName | grep .*Papirus.* -iq ; \
-                                  if [ $? -eq 0 ]; \
-                                    then \
-                                      windowIcon=mx-updater; \
-                                    else \
-                                      windowIcon=mnotify-some-wireframe; \
-                                  fi; \
-                              fi; \
-                          fi \
+        command_string = "windowIcon=mx-updater \
                           && \
                           zcat /usr/share/doc/apt-notifier/changelog.gz | \
                           yad --width=$(xdotool getdisplaygeometry | awk '{print $1*3/4}') \
@@ -1838,19 +1855,7 @@ def view_unattended_upgrades_logs():
       then IconLook="$(grep IconLook /home/"$User"/.config/apt-notifierrc | cut -f2 -d=)"
       else IconLook="$(grep IconLook /root/.config/apt-notifierrc | cut -f2 -d=)"
     fi
-    Icon="mnotify-some-""$IconLook"
-    if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
-      then
-        if [ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]
-          then
-            if [[ $(xfconf-query -lvc xsettings | grep IconThemeName | grep .*Papirus.* -i) ]]
-              then
-                Icon=mx-updater
-              else
-                Icon=mnotify-some-wireframe
-            fi
-        fi
-    fi     
+    Icon="mx-updater"
     #pkexecWrapper="/usr/lib/apt-notifier/pkexec-wrappers/mx-updater-view-auto-update-logs"
     #terminalCMD="mx-updater_unattended_upgrades_log_view"
     #Uncomment lines below to pass strings as arguments
@@ -1894,24 +1899,25 @@ def view_unattended_upgrades_dpkg_logs():
     script = '''#!/bin/bash
 ''' + shellvar + '''
     Title="$(sed "s|[']|\\\\'|g" <<<"${Title}")"
-    User=$(who | grep '(:0)' -m1 | awk '{print $1}')
-    if [ "$User" != "root" ]
-      then IconLook="$(grep IconLook /home/"$User"/.config/apt-notifierrc | cut -f2 -d=)"
-      else IconLook="$(grep IconLook /root/.config/apt-notifierrc | cut -f2 -d=)"
-    fi
-    Icon="mnotify-some-""$IconLook"
-    if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
-      then
-        if [ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]
-          then
-            if [[ $(xfconf-query -lvc xsettings | grep IconThemeName | grep .*Papirus.* -i) ]]
-              then
-                Icon=mx-updater
-              else
-                Icon=mnotify-some-wireframe
-            fi
-        fi
-    fi     
+    #User=$(who | grep '(:0)' -m1 | awk '{print $1}')
+    #if [ "$User" != "root" ]
+    #  then IconLook="$(grep IconLook /home/"$User"/.config/apt-notifierrc | cut -f2 -d=)"
+    #  else IconLook="$(grep IconLook /root/.config/apt-notifierrc | cut -f2 -d=)"
+    #fi
+    
+    #Icon="mnotify-some-""$IconLook"
+    #if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
+    #  then
+    #    if [ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]
+    #      then
+    #        if [[ $(xfconf-query -lvc xsettings | grep IconThemeName | grep .*Papirus.* -i) ]]
+    #          then
+    #            Icon=mx-updater
+    #          else
+    #            Icon=mnotify-some-wireframe
+    #        fi
+    #    fi
+    #fi     
     #pkexecWrapper="/usr/lib/apt-notifier/pkexec-wrappers/mx-updater-view-auto-update-dpkg-logs"
     #terminalCMD="mx-updater_unattended_upgrades_dpkg_log_view"
     #Uncomment lines below to pass the strings as arguments
@@ -1928,6 +1934,7 @@ def view_unattended_upgrades_dpkg_logs():
     #  else
     #    sh "${pkexecWrapper}" x-terminal-emulator  -e "${terminalCMD}" 2>/dev/null
     #fi
+    Icon=mx-updater
     /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-view-auto-update-dpkg-logs \
     "${Title}" \
     "$Icon"
@@ -1980,11 +1987,78 @@ def main():
     check_updates()
     AptIcon.setContextMenu(ActionsMenu)
     if icon_config == "show":
+        systray_icon_show()
         AptIcon.show()
     Timer.start(60000)
     if AptNotify.isSessionRestored():
         sys.exit(1)
     sys.exit(AptNotify.exec_())
+
+
+def systray_icon_hide():
+
+    running_in_plasma = subprocess.call(["pgrep  -x plasmashell >/dev/null && exit 1 || exit 0"], shell=True, stdout=subprocess.PIPE)
+    if not running_in_plasma:
+       return
+
+    if not spawn.find_executable("qdbus"):
+       return
+
+    Script='''
+    var iconName = 'apt-notifier.py';
+    for (var i in panels()) { 
+        p = panels()[i]; 
+        for (var j in p.widgets()) { 
+            w = p.widgets()[j];  
+            if (w.type == 'org.kde.plasma.systemtray') { 
+                s = desktopById(w.readConfig('SystrayContainmentId')); 
+                s.currentConfigGroup = ['General']; 
+                var shownItems = s.readConfig('shownItems').split(',');
+                if (shownItems.indexOf(iconName) >= 0) {
+                    shownItems.splice(shownItems.indexOf(iconName), 1);
+                }
+                s.writeConfig('shownItems', shownItems);
+                s.reloadConfig();  
+            } 
+        }  
+    }
+    '''
+    run = subprocess.Popen(['qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "' + Script + '" '],shell=True)
+
+
+def systray_icon_show():
+
+    running_in_plasma = subprocess.call(["pgrep -x plasmashell >/dev/null && exit 1 || exit 0"], shell=True, stdout=subprocess.PIPE)
+    if not running_in_plasma:
+       return
+
+    if not spawn.find_executable("qdbus"):
+       return
+
+    Script='''
+    var iconName = 'apt-notifier.py';
+    for (var i in panels()) { 
+        p = panels()[i]; 
+        for (var j in p.widgets()) { 
+            w = p.widgets()[j];  
+            if (w.type == 'org.kde.plasma.systemtray') { 
+                s = desktopById(w.readConfig('SystrayContainmentId')); 
+                s.currentConfigGroup = ['General']; 
+                var shownItems = s.readConfig('shownItems').split(',');
+                if (( shownItems.length == 0 ) || ( shownItems.length == 1 && shownItems[0].length == 0 )) {
+                    shownItems = [ iconName ];
+                }
+                else if (shownItems.indexOf(iconName) === -1) {
+                    shownItems.push(iconName)
+                }
+                s.writeConfig('shownItems', shownItems);
+                s.reloadConfig();  
+            } 
+        }  
+    }
+    '''
+    run = subprocess.Popen(['qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "' + Script + '" '],shell=True)
+
 
 if __name__ == '__main__':
     main()
