@@ -1,7 +1,14 @@
-apt-notifier (20.07.06mx19~8) mx; urgency=medium
+apt-notifier (20.07.06mx19~9) mx; urgency=medium
 
   [ fehlix ] 
-  * add preference "start MX Updater at login"
+  * change mnotify-none-wireframe icon (black with white frame)
+
+ -- fehlix <fehlix@mxlinux.org>  Sun, 26 Jul 2020 23:12:21 +0200
+
+ apt-notifier (20.07.06mx19~8) mx; urgency=medium
+
+  [ fehlix ] 
+  * add prefrence "start MX Updater at login"
 
  -- fehlix <fehlix@mxlinux.org>  Sun, 26 Jul 2020 15:10:12 +0200
 
