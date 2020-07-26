@@ -10,6 +10,8 @@ from PyQt5 import QtWidgets, QtGui
 from PyQt5 import QtCore
 
 from distutils import spawn 
+from time import sleep
+
 
 def package_manager():
     global package_manager
@@ -315,11 +317,17 @@ def check_updates():
    
 def start_package_manager():
     global Check_for_Updates_by_User
-    systray_icon_hide()
-    run = subprocess.Popen([ package_manager_exec ],shell=True).wait()
-    Check_for_Updates_by_User = 'true'
-    systray_icon_show()
-    check_updates()
+    running_in_plasma = subprocess.call(["pgrep -x plasmashell >/dev/null && exit 1 || exit 0"], shell=True, stdout=subprocess.PIPE)
+    if  running_in_plasma:
+        systray_icon_hide()
+        run = subprocess.Popen([ "bash -c '%s; ionice -c3 nice -n19 python -m pdb /usr/bin/apt-notifier.py < <(sleep .250; echo c)& disown -h;'" % package_manager_exec ],shell=True)
+        AptIcon.hide()
+        sleep(1);
+        sys.exit(0)
+    else:
+        run = subprocess.Popen([ package_manager_exec ],shell=True).wait()
+        Check_for_Updates_by_User = 'true'
+        check_updates()
 
 def viewandupgrade():
     global Check_for_Updates_by_User
@@ -878,12 +886,27 @@ EOF
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
     script_file.flush()
-    run = subprocess.Popen(['bash %s' % script_file.name],shell=True).wait()
+    #run = subprocess.Popen(['bash %s' % script_file.name],shell=True).wait()
 
-    script_file.close()
-    Check_for_Updates_by_User = 'true'
-    systray_icon_show()
-    check_updates()
+    #script_file.close()
+    #Check_for_Updates_by_User = 'true'
+    #systray_icon_show()
+    #check_updates()
+
+    running_in_plasma = subprocess.call(["pgrep -x plasmashell >/dev/null && exit 1 || exit 0"], shell=True, stdout=subprocess.PIPE)
+    if  running_in_plasma:
+        systray_icon_hide()
+        run = subprocess.Popen(["bash -c 'S=%s; N=$S.$RANDOM; cp $S $N;  chmod +x $N; $N; ionice -c3 nice -n19 python -m pdb /usr/bin/apt-notifier.py < <(sleep .250; echo c)& disown -h;'" % script_file.name],shell=True)
+        # .wait()
+        sleep(1);
+        script_file.close()
+        sys.exit(1)
+    else:
+        run = subprocess.Popen(['bash %s' % script_file.name],shell=True).wait()
+        script_file.close()
+        Check_for_Updates_by_User = 'true'
+        systray_icon_show()
+        check_updates()
 
 def initialize_aptnotifier_prefs():
 
