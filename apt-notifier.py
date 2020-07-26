@@ -1148,6 +1148,7 @@ def aptnotifier_prefs():
     t15 = _("wireframe")
     t16 = _("Auto-update")
     t17 = _("update automatically   (will not add new or remove existing packages)")
+    t18 = _("start MX Updater at login")
  
     shellvar = (
         '    window_title="'                             + t01 + '"\n'
@@ -1167,6 +1168,7 @@ def aptnotifier_prefs():
         '    label_wireframe="'                          + t15 + '"\n'
         '    frame_Auto_update="'                        + t16 + '"\n' 
         '    auto_update_checkbox_txt="'                 + t17 + '"\n'
+        '    label_autostart="'                          + t18 + '"\n'
         )
     
     script = '''#!/bin/bash
@@ -1176,6 +1178,25 @@ def aptnotifier_prefs():
     window_title=$(echo "$window_title"|sed 's/MX /'$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
     left_click_ViewandUpgrade=$(echo "$left_click_ViewandUpgrade"|sed 's/MX /'$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
     IconLookBegin=$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)
+    # detect and set autostart
+
+    XDG_AUTOSTART_FILE="/etc/xdg/autostart/mx-updater-autostart.desktop"
+    USR_AUTOSTART_FILE="$HOME/.config/autostart/mx-updater-autostart.desktop"
+    if grep -sq '^Hidden=true' "$USR_AUTOSTART_FILE"; then
+       AutoStart='"false"'
+    else
+       AutoStart='"true"'
+    fi
+    # set dialog frame for PrefAutoStart
+    Auto_Start_frame=" 
+         <frame Auto-start>
+          <checkbox active=${AutoStart}>
+            <label>${label_autostart}</label>
+            <variable>PrefAutoStart</variable>
+            <action>:</action>
+          </checkbox>
+        </frame>"
+
     TMP=$(mktemp -d /tmp/apt_notifier_preferences_dialog.XXXXXX)
     touch "$TMP"/output
     cat << EOF > "$TMP"/DIALOG
@@ -1263,6 +1284,7 @@ def aptnotifier_prefs():
             <action>:</action>
           </checkbox>
         </frame>
+        $Auto_Start_frame
         <hbox>
           <button ok></button>
           <button cancel></button>
@@ -1395,6 +1417,41 @@ EOF
         :
     fi
 
+    # set autostart
+    if grep -sq "^PrefAutoStart=${AutoStart}" $TMP/output; then
+       : already set, no change, do nothing
+    else
+        [ -d "$CONFIG_AUTOSTART" ] || mkdir -p "$CONFIG_AUTOSTART"
+        
+        # clear autostart file
+        if [  -f "$USR_AUTOSTART_FILE" ]; then
+           rm -f "$USR_AUTOSTART_FILE"
+        fi
+        
+        # switch Autostart
+        if [ "$AutoStart" = '"false"' ]; then
+          PrefAutoStart="true" 
+          # enable autostart (or alternatively leave "$USR_AUTOSTART_FILE" removed )
+          sed  -e '/^Hidden=/d; /^Exec=/aHidden=false' "$XDG_AUTOSTART_FILE" > "$USR_AUTOSTART_FILE"
+        else
+          PrefAutoStart="false" 
+          # disable autostart
+          # set autostart to false 
+          sed  -e '/^Hidden=/d; /^Exec=/aHidden=true' "$XDG_AUTOSTART_FILE" > "$USR_AUTOSTART_FILE"
+        fi
+        # fluxbox autostart
+        FLUXBOX_STARTUP="$HOME/.fluxbox/startup"
+        if [ -w "$FLUXBOX_STARTUP" ]; then
+          if [ "$PrefAutoStart" = "true" ]; then
+             # enable fluxbox startup 
+             sed -i -r -e '\:^([#[:space:]]*)(.*/usr/bin/apt-notifier.*&)[[:space:]]*$:s::\\2:'  "$FLUXBOX_STARTUP" 
+          else
+             # disable fluxbox startup 
+             sed -i -r -e '\:^([#[:space:]]*)(.*/usr/bin/apt-notifier.*&)[[:space:]]*$:s::#\\2:' "$FLUXBOX_STARTUP" 
+          fi
+        fi
+    fi
+
     rm -rf "$TMP"
 
     #restart apt-notifier if IconLook setting has been changed 
@@ -1408,7 +1465,7 @@ EOF
     script_file.write(script)
     script_file.flush()
     run = subprocess.Popen(['bash %s' % script_file.name],shell=True).wait()
-    
+        
     script_file.close()
     Check_for_Updates_by_User = 'true'
     systray_icon_show()
