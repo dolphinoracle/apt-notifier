@@ -21,7 +21,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -36,34 +36,34 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1028"
-     inkscape:window-height="630"
+     inkscape:window-width="1432"
+     inkscape:window-height="715"
      id="namedview12"
      showgrid="false"
      inkscape:zoom="3.6875"
-     inkscape:cx="32"
+     inkscape:cx="38.467797"
      inkscape:cy="32"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
      inkscape:current-layer="svg10" />
   <path
-     style="fill:#e4e4e4;stroke-width:1.22448933"
+     style="fill:#000000;stroke-width:1.22448933"
      d="m 30.575616,57.329176 22.04079,-8.571423 V 30.390425 L 59.963347,15.696568 37.922544,5.9006844 31.800103,16.92105 8.534835,26.716967 v 18.367327 z"
      id="path2"
      inkscape:connector-curvature="0" />
   <path
-     style="fill:none;stroke:#000000;stroke-width:3.67346191;stroke-linecap:round;stroke-linejoin:round"
+     style="fill:none;stroke:#ffffff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
      d="M 8.534835,25.492485 30.575616,16.92105 M 52.616406,27.941445 30.575616,16.92105 36.698055,4.6758268 59.963347,15.696568 Z M 30.575616,58.55367 52.616406,49.982234 V 27.941445 l -22.04079,7.346937 m 0,23.265288 V 35.288382 L 8.534835,25.492485 v 19.591809 z"
      id="path4"
      inkscape:connector-curvature="0" />
   <path
-     style="fill:#e4e4e4;stroke-width:1.22448933"
+     style="fill:#000000;stroke-width:1.22448933"
      d="M 30.575616,34.063909 26.902164,18.145558 4.861134,8.349654 8.534835,25.492485 Z"
      id="path6"
      inkscape:connector-curvature="0" />
   <path
-     style="fill:none;stroke:#000000;stroke-width:3.67346191;stroke-linecap:round;stroke-linejoin:round"
+     style="fill:none;stroke:#ffffff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
      d="M 8.534835,25.492485 3.6366351,7.1251733 26.902164,18.145558 30.575616,35.288382 Z"
      id="path8"
      inkscape:connector-curvature="0" />
