@@ -1,3 +1,9 @@
+apt-notifier (20.07.06mx19~10) mx; urgency=medium
+
+  * add preference selection of light, dark and transparent icons
+
+ -- fehlix <fehlix@mxlinux.org>  Tue, 28 Jul 2020 21:12:05 +0200
+
 apt-notifier (20.07.06mx19~9) mx; urgency=medium
 
   [ fehlix ] 
@@ -5,21 +11,21 @@ apt-notifier (20.07.06mx19~9) mx; urgency=medium
 
  -- fehlix <fehlix@mxlinux.org>  Sun, 26 Jul 2020 23:12:21 +0200
 
-apt-notifier (20.07.06mx19~8) mx; urgency=medium
+ apt-notifier (20.07.06mx19~8) mx; urgency=medium
 
   [ fehlix ] 
   * add prefrence "start MX Updater at login"
 
  -- fehlix <fehlix@mxlinux.org>  Sun, 26 Jul 2020 15:10:12 +0200
 
-apt-notifier (20.07.06mx19~7) mx; urgency=medium
+ apt-notifier (20.07.06mx19~7) mx; urgency=medium
 
   [ fehlix ] 
   * disable right-click popup with left-click actions
 
  -- fehlix <fehlix@mxlinux.org>  Sun, 26 Jul 2020 02:18:26 +0200
 
-apt-notifier (20.07.06mx19~6) mx; urgency=medium
+ apt-notifier (20.07.06mx19~6) mx; urgency=medium
 
   [ fehlix ] 
   * show in pref window the installed mnotify-icons,
