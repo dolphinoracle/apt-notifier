@@ -1150,7 +1150,7 @@ def aptnotifier_prefs():
     t16 = _("Auto-update")
     t17 = _("update automatically   (will not add new or remove existing packages)")
     t18 = _("start MX Updater at login")
-    t19 = _("use transparent, none-filled instead of black or white wireframe")
+    t19 = _("use transparent interior for no-updates wireframe")
 
  
     shellvar = (
