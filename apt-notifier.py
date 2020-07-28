@@ -320,6 +320,7 @@ def start_package_manager():
     running_in_plasma = subprocess.call(["pgrep -x plasmashell >/dev/null && exit 1 || exit 0"], shell=True, stdout=subprocess.PIPE)
     if  running_in_plasma:
         systray_icon_hide()
+        #run = subprocess.Popen([ "bash -c '%s; ionice -c3 nice -n19 python -m pdb /usr/bin/apt-notifier.py < <(sleep .250; echo c)& disown -h;'" % package_manager_exec ],shell=True)
         run = subprocess.Popen([ "bash -c '%s; ionice -c3 nice -n19 python -m pdb /usr/bin/apt-notifier.py < <(sleep .250; echo c)& disown -h;'" % package_manager_exec ],shell=True)
         AptIcon.hide()
         sleep(1);
@@ -896,8 +897,9 @@ EOF
     running_in_plasma = subprocess.call(["pgrep -x plasmashell >/dev/null && exit 1 || exit 0"], shell=True, stdout=subprocess.PIPE)
     if  running_in_plasma:
         systray_icon_hide()
-        run = subprocess.Popen(["bash -c 'S=%s; N=$S.$RANDOM; cp $S $N;  chmod +x $N; $N; ionice -c3 nice -n19 python -m pdb /usr/bin/apt-notifier.py < <(sleep .250; echo c)& disown -h;'" % script_file.name],shell=True)
-        # .wait()
+        #run = subprocess.Popen(["bash -c 'S=%s; N=$S.$RANDOM$RANDOM$RANDOM; cp $S $N; bash $N; rm $N; ionice -c3 nice -n19 python -m pdb /usr/bin/apt-notifier.py < <(sleep .250; echo c)& disown -h;'" % script_file.name],shell=True)
+        
+        run = subprocess.Popen(["bash -c 'S=%s; N=$S.$RANDOM$RANDOM$RANDOM; cp $S $N; bash $N; rm $N; apt-notifier-unhide-Icon; rm $S'" % script_file.name],shell=True)
         sleep(1);
         script_file.close()
         sys.exit(1)
@@ -1004,9 +1006,8 @@ def initialize_aptnotifier_prefs():
     fi
 
     #test if ~/.config/apt-notifierrc contains a IconLook=* line and that it's a valid entry
-    grep -e ^"IconLook=wireframe" -e^"IconLook=classic" -e^"IconLook=pulse" ~/.config/apt-notifierrc > /dev/null
-    if [ "$?" -eq 0 ]
-      then
+    #grep -e ^"IconLook=wireframe" -e^"IconLook=classic" -e^"IconLook=pulse" ~/.config/apt-notifierrc > /dev/null
+    if grep -sqE "^IconLook=(wireframe(-dark|-light)|classic|pulse)" ~/.config/apt-notifierrc; then
       #contains a valid entry so do nothing
         :
       else
@@ -1028,9 +1029,9 @@ def initialize_aptnotifier_prefs():
          18.1) IconDefault="wireframe" ;;
          18.2) IconDefault="wireframe" ;;
          18.3) IconDefault="wireframe" ;;
-         19  ) IconDefault="wireframe" ;;
-         19.1) IconDefault="wireframe" ;;
-            *) IconDefault="wireframe" ;;
+         19  ) IconDefault="wireframe-dark" ;;
+         19.1) IconDefault="wireframe-dark" ;;
+            *) IconDefault="wireframe-dark" ;;
        esac
        echo "IconLook=$IconDefault">> ~/.config/apt-notifierrc
     fi
@@ -1149,6 +1150,8 @@ def aptnotifier_prefs():
     t16 = _("Auto-update")
     t17 = _("update automatically   (will not add new or remove existing packages)")
     t18 = _("start MX Updater at login")
+    t19 = _("use transparent, none-filled instead of black or white wireframe")
+
  
     shellvar = (
         '    window_title="'                             + t01 + '"\n'
@@ -1169,6 +1172,7 @@ def aptnotifier_prefs():
         '    frame_Auto_update="'                        + t16 + '"\n' 
         '    auto_update_checkbox_txt="'                 + t17 + '"\n'
         '    label_autostart="'                          + t18 + '"\n'
+        '    label_wireframe_transparent="'              + t19 + '"\n'
         )
     
     script = '''#!/bin/bash
@@ -1178,6 +1182,8 @@ def aptnotifier_prefs():
     window_title=$(echo "$window_title"|sed 's/MX /'$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
     left_click_ViewandUpgrade=$(echo "$left_click_ViewandUpgrade"|sed 's/MX /'$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
     IconLookBegin=$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)
+    WireframeTransparentBegin=$(grep -sq -m1 WireframeTransparent=true ~/.config/apt-notifierrc && echo true || echo false)
+    
     # detect and set autostart
 
     XDG_AUTOSTART_FILE="/etc/xdg/autostart/mx-updater-autostart.desktop"
@@ -1246,9 +1252,15 @@ def aptnotifier_prefs():
         <frame @Icons@>
           <hbox homogeneous="true">
             <vbox>
-              <radiobutton active="@IconLookWireframe@">
+              <radiobutton active="@IconLookWireframeDark@">
                 <label>@wireframe@</label>
-                <variable>IconLook_wireframe</variable>
+                <variable>IconLook_wireframe_dark</variable>
+                <action>:</action>
+              </radiobutton>
+              <vseparator></vseparator>
+              <radiobutton active="@IconLookWireframeLight@">
+                <label>@wireframe@</label>
+                <variable>IconLook_wireframe_light</variable>
                 <action>:</action>
               </radiobutton>
               <vseparator></vseparator>
@@ -1267,15 +1279,22 @@ def aptnotifier_prefs():
             </vbox>
             <vbox>
               <pixmap icon_size="2"><input file>/usr/share/icons/mnotify-some-wireframe.png</input></pixmap>
+              <pixmap icon_size="2"><input file>/usr/share/icons/mnotify-some-wireframe.png</input></pixmap>
               <pixmap icon_size="2"><input file>/usr/share/icons/mnotify-some-classic.png</input></pixmap>
               <pixmap icon_size="2"><input file>/usr/share/icons/mnotify-some-pulse.png</input></pixmap>
             </vbox>
             <vbox>
-              <pixmap icon_size="2"><input file>/usr/share/icons/mnotify-none-wireframe.png</input></pixmap>
+              <pixmap icon_size="2"><input file>/usr/share/icons/mnotify-none-wireframe-dark.png</input></pixmap>
+              <pixmap icon_size="2"><input file>/usr/share/icons/mnotify-none-wireframe-light.png</input></pixmap>
               <pixmap icon_size="2"><input file>/usr/share/icons/mnotify-none-classic.png</input></pixmap>
               <pixmap icon_size="2"><input file>/usr/share/icons/mnotify-none-pulse.png</input></pixmap>
             </vbox>
           </hbox>
+          <checkbox active="@WireframeTransparent@">
+            <label>${label_wireframe_transparent}</label>
+            <variable>WireframeTransparent</variable>
+            <action>:</action>
+          </checkbox>
         </frame>
         <frame @Auto_update_label@>
           <checkbox active="@Auto_Update_setting@">
@@ -1335,9 +1354,14 @@ EOF
     sed -i 's/@UpgradeAssumeYes@/'$(grep UpgradeAssumeYes ~/.config/apt-notifierrc | cut -f2 -d=)'/' "$TMP"/DIALOG
     sed -i 's/@UpgradeAutoClose@/'$(grep UpgradeAutoClose ~/.config/apt-notifierrc | cut -f2 -d=)'/' "$TMP"/DIALOG
     sed -i 's/@CheckForAutoRemovables@/'$(grep CheckForAutoRemovables ~/.config/apt-notifierrc | cut -f2 -d=)'/' "$TMP"/DIALOG
-    sed -i 's/@IconLookWireframe@/'$(if [ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]; then echo -n true; else echo -n false; fi)'/' "$TMP"/DIALOG
+
+    sed -i 's/@IconLookWireframeDark@/'$(if [ $(grep IconLook=wireframe-dark ~/.config/apt-notifierrc) ]; then echo -n true; else echo -n false; fi)'/' "$TMP"/DIALOG
+    sed -i 's/@IconLookWireframeLight@/'$(if [ $(grep IconLook=wireframe-light ~/.config/apt-notifierrc) ]; then echo -n true; else echo -n false; fi)'/' "$TMP"/DIALOG
+
     sed -i 's/@IconLookClassic@/'$(if [ $(grep IconLook=classic ~/.config/apt-notifierrc) ]; then echo -n true; else echo -n false; fi)'/' "$TMP"/DIALOG
     sed -i 's/@IconLookPulse@/'$(if [ $(grep IconLook=pulse ~/.config/apt-notifierrc) ]; then echo -n true; else echo -n false; fi)'/' "$TMP"/DIALOG
+
+    sed -i "s/@WireframeTransparent@/$(grep -sq WireframeTransparent=true ~/.config/apt-notifierrc && echo true || echo false)/" "$TMP"/DIALOG
 
     # edit placeholder for window icon placeholder in "$TMP"/DIALOG
     
@@ -1398,13 +1422,15 @@ EOF
         if [ $(grep UpgradeAutoClose=.*false.*        "$TMP"/output) ]; then sed -i 's/UpgradeAutoClose=true/UpgradeAutoClose=false/'       ~/.config/apt-notifierrc; fi
         if [ $(grep UpgradeAutoClose=.*true.*         "$TMP"/output) ]; then sed -i 's/UpgradeAutoClose=false/UpgradeAutoClose=true/'       ~/.config/apt-notifierrc; fi
         if [ $(grep CheckForAutoRemovables=.*false.*     "$TMP"/output) ]; then sed -i 's/CheckForAutoRemovables=true/CheckForAutoRemovables=false/' ~/.config/apt-notifierrc; fi
-        if [ $(grep CheckForAutoRemovables=.*true.*      "$TMP"/output) ]; then sed -i 's/CheckForAutoRemovables=false/CheckForAutoRemovables=true/' ~/.config/apt-notifierrc; fi
-        if [ $(grep IconLook_wireframe=.*true.*       "$TMP"/output) ]; then sed -i 's/IconLook=classic/IconLook=wireframe/'                ~/.config/apt-notifierrc; fi
-        if [ $(grep IconLook_wireframe=.*true.*       "$TMP"/output) ]; then sed -i 's/IconLook=pulse/IconLook=wireframe/'                  ~/.config/apt-notifierrc; fi
-        if [ $(grep IconLook_classic=.*true.*         "$TMP"/output) ]; then sed -i 's/IconLook=wireframe/IconLook=classic/'                ~/.config/apt-notifierrc; fi
-        if [ $(grep IconLook_classic=.*true.*         "$TMP"/output) ]; then sed -i 's/IconLook=pulse/IconLook=classic/'                    ~/.config/apt-notifierrc; fi
-        if [ $(grep IconLook_pulse=.*true.*           "$TMP"/output) ]; then sed -i 's/IconLook=wireframe/IconLook=pulse/'                  ~/.config/apt-notifierrc; fi
-        if [ $(grep IconLook_pulse=.*true.*           "$TMP"/output) ]; then sed -i 's/IconLook=classic/IconLook=pulse/'                    ~/.config/apt-notifierrc; fi
+        if [ $(grep CheckForAutoRemovables=.*true.*   "$TMP"/output) ]; then sed -i 's/CheckForAutoRemovables=false/CheckForAutoRemovables=true/' ~/.config/apt-notifierrc; fi
+
+        if [ $(grep IconLook_wireframe_dark=.*true.*   "$TMP"/output) ]; then sed -i '/^IconLook=.*/s//IconLook=wireframe-dark/'                ~/.config/apt-notifierrc; fi
+        if [ $(grep IconLook_wireframe_light=.*true.*  "$TMP"/output) ]; then sed -i '/^IconLook=.*/s//IconLook=wireframe-light/'                ~/.config/apt-notifierrc; fi
+        if [ $(grep IconLook_classic=.*true.*         "$TMP"/output) ]; then sed -i '/^IconLook=.*/s//IconLook=classic/'                ~/.config/apt-notifierrc; fi
+        if [ $(grep IconLook_pulse=.*true.*           "$TMP"/output) ]; then sed -i '/^IconLook=.*/s//IconLook=pulse/'                  ~/.config/apt-notifierrc; fi
+
+        grep -sq 'WireframeTransparent=.*true.*' "$TMP"/output && V=true || V=false; sed -i '/WireframeTransparent=/d; $iWireframeTransparent='"$V" ~/.config/apt-notifierrc; 
+
         if [ $Unattended_Upgrade_before_pref_dialog = "0" ] && [ $(grep AutoUpdate=.*true.* "$TMP"/output) ]
           then
             sh /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-enable-auto-update  sh "$TMP"/enable_unattended_upgrades 2>/dev/null 1>/dev/null
@@ -1454,10 +1480,13 @@ EOF
 
     rm -rf "$TMP"
 
-    #restart apt-notifier if IconLook setting has been changed 
-    if [ "$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)" != "$IconLookBegin" ]
+    #restart apt-notifier if IconLook setting has been changed
+    IconLookNew=$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)
+    WireframeTransparentNew=$(grep -sq -m1 WireframeTransparent=true ~/.config/apt-notifierrc && echo true || echo false)
+ 
+    if [ "$IconLookNew" != "$IconLookBegin" ] || [ "$WireframeTransparentNew" != "$WireframeTransparentBegin" ];
       then
-        apt-notifier-unhide-Icon
+        rm $0; apt-notifier-unhide-Icon
     fi
 
     '''
@@ -1650,7 +1679,7 @@ def read_icon_look():
     iconLook = run.stdout.read(128)
     script_file.close()
     return iconLook
-    
+
 def set_noicon():
     """Reads ~/.config/apt-notifierrc. If "DontShowIcon blah blah blah" is already there, don't write it again"""
     command_string = "grep DontShowIcon " + rc_file_name + " > /dev/null"
@@ -2052,9 +2081,18 @@ def main():
     
     # read in icon look into a variable
     icon_set = read_icon_look()
-    
-    NoUpdatesIcon = QtGui.QIcon("/usr/share/icons/mnotify-none-" + icon_set + ".png")
-    NewUpdatesIcon  = QtGui.QIcon("/usr/share/icons/mnotify-some-" + icon_set + ".png")
+    tray_icon_noupdates  =  "/usr/share/icons/mnotify-none-" + icon_set + ".png"
+    tray_icon_newupdates =  "/usr/share/icons/mnotify-some-" + icon_set + ".png"
+
+    # Detect WireframeTransparent is set ~/.config/apt-notifierrc
+    if "wireframe" in icon_set:
+        tray_icon_newupdates =  "/usr/share/icons/mnotify-some-wireframe.png"
+        WireframeTransparent = subprocess.call(["grep -sq WireframeTransparent=true ~/.config/apt-notifierrc && exit 1 || exit 0"], shell=True, stdout=subprocess.PIPE)
+        if WireframeTransparent:
+            tray_icon_noupdates =  "/usr/share/icons/mnotify-none-" + icon_set + "-transparent.png"
+        
+    NoUpdatesIcon   = QtGui.QIcon(tray_icon_noupdates)
+    NewUpdatesIcon  = QtGui.QIcon(tray_icon_newupdates)
     HelpIcon = QtGui.QIcon("/usr/share/icons/oxygen/22x22/apps/help-browser.png")
     QuitIcon = QtGui.QIcon("/usr/share/icons/oxygen/22x22/actions/system-shutdown.png")
     # Create the right-click menu and add the Tooltip text
