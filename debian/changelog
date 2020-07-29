@@ -1,3 +1,9 @@
+apt-notifier (20.07.06mx19~11) mx; urgency=medium
+
+  * make wireframe-dark-transparent as default icon set
+
+ -- fehlix <fehlix@mxlinux.org>  Wed, 29 Jul 2020 01:08:12 +0200
+
 apt-notifier (20.07.06mx19~10) mx; urgency=medium
 
   * add preference selection of light, dark and transparent icons
