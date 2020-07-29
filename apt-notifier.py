@@ -1034,6 +1034,12 @@ def initialize_aptnotifier_prefs():
             *) IconDefault="wireframe-dark" ;;
        esac
        echo "IconLook=$IconDefault">> ~/.config/apt-notifierrc
+       # set transparent as default for wireframe-dark
+       
+       if [ "$IconDefault" = "wireframe-dark" ]; then
+           sed -i '/WireframeTransparent=/d; $iWireframeTransparent=true' ~/.config/apt-notifierrc; 
+       fi
+       
     fi
 
     #test to see if ~/.config/apt-notifierrc contains any blank lines or lines with only whitespace
