@@ -1,3 +1,11 @@
+apt-notifier (20.07.06mx19~12) mx; urgency=medium
+
+  * restart systray icon after upgrading apt-notifier
+  * pkexec-wrapper adjustment
+  * code adjustments in displayAbout()
+
+ -- fehlix <fehlix@mxlinux.org>  Fri, 31 Jul 2020 20:43:02 +0200
+
 apt-notifier (20.07.06mx19~11) mx; urgency=medium
 
   * make wireframe-dark-transparent as default icon set
