@@ -11,7 +11,7 @@ if [ "$EUID" != "0" ]; then
 
     umask 0022
     QTEMP="mx-updater-qtenv"
-    QTENV=$(mktemp -u -p ${XDG_RUNTIME_DIR:-/tmp}  ${QTEMP}.XXXXXXXXXXXXXXXX)
+    QTENV=$(mktemp -p ${XDG_RUNTIME_DIR:-/tmp}  ${QTEMP}.XXXXXXXXXXXXXXXX)
     chmod +r "$QTENV"
     printenv | grep -E '^QT_|^LANG=|^LANGUAGE=|^LC_'  | sed -e 's/^/export /' 2>/dev/null  > "$QTENV"
 
