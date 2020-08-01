@@ -12,6 +12,9 @@ from PyQt5 import QtCore
 from distutils import spawn 
 from time import sleep
 
+global version_at_start
+version_at_start = subprocess.check_output(["dpkg-query -f '${Version}' -W apt-notifier" ], shell=True)
+#.decode('utf-8')
 
 def package_manager():
     global package_manager
@@ -327,6 +330,10 @@ def start_package_manager():
         sys.exit(0)
     else:
         run = subprocess.Popen([ package_manager_exec ],shell=True).wait()
+        version_installed = subprocess.check_output(["dpkg-query -f '${Version}' -W apt-notifier" ], shell=True)
+        if  version_installed != version_at_start:
+            run = subprocess.Popen([ "nohup apt-notifier-unhide-Icon & >/dev/null 2>/dev/null" ],shell=True).wait()
+            sleep(2)
         Check_for_Updates_by_User = 'true'
         check_updates()
 
@@ -887,12 +894,6 @@ EOF
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
     script_file.flush()
-    #run = subprocess.Popen(['bash %s' % script_file.name],shell=True).wait()
-
-    #script_file.close()
-    #Check_for_Updates_by_User = 'true'
-    #systray_icon_show()
-    #check_updates()
 
     running_in_plasma = subprocess.call(["pgrep -x plasmashell >/dev/null && exit 1 || exit 0"], shell=True, stdout=subprocess.PIPE)
     if  running_in_plasma:
@@ -906,6 +907,11 @@ EOF
     else:
         run = subprocess.Popen(['bash %s' % script_file.name],shell=True).wait()
         script_file.close()
+        version_installed = subprocess.check_output(["dpkg-query -f '${Version}' -W apt-notifier" ], shell=True)
+        if  version_installed != version_at_start:
+            run = subprocess.Popen([ "nohup apt-notifier-unhide-Icon & >/dev/null 2>/dev/null" ],shell=True).wait()
+            sleep(2)
+        
         Check_for_Updates_by_User = 'true'
         systray_icon_show()
         check_updates()
@@ -1610,6 +1616,12 @@ def start_MXPI():
     global Check_for_Updates_by_User
     systray_icon_hide()
     run = subprocess.Popen(['su-to-root -X -c mx-packageinstaller'],shell=True).wait()
+
+    version_installed = subprocess.check_output(["dpkg-query -f '${Version}' -W apt-notifier" ], shell=True)
+    if  version_installed != version_at_start:
+        run = subprocess.Popen([ "nohup apt-notifier-unhide-Icon & >/dev/null 2>/dev/null" ],shell=True).wait()
+        sleep(2)
+
     Check_for_Updates_by_User = 'true'
     systray_icon_show()
     check_updates()
@@ -1893,30 +1905,38 @@ def displayAbout():
 
     # Using an embedded script to display the 'About' dialog text, because when run within the main python
     # script, closing the dialog window was also causing the main python script (apt-notifier.py) to quit.
-    script = '''#!/usr/bin/python
+    script = """#!/usr/bin/python
 # -*- coding: utf-8 -*-
 import sys
 import subprocess
+import gettext
 from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtWidgets import QApplication, QPushButton, QMessageBox
 from PyQt5.QtGui import QIcon
-import gettext
+from string import Template
+
 gettext.bindtextdomain('apt-notifier', '/usr/share/locale')
 gettext.textdomain('apt-notifier')
 _ = gettext.gettext
 gettext.install('apt-notifier')
+
 def About():
-    p = subprocess.check_output(['dpkg -l apt-notifier | grep apt-notifier | cut -f 6 -d " "' ], shell=True)
-    myversion = p.decode('utf-8').rstrip()
+    me      = _('MX Updater')
+    about   = _('Tray applet to notify of system and application updates')
+    version = subprocess.check_output(["dpkg-query -f '${Version}' -W apt-notifier" ], shell=True).decode('utf-8')
+
+    aboutText= '''
+    <p align=center><b><h2>$me</h2></b></p>
+    <p align=center>Version:$version</p>
+    <p align=center><h3>$about</h3></p>
+    <p align=center><a href=http://mxlinux.org>http://mxlinux.org</a>
+    <br></p><p align=center>Copyright (c) MX Linux<br /><br/></p>
+     '''
+    aboutText=Template(aboutText).substitute(about=about, me=me, version=version)
     aboutBox = QMessageBox()
     aboutBox.setWindowTitle(_('About MX Updater'))
-    #aboutBox.setWindowIcon(QtGui.QIcon('/usr/share/icons/Papirus/16x16/apps/mx-updater.svg'))
-    #aboutBox.setWindowIcon(QtGui.QIcon('/usr/share/icons/hicolor/16x16/apps/mx-updater.svg'))
     aboutBox.setWindowIcon(QtGui.QIcon('/usr/share/icons/hicolor/scalable/mx-updater.svg'))
-    aboutBox.setText("<p align=center><b><h2>" + (_('MX Updater')) + "</h2></b></p><p align=center>Version: " + myversion + "</p><p align=center><h3>" 
-               + (_('Tray applet to notify of system and application updates')) 
-               + "</h3></p><p align=center><a href=http://mxlinux.org>http://mxlinux.org</a> \
-               <br></p><p align=center>" + "Copyright (c) MX Linux" + "<br /><br /></p>")
+    aboutBox.setText(aboutText)
     aboutBox.addButton( (_('Cancel')), QMessageBox.YesRole)
     aboutBox.addButton( (_('License')), QMessageBox.NoRole)
     aboutBox.addButton( (_('Changelog')), QMessageBox.NoRole)
@@ -1924,25 +1944,32 @@ def About():
     if reply == 1:
         p=subprocess.call(["/usr/bin/mx-viewer", "/usr/share/doc/apt-notifier/license.html", "MX Apt-notifier license"])
     if reply == 2:
-        command_string = "windowIcon=mx-updater \
-                          && \
-                          zcat /usr/share/doc/apt-notifier/changelog.gz | \
-                          yad --width=$(xdotool getdisplaygeometry | awk '{print $1*3/4}') \
-                              --height=$(xdotool getdisplaygeometry | awk '{print $2*2/3}') \
-                              --center           \
-                              --button=gtk-close \
-                              --window-icon=$windowIcon \
-                              --title=\\\"$(gettext -d apt-notifier Changelog)\\\" \
-                              --fontname=mono    \
-                              --margins=7        \
-                              --borders=5        \
-                              --text-info"
-        p=subprocess.call([command_string], shell=True)
+        command_string = '''
+            windowIcon=mx-updater; 
+            read width height < <(xdotool getdisplaygeometry); 
+            width=$(($width*3/4)); 
+            height=$(($height*2/3)); 
+            title=$(gettext -d apt-notifier Changelog); 
+            zcat /usr/share/doc/apt-notifier/changelog.gz | 
+            yad --width=$width 
+              --height=$height 
+              --center           
+              --button=gtk-close 
+              --window-icon=$windowIcon 
+              --title="$title" 
+              --fontname=mono    
+              --margins=7        
+              --borders=5        
+              --text-info
+            '''
+        command = " ".join(command_string.split())
+        command = "bash -c '%s'" % command
+        p=subprocess.call([command], shell=True)
 main = QApplication(sys.argv)
 About()
 if __name__ == '__main__':
     main()
-'''
+"""
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
     script_file.flush()
