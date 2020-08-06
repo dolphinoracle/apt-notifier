@@ -2145,7 +2145,6 @@ def main():
         sys.exit(1)
     sys.exit(AptNotify.exec_())
 
-
 def systray_icon_hide():
 
     running_in_plasma = subprocess.call(["pgrep  -x plasmashell >/dev/null && exit 1 || exit 0"], shell=True, stdout=subprocess.PIPE)
@@ -2168,6 +2167,9 @@ def systray_icon_hide():
                 if (shownItems.indexOf(iconName) >= 0) {
                     shownItems.splice(shownItems.indexOf(iconName), 1);
                 }
+                if ( shownItems.length == 0 ) {
+                    shownItems = [ 'auto' ];
+                }
                 s.writeConfig('shownItems', shownItems);
                 s.reloadConfig();  
             } 
@@ -2175,7 +2177,6 @@ def systray_icon_hide():
     }
     '''
     run = subprocess.Popen(['qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "' + Script + '" '],shell=True)
-
 
 def systray_icon_show():
 
@@ -2202,6 +2203,9 @@ def systray_icon_show():
                 else if (shownItems.indexOf(iconName) === -1) {
                     shownItems.push(iconName)
                 }
+                if (shownItems.indexOf('auto') >= 0) {
+                    shownItems.splice(shownItems.indexOf('auto'), 1);
+                }
                 s.writeConfig('shownItems', shownItems);
                 s.reloadConfig();  
             } 
@@ -2209,7 +2213,6 @@ def systray_icon_show():
     }
     '''
     run = subprocess.Popen(['qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "' + Script + '" '],shell=True)
-
 
 if __name__ == '__main__':
     main()
