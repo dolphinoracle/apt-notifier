@@ -1,3 +1,9 @@
+apt-notifier (20.08.06mx19~1) mx; urgency=medium
+
+  * fix to stop plasma writing zero-terminated systray config entries
+
+ -- fehlix <fehlix@mxlinux.org>  Thu, 06 Aug 2020 16:05:01 +0200
+
 apt-notifier (20.07.06mx19~12) mx; urgency=medium
 
   * restart systray icon after upgrading apt-notifier
