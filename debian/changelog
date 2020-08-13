@@ -1,3 +1,10 @@
+apt-notifier (20.08.06mx19~2) mx; urgency=medium
+
+  * adjust about-popup to close properly
+  * change cancel button to close-button
+
+ -- fehlix <fehlix@mxlinux.org>  Thu, 12 Aug 2020 14:39:02 +0200
+
 apt-notifier (20.08.06mx19~1) mx; urgency=medium
 
   * fix to stop plasma writing zero-terminated systray config entries
