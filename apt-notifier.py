@@ -1901,49 +1901,101 @@ def displayAbout():
     Changelog                                   = unicode (_("Changelog")                                               ,'utf-8')
     License                                     = unicode (_("License")                                                 ,'utf-8')
     Cancel                                      = unicode (_("Cancel")                                                  ,'utf-8')
+    Close                                       = unicode (_("Close")                                                  ,'utf-8')
     Description                                 = unicode (_("Tray applet to notify of system and application updates") ,'utf-8')
 
     # Using an embedded script to display the 'About' dialog text, because when run within the main python
     # script, closing the dialog window was also causing the main python script (apt-notifier.py) to quit.
-    script = """#!/usr/bin/python
+    script = """#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import sys
 import subprocess
 import gettext
+import locale
 from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtWidgets import QApplication, QPushButton, QMessageBox
 from PyQt5.QtGui import QIcon
 from string import Template
+#----------------------------------------------------
+# not used
+#gettext.bindtextdomain('apt-notifier', '/usr/share/locale')
+#gettext.textdomain('apt-notifier')
+#_ = gettext.gettext
+#gettext.install('apt-notifier')
+#----------------------------------------------------
+#class gettextFallback(gettext.NullTranslations):
+#    def gettext(self, msg):
+#        if msg == "Close":
+#            msg = _("Cancel")
+#        return msg
 
-gettext.bindtextdomain('apt-notifier', '/usr/share/locale')
-gettext.textdomain('apt-notifier')
-_ = gettext.gettext
-gettext.install('apt-notifier')
+class gettextFallback(gettext.NullTranslations):
+    def gettext(self, msg):
+        if msg == "Close":
+            if  gettext.find("gtk30", "/usr/share/locale" ) is not None:
+                msg = gettext.translation("gtk30", "/usr/share/locale").gettext(msg)
+            elif gettext.find("okular", "/usr/share/locale" ) is not None:
+                msg = gettext.translation('okular', '/usr/share/locale').gettext(msg)
+        return msg
 
-def About():
+
+class gettextTranslations(gettext.GNUTranslations, object):
+    def __init__(self, *args, **kwargs):
+        super(gettextTranslations, self).__init__(*args, **kwargs)
+        self.add_fallback(gettextFallback())
+
+locale, _data = locale.getdefaultlocale()
+
+tr = gettext.translation(
+    "apt-notifier",
+    "/usr/share/locale",
+    [locale],
+    class_=gettextTranslations,
+    fallback=True
+)
+
+tr.install()
+_ = tr.gettext
+
+#----------------------------------------------------
+
+
+def About(aboutBox):
     me      = _('MX Updater')
     about   = _('Tray applet to notify of system and application updates')
     version = subprocess.check_output(["dpkg-query -f '${Version}' -W apt-notifier" ], shell=True).decode('utf-8')
 
     aboutText= '''
     <p align=center><b><h2>$me</h2></b></p>
-    <p align=center>Version:$version</p>
+    <p align=center>Version: $version</p>
     <p align=center><h3>$about</h3></p>
     <p align=center><a href=http://mxlinux.org>http://mxlinux.org</a>
     <br></p><p align=center>Copyright (c) MX Linux<br /><br/></p>
      '''
     aboutText=Template(aboutText).substitute(about=about, me=me, version=version)
-    aboutBox = QMessageBox()
+    #aboutBox = QMessageBox()
     aboutBox.setWindowTitle(_('About MX Updater'))
     aboutBox.setWindowIcon(QtGui.QIcon('/usr/share/icons/hicolor/scalable/mx-updater.svg'))
     aboutBox.setText(aboutText)
-    aboutBox.addButton( (_('Cancel')), QMessageBox.YesRole)
-    aboutBox.addButton( (_('License')), QMessageBox.NoRole)
-    aboutBox.addButton( (_('Changelog')), QMessageBox.NoRole)
+    changelogButton = aboutBox.addButton( (_('Changelog')), QMessageBox.ActionRole)
+    licenseButton   = aboutBox.addButton( (_('License'))  , QMessageBox.ActionRole)
+    closeButton     = aboutBox.addButton( (_('Close'))    , QMessageBox.RejectRole)
+    aboutBox.setDefaultButton(closeButton)
+    aboutBox.setEscapeButton(closeButton)
+    
     reply = aboutBox.exec_()
-    if reply == 1:
-        p=subprocess.call(["/usr/bin/mx-viewer", "/usr/share/doc/apt-notifier/license.html", "MX Apt-notifier license"])
-    if reply == 2:
+
+    if aboutBox.clickedButton() == closeButton:
+        sys.exit(reply)
+
+    if aboutBox.clickedButton() == licenseButton:
+        p=subprocess.run(["/usr/bin/mx-viewer", 
+                           "/usr/share/doc/apt-notifier/license.html", 
+                           "MX Apt-notifier license"], 
+                           stdin=None, stdout=None, stderr=None)
+        sys.exit(reply)
+
+    if aboutBox.clickedButton() == changelogButton:
         command_string = '''
             windowIcon=mx-updater; 
             read width height < <(xdotool getdisplaygeometry); 
@@ -1965,17 +2017,24 @@ def About():
         command = " ".join(command_string.split())
         command = "bash -c '%s'" % command
         p=subprocess.call([command], shell=True)
-main = QApplication(sys.argv)
-About()
+        sys.exit(reply)
+
+def main():
+    app = QApplication(sys.argv)
+    aboutBox = QMessageBox()
+    About(aboutBox)
+    aboutBox.show()
+    sys.exit(app.exec_())
+
 if __name__ == '__main__':
     main()
 """
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
     script_file.flush()
-    run = subprocess.Popen(["echo -n `python3 %s 2>/dev/null`" % script_file.name],shell=True, stdout=subprocess.PIPE)
-    run.stdout.read(128)
+    run = subprocess.Popen(["python3 %s 2>/dev/null >/dev/null" % script_file.name],shell=True).wait()
     script_file.close()
+    
     
 def view_unattended_upgrades_logs():
     # ~~~ Localize 6 ~~~
