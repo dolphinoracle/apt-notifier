@@ -1,3 +1,9 @@
+apt-notifier (20.08.06mx19~3) mx; urgency=medium
+
+  * adjust to avoid apt-notifier zombie in process table 
+
+ -- fehlix <fehlix@mxlinux.org>  Sat, 22 Aug 2020 22:21:28 +0200
+
 apt-notifier (20.08.06mx19~2) mx; urgency=medium
 
   * adjust about-popup to close properly
