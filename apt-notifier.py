@@ -324,7 +324,7 @@ def start_package_manager():
     if  running_in_plasma:
         systray_icon_hide()
         #run = subprocess.Popen([ "bash -c '%s; ionice -c3 nice -n19 python -m pdb /usr/bin/apt-notifier.py < <(sleep .250; echo c)& disown -h;'" % package_manager_exec ],shell=True)
-        run = subprocess.Popen([ "bash -c '%s; ionice -c3 nice -n19 python -m pdb /usr/bin/apt-notifier.py < <(sleep .250; echo c)& disown -h;'" % package_manager_exec ],shell=True)
+        run = subprocess.Popen([ "bash -c '%s; ionice -c3 nice -n19 /usr/bin/python /usr/bin/apt-notifier.py & disown -h;'" % package_manager_exec ],shell=True)
         AptIcon.hide()
         sleep(1);
         sys.exit(0)
