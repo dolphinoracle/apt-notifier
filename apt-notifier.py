@@ -594,7 +594,7 @@ Disabled
         8)
         BP="0"
         #chmod +x $TMP/upgradeScript
-        #RunAptScriptInTerminal "/usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload" "" "$reload" "$TMP/upgradeScript"
+        #RunAptScriptInTerminal "/usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload.sh" "" "$reload" "$TMP/upgradeScript"
         #I="mnotify-some-$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
         #if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
         #  then
@@ -604,7 +604,7 @@ Disabled
         #    fi
         #fi
         I="mx-updater"
-        /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload \
+        /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload.sh \
         " --title=""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" Updater: $reload" \
         " --icon=$I" \
         #"$PressAnyKey"
@@ -1601,7 +1601,7 @@ def apt_get_update():
     #fi 
     I="mx-updater"   
     T=" --title=""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" Updater: $reload"
-    /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload "$T" "$I"
+    /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload.sh "$T" "$I"
     '''
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
