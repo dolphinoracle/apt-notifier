@@ -29,9 +29,11 @@ G="--geometry=$(($TW/$CW))x$(($TH/$CH))+$TX+$TY"
 
 SLEEP=6 # sleep
 
-C='bash -c "echo apt-get update; sleep 1;'" $XDO;"' mx-updater_reload; sleep '"$SLEEP"'; echo; read -n1 -sr -p'"'$P'"';"'
+#C='bash -c "echo apt-get update; sleep 1;'" $XDO;"' mx-updater_reload; sleep '"$SLEEP"'; echo; read -n1 -sr -p'"'$P'"';"'
+C='bash -c "echo apt-get update; sleep 1;'" $XDO;"' /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload; sleep '"$SLEEP"'; echo; read -n1 -sr -p'"'$P'"';"'
 
-K='bash -c "echo apt-get update; sleep 1; mx-updater_reload; sleep '"$SLEEP"'; echo; read -n1 -sr -p'"'$P'"';"'
+#K='bash -c "echo apt-get update; sleep 1; mx-updater_reload; sleep '"$SLEEP"'; echo; read -n1 -sr -p'"'$P'"';"'
+K='bash -c "echo apt-get update; sleep 1; /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload; sleep '"$SLEEP"'; echo; read -n1 -sr -p'"'$P'"';"'
 
 # default to /usr/bin/xfce4-terminal
 

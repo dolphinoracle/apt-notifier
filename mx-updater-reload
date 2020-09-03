@@ -43,9 +43,10 @@ if [ "$EUID" = "0" ]; then
     fi
     #eval set "$@"
     #RUN="$1"
-    RUN="/usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload.sh"
+    #RUN="/usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload.sh"
+    RUN="/usr/local/bin/mx-updater_reload"
     #shift
-    echo Starting  "$RUN" "${@}"
+    #echo Starting  "$RUN" "${@}"
     command -v "$RUN" >/dev/null || { echo "mx-updater-reload: Command '$RUN' not found"; exit 1; }
     export NO_AT_BRIDGE=1
     exec "$RUN" "${@}"
