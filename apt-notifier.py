@@ -227,8 +227,8 @@ def check_updates():
     eval $(apt-config shell Unattended_Upgrade APT::Periodic::Unattended-Upgrade)
     if [ $Unattended_Upgrade != 0 ]
         then
-            Upgrade="$(    LC_ALL=en_US apt-get -o Debug::NoLocking=true --trivial-only -V      upgrade 2>/dev/null)"
-            DistUpgrade="$(LC_ALL=en_US apt-get -o Debug::NoLocking=true --trivial-only -V dist-upgrade 2>/dev/null)"
+            Upgrade="$(    LC_ALL=C apt-get -o Debug::NoLocking=true --trivial-only -V      upgrade 2>/dev/null)"
+            DistUpgrade="$(LC_ALL=C apt-get -o Debug::NoLocking=true --trivial-only -V dist-upgrade 2>/dev/null)"
             if [ "$Upgrade" = "$DistUpgrade" ]
                then
                    echo 0
@@ -240,7 +240,7 @@ def check_updates():
     
     if [ -z "$Updates" ]
         then
-            Updates="$(LC_ALL=en_US apt-get -o Debug::NoLocking=true --trivial-only -V $(grep ^UpgradeType ~/.config/apt-notifierrc | cut -f2 -d=) 2>/dev/null)"
+            Updates="$(LC_ALL=C apt-get -o Debug::NoLocking=true --trivial-only -V $(grep ^UpgradeType ~/.config/apt-notifierrc | cut -f2 -d=) 2>/dev/null)"
     fi
     
     #Suppress the 'updates available' notification if all of the updates are from a backports repo (jessie-backports, stretch-backports, etc.)
@@ -250,15 +250,21 @@ def check_updates():
             exit
     fi
 
-    echo $(( $( grep ' => ' <<<"$Updates" | awk '{print $1}' | wc -l) 
-           - $( ( grep ' => ' <<<"$Updates" | awk '{print $1}'; 
-                  which synaptic-pkexec > /dev/null && \
-                  sed -n 's/Package: //p' /var/lib/synaptic/preferences 2>/dev/null
-                ) | \
-                sort | uniq -d | wc -l
-              ) 
-          ))
-    '''
+    Updates=$(awk '/ => /{print $1}' <<<"$Updates")
+
+    HoldBack=$(apt-mark showhold; awk '/Package:/{print $2}' /var/lib/synaptic/preferences 2>/dev/null)
+
+    comm -23 <(echo "$Updates" | sort -u) <(sort -u <<<$HoldBack) | wc -l
+
+    #echo $(( $( grep ' => ' <<<"$Updates" | awk '{print $1}' | wc -l) 
+    #       - $( ( grep ' => ' <<<"$Updates" | awk '{print $1}'; 
+    #              which synaptic-pkexec > /dev/null && \
+    #              sed -n 's/Package: //p' /var/lib/synaptic/preferences 2>/dev/null
+    #            ) | \
+    #            sort | uniq -d | wc -l
+    #          ) 
+    #      ))
+     '''
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
     script_file.flush()
