@@ -1,3 +1,9 @@
+apt-notifier (20.09.04mx19+2) mx; urgency=medium
+
+  * consider withheld packages in the number of available updates.
+
+ -- fehlix <fehlix@mxlinux.org>  Fri, 04 Sep 2020 15:32:07 +0200
+
 apt-notifier (20.09.04mx19+1) mx; urgency=medium
 
   * fix bug 311 - root access vulnerability 
