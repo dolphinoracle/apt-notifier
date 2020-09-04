@@ -1,3 +1,9 @@
+apt-notifier (20.09.04mx19+1) mx; urgency=medium
+
+  * fix bug 311 - root access vulnerability 
+
+ -- fehlix <fehlix@mxlinux.org>  Fri, 04 Sep 2020 00:29:03 +0200
+
 apt-notifier (20.08.06mx19~3) mx; urgency=medium
 
   * adjust to avoid apt-notifier zombie in process table 
