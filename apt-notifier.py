@@ -219,42 +219,82 @@ def check_updates():
 
     #Create an inline script (what used to be /usr/bin/apt-notifier-check-Updates) and then run it to get the number of updates.
     script = '''#!/bin/bash
-    
-    Updates=""
+
+    # prepare pinned package handling
+    AptPref_Opts=""
+    AptPreferences=""
+    PinnedPreferences=""
+    [ "${PATH%%/sbin*}" = "$PATH" ] && PATH="$PATH:/sbin:/usr/sbin"
+    if grep -sq "^Package" /var/lib/synaptic/preferences && which synaptic >/dev/null; then 
+       PinnedPreferences=/var/lib/synaptic/preferences
+    fi
+    if [ -n "$PinnedPreferences" ] && [ -r "$PinnedPreferences" ]; then
+	    eval $(apt-config shell AptPreferences Dir::Etc::preferences)
+	    [ -n "${AptPreferences%%/*}" ] &&  AptPreferences=/etc/apt/${AptPreferences}
+	    if [ ! -f ${AptPreferences} ]; then
+	       AptPref_Opts=" -o Dir::Etc::preferences=${PinnedPreferences}"
+	    else
+	       tmp_apt_pref=$(mktemp -t apt_tmp_preferences.XXXXXXXXXXXX)
+	       chmod 644 $tmp_apt_pref
+	       trap "rm -f $tmp_apt_pref" EXIT
+	       cat ${AptPreferences} >> $tmp_apt_pref
+	       echo "" >> $tmp_apt_pref
+	       cat $PinnedPreferences >> $tmp_apt_pref
+	       AptPref_Opts=" -o Dir::Etc::preferences=${tmp_apt_pref}"
+	    fi
+    fi
+        
+    # UpgradeType:  dist-upgrade or upgrade
+    UpgradeCounts=""
+    DistUpgradeCounts=""
+    UpgradeType=$(grep ^UpgradeType ~/.config/apt-notifierrc | cut -f2 -d=)
+    case $UpgradeType in
+         upgrade) UpgradeCounts=$(LANG=C apt-get -s $AptPref_Opts upgrade | grep -c '^Inst ')
+               ;;
+               *) DistUpgradeCounts=$(LANG=C apt-get -s $AptPref_Opts dist-upgrade | grep -c '^Inst ')
+               ;;
+    esac
     
     #Suppress 'updates available' notification if Unattended-Upgrades are enabled (>=1) AND apt-get upgrade & dist-upgrade output are the same    
     Unattended_Upgrade=0
     eval $(apt-config shell Unattended_Upgrade APT::Periodic::Unattended-Upgrade)
-    if [ $Unattended_Upgrade != 0 ]
-        then
-            Upgrade="$(    LC_ALL=C apt-get -o Debug::NoLocking=true --trivial-only -V      upgrade 2>/dev/null)"
-            DistUpgrade="$(LC_ALL=C apt-get -o Debug::NoLocking=true --trivial-only -V dist-upgrade 2>/dev/null)"
-            if [ "$Upgrade" = "$DistUpgrade" ]
-               then
-                   echo 0
-                   exit
-               else
-                   Updates="$DistUpgrade"
-            fi
+    if [ $Unattended_Upgrade != 0 ]; then
+        if [ -z "$UpgradeCounts" ]; then
+           UpgradeCounts=$(LANG=C apt-get -s $AptPref_Opts upgrade | grep -c '^Inst ')
+        fi
+        if [ -z "$DistUpgradeCounts" ]; then
+           DistUpgradeCounts=$( LANG=C apt-get -s $AptPref_Opts dist-upgrade | grep -c '^Inst ')
+        fi
+		if [ "$UpgradeCounts" = "$DistUpgradeCounts" ]; then
+			 echo 0
+			 exit
+		fi
     fi
     
-    if [ -z "$Updates" ]
-        then
-            Updates="$(LC_ALL=C apt-get -o Debug::NoLocking=true --trivial-only -V $(grep ^UpgradeType ~/.config/apt-notifierrc | cut -f2 -d=) 2>/dev/null)"
-    fi
-    
+    case $UpgradeType in
+         upgrade) echo $UpgradeCounts
+               ;;
+               *) echo $DistUpgradeCounts
+               ;;
+    esac
+
+    exit
+     
+    # commented out to enable backports-upgrade: B/c backports do  have 
+    # NotAutomatic=yes and ButAutomaticaUpgrades=yes
+    #
     #Suppress the 'updates available' notification if all of the updates are from a backports repo (jessie-backports, stretch-backports, etc.)
-    if [ "$(grep " => " <<<"$Updates" | wc -l)" = "$(grep " => " <<<"$Updates" | grep -E ~bpo[0-9]+[+][0-9]+[\)]$ | wc -l)" ]
-        then
-            echo 0
-            exit
-    fi
+    #if [ "$(grep " => " <<<"$Updates" | wc -l)" = "$(grep " => " <<<"$Updates" | grep -E ~bpo[0-9]+[+][0-9]+[\)]$ | wc -l)" ]
+    #    then
+    #        echo 0
+    #        exit
+    #fi
 
-    Updates=$(awk '/ => /{print $1}' <<<"$Updates")
+    #Updates=$(awk '/ => /{print $1}' <<<"$Updates")
 
-    HoldBack=$(apt-mark showhold; awk '/Package:/{print $2}' /var/lib/synaptic/preferences 2>/dev/null)
+    #HoldBack=$(apt-mark showhold; awk '/Package:/{print $2}' /var/lib/synaptic/preferences 2>/dev/null)
 
-    comm -23 <(echo "$Updates" | sort -u) <(sort -u <<<$HoldBack) | wc -l
+    #comm -23 <(echo "$Updates" | sort -u) <(sort -u <<<$HoldBack) | wc -l
 
     #echo $(( $( grep ' => ' <<<"$Updates" | awk '{print $1}' | wc -l) 
     #       - $( ( grep ' => ' <<<"$Updates" | awk '{print $1}'; 
