@@ -1,3 +1,15 @@
+apt-notifier (20.11.01mx19+1) mx; urgency=medium
+
+  * adjust wireframe icon size
+
+ -- fehlix <fehlix@mxlinux.org>  Mon, 02 Nov 2020 10:11:54 -0400
+
+apt-notifier (20.10.01mx19+1) mx; urgency=medium
+
+  * adjust hold-back package handling
+
+ -- fehlix <fehlix@mxlinux.org>  Wed, 21 Oct 2020 17:53:48 -0400
+
 apt-notifier (20.09.04mx19+2) mx; urgency=medium
 
   * consider withheld packages in the number of available updates.
