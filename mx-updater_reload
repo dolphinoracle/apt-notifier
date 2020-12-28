@@ -4,18 +4,42 @@ apt-get update
 
 echo
 
-#If packages pinned with Synaptic (result 0), filter pinned upgradeables out with grep -v before getting count,
-#otherwise (result 1 or 2) get a count of all upgradeables. 
+# prepare pinned package handling
+AptPref_Opts=""
+AptPreferences=""
+PinnedPreferences=""
+[ "${PATH%%/sbin*}" = "$PATH" ] && PATH="$PATH:/sbin:/usr/sbin"
+if grep -sq "^Package" /var/lib/synaptic/preferences && which synaptic >/dev/null; then
+   PinnedPreferences=/var/lib/synaptic/preferences
+fi
+if [ -n "$PinnedPreferences" ] && [ -r "$PinnedPreferences" ]; then
+	eval $(apt-config shell AptPreferences Dir::Etc::preferences)
+	[ -n "${AptPreferences%%/*}" ] &&  AptPreferences=/etc/apt/${AptPreferences}
+	if [ ! -e ${AptPreferences} ]; then
+	   AptPref_Opts=" -o Dir::Etc::preferences=${PinnedPreferences}"
+	else
+	   tmp_apt_pref=$(mktemp -t apt_tmp_preferences.XXXXXXXXXXXX)
+	   chmod 644 $tmp_apt_pref
+	   trap "rm -f $tmp_apt_pref" EXIT
+	   cat ${AptPreferences} >> $tmp_apt_pref
+	   echo "" >> $tmp_apt_pref
+	   cat $PinnedPreferences >> $tmp_apt_pref
+	   AptPref_Opts=" -o Dir::Etc::preferences=${tmp_apt_pref}"
+	fi
+fi
 
-# get all updates
-Updates=$(LANG=C apt list --upgradable 2>/dev/null | grep -v ^Listing | grep ']$' | awk -F/ '{print $1}')
+# UpgradeType:  dist-upgrade or upgrade
+UpgradeCounts=""
+DistUpgradeCounts=""
+UpgradeType=$(grep -m1 ^UpgradeType /home/"$(logname)"/.config/apt-notifierrc 2>/dev/null | cut -f2 -d= )
 
-# get packages hold
-HoldBack=$( (apt-mark showhold; sed -n 's/Package: //p' /var/lib/synaptic/preferences 2>/dev/null)  )
+case $UpgradeType in
+	 upgrade) Count=$(LANG=C apt-get -s $AptPref_Opts upgrade | grep -c '^Inst ')
+		   ;;
+		   *) Count=$(LANG=C apt-get -s $AptPref_Opts dist-upgrade | grep -c '^Inst ')
+		   ;;
+esac
 
-# get number of updates available
-
-Count=$(comm -23 <(echo "$Updates" | sort -u) <(sort -u <<<$HoldBack) | wc -l)
 
 case $Count in
   0)  UpdatesMsg=$(/usr/bin/gettext -d apt-notifier "0 updates available")
