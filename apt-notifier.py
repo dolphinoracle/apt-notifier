@@ -1,32 +1,46 @@
-#!/usr/bin/python
+#! /usr/bin/python3
 # -*- coding: utf-8 -*-
 import subprocess
 import sys
 import os
+import dbus
 import tempfile
 from os import environ
+import notify2
 
 from PyQt5 import QtWidgets, QtGui
 from PyQt5 import QtCore
 
-from distutils import spawn 
+from distutils import spawn
 from time import sleep
 
-global version_at_start
-version_at_start = subprocess.check_output(["dpkg-query -f '${Version}' -W apt-notifier" ], shell=True)
-#.decode('utf-8')
+
+# check version_at_start
+cmd = "dpkg-query -f ${Version} -W apt-notifier"
+version_at_start = subprocess.run(cmd.split(), capture_output=True, universal_newlines=True).stdout.strip()
+
+rc_file_name = environ.get('HOME') + '/.config/apt-notifierrc'
+message_status = "not displayed"
+
+notify2.init("MX Updater")
+
+def fix_fluxbox_startup():
+    cmd  = "[ -f  ~/.fluxbox/startup ]"
+    cmd += " && sed -i -r -e '\![[:space:]]*(/usr/bin/)?python[23]?[[:space:]]+(/usr/bin/)?apt-notifier.py.*!s![[:space:]]*(/usr/bin/)?python[23]?[[:space:]]+! !' ~/.fluxbox/startup;"
+    run = subprocess.run(cmd, shell=True, executable="/bin/bash")
+
 
 def package_manager():
     global package_manager
     global package_manager_name
     global package_manager_exec
-    
+
     if spawn.find_executable("synaptic-pkexec"):
         package_manager = "synaptic"
         package_manager_exec = "synaptic-pkexec"
         package_manager_name = "Synaptic"
 
-        
+
     elif spawn.find_executable("muon"):
         package_manager = "muon"
         package_manager_name = "Muon"
@@ -41,12 +55,9 @@ def package_manager():
     else:
         package_manager = None
         sys.exit("Error: No package manager found! Synaptic or Muon are required.")
-    
+
 
 package_manager()
-
-rc_file_name = environ.get('HOME') + '/.config/apt-notifierrc'
-message_status = "not displayed"
 
 # ~~~ Localize 0 ~~~
 
@@ -57,7 +68,7 @@ gettext.textdomain('apt-notifier')
 _ = gettext.gettext
 gettext.install('apt-notifier.py')
 
-from string import Template	# for simple string substitution (popup_msg...)
+from string import Template # for simple string substitution (popup_msg...)
 
 
 def set_translations():
@@ -73,7 +84,7 @@ def set_translations():
     global Quit_Apt_Notifier
     global Apt_Notifier_Help
     global Package_Manager_Help
-    global Apt_Notifier_Preferences    
+    global Apt_Notifier_Preferences
     global Apt_History
     global View_Auto_Updates_Logs
     global View_Auto_Updates_Dpkg_Logs
@@ -89,84 +100,86 @@ def set_translations():
     WatchedFilesAndDirsHashNow = ''
     global WatchedFilesAndDirsHashPrevious
     WatchedFilesAndDirsHashPrevious = ''
-    global text
-    text = ''
+    global AvailableUpdates
+    AvailableUpdates = ''
     global MX_Package_Installer
 
     # ~~~ Localize 1 ~~~
 
-    tooltip_0_updates_available                 = unicode (_("0 updates available")                    ,'utf-8')
-    tooltip_1_new_update_available              = unicode (_("1 new update available")                 ,'utf-8')
-    tooltip_multiple_new_updates_available      = unicode (_("$count new updates available")           ,'utf-8')
-    popup_title                                 = unicode (_("Updates")                                ,'utf-8')
-    popup_msg_1_new_update_available            = unicode (_("You have 1 new update available")        ,'utf-8')
-    popup_msg_multiple_new_updates_available    = unicode (_("You have $count new updates available")  ,'utf-8')
-    Upgrade_using_package_manager               = unicode (_("Upgrade using Synaptic")                 ,'utf-8')
+    tooltip_0_updates_available                 = str (_("0 updates available")                    )
+    tooltip_0_updates_available                 = str (_("No updates available")                   )
+    tooltip_1_new_update_available              = str (_("1 new update available")                 )
+    tooltip_multiple_new_updates_available      = str (_("$count new updates available")           )
+    popup_title                                 = str (_("Updates")                                )
+    popup_msg_1_new_update_available            = str (_("You have 1 new update available")        )
+    popup_msg_multiple_new_updates_available    = str (_("You have $count new updates available")  )
+    Upgrade_using_package_manager               = str (_("Upgrade using Synaptic")                 )
     Upgrade_using_package_manager = Upgrade_using_package_manager.replace('Synaptic', package_manager_name)
-    
-    View_and_Upgrade                            = unicode (_("View and Upgrade")                       ,'utf-8')         
-    Hide_until_updates_available                = unicode (_("Hide until updates available")           ,'utf-8')
-    Quit_Apt_Notifier                           = unicode (_("Quit")                                   ,'utf-8')
-    Apt_Notifier_Help                           = unicode (_("MX Updater Help")                        ,'utf-8')
-    Package_Manager_Help                        = unicode (_("Synaptic Help")                          ,'utf-8')
+
+    View_and_Upgrade                            = str (_("View and Upgrade")                       )
+    Hide_until_updates_available                = str (_("Hide until updates available")           )
+    Quit_Apt_Notifier                           = str (_("Quit")                                   )
+    Apt_Notifier_Help                           = str (_("MX Updater Help")                        )
+    Package_Manager_Help                        = str (_("Synaptic Help")                          )
     Package_Manager_Help = Package_Manager_Help.replace("Synaptic", package_manager_name)
-    
-    Apt_Notifier_Preferences                    = unicode (_("Preferences")                            ,'utf-8')
-    Apt_History                                 = unicode (_("History")                                ,'utf-8')
-    View_Auto_Updates_Logs                      = unicode (_("Auto-update log(s)")                     ,'utf-8') 
-    View_Auto_Updates_Dpkg_Logs                 = unicode (_("Auto-update dpkg log(s)")                ,'utf-8') 
-    Check_for_Updates                           = unicode (_("Check for Updates")                      ,'utf-8')
-    About                                       = unicode (_("About")                                  ,'utf-8')
-    MX_Package_Installer                        = unicode (_("MX Package Installer")                   ,'utf-8')
-  
+
+    Apt_Notifier_Preferences                    = str (_("Preferences")                            )
+    Apt_History                                 = str (_("History")                                )
+    View_Auto_Updates_Logs                      = str (_("Auto-update log(s)")                     )
+    View_Auto_Updates_Dpkg_Logs                 = str (_("Auto-update dpkg log(s)")                )
+    Check_for_Updates                           = str (_("Check for Updates")                      )
+    About                                       = str (_("About")                                  )
+    MX_Package_Installer                        = str (_("MX Package Installer")                   )
+
 
 # Check for updates, using subprocess.Popen
 def check_updates():
     global message_status
-    global text
+    global AvailableUpdates
     global WatchedFilesAndDirsHashNow
     global WatchedFilesAndDirsHashPrevious
     global Check_for_Updates_by_User
     global Force_Check_Counter
-    
+
     """
     Don't bother checking for updates when /var/lib/apt/periodic/update-stamp
     isn't present. This should only happen in a Live session before the repository
     lists have been loaded for the first time.
-    """ 
-    command_string = "bash -c '[ ! -e /var/lib/apt/periodic/update-stamp ] && [ ! -e /var/lib/apt/lists/lock ]'"
-    exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
-    if exit_state == 0:
-        if text == '':
-            text = '0'
+    """
+    cmd = "[ ! -e /var/lib/apt/periodic/update-stamp ] && [ ! -e /var/lib/apt/lists/lock ]"
+    run = subprocess.run(cmd, shell=True)
+    if run.returncode == 0:
+        if AvailableUpdates == '':
+            AvailableUpdates = '0'
         message_status = "not displayed"  # Resets flag once there are no more updates
         add_hide_action()
         if icon_config != "show":
             AptIcon.hide()
         else:
             AptIcon.setIcon(NoUpdatesIcon)
-            command_string = "( [ -z $(apt-config shell U APT::Periodic::Unattended-Upgrade) ] )"
-            exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
-            if exit_state == 0:
-                AptIcon.setToolTip(tooltip_0_updates_available)
+            cmd = 'U=0; eval $(apt-config shell U APT::Periodic::Unattended-Upgrade); [ "${U}" != "0" ]'
+            run = subprocess.run(cmd, shell=True)
+            if run.returncode == 0:
+                AptIcon.setToolTip("")
             else:
-                command_string = "( [ $(apt-config shell U APT::Periodic::Unattended-Upgrade | cut -c4) != 0 ] )"
-                exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
-                if exit_state == 0:
-                    AptIcon.setToolTip("")
-                else:
-                    AptIcon.setToolTip(tooltip_0_updates_available)
+                AptIcon.setToolTip(tooltip_0_updates_available)
         return
-    
+
     """
     Don't bother checking for updates if processes for other package management tools
     appear to be runninng. For unattended-upgrade, use '/usr/bin/unattended-upgrade'
     to avoid getting a hit on /usr/share/unattended-upgrades/unattended-upgrade-shutdown
     which appears to be started automatically when using systemd as init.
-    """ 
-    command_string = "bash -c 'sudo lsof /var/lib/dpkg/lock /var/lib/dpkg/lock-frontend /var/lib/apt/lists/lock /var/cache/apt/archives/lock 2>/dev/null | tail -1 | grep lock$\|lock-frontend$ -Eq'"
-    exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
-    if exit_state == 0:
+    """
+    cmd = "sudo lsof "
+    cmd+= "/var/lib/dpkg/lock "
+    cmd+= "/var/lib/dpkg/lock-frontend "
+    cmd+= "/var/lib/apt/lists/lock "
+    cmd+= "/var/cache/apt/archives/lock "
+    cmd+= "2>/dev/null "
+    cmd+= "| grep -qE 'lock$|lock-frontend$'"
+    ret = subprocess.run(cmd, shell=True).returncode
+    if ret == 0:
         Force_Check_Counter = 5
         return
 
@@ -174,50 +187,46 @@ def check_updates():
     Get a hash of files and directories we are watching
     """
     script = '''#!/bin/bash
-    WatchedFilesAndDirs="$WatchedFilesAndDirs""/etc/apt/apt.conf* "
-    WatchedFilesAndDirs="$WatchedFilesAndDirs""/etc/apt/preferences* "
-    WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/lib/apt* "
-    WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/lib/apt/lists "
-    WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/lib/apt/lists/partial "
-    WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/lib/dpkg "
-
-    if which synaptic-pkexec > /dev/null; then
-       WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/lib/synaptic/preferences "
-    fi
-    
-    WatchedFilesAndDirs="$WatchedFilesAndDirs""/var/cache/apt "
-    stat -c %Y,%Z $WatchedFilesAndDirs 2>/dev/null | md5sum
+    WatchedFilesAndDirs=(
+    /etc/apt/apt.conf*
+    /etc/apt/preferences*
+    /var/lib/apt*
+    /var/lib/apt/lists
+    /var/lib/apt/lists/partial
+    /var/lib/dpkg
+    /var/cache/apt
+    /var/lib/synaptic/preferences
+    )
+    stat -c %Y,%Z ${WatchedFilesAndDirs[*]} 2>/dev/null | md5sum
     '''
-    script_file = tempfile.NamedTemporaryFile('wt')
-    script_file.write(script)
-    script_file.flush()
-    run = subprocess.Popen(["echo -n `bash %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
-    WatchedFilesAndDirsHashNow = run.stdout.read(128)
-    script_file.close()
+    cmd = script
+    run = subprocess.run(cmd, capture_output=True, shell=True, text=True, executable="/bin/bash")
+    WatchedFilesAndDirsHashNow = run.stdout.strip()
 
     """
     If
         no changes in hash of files and directories being watched since last checked
             AND
-        the call to check_updates wasn't initiated by user   
+        the call to check_updates wasn't initiated by user
     then don't bother checking for updates.
     """
-    if WatchedFilesAndDirsHashNow == WatchedFilesAndDirsHashPrevious:    
+    if WatchedFilesAndDirsHashNow == WatchedFilesAndDirsHashPrevious:
         if Check_for_Updates_by_User == 'false':
             if Force_Check_Counter < 5:
-                Force_Check_Counter = Force_Check_Counter + 1            
-                if text == '':
-                    text = '0'
+                Force_Check_Counter = Force_Check_Counter + 1
+                if AvailableUpdates == '':
+                    AvailableUpdates = '0'
                 return
 
     WatchedFilesAndDirsHashPrevious = WatchedFilesAndDirsHashNow
     WatchedFilesAndDirsHashNow = ''
-    
+
     Force_Check_Counter = 1
-    
+
     Check_for_Updates_by_User = 'false'
 
-    #Create an inline script (what used to be /usr/bin/apt-notifier-check-Updates) and then run it to get the number of updates.
+    #Create an inline script (what used to be /usr/bin/apt-notifier-check-Updates)
+    #and then run it to get the number of updates.
     script = '''#!/bin/bash
 
     # prepare pinned package handling
@@ -225,37 +234,37 @@ def check_updates():
     AptPreferences=""
     PinnedPreferences=""
     [ "${PATH%%/sbin*}" = "$PATH" ] && PATH="$PATH:/sbin:/usr/sbin"
-    if grep -sq "^Package" /var/lib/synaptic/preferences && which synaptic >/dev/null; then 
+    if grep -sq "^Package" /var/lib/synaptic/preferences && which synaptic >/dev/null; then
        PinnedPreferences=/var/lib/synaptic/preferences
     fi
     if [ -n "$PinnedPreferences" ] && [ -r "$PinnedPreferences" ]; then
-	    eval $(apt-config shell AptPreferences Dir::Etc::preferences)
-	    [ -n "${AptPreferences%%/*}" ] &&  AptPreferences=/etc/apt/${AptPreferences}
-	    if [ ! -f ${AptPreferences} ]; then
-	       AptPref_Opts=" -o Dir::Etc::preferences=${PinnedPreferences}"
-	    else
-	       tmp_apt_pref=$(mktemp -t apt_tmp_preferences.XXXXXXXXXXXX)
-	       chmod 644 $tmp_apt_pref
-	       trap "rm -f $tmp_apt_pref" EXIT
-	       cat ${AptPreferences} >> $tmp_apt_pref
-	       echo "" >> $tmp_apt_pref
-	       cat $PinnedPreferences >> $tmp_apt_pref
-	       AptPref_Opts=" -o Dir::Etc::preferences=${tmp_apt_pref}"
-	    fi
+        eval $(apt-config shell AptPreferences Dir::Etc::preferences)
+        [ -n "${AptPreferences%%/*}" ] &&  AptPreferences=/etc/apt/${AptPreferences}
+        if [ ! -f ${AptPreferences} ]; then
+           AptPref_Opts=" -o Dir::Etc::preferences=${PinnedPreferences}"
+        else
+           tmp_apt_pref=$(mktemp -t apt_tmp_preferences.XXXXXXXXXXXX)
+           chmod 644 $tmp_apt_pref
+           trap "rm -f $tmp_apt_pref" EXIT
+           cat ${AptPreferences} >> $tmp_apt_pref
+           echo "" >> $tmp_apt_pref
+           cat $PinnedPreferences >> $tmp_apt_pref
+           AptPref_Opts=" -o Dir::Etc::preferences=${tmp_apt_pref}"
+        fi
     fi
-        
+
     # UpgradeType:  dist-upgrade or upgrade
     UpgradeCounts=""
     DistUpgradeCounts=""
-    UpgradeType=$(grep ^UpgradeType ~/.config/apt-notifierrc | cut -f2 -d=)
+    UpgradeType=$(grep -m1 ^UpgradeType ~/.config/apt-notifierrc | cut -f2 -d=)
     case $UpgradeType in
          upgrade) UpgradeCounts=$(LANG=C apt-get -s $AptPref_Opts upgrade | grep -c '^Inst ')
                ;;
                *) DistUpgradeCounts=$(LANG=C apt-get -s $AptPref_Opts dist-upgrade | grep -c '^Inst ')
                ;;
     esac
-    
-    #Suppress 'updates available' notification if Unattended-Upgrades are enabled (>=1) AND apt-get upgrade & dist-upgrade output are the same    
+
+    #Suppress 'updates available' notification if Unattended-Upgrades are enabled (>=1) AND apt-get upgrade & dist-upgrade output are the same
     Unattended_Upgrade=0
     eval $(apt-config shell Unattended_Upgrade APT::Periodic::Unattended-Upgrade)
     if [ $Unattended_Upgrade != 0 ]; then
@@ -265,12 +274,12 @@ def check_updates():
         if [ -z "$DistUpgradeCounts" ]; then
            DistUpgradeCounts=$( LANG=C apt-get -s $AptPref_Opts dist-upgrade | grep -c '^Inst ')
         fi
-		if [ "$UpgradeCounts" = "$DistUpgradeCounts" ]; then
-			 echo 0
-			 exit
-		fi
+        if [ "$UpgradeCounts" = "$DistUpgradeCounts" ]; then
+             echo 0
+             exit
+        fi
     fi
-    
+
     case $UpgradeType in
          upgrade) echo $UpgradeCounts
                ;;
@@ -279,8 +288,8 @@ def check_updates():
     esac
 
     exit
-     
-    # commented out to enable backports-upgrade: B/c backports do  have 
+
+    # commented out to enable backports-upgrade: B/c backports do  have
     # NotAutomatic=yes and ButAutomaticaUpgrades=yes
     #
     #Suppress the 'updates available' notification if all of the updates are from a backports repo (jessie-backports, stretch-backports, etc.)
@@ -289,96 +298,139 @@ def check_updates():
     #        echo 0
     #        exit
     #fi
-
-    #Updates=$(awk '/ => /{print $1}' <<<"$Updates")
-
-    #HoldBack=$(apt-mark showhold; awk '/Package:/{print $2}' /var/lib/synaptic/preferences 2>/dev/null)
-
-    #comm -23 <(echo "$Updates" | sort -u) <(sort -u <<<$HoldBack) | wc -l
-
-    #echo $(( $( grep ' => ' <<<"$Updates" | awk '{print $1}' | wc -l) 
-    #       - $( ( grep ' => ' <<<"$Updates" | awk '{print $1}'; 
-    #              which synaptic-pkexec > /dev/null && \
-    #              sed -n 's/Package: //p' /var/lib/synaptic/preferences 2>/dev/null
-    #            ) | \
-    #            sort | uniq -d | wc -l
-    #          ) 
-    #      ))
-     '''
-    script_file = tempfile.NamedTemporaryFile('wt')
-    script_file.write(script)
-    script_file.flush()
-    run = subprocess.Popen(["echo -n `bash %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
+    '''
+    run = subprocess.run(script, capture_output=True, shell=True, text=True, executable="/bin/bash")
     # Read the output into a text string
-    text = run.stdout.read(128)
-    script_file.close()
+    AvailableUpdates = run.stdout.strip()
 
-    # Alter both Icon and Tooltip, depending on updates available or not 
-    if text == "0":
+    # Alter both Icon and Tooltip, depending on updates available or not
+    if AvailableUpdates == "":
+        AvailableUpdates = "0"
+    if AvailableUpdates == "0":
         message_status = "not displayed"  # Resets flag once there are no more updates
         add_hide_action()
         if icon_config != "show":
             AptIcon.hide()
         else:
             AptIcon.setIcon(NoUpdatesIcon)
-            command_string = "( [ $(apt-config shell U APT::Periodic::Unattended-Upgrade | cut -c4) != 0 ] && [ $(apt-config shell U APT::Periodic::Unattended-Upgrade | cut -c4) != '' ] )"
-            exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
-            if exit_state == 0:
+            cmd = 'U=0; eval $(apt-config shell U APT::Periodic::Unattended-Upgrade); [ "${U}" != "0" ]'
+            run = subprocess.run(cmd, shell=True)
+            if run.returncode == 0:
                 AptIcon.setToolTip("")
             else:
                 AptIcon.setToolTip(tooltip_0_updates_available)
     else:
-        if text == "1":
+        if AvailableUpdates == "1":
             AptIcon.setIcon(NewUpdatesIcon)
             AptIcon.show()
             AptIcon.setToolTip(tooltip_1_new_update_available)
             add_rightclick_actions()
-            # Shows the pop up message only if not displayed before 
+            # Shows the pop up message only if not displayed before
             if message_status == "not displayed":
-                command_string = "for WID in $(wmctrl -l | cut -d\  -f1); do xprop -id $WID | grep NET_WM_STATE\(ATOM\); done | grep -sq _NET_WM_STATE_FULLSCREEN"
-                exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
-                if exit_state == 1:
-                    def show_message():
-                        AptIcon.showMessage(popup_title, popup_msg_1_new_update_available)
-                    Timer.singleShot(1000, show_message)
+                cmd = "for WID in $(wmctrl -l | cut -d' ' -f1); do xprop -id $WID | grep 'NET_WM_STATE(ATOM)'; done | grep -sq _NET_WM_STATE_FULLSCREEN"
+                run = subprocess.run(cmd, shell=True)
+                if run.returncode == 1:
+                    cmd = "sed -n -r s/./\L&/g;s/^usenotifier=(..)/\\1/p"
+                    cmd = cmd.split() + [rc_file_name]
+                    run = subprocess.run(cmd, capture_output=True, universal_newlines=True)
+                    UseNotifier = run.stdout.strip()
+                    if UseNotifier == "":
+                        ret = subprocess.run("pgrep -x xfdesktop".split(), stdout=subprocess.DEVNULL).returncode
+                        if ret == 0:
+                            running_in_xfce = True
+                        else:
+                            running_in_xfce = False
+                        if running_in_xfce:
+                            run = subprocess.run("dpkg-query -f ${Version} -W xfdesktop4".split(), stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, universal_newlines=True)
+                            xfce_version = run.stdout.strip()
+                            if xfce_version.startswith("4.16"):
+                                UseNotifier = "py"
+                            else:
+                                UseNotifier = "qt"
+                    if UseNotifier == "":
+                        UseNotifier = "qt"
+
+                    print( "UseNotifier:" + UseNotifier)
+                    if UseNotifier.startswith("qt"):
+                        def show_message():
+                            AptIcon.showMessage(popup_title, popup_msg_1_new_update_available)
+                        Timer.singleShot(1000, show_message)
+                    else:
+                        ICON_PATH = "/usr/share/icons/hicolor/scalable/mx-updater.svg"
+                        notify = notify2.Notification(None, icon = ICON_PATH)
+                        notify.timeout = 10000
+                        notify.update(popup_title, popup_msg_1_new_update_available)
+                        notify.show()
                 message_status = "displayed"
         else:
             AptIcon.setIcon(NewUpdatesIcon)
             AptIcon.show()
             tooltip_template=Template(tooltip_multiple_new_updates_available)
-            tooltip_with_count=tooltip_template.substitute(count=text)
-            AptIcon.setToolTip(tooltip_with_count)    
+            tooltip_with_count=tooltip_template.substitute(count=AvailableUpdates)
+            AptIcon.setToolTip(tooltip_with_count)
             add_rightclick_actions()
-            # Shows the pop up message only if not displayed before 
+            # Shows the pop up message only if not displayed before
             if message_status == "not displayed":
-                command_string = "for WID in $(wmctrl -l | cut -d\  -f1); do xprop -id $WID | grep NET_WM_STATE\(ATOM\); done | grep -sq _NET_WM_STATE_FULLSCREEN"
-                exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
-                if exit_state == 1:
+                cmd = "for WID in $(wmctrl -l | cut -d' ' -f1); do xprop -id $WID | grep 'NET_WM_STATE(ATOM)'; done | grep -sq _NET_WM_STATE_FULLSCREEN"
+                run = subprocess.run(cmd, shell=True)
+                if run.returncode == 1:
                     # ~~~ Localize 1b ~~~
                     # Use embedded count placeholder.
                     popup_template=Template(popup_msg_multiple_new_updates_available)
-                    popup_with_count=popup_template.substitute(count=text)
-                    def show_message():
-                        #AptIcon.showMessage(popup_title, popup_msg_multiple_new_updates_available_begin + text + popup_msg_multiple_new_updates_available_end)
-                        AptIcon.showMessage(popup_title, popup_with_count)
-                    Timer.singleShot(1000, show_message)
+                    popup_with_count=popup_template.substitute(count=AvailableUpdates)
+
+                    cmd = "sed -n -r s/./\L&/g;s/^usenotifier=(..)/\\1/p"
+                    cmd = cmd.split() + [rc_file_name]
+                    run = subprocess.run(cmd, capture_output=True, universal_newlines=True)
+                    UseNotifier = run.stdout.strip()
+                    if UseNotifier == "":
+                        ret = subprocess.run("pgrep -x xfdesktop".split(), stdout=subprocess.DEVNULL).returncode
+                        if ret == 0:
+                            running_in_xfce = True
+                        else:
+                            running_in_xfce = False
+                        if running_in_xfce:
+                            run = subprocess.run("dpkg-query -f ${Version} -W xfdesktop4".split(), stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, universal_newlines=True)
+                            xfce_version = run.stdout.strip()
+                            if xfce_version.startswith("4.16"):
+                                UseNotifier = "py"
+                            else:
+                                UseNotifier = "qt"
+                    if UseNotifier == "":
+                        UseNotifier = "qt"
+
+                    print( "UseNotifier:" + UseNotifier)
+                    if UseNotifier.startswith("qt"):
+                        def show_message():
+                            #AptIcon.showMessage(popup_title, popup_msg_multiple_new_updates_available_begin + AvailableUpdates + popup_msg_multiple_new_updates_available_end)
+                            AptIcon.showMessage(popup_title, popup_with_count)
+                        Timer.singleShot(1000, show_message)
+                    else:
+                        ICON_PATH = "/usr/share/icons/hicolor/scalable/mx-updater.svg"
+                        notify = notify2.Notification(None, icon=ICON_PATH)
+                        notify.timeout = 10000
+                        notify.update(popup_title, popup_with_count)
+                        notify.show()
                 message_status = "displayed"
-   
+
 def start_package_manager():
     global Check_for_Updates_by_User
-    running_in_plasma = subprocess.call(["pgrep -x plasmashell >/dev/null && exit 1 || exit 0"], shell=True, stdout=subprocess.PIPE)
+    cmd = "pgrep -x plasmashell >/dev/null && exit 1 || exit 0"
+    running_in_plasma = subprocess.run(cmd, shell=True).returncode
     if  running_in_plasma:
         systray_icon_hide()
-        #run = subprocess.Popen([ "bash -c '%s; ionice -c3 nice -n19 python -m pdb /usr/bin/apt-notifier.py < <(sleep .250; echo c)& disown -h;'" % package_manager_exec ],shell=True)
-        run = subprocess.Popen([ "bash -c '%s; ionice -c3 nice -n19 /usr/bin/python /usr/bin/apt-notifier.py & disown -h;'" % package_manager_exec ],shell=True)
+        cmd = package_manager_exec + "; ionice -c3 nice -n19 /usr/bin/apt-notifier.py & disown -h;"
+        run = subprocess.Popen(cmd, shell=True, executable="/bin/bash")
         AptIcon.hide()
         sleep(1);
         sys.exit(0)
     else:
-        run = subprocess.Popen([ package_manager_exec ],shell=True).wait()
-        version_installed = subprocess.check_output(["dpkg-query -f '${Version}' -W apt-notifier" ], shell=True)
+        run = subprocess.run(package_manager_exec)
+        cmd = "dpkg-query -f ${Version} -W apt-notifier"
+        version_installed = subprocess.run(cmd.split(), capture_output=True, universal_newlines=True).stdout.strip()
         if  version_installed != version_at_start:
-            run = subprocess.Popen([ "nohup apt-notifier-unhide-Icon & >/dev/null 2>/dev/null" ],shell=True).wait()
+            cmd = "apt-notifier-unhide-Icon & disown -h >/dev/null 2>/dev/null"
+            run = subprocess.run(cmd, shell=True, executable="/bin/bash")
             sleep(2)
         Check_for_Updates_by_User = 'true'
         check_updates()
@@ -387,7 +439,7 @@ def viewandupgrade():
     global Check_for_Updates_by_User
     systray_icon_hide()
     initialize_aptnotifier_prefs()
-    
+
     # ~~~ Localize 2 ~~~
 
     # Accommodations for transformation from Python literals to Bash literals:
@@ -396,7 +448,7 @@ def viewandupgrade():
     #   t16: '( and )' moved outside of translatable string to protect from potential translator's typo
     #   t18: \\\"n\\\" will convert to \"n\" which will become "n" in shell (to avoid concatenating shell strings)
 
-    # t01 thru t12, Yad 'View and Upgrade' strings 
+    # t01 thru t12, Yad 'View and Upgrade' strings
     t01 = _("MX Updater--View and Upgrade, previewing: basic upgrade")
     t02 = _("MX Updater--View and Upgrade, previewing: full upgrade")
     #t03 = _("Automatically answer 'yes' to all prompts during full/basic upgrade")
@@ -412,8 +464,8 @@ def viewandupgrade():
     t10 = _("Switches the type of Upgrade that will be performed, alternating back and forth between 'full upgrade' and 'basic upgrade'.")
     t11 = _("Reload")
     t12 = _("Reload the package information to become informed about new, removed or upgraded software packages. (apt-get update)")
-    
-    # t14 thru t19, strings for the upgrade (basic) / dist-upgrade (full) script that runs in the terminal window    
+
+    # t14 thru t19, strings for the upgrade (basic) / dist-upgrade (full) script that runs in the terminal window
     t14 = _("basic upgrade complete (or was canceled)")
     t15 = _("full upgrade complete (or was canceled)")
     t16 = _("this terminal window can now be closed")
@@ -434,7 +486,7 @@ def viewandupgrade():
     '    basic_upgrade="'               + t06 + '"\n'
     '    full_upgrade="'                + t07 + '"\n'
     '    switch_to_basic_upgrade="'     + t08 + '"\n'
-    '    switch_to_full_upgrade="'      + t09 + '"\n'      
+    '    switch_to_full_upgrade="'      + t09 + '"\n'
     '    switch_tooltip="'              + t10 + '"\n'
     '    reload="'                      + t11 + '"\n'
     '    reload_tooltip="'              + t12 + '"\n'
@@ -442,18 +494,18 @@ def viewandupgrade():
     '    done1full="'                   + t15 + '"\n'
     '    done2="'                       + t16 + '"\n'
     '    done3="'                       + t17 + '"\n'
-    '    autoremovable_packages_msg1="'	+ t18 + '"\n'
+    '    autoremovable_packages_msg1="' + t18 + '"\n'
     '    autoremovable_packages_msg2="' + t19 + '"\n'
     '    upgrade="'                     + t20 + '"\n'
     '    upgrade_tooltip_full="'        + t21 + '"\n'
     '    upgrade_tooltip_basic="'       + t22 + '"\n'
     '    PressAnyKey="'                 + t23 + '"\n'
     )
-    
+
     script = '''#!/bin/bash
-    
+
     #cancel updates available indication if 2 or more Release.reverify entries found
-    #if [ $(ls -1 /var/lib/apt/lists/partial/ | grep Release.reverify$ | wc -l) -ge 2 ]; then exit; fi 
+    #if [ $(ls -1 /var/lib/apt/lists/partial/ | grep Release.reverify$ | wc -l) -ge 2 ]; then exit; fi
 
 ''' + shellvar + '''
 
@@ -469,7 +521,7 @@ def viewandupgrade():
         I=" --icon=mx-updater"
         if [ "$3" = "" ]
           then T=""; I=""
-          else 
+          else
             if [ "$3" != "update" ]
               then T=" --title='""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" Updater: "$3"'"
               else T=" --title='""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" Updater: "$reload"'"
@@ -481,15 +533,15 @@ def viewandupgrade():
 
             # Running KDE
             #
-            # Can't get su-to-root to work in newer KDE's, so use kdesu for 
+            # Can't get su-to-root to work in newer KDE's, so use kdesu for
             # authentication.
-            #  
-            # If x-terminal-emulator is set to xfce4-terminal.wrapper, use     
+            #
+            # If x-terminal-emulator is set to xfce4-terminal.wrapper, use
             # xfce4-terminal instead because the --hold option doesn't work with
-            # the wrapper. Also need to enclose the apt-get command in single 
+            # the wrapper. Also need to enclose the apt-get command in single
             # quotes.
             #
-            # If x-terminal-emulator is set to xterm, use konsole instead, if 
+            # If x-terminal-emulator is set to xterm, use konsole instead, if
             # it's available (it should be).
 
             case $(readlink -e /usr/bin/x-terminal-emulator | xargs basename) in
@@ -502,7 +554,7 @@ def viewandupgrade():
                                             do
                                               sleep 1
                                             done
-                                          sleep 1 
+                                          sleep 1
                                         else
                                           :
                                       fi
@@ -514,7 +566,7 @@ def viewandupgrade():
                                         do
                                           sleep 1
                                         done
-                                      sleep 1 
+                                      sleep 1
                                       ;;
 
                              roxterm) $(kde4-config --path libexec)kdesu -c "roxterm$G$T --separate -e $3"
@@ -531,7 +583,7 @@ def viewandupgrade():
                                             do
                                               sleep 1
                                             done
-                                          sleep 1 
+                                          sleep 1
                                         else
                                           $(kde4-config --path libexec)kdesu -c "xterm -e $3"
                                       fi
@@ -543,22 +595,22 @@ def viewandupgrade():
                                         do
                                           sleep 1
                                         done
-                                      sleep 1 
+                                      sleep 1
                                       ;;
             esac
 
           else
 
             # Running a non KDE desktop
-            # 
+            #
             # Use pkexec for authentication.
-            # 
-            # If x-terminal-emulator is set to xfce4-terminal.wrapper, use 
+            #
+            # If x-terminal-emulator is set to xfce4-terminal.wrapper, use
             # xfce4-terminal instead because the --hold option doesn't work
             # with the wrapper. Also need to enclose the apt-get command in
             # single quotes.
             #
-            # If x-terminal-emulator is set to xterm, use xfce4-terminal 
+            # If x-terminal-emulator is set to xterm, use xfce4-terminal
             # instead, if it's available (it is in MX)
 Disabled
             case $(readlink -e /usr/bin/x-terminal-emulator | xargs basename) in
@@ -572,7 +624,7 @@ Disabled
                                         do
                                           sleep 1
                                         done
-                                      sleep 1 
+                                      sleep 1
                                       ;;
 
                              roxterm) sh "$1" "roxterm$G$T --separate -e $4"
@@ -594,13 +646,13 @@ Disabled
 
             esac
         #fi
-    }    
-        
+    }
+
     DoUpgrade(){
       case $1 in
         0)
         BP="1"
-        chmod +x $TMP/upgradeScript      
+        chmod +x $TMP/upgradeScript
         T="$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2) Updater: $UpgradeTypeUserFriendlyName"
         # I="mnotify-some-$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
         I="mx-updater"
@@ -618,11 +670,11 @@ Disabled
           else
             /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-basic-upgrade "$T" "$I" "$TMP/upgradeScript"
         fi
-            
+
         if [ ! -x /usr/bin/xfce4-terminal ]; then
           while [ "$(ps aux | grep -v grep | grep bash.*/usr/lib/apt-notifier/pkexec-wrappers/mx-updater-full-upgrade.*MX.*mnotify-some.*/tmp/apt-notifier.*/upgradeScript)" ]
             do
-	          sleep 1
+              sleep 1
             done
           sleep 1
         fi
@@ -631,12 +683,12 @@ Disabled
         2)
         BP="1"
         ;;
-        
+
         4)
         BP="0"
         sed -i 's/UpgradeType='$UpgradeType'/UpgradeType='$OtherUpgradeType'/' ~/.config/apt-notifierrc
         ;;
-        
+
         8)
         BP="0"
         #chmod +x $TMP/upgradeScript
@@ -657,17 +709,17 @@ Disabled
         if [ ! -x /usr/bin/xfce4-terminal ]; then
           while [ "$(ps aux | grep -v grep | grep "bash -c".*"apt-get update".*"sleep".*"mx-updater_reload".*"read.*-p")" ]
             do
-	      sleep 1
+          sleep 1
             done
           sleep 1
         fi
         ;;
-        
+
         *)
         BP="1"
         ;;
-        
-       esac 
+
+       esac
     }
 
     BP="0"
@@ -685,13 +737,13 @@ Disabled
           OtherUpgradeType="upgrade"
           upgrade_tooltip=$upgrade_tooltip_full
         fi
-  
+
         UpgradeAssumeYes=$(grep ^UpgradeAssumeYes ~/.config/apt-notifierrc | cut -f2 -d=)
         UpgradeAutoClose=$(grep ^UpgradeAutoClose ~/.config/apt-notifierrc | cut -f2 -d=)
-      
+
         TMP=$(mktemp -d /tmp/apt-notifier.XXXXXX)
         echo "$UpgradeTypeUserFriendlyName" > "$TMP"/upgrades
-        
+
         #The following 40 or so lines (down to the "APT_CONFIG" line) create a temporary etc/apt folder and subfolders
         #that for the most part match the root owned /etc/apt folder and it's subfolders.
         #
@@ -701,11 +753,11 @@ Disabled
         #With a /var/synaptic/preferences symlink in place, no longer need to remove the lines with Synaptic pinned packages
         #from the "$TMP"/upgrades file to keep them from being displayed in the 'View and Upgrade' window, also no longer
         #need to correct the upgrades count after removing the lines with the pinned updates.
-        
+
         #create the etc/apt/*.d subdirectories in the temporary directory ("$TMP")
         for i in $(find /etc/apt -name *.d); do mkdir -p "$TMP"/$(echo $i | cut -f2- -d/); done
 
-        #create symlinks to the files in /etc/apt and it's subdirectories with exception of /etc/apt and /etc/apt/apt.conf  
+        #create symlinks to the files in /etc/apt and it's subdirectories with exception of /etc/apt and /etc/apt/apt.conf
         for i in $(find /etc/apt | grep -v -e .d$ -e apt.conf$ -e apt$); do ln -s $i "$TMP"/$(echo $i | cut -f2- -d/) 2>/dev/null; done
 
         #in etc/preferences test to see if there's a symlink to /var/lib/synaptic/preferences
@@ -714,7 +766,7 @@ Disabled
         #if there isn't, create one if there are synaptic pinned packages
         if [ $? -eq 1 ]
           then
-            if which synaptic-pkexec > /dev/null && [ -s /var/lib/synaptic/preferences ]; then 
+            if which synaptic-pkexec > /dev/null && [ -s /var/lib/synaptic/preferences ]; then
                ln -s /var/lib/synaptic/preferences "$TMP"/etc/apt/preferences.d/synaptic-pins 2>/dev/null
             fi
         fi
@@ -759,7 +811,7 @@ Disabled
         switch_type="'""$OtherUpgradeType""'"
         switch_label=$(echo "$switch_to" | sed 's/%s/'"$switch_type"'/')
         auto_close_label=$(echo "$auto_close_window" | sed 's/%s/'"$UpgradeType"'/')
-        
+
         if [ "$UpgradeType" = "upgrade" ]
           then
             upgrade_label=$upgrade
@@ -775,9 +827,9 @@ Disabled
 
         # IFS="x" read screenWidth screenHeight < <(xdpyinfo | grep dimensions | grep -o "[0-9x]*" | head -n 1)
         read screenWidth screenHeight < <(xdotool getdisplaygeometry)
-        case "$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)" in 
+        case "$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)" in
           classic    ) windowIcon=mnotify-some-classic
-                       ButtonIcon=mnotify-some-classic 
+                       ButtonIcon=mnotify-some-classic
                        ;;
           pulse      ) windowIcon=mnotify-some-pulse
                        ButtonIcon=mnotify-some-pulse
@@ -789,7 +841,7 @@ Disabled
                        #        windowIcon=mx-updater
                        #      else
                        #        windowIcon=mnotify-some-wireframe
-                       #    fi                          
+                       #    fi
                        #    ButtonIcon=/usr/share/icons/mnotify-some-wireframe.png
                        #  else
                        #    windowIcon=/usr/share/icons/mnotify-some-wireframe.png
@@ -817,12 +869,12 @@ Disabled
         --button gtk-cancel:2 \\
         --buttons-layout=spread \\
         2>/dev/null \\
-        > "$TMP"/results 
+        > "$TMP"/results
 
         echo $?>>"$TMP"/results
 
-        # if the View and Upgrade yad window was closed by one of it's 4 buttons, 
-        # then update the UpgradeAssumeYes & UpgradeAutoClose flags in the 
+        # if the View and Upgrade yad window was closed by one of it's 4 buttons,
+        # then update the UpgradeAssumeYes & UpgradeAutoClose flags in the
         # ~/.config/apt-notifierrc file to match the checkboxes
         if [ $(tail -n 1 "$TMP"/results) -eq 0 ]||\\
            [ $(tail -n 1 "$TMP"/results) -eq 2 ]||\\
@@ -845,7 +897,7 @@ Disabled
             :
         fi
 
-        # refresh UpgradeAssumeYes & UpgradeAutoClose 
+        # refresh UpgradeAssumeYes & UpgradeAutoClose
         UpgradeAssumeYes=$(grep ^UpgradeAssumeYes ~/.config/apt-notifierrc | cut -f2 -d=)
         UpgradeAutoClose=$(grep ^UpgradeAutoClose ~/.config/apt-notifierrc | cut -f2 -d=)
 
@@ -865,7 +917,7 @@ EOF
           else
             # build a upgrade script to do the apt-get upgrade (basic upgrade) or dist-upgrade (full upgrade)
             echo "echo ''"$UpgradeTypeUserFriendlyName>> "$TMP"/upgradeScript
-            echo 'find /etc/apt/preferences.d | grep -E synaptic-[0-9a-zA-Z]{6}-pins | xargs rm -f'>> "$TMP"/upgradeScript 
+            echo 'find /etc/apt/preferences.d | grep -E synaptic-[0-9a-zA-Z]{6}-pins | xargs rm -f'>> "$TMP"/upgradeScript
             echo 'if [ -f /var/lib/synaptic/preferences -a -s /var/lib/synaptic/preferences ]'>> "$TMP"/upgradeScript
             echo '  then '>> "$TMP"/upgradeScript
             echo '    SynapticPins=$(mktemp /etc/apt/preferences.d/synaptic-XXXXXX-pins)'>> "$TMP"/upgradeScript
@@ -897,7 +949,7 @@ EOF
             fi
             echo "echo">> "$TMP"/upgradeScript
             echo 'find /etc/apt/preferences.d | grep -E synaptic-[0-9a-zA-Z]{6}-pins | xargs rm -f'>> "$TMP"/upgradeScript
-            
+
             # ~~~ Localize 2b ~~~
 
             #donetype="$UpgradeType"
@@ -940,24 +992,29 @@ EOF
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
     script_file.flush()
-
-    running_in_plasma = subprocess.call(["pgrep -x plasmashell >/dev/null && exit 1 || exit 0"], shell=True, stdout=subprocess.PIPE)
+    cmd = "pgrep -x plasmashell >/dev/null && exit 1 || exit 0"
+    run = subprocess.run(cmd, shell=True)
+    running_in_plasma = run.returncode
     if  running_in_plasma:
         systray_icon_hide()
         #run = subprocess.Popen(["bash -c 'S=%s; N=$S.$RANDOM$RANDOM$RANDOM; cp $S $N; bash $N; rm $N; ionice -c3 nice -n19 python -m pdb /usr/bin/apt-notifier.py < <(sleep .250; echo c)& disown -h;'" % script_file.name],shell=True)
-        
-        run = subprocess.Popen(["bash -c 'S=%s; N=$S.$RANDOM$RANDOM$RANDOM; cp $S $N; bash $N; rm $N; apt-notifier-unhide-Icon; rm $S'" % script_file.name],shell=True)
+        cmd="S={}; N=$S.$RANDOM$RANDOM$RANDOM; cp $S $N; bash $N; rm $N; apt-notifier-unhide-Icon; rm $S".format(script_file.name)
+        run = subprocess.Popen(cmd, shell=True, executable="/bin/bash")
         sleep(1);
         script_file.close()
         sys.exit(1)
     else:
-        run = subprocess.Popen(['bash %s' % script_file.name],shell=True).wait()
+        cmd = ["bash", script_file.name]
+        run = subprocess.run(cmd)
         script_file.close()
-        version_installed = subprocess.check_output(["dpkg-query -f '${Version}' -W apt-notifier" ], shell=True)
+
+        cmd = "dpkg-query -f ${Version} -W apt-notifier"
+        version_installed = subprocess.run(cmd.split(), capture_output=True, universal_newlines=True).stdout.strip()
         if  version_installed != version_at_start:
-            run = subprocess.Popen([ "nohup apt-notifier-unhide-Icon & >/dev/null 2>/dev/null" ],shell=True).wait()
+            cmd = "apt-notifier-unhide-Icon & disown -h >/dev/null 2>/dev/null"
+            run = subprocess.run(cmd, shell=True, executable="/bin/bash")
             sleep(2)
-        
+
         Check_for_Updates_by_User = 'true'
         systray_icon_show()
         check_updates()
@@ -966,7 +1023,7 @@ def initialize_aptnotifier_prefs():
 
     """Create/initialize preferences in the ~/.config/apt-notifierrc file  """
     """if they don't already exist. Remove multiple entries and those that """
-    """appear to be invalid.                                               """ 
+    """appear to be invalid.                                               """
 
     script = '''#!/bin/bash
 
@@ -982,7 +1039,7 @@ def initialize_aptnotifier_prefs():
       #or not equal to "upgrade" or "dist-upgrade"
       #initially set it to "UpgradeType=dist-upgrade"
       #also delete multiple entries or what appears to be invalid entries
-      sed -i '/.*UpgradeType.*/Id' ~/.config/apt-notifierrc 
+      sed -i '/.*UpgradeType.*/Id' ~/.config/apt-notifierrc
       echo "UpgradeType=dist-upgrade">> ~/.config/apt-notifierrc
     fi
 
@@ -998,7 +1055,7 @@ def initialize_aptnotifier_prefs():
       #or not equal to "true" or "false"
       #initially set it to "UpgradeAssumeYes=false"
       #also delete multiple entries or what appears to be invalid entries
-      sed -i '/.*UpgradeAssumeYes.*/Id' ~/.config/apt-notifierrc 
+      sed -i '/.*UpgradeAssumeYes.*/Id' ~/.config/apt-notifierrc
       echo "UpgradeAssumeYes=false">> ~/.config/apt-notifierrc
     fi
 
@@ -1014,7 +1071,7 @@ def initialize_aptnotifier_prefs():
       #or not equal to "true" or "false"
       #intially set it to "UpgradeAutoClose=false"
       #also delete multiple entries or what appears to be invalid entries
-      sed -i '/.*UpgradeAutoClose.*/Id' ~/.config/apt-notifierrc 
+      sed -i '/.*UpgradeAutoClose.*/Id' ~/.config/apt-notifierrc
       echo "UpgradeAutoClose=false">> ~/.config/apt-notifierrc
     fi
 
@@ -1030,7 +1087,7 @@ def initialize_aptnotifier_prefs():
       #or not equal to "ViewAndUpgrade" or "PackageManager"
       #initially set it to "LeftClick=ViewAndUpgrade"
       #also delete multiple entries or what appears to be invalid entries
-      sed -i '/.*LeftClick.*/Id' ~/.config/apt-notifierrc 
+      sed -i '/.*LeftClick.*/Id' ~/.config/apt-notifierrc
       echo "LeftClick=ViewAndUpgrade">> ~/.config/apt-notifierrc
     fi
 
@@ -1046,7 +1103,7 @@ def initialize_aptnotifier_prefs():
       #or not equal to "true" or "false"
       #intially set it to "CheckForAutoRemovables=false"
       #also delete multiple entries or what appears to be invalid entries
-      sed -i '/.*CheckForAutoRemovables.*/Id' ~/.config/apt-notifierrc 
+      sed -i '/.*CheckForAutoRemovables.*/Id' ~/.config/apt-notifierrc
       echo "CheckForAutoRemovables=false">> ~/.config/apt-notifierrc
     fi
 
@@ -1065,7 +1122,7 @@ def initialize_aptnotifier_prefs():
       else
       #
       #delete multiple entries or what appears to be invalid entries
-      sed -i '/.*IconLook.*/Id' ~/.config/apt-notifierrc 
+      sed -i '/.*IconLook.*/Id' ~/.config/apt-notifierrc
       #
       #if a IconLook=* line not present,
       #or not equal to "wireframe" or "classic" or "pulse", then have default as follows for the various MX releases
@@ -1087,11 +1144,11 @@ def initialize_aptnotifier_prefs():
        esac
        echo "IconLook=$IconDefault">> ~/.config/apt-notifierrc
        # set transparent as default for wireframe-dark
-       
+
        if [ "$IconDefault" = "wireframe-dark" ]; then
-           sed -i '/WireframeTransparent=/d; $iWireframeTransparent=true' ~/.config/apt-notifierrc; 
+           sed -i '/WireframeTransparent=/d; $iWireframeTransparent=true' ~/.config/apt-notifierrc;
        fi
-       
+
     fi
 
     #test to see if ~/.config/apt-notifierrc contains any blank lines or lines with only whitespace
@@ -1105,9 +1162,9 @@ def initialize_aptnotifier_prefs():
         :
     fi
 
-    #not really a preference, but remove obsolete *apt-notifier-menu.desktop files if present 
+    #not really a preference, but remove obsolete *apt-notifier-menu.desktop files if present
     rm -f ~/.local/share/applications/apt-notifier-menu.desktop
-    rm -f ~/.local/share/applications/mx-apt-notifier-menu.desktop   
+    rm -f ~/.local/share/applications/mx-apt-notifier-menu.desktop
 
     #also not a preference, but remove obsolete ~/.config/autostart/apt-notifier-autostart-xdg.desktop file if present
     rm -f ~/.config/autostart/apt-notifier-autostart-xdg.desktop
@@ -1116,7 +1173,7 @@ def initialize_aptnotifier_prefs():
     # remove obsolete desktop files
     #
     for desktopfile in mx-updater-menu-kde.desktop mx-updater-menu-non-kde.desktop; do
-        desktoppath="$HOME/.local/share/applications/$desktopfile" 
+        desktoppath="$HOME/.local/share/applications/$desktopfile"
         [ -f "$desktoppath" ] && rm -f "$desktoppath"
     done
     #------------------------------------------------------
@@ -1134,23 +1191,23 @@ def initialize_aptnotifier_prefs():
     #if [ ! -e ~/.local/share/applications/mx-updater-menu-non-kde.desktop ]
     #  then
     #    cp /usr/share/applications/mx-updater-menu-non-kde.desktop ~/.local/share/applications/mx-updater-menu-non-kde.desktop
-    #fi    
+    #fi
 
     #for desktopfile in mx-updater-menu-kde.desktop mx-updater-menu-non-kde.desktop
     #  do
-    #    case "$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)" in 
+    #    case "$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)" in
     #      classic    ) if [ ! $(grep Icon=mnotify-some-classic ~/.local/share/applications/$desktopfile) ]
     #                     then
     #                       sed -i 's/Icon=.*/Icon=mnotify-some-classic/' ~/.local/share/applications/$desktopfile
     #                   fi
     #                   ;;
-    #                 
+    #
     #      pulse      ) if [ ! $(grep Icon=mnotify-some-pulse ~/.local/share/applications/$desktopfile) ]
     #                     then
     #                       sed -i 's/Icon=.*/Icon=mnotify-some-pulse/' ~/.local/share/applications/$desktopfile
     #                   fi
     #                   ;;
-    #               
+    #
     #      wireframe|*) if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
     #                     then
     #                       if [ ! $(grep Icon=mx-updater ~/.local/share/applications/$desktopfile) ]
@@ -1169,14 +1226,13 @@ def initialize_aptnotifier_prefs():
     #    grep  -sq '^Type=Application' ~/.local/share/applications/$desktopfile || sed -i '/^\[Desktop Entry\]/aType=Application' ~/.local/share/applications/$desktopfile
     #  done
     #------------------------------------------------------
-                                                      
+
     '''
-           
+
     script_file = tempfile.NamedTemporaryFile('wt')
     script_file.write(script)
     script_file.flush()
-    run = subprocess.Popen(['bash %s' % script_file.name],shell=True).wait()
-
+    run = subprocess.run(["bash", script_file.name])
     script_file.close()
 
 
@@ -1185,7 +1241,7 @@ def aptnotifier_prefs():
     systray_icon_hide()
 
     initialize_aptnotifier_prefs()
-    
+
     # ~~~ Localize 3 ~~~
 
     t01 = _("MX Updater preferences")
@@ -1210,7 +1266,7 @@ def aptnotifier_prefs():
     t18 = _("start MX Updater at login")
     t19 = _("use transparent interior for no-updates wireframe")
 
- 
+
     shellvar = (
         '    window_title="'                             + t01 + '"\n'
         '    frame_upgrade_behaviour="'                  + t02 + '"\n'
@@ -1227,21 +1283,21 @@ def aptnotifier_prefs():
         '    label_classic="'                            + t13 + '"\n'
         '    label_pulse="'                              + t14 + '"\n'
         '    label_wireframe="'                          + t15 + '"\n'
-        '    frame_Auto_update="'                        + t16 + '"\n' 
+        '    frame_Auto_update="'                        + t16 + '"\n'
         '    auto_update_checkbox_txt="'                 + t17 + '"\n'
         '    label_autostart="'                          + t18 + '"\n'
         '    label_wireframe_transparent="'              + t19 + '"\n'
         )
-    
+
     script = '''#!/bin/bash
-''' + shellvar + '''    
+''' + shellvar + '''
 
     #for MEPIS remove "MX" branding from the $window_title and $left_click_ViewandUpgrade strings
     window_title=$(echo "$window_title"|sed 's/MX /'$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
     left_click_ViewandUpgrade=$(echo "$left_click_ViewandUpgrade"|sed 's/MX /'$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)" "'/')
     IconLookBegin=$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)
     WireframeTransparentBegin=$(grep -sq -m1 WireframeTransparent=true ~/.config/apt-notifierrc && echo true || echo false)
-    
+
     # detect and set autostart
 
     XDG_AUTOSTART_FILE="/etc/xdg/autostart/mx-updater-autostart.desktop"
@@ -1252,7 +1308,7 @@ def aptnotifier_prefs():
        AutoStart='"true"'
     fi
     # set dialog frame for PrefAutoStart
-    Auto_Start_frame=" 
+    Auto_Start_frame="
          <frame Auto-start>
           <checkbox active=${AutoStart}>
             <label>${label_autostart}</label>
@@ -1374,7 +1430,7 @@ EOF
     cat << EOF > "$TMP"/enable_unattended_upgrades
     #!/bin/bash
     for i in @(grep 'APT::Periodic::Unattended-Upgrade "[0-9]+";' /etc/apt/apt.conf.d/* -E | cut -f1 -d: | grep -v ~$); \
-    do sed -i 's/[ ]*APT::Periodic::Unattended-Upgrade.*"0".*;/   APT::Periodic::Unattended-Upgrade "1";/' @i; done  
+    do sed -i 's/[ ]*APT::Periodic::Unattended-Upgrade.*"0".*;/   APT::Periodic::Unattended-Upgrade "1";/' @i; done
     exit 0
 EOF
     sed -i 's/@/\$/g' "$TMP"/enable_unattended_upgrades
@@ -1404,7 +1460,7 @@ EOF
     sed -i 's/@pulse@/"'"$label_pulse"'"/' "$TMP"/DIALOG
     sed -i 's/@wireframe@/"'"$label_wireframe"'"/' "$TMP"/DIALOG
 
-    # edit placeholders in "$TMP"/DIALOG to set initial settings of the radiobuttons & checkboxes 
+    # edit placeholders in "$TMP"/DIALOG to set initial settings of the radiobuttons & checkboxes
     sed -i 's/@UpgradeBehaviourAptGetUpgrade@/'$(if [ $(grep UpgradeType=upgrade ~/.config/apt-notifierrc) ]; then echo -n true; else echo -n false; fi)'/' "$TMP"/DIALOG
     sed -i 's/@UpgradeBehaviourAptGetDistUpgrade@/'$(if [ $(grep UpgradeType=dist-upgrade ~/.config/apt-notifierrc) ]; then echo -n true; else echo -n false; fi)'/' "$TMP"/DIALOG
     sed -i 's/@LeftClickBehaviourPackageManager@/'$(if [ $(grep LeftClick=PackageManager ~/.config/apt-notifierrc) ]; then echo -n true; else echo -n false; fi)'/' "$TMP"/DIALOG
@@ -1422,7 +1478,7 @@ EOF
     sed -i "s/@WireframeTransparent@/$(grep -sq WireframeTransparent=true ~/.config/apt-notifierrc && echo true || echo false)/" "$TMP"/DIALOG
 
     # edit placeholder for window icon placeholder in "$TMP"/DIALOG
-    
+
     #--------------------------------------------------------------
     # commented out below, to use mx-updater as windowIcon
     #
@@ -1439,24 +1495,24 @@ EOF
     #      else
     #        sed -i 's/@mnotify-some@/mnotify-some-'$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d= | xargs echo -n)'/' "$TMP"/DIALOG
     #    fi
-    #  else       
+    #  else
     #    sed -i 's/@mnotify-some@/mnotify-some-'$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d= | xargs echo -n)'/' "$TMP"/DIALOG
-    #fi    
+    #fi
     #
     #if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
     #  then
     #    sed -i 's/file>"\/usr\/share\/icons\/mnotify-some-wireframe.png"/file icon="mx-updater">/' "$TMP"/DIALOG
-    #fi    
+    #fi
     #--------------------------------------------------------------
-    
+
     # edit AutoUpdate related translateable string placeholders in "$TMP"/DIALOG
     sed -i 's/@Auto_update_label@/'"$frame_Auto_update"'/' "$TMP"/DIALOG
     sed -i 's/@autoupdate_checkboxtxt@/'"$auto_update_checkbox_txt"'/' "$TMP"/DIALOG
-    
+
     # get what the Unattended-Upgrade status is before bringing up the preferences dialog
     Unattended_Upgrade_before_pref_dialog=0
     eval $(apt-config shell Unattended_Upgrade_before_pref_dialog APT::Periodic::Unattended-Upgrade)
-    
+
     # also use it to set the checkbox setting
     if [ $Unattended_Upgrade_before_pref_dialog = "1" ]
       then
@@ -1464,7 +1520,7 @@ EOF
       else
         sed -i 's/@Auto_Update_setting@/false/' "$TMP"/DIALOG
     fi
-        
+
     gtkdialog --file="$TMP"/DIALOG >> "$TMP"/output
 
     grep EXIT=.*OK.* "$TMP"/output > /dev/null
@@ -1487,7 +1543,7 @@ EOF
         if [ $(grep IconLook_classic=.*true.*         "$TMP"/output) ]; then sed -i '/^IconLook=.*/s//IconLook=classic/'                ~/.config/apt-notifierrc; fi
         if [ $(grep IconLook_pulse=.*true.*           "$TMP"/output) ]; then sed -i '/^IconLook=.*/s//IconLook=pulse/'                  ~/.config/apt-notifierrc; fi
 
-        grep -sq 'WireframeTransparent=.*true.*' "$TMP"/output && V=true || V=false; sed -i '/WireframeTransparent=/d; $iWireframeTransparent='"$V" ~/.config/apt-notifierrc; 
+        grep -sq 'WireframeTransparent=.*true.*' "$TMP"/output && V=true || V=false; sed -i '/WireframeTransparent=/d; $iWireframeTransparent='"$V" ~/.config/apt-notifierrc;
 
         if [ $Unattended_Upgrade_before_pref_dialog = "0" ] && [ $(grep AutoUpdate=.*true.* "$TMP"/output) ]
           then
@@ -1506,32 +1562,32 @@ EOF
        : already set, no change, do nothing
     else
         [ -d "$CONFIG_AUTOSTART" ] || mkdir -p "$CONFIG_AUTOSTART"
-        
+
         # clear autostart file
         if [  -f "$USR_AUTOSTART_FILE" ]; then
            rm -f "$USR_AUTOSTART_FILE"
         fi
-        
+
         # switch Autostart
         if [ "$AutoStart" = '"false"' ]; then
-          PrefAutoStart="true" 
+          PrefAutoStart="true"
           # enable autostart (or alternatively leave "$USR_AUTOSTART_FILE" removed )
           sed  -e '/^Hidden=/d; /^Exec=/aHidden=false' "$XDG_AUTOSTART_FILE" > "$USR_AUTOSTART_FILE"
         else
-          PrefAutoStart="false" 
+          PrefAutoStart="false"
           # disable autostart
-          # set autostart to false 
+          # set autostart to false
           sed  -e '/^Hidden=/d; /^Exec=/aHidden=true' "$XDG_AUTOSTART_FILE" > "$USR_AUTOSTART_FILE"
         fi
         # fluxbox autostart
         FLUXBOX_STARTUP="$HOME/.fluxbox/startup"
         if [ -w "$FLUXBOX_STARTUP" ]; then
           if [ "$PrefAutoStart" = "true" ]; then
-             # enable fluxbox startup 
-             sed -i -r -e '\:^([#[:space:]]*)(.*/usr/bin/apt-notifier.*&)[[:space:]]*$:s::\\2:'  "$FLUXBOX_STARTUP" 
+             # enable fluxbox startup
+             sed -i -r -e '\:^([#[:space:]]*)(.*/usr/bin/apt-notifier.*&)[[:space:]]*$:s::\\2:'  "$FLUXBOX_STARTUP"
           else
-             # disable fluxbox startup 
-             sed -i -r -e '\:^([#[:space:]]*)(.*/usr/bin/apt-notifier.*&)[[:space:]]*$:s::#\\2:' "$FLUXBOX_STARTUP" 
+             # disable fluxbox startup
+             sed -i -r -e '\:^([#[:space:]]*)(.*/usr/bin/apt-notifier.*&)[[:space:]]*$:s::#\\2:' "$FLUXBOX_STARTUP"
           fi
         fi
     fi
@@ -1541,19 +1597,20 @@ EOF
     #restart apt-notifier if IconLook setting has been changed
     IconLookNew=$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)
     WireframeTransparentNew=$(grep -sq -m1 WireframeTransparent=true ~/.config/apt-notifierrc && echo true || echo false)
- 
+
     if [ "$IconLookNew" != "$IconLookBegin" ] || [ "$WireframeTransparentNew" != "$WireframeTransparentBegin" ];
       then
-        rm $0; apt-notifier-unhide-Icon
+        # rm $0;
+        apt-notifier-unhide-Icon
     fi
 
     '''
-    script_file = tempfile.NamedTemporaryFile('wt')
+    script_file = tempfile.NamedTemporaryFile('wt',prefix='apt_notifier_pref_',suffix='.sh')
     script_file.write(script)
     script_file.flush()
-    run = subprocess.Popen(['bash %s' % script_file.name],shell=True).wait()
-        
+    run = subprocess.run(["bash", script_file.name])
     script_file.close()
+
     Check_for_Updates_by_User = 'true'
     systray_icon_show()
     check_updates()
@@ -1565,95 +1622,49 @@ def apt_history():
     # ~~~ Localize 5 ~~~
 
     t01 = _("History")
-    shellvar = '    AptHistory="' + t01 + '"\n'
-
-    script = '''#!/bin/bash
-''' + shellvar + '''
-    
-    TMP=$(mktemp -d /tmp/apt_history.XXXXXX)
-    
-    apt-history | sed 's/:all/ all/;s/:i386/ i386/;s/:amd64/ amd64/' | column -t > "$TMP"/APT_HISTORY
-
-    read screenWidth screenHeight < <(xdotool getdisplaygeometry)
-    
-    case "$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)" in 
-      classic    ) windowIcon=/usr/share/icons/mnotify-some-classic.png
-                   windowIcon=mnotify-some-classic
-                   ;;
-      pulse      ) windowIcon=/usr/share/icons/mnotify-some-pulse.png
-                   windowIcon=mnotify-some-pulse
-                   ;;
-      wireframe|*)# if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]] 
-                  #   then
-                  #     if [[ $(xfconf-query -lvc xsettings | grep IconThemeName | grep .*Papirus.* -i) ]]
-                  #       then
-                  #         windowIcon=mx-updater
-                  #       else
-                  #         windowIcon=mnotify-some-wireframe
-                  #     fi
-                  #   else
-                  #      windowIcon=/usr/share/icons/mnotify-some-wireframe.png
-                  # fi
-                   ;;
-    esac
-    windowIcon=mx-updater
-
-    yad --window-icon=$windowIcon \\
-        --width=$(($screenWidth*3/4)) \\
-        --height=$(($screenHeight*2/3))  \\
-        --center \\
-        --title "$AptHistory" \\
-        --text-info \\
-        --filename="$TMP"/APT_HISTORY \\
-        --fontname=mono \\
-        --button=gtk-close \\
-        --margins=7 \\
-        --borders=5
-        
-    rm -rf "$TMP"    
-    
+    shellvar = '    AptHistory="' + t01 + '";\n'
+    # fehlix
+    script = shellvar + '''
+    read screenWidth screenHeight < <(xdotool getdisplaygeometry);
+    windowIcon=mx-updater;
+    apt-history | sed -r "s/:([a-z])/ \\1/" | column -t |
+    /usr/bin/yad --window-icon=$windowIcon
+        --width=$(($screenWidth*3/4))
+        --height=$(($screenHeight*2/3))
+        --center
+        --title "$AptHistory"
+        --text-info
+        --fontname=mono
+        --button=gtk-close
+        --margins=7
+        --borders=5;
     '''
-    script_file = tempfile.NamedTemporaryFile('wt')
-    script_file.write(script)
-    script_file.flush()
-    run = subprocess.Popen(['bash %s' % script_file.name],shell=True).wait()
-    
-    script_file.close()
+    cmd = " ".join(script.split())
+    run = subprocess.run(cmd, shell=True, executable="/bin/bash",
+                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
     Check_for_Updates_by_User = 'true'
     systray_icon_show()
     check_updates()
-    
+
 def apt_get_update():
     global Check_for_Updates_by_User
     systray_icon_hide()
 
     # ~~~ Localize 4 ~~~
 
-    t01 = _("Reload")
-    
-    shellvar = (
-    '    reload="' + t01 + '"\n'
-    )
-    
-    script = '''#!/bin/bash
-''' + shellvar + '''
-    #I="mnotify-some-""$(grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=)"
-    #if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
-    #  then 
-    #    if [ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]
-    #      then 
-    #        I="/usr/share/icons/Papirus/64x64/apps/mx-updater.svg"
-    #    fi
-    #fi 
-    I="mx-updater"   
-    T=" --title=""$(grep -o MX.*[1-9][0-9] /etc/issue|cut -c1-2)"" Updater: $reload"
-    /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload.sh "$T" "$I"
-    '''
-    script_file = tempfile.NamedTemporaryFile('wt')
-    script_file.write(script)
-    script_file.flush()
-    run = subprocess.Popen(['bash %s' % script_file.name],shell=True).wait()
-    script_file.close()
+    cmd = "grep -soP ^DISTRIB_ID=\K.* /etc/lsb-release"
+    cmd = cmd.split()
+    run = subprocess.run(cmd, capture_output=True, universal_newlines=True)
+    Distrib_Id = run.stdout.strip()
+
+    Reload = _("Reload")
+    Title = "--title=" + Distrib_Id + " Updater: " + Reload
+    Icon  = "mx-updater"
+    cmd = [ "/usr/lib/apt-notifier/pkexec-wrappers/mx-updater-reload.sh",
+             Title, Icon]
+    run = subprocess.run(cmd)
+
     Check_for_Updates_by_User = 'true'
     systray_icon_show()
     check_updates()
@@ -1661,11 +1672,15 @@ def apt_get_update():
 def start_MXPI():
     global Check_for_Updates_by_User
     systray_icon_hide()
-    run = subprocess.Popen(['su-to-root -X -c mx-packageinstaller'],shell=True).wait()
 
-    version_installed = subprocess.check_output(["dpkg-query -f '${Version}' -W apt-notifier" ], shell=True)
+    cmd = "su-to-root -X -c mx-packageinstaller"
+    run = subprocess.run(cmd.split())
+
+    cmd = "dpkg-query -f ${Version} -W apt-notifier"
+    version_installed = subprocess.run(cmd.split(), capture_output=True, universal_newlines=True).stdout.strip()
     if  version_installed != version_at_start:
-        run = subprocess.Popen([ "nohup apt-notifier-unhide-Icon & >/dev/null 2>/dev/null" ],shell=True).wait()
+        cmd = "apt-notifier-unhide-Icon & disown -h >/dev/null 2>/dev/null"
+        run = subprocess.run(cmd, shell=True, executable="/bin/bash")
         sleep(2)
 
     Check_for_Updates_by_User = 'true'
@@ -1680,7 +1695,7 @@ def start_package_manager0():
     global ignoreClick
     global Timer
     if ignoreClick != '1':
-        start_package_manager()    
+        start_package_manager()
         ignoreClick = '1'
         Timer.singleShot(50, re_enable_click)
     else:
@@ -1690,7 +1705,7 @@ def viewandupgrade0():
     global ignoreClick
     global Timer
     if ignoreClick != '1':
-        viewandupgrade()    
+        viewandupgrade()
         ignoreClick = '1'
         Timer.singleShot(50, re_enable_click)
     else:
@@ -1700,7 +1715,7 @@ def start_MXPI_0():
     global ignoreClick
     global Timer
     if ignoreClick != '1':
-        start_MXPI()    
+        start_MXPI()
         ignoreClick = '1'
         Timer.singleShot(50, re_enable_click)
     else:
@@ -1708,13 +1723,14 @@ def start_MXPI_0():
 
 # Define the command to run when left clicking on the Tray Icon
 def left_click():
-    if text.startswith( "0" ):
+    if AvailableUpdates == "0":
         start_package_manager0()
     else:
         """Test ~/.config/apt-notifierrc for LeftClickViewAndUpgrade"""
-        command_string = "grep LeftClick=ViewAndUpgrade " + rc_file_name + " > /dev/null"
-        exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
-        if exit_state == 0:
+        cmd = "grep -sq ^LeftClick=ViewAndUpgrade"
+        cmd = cmd.split() + [rc_file_name]
+        ret = subprocess.run(cmd).returncode
+        if ret == 0:
             viewandupgrade0()
         else:
             start_package_manager0()
@@ -1726,42 +1742,37 @@ def left_click_activated(reason):
 
 def read_icon_config():
     """Reads ~/.config/apt-notifierrc, returns 'show' if file doesn't exist or does not contain DontShowIcon"""
-    command_string = "grep DontShowIcon " + rc_file_name + " > /dev/null"
-    exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
-    if exit_state != 0:
+    cmd = "grep -sq ^[[]DontShowIcon[]]"
+    cmd = cmd.split() + [rc_file_name]
+    ret = subprocess.run(cmd).returncode
+    if ret != 0:
         return "show"
 
 def read_icon_look():
-    script = '''#!/bin/bash
-    grep IconLook ~/.config/apt-notifierrc | cut -f2 -d=
-    '''
-    script_file = tempfile.NamedTemporaryFile('wt')
-    script_file.write(script)
-    script_file.flush()
-    run = subprocess.Popen(["echo -n `bash %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
-    # Read the output into a text string
-    iconLook = run.stdout.read(128)
-    script_file.close()
+    cmd = "grep -m1 -soP ^IconLook=\K.*"
+    cmd = cmd.split() + [rc_file_name]
+    run = subprocess.run(cmd, capture_output=True, universal_newlines=True)
+    iconLook = run.stdout.strip()
     return iconLook
 
 def set_noicon():
-    """Reads ~/.config/apt-notifierrc. If "DontShowIcon blah blah blah" is already there, don't write it again"""
-    command_string = "grep DontShowIcon " + rc_file_name + " > /dev/null"
-    exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
-    if exit_state != 0:
-        file = open(rc_file_name, 'a')
-        file.write ('[DontShowIcon] #Remove this entry if you want the apt-notify icon to show even when there are no upgrades available\n')
-        file.close()
-        subprocess.call(["/usr/bin/apt-notifier"], shell=True, stdout=subprocess.PIPE)
+    """Inserts a '[DontShowIcon]' line into  ~/.config/apt-notifierrc."""
+    cmd = "sed -i -e '1i[DontShowIcon] "
+    cmd+= "#Remove this entry if you want the apt-notify icon to show "
+    cmd+= "even when there are no upgrades available' "
+    cmd+= "-e '/DontShowIcon/d' "
+    cmd+= rc_file_name
+    run = subprocess.run(cmd)
     AptIcon.hide()
     icon_config = "donot show"
 
 def add_rightclick_actions():
     ActionsMenu.clear()
     """Test ~/.config/apt-notifierrc for LeftClickViewAndUpgrade"""
-    command_string = "grep LeftClick=ViewAndUpgrade " + rc_file_name + " > /dev/null"
-    exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
-    if exit_state == 0:
+    cmd = "grep -sq ^LeftClick=ViewAndUpgrade"
+    cmd = cmd.split() + [rc_file_name]
+    ret = subprocess.run(cmd).returncode
+    if ret == 0:
         ActionsMenu.addAction(View_and_Upgrade).triggered.connect( viewandupgrade0 )
         ActionsMenu.addSeparator()
         ActionsMenu.addAction(Upgrade_using_package_manager).triggered.connect( start_package_manager0 )
@@ -1769,24 +1780,34 @@ def add_rightclick_actions():
         ActionsMenu.addAction(Upgrade_using_package_manager).triggered.connect( start_package_manager0)
         ActionsMenu.addSeparator()
         ActionsMenu.addAction(View_and_Upgrade).triggered.connect( viewandupgrade0 )
-    command_string = "test -e /usr/bin/mx-packageinstaller > /dev/null"
-    exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
-    if exit_state == 0:
+
+    cmd = "test -x /usr/bin/mx-packageinstaller"
+    cmd = cmd.split()
+    ret = subprocess.run(cmd).returncode
+    if ret == 0:
         add_MXPI_action()
-    add_apt_history_action()        
-    command_string = "test $(apt-config shell U APT::Periodic::Unattended-Upgrade | cut -f2 -d= | cut -c2- | rev | cut -c2- | rev) != 0"
-    exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
-    if exit_state == 0:
+
+    add_apt_history_action()
+
+    cmd = "U=0; eval $(apt-config shell U APT::Periodic::Unattended-Upgrade); [ $U -eq 0 ];"
+    ret = subprocess.run(cmd, shell=True).returncode
+    # ret = 1 : Unattended-Upgrade enabled
+    # ret = 0 : Unattended-Upgrade not enabled
+    if ret == 1:
         add_view_unattended_upgrades_logs_action()
         add_view_unattended_upgrades_dpkg_logs_action()
+
     add_apt_get_update_action()
     add_apt_notifier_help_action()
     add_package_manager_help_action()
     add_aptnotifier_prefs_action()
     add_about_action()
     add_quit_action()
-    command_string = "deartifact-xfce-systray-icons 1 &"
-    subprocess.call([command_string], shell=True)               
+
+    cmd = '[ "$XDG_CURRENT_DESKTOP" = "XFCE" ] && '
+    cmd+= 'which deartifact-xfce-systray-icons && '
+    cmd+= 'deartifact-xfce-systray-icons 1 &'
+    subprocess.run(cmd, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 def add_hide_action():
     ActionsMenu.clear()
@@ -1795,24 +1816,35 @@ def add_hide_action():
         hide_action.triggered.connect( set_noicon )
         ActionsMenu.addSeparator()
         ActionsMenu.addAction(package_manager_name).triggered.connect( start_package_manager0 )
-    command_string = "test -e /usr/bin/mx-packageinstaller > /dev/null"
-    exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
-    if exit_state == 0:
+
+    cmd = "test -x /usr/bin/mx-packageinstaller"
+    cmd = cmd.split()
+    ret = subprocess.run(cmd).returncode
+    if ret == 0:
         add_MXPI_action()
-    add_apt_history_action()    
-    command_string = "test $(apt-config shell U APT::Periodic::Unattended-Upgrade | cut -f2 -d= | cut -c2- | rev | cut -c2- | rev) != 0"
-    exit_state = subprocess.call([command_string], shell=True, stdout=subprocess.PIPE)
-    if exit_state == 0:
+
+    add_apt_history_action()
+
+    cmd = "U=0; eval $(apt-config shell U APT::Periodic::Unattended-Upgrade); [ $U -eq 0 ];"
+    ret = subprocess.run(cmd, shell=True).returncode
+    # ret = 1 : Unattended-Upgrade enabled
+    # ret = 0 : Unattended-Upgrade not enabled
+    if ret == 1:
         add_view_unattended_upgrades_logs_action()
         add_view_unattended_upgrades_dpkg_logs_action()
+
     add_apt_get_update_action()
     add_apt_notifier_help_action()
     add_package_manager_help_action()
     add_aptnotifier_prefs_action()
     add_about_action()
     add_quit_action()
-    command_string = "deartifact-xfce-systray-icons 1 &"
-    subprocess.call([command_string], shell=True)                  
+
+    cmd = '[ "$XDG_CURRENT_DESKTOP" = "XFCE" ] && '
+    cmd+= 'which deartifact-xfce-systray-icons && '
+    cmd+= 'deartifact-xfce-systray-icons 1 &'
+    subprocess.run(cmd, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
 
 def add_quit_action():
     ActionsMenu.addSeparator()
@@ -1823,38 +1855,33 @@ def add_apt_notifier_help_action():
     ActionsMenu.addSeparator()
     apt_notifier_help_action = ActionsMenu.addAction(HelpIcon,Apt_Notifier_Help)
     apt_notifier_help_action.triggered.connect(open_apt_notifier_help)
-    
+
 def open_apt_notifier_help():
     systray_icon_hide()
-    script = '''#!/bin/bash
-    case $(echo $LANG | cut -f1 -d_) in
+
+    script = '''#!/bin/sh
+    case "${LANG%%_*}" in
       fr) HelpUrl="https://mxlinux.org/wiki/help-files/help-mx-apt-notifier-notificateur-dapt" ;;
        *) HelpUrl="https://mxlinux.org/wiki/help-files/help-mx-apt-notifier" ;;
     esac
-    test -e /usr/bin/mx-viewer
-    if [ $? -eq 0 ]
-      then
+    if which mx-viewer >/dev/null; then
         mx-viewer $HelpUrl
-      else
+    else
         xdg-open  $HelpUrl
     fi
     '''
-    script_file = tempfile.NamedTemporaryFile('wt')
-    script_file.write(script)
-    script_file.flush()
-    run = subprocess.Popen(["echo -n `bash %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
-    run.stdout.read(128)
-    script_file.close()
+    subprocess.run(script, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
     systray_icon_show()
 
 def add_package_manager_help_action():
     ActionsMenu.addSeparator()
     package_manager_help_action = ActionsMenu.addAction(HelpIcon,Package_Manager_Help)
     package_manager_help_action.triggered.connect(open_package_manager_help)
-    
+
 def open_package_manager_help():
     systray_icon_hide()
-    
+
     HelpUrlBase="https://mxlinux.org/wiki/help-files/help-" + package_manager
     script = '''#!/bin/bash
 
@@ -1871,7 +1898,7 @@ def open_package_manager_help():
     #test to see if HelpUrl page exists, if it doesn't change it to HelpUrlBase (english version)
     wget $HelpUrl --spider -q
     if [ $? -eq 0 ]
-      then : 
+      then :
       else HelpUrl="$HelpUrlBase"
     fi
     #test to see if pdf or html (a 0 result = pdf)
@@ -1881,7 +1908,7 @@ def open_package_manager_help():
         TMP=$(mktemp -d /tmp/package_manager_help.XXXXXX)
         curl $HelpUrl -o "$TMP"/$(basename $HelpUrl)
         qpdfview "$TMP"/$(basename $HelpUrl)#$SynapticPage
-        rm -rf "$TMP"        
+        rm -rf "$TMP"
       else
         test -e /usr/bin/mx-viewer
         if [ $? -eq 0 ]
@@ -1890,14 +1917,11 @@ def open_package_manager_help():
           else
             xdg-open  $HelpUrl
         fi
-    fi        
+    fi
     '''
-    script_file = tempfile.NamedTemporaryFile('wt')
-    script_file.write(script)
-    script_file.flush()
-    run = subprocess.Popen(["echo -n `bash %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
-    run.stdout.read(128)
-    script_file.close()
+    run = subprocess.run(script, shell=True, executable="/bin/bash",
+                         stdout=subprocess.DEVNULL,
+                         stderr=subprocess.DEVNULL)
     systray_icon_show()
 
 def add_aptnotifier_prefs_action():
@@ -1919,12 +1943,12 @@ def add_view_unattended_upgrades_logs_action():
     ActionsMenu.addSeparator()
     view_unattended_upgrades_logs_action =  ActionsMenu.addAction(View_Auto_Updates_Logs)
     view_unattended_upgrades_logs_action.triggered.connect( view_unattended_upgrades_logs )
-    
+
 def add_view_unattended_upgrades_dpkg_logs_action():
     ActionsMenu.addSeparator()
     view_unattended_upgrades_logs_action =  ActionsMenu.addAction(View_Auto_Updates_Dpkg_Logs)
     view_unattended_upgrades_logs_action.triggered.connect( view_unattended_upgrades_dpkg_logs )
-    
+
 def add_apt_get_update_action():
     ActionsMenu.addSeparator()
     apt_get_update_action =  ActionsMenu.addAction(Check_for_Updates)
@@ -1942,13 +1966,13 @@ def displayAbout():
 
     # ~~~ Localize 5 ~~~
 
-    MX_Updater                                  = unicode (_("MX Updater")                                              ,'utf-8')
-    About_MX_Updater                            = unicode (_("About MX Updater")                                        ,'utf-8')
-    Changelog                                   = unicode (_("Changelog")                                               ,'utf-8')
-    License                                     = unicode (_("License")                                                 ,'utf-8')
-    Cancel                                      = unicode (_("Cancel")                                                  ,'utf-8')
-    Close                                       = unicode (_("Close")                                                  ,'utf-8')
-    Description                                 = unicode (_("Tray applet to notify of system and application updates") ,'utf-8')
+    MX_Updater         = _("MX Updater")
+    About_MX_Updater   = _("About MX Updater")
+    Changelog          = _("Changelog")
+    License            = _("License")
+    Cancel             = _("Cancel")
+    Close              = _("Close")
+    Description        = _("Tray applet to notify of system and application updates")
 
     # Using an embedded script to display the 'About' dialog text, because when run within the main python
     # script, closing the dialog window was also causing the main python script (apt-notifier.py) to quit.
@@ -2009,7 +2033,8 @@ _ = tr.gettext
 def About(aboutBox):
     me      = _('MX Updater')
     about   = _('Tray applet to notify of system and application updates')
-    version = subprocess.check_output(["dpkg-query -f '${Version}' -W apt-notifier" ], shell=True).decode('utf-8')
+    cmd = "dpkg-query -f ${Version} -W apt-notifier"
+    version = subprocess.run(cmd.split(), capture_output=True, universal_newlines=True).stdout.strip()
 
     aboutText= '''
     <p align=center><b><h2>$me</h2></b></p>
@@ -2019,7 +2044,6 @@ def About(aboutBox):
     <br></p><p align=center>Copyright (c) MX Linux<br /><br/></p>
      '''
     aboutText=Template(aboutText).substitute(about=about, me=me, version=version)
-    #aboutBox = QMessageBox()
     aboutBox.setWindowTitle(_('About MX Updater'))
     aboutBox.setWindowIcon(QtGui.QIcon('/usr/share/icons/hicolor/scalable/mx-updater.svg'))
     aboutBox.setText(aboutText)
@@ -2028,42 +2052,44 @@ def About(aboutBox):
     closeButton     = aboutBox.addButton( (_('Close'))    , QMessageBox.RejectRole)
     aboutBox.setDefaultButton(closeButton)
     aboutBox.setEscapeButton(closeButton)
-    
-    reply = aboutBox.exec_()
 
-    if aboutBox.clickedButton() == closeButton:
-        sys.exit(reply)
+    while True:
+        reply = aboutBox.exec_()
 
-    if aboutBox.clickedButton() == licenseButton:
-        p=subprocess.run(["/usr/bin/mx-viewer", 
-                           "/usr/share/doc/apt-notifier/license.html", 
-                           "MX Apt-notifier license"], 
-                           stdin=None, stdout=None, stderr=None)
-        sys.exit(reply)
+        if aboutBox.clickedButton() == closeButton:
+            sys.exit(reply)
 
-    if aboutBox.clickedButton() == changelogButton:
-        command_string = '''
-            windowIcon=mx-updater; 
-            read width height < <(xdotool getdisplaygeometry); 
-            width=$(($width*3/4)); 
-            height=$(($height*2/3)); 
-            title=$(gettext -d apt-notifier Changelog); 
-            zcat /usr/share/doc/apt-notifier/changelog.gz | 
-            yad --width=$width 
-              --height=$height 
-              --center           
-              --button=gtk-close 
-              --window-icon=$windowIcon 
-              --title="$title" 
-              --fontname=mono    
-              --margins=7        
-              --borders=5        
-              --text-info
-            '''
-        command = " ".join(command_string.split())
-        command = "bash -c '%s'" % command
-        p=subprocess.call([command], shell=True)
-        sys.exit(reply)
+        if aboutBox.clickedButton() == licenseButton:
+            cmd = ["mx-viewer", "/usr/share/doc/apt-notifier/license.html", "MX Apt-notifier license"]
+            run =subprocess.run(cmd)
+            #sys.exit(reply)
+
+        if aboutBox.clickedButton() == changelogButton:
+            script = '''
+                windowIcon=mx-updater;
+                read width height < <(xdotool getdisplaygeometry);
+                width=$(($width*1/2));
+                height=$(($height*2/3));
+                title=$(gettext -d apt-notifier Changelog);
+                zcat /usr/share/doc/apt-notifier/changelog.gz |
+                /usr/bin/yad
+                  --width=$width
+                  --height=$height
+                  --center
+                  --button=gtk-close
+                  --window-icon=$windowIcon
+                  --title="$title"
+                  --fontname=mono
+                  --margins=7
+                  --borders=5
+                  --text-info;
+                '''
+            cmd = " ".join(script.split())
+            run = subprocess.run(cmd,
+                                 shell=True, executable="/bin/bash",
+                                 stdout=subprocess.DEVNULL,
+                                 stderr=subprocess.DEVNULL)
+            #sys.exit(reply)
 
 def main():
     app = QApplication(sys.argv)
@@ -2075,13 +2101,15 @@ def main():
 if __name__ == '__main__':
     main()
 """
-    script_file = tempfile.NamedTemporaryFile('wt')
-    script_file.write(script)
-    script_file.flush()
-    run = subprocess.Popen(["python3 %s 2>/dev/null >/dev/null" % script_file.name],shell=True).wait()
-    script_file.close()
-    
-    
+    #script_file = tempfile.NamedTemporaryFile('wt')
+    #script_file.write(script)
+    #script_file.flush()
+    #run = subprocess.Popen(["python3 %s 2>/dev/null >/dev/null" % script_file.name],shell=True).wait()
+    #script_file.close()
+    run = subprocess.run(script, shell=True, executable="/usr/bin/python3",
+                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+
 def view_unattended_upgrades_logs():
     # ~~~ Localize 6 ~~~
     t01 = _("MX Auto-update  --  unattended-upgrades log viewer")
@@ -2089,49 +2117,31 @@ def view_unattended_upgrades_logs():
     t03 = _("For a less detailed view see 'Auto-update dpkg log(s)' or 'History'.")
     t04 = _("Press 'h' for help, 'q' to quit")
     shellvar = (
-        '    Title="'                  + t01 + '"\n'
-        '    NoLogsFound="'            + t02 + '"\n'
-        '    SeeHistory="'             + t03 + '"\n'
-        '    LessPrompt="'             + t04 + '"\n'
+        '    Title="'                  + t01 + '";\n'
+        '    NoLogsFound="'            + t02 + '";\n'
+        '    SeeHistory="'             + t03 + '";\n'
+        '    LessPrompt="'             + t04 + '";\n'
         )
-    script = '''#!/bin/bash
-''' + shellvar + '''
-    Title="$(sed "s|[']|\\\\'|g" <<<"${Title}")"
-    User=$(who | grep '(:0)' -m1 | awk '{print $1}')
-    if [ "$User" != "root" ]
-      then IconLook="$(grep IconLook /home/"$User"/.config/apt-notifierrc | cut -f2 -d=)"
-      else IconLook="$(grep IconLook /root/.config/apt-notifierrc | cut -f2 -d=)"
-    fi
-    Icon="mx-updater"
-    #pkexecWrapper="/usr/lib/apt-notifier/pkexec-wrappers/mx-updater-view-auto-update-logs"
-    #terminalCMD="mx-updater_unattended_upgrades_log_view"
-    #Uncomment lines below to pass strings as arguments
-    #NoLogsFound="$(sed "s|[']|\\\\\\'|g" <<<"$NoLogsFound")"
-    #NoLogsFound="$(sed 's/ /\\\\ /g' <<<"$NoLogsFound")"
-    #SeeHistory="$(sed "s|[']|\\\\\\'|g" <<<"$SeeHistory")"
-    #SeeHistory="$(sed 's/ /\\\\ /g' <<<"$SeeHistory")"
-    #LessPrompt="$(sed "s|[']|\\\\\\'|g" <<<"$LessPrompt")"
-    #LessPrompt="$(sed 's/ /\\\\ /g' <<<"$LessPrompt")"
-    #terminalCMD="${terminalCMD}"" ""${SeeHistory}"
-    #terminalCMD="${terminalCMD}"" ""${NoLogsFound}"
-    #terminalCMD="${terminalCMD}"" ""${LessPrompt}"
-    #if [ -x /usr/bin/xfce4-terminal ]
-    #  then
-    #    sh "${pkexecWrapper}" xfce4-terminal --icon=/usr/share/icons/mnotify-some-"$IconLook".png\
-    #       --title='"'"${Title}"'"' --hide-menubar -e "${terminalCMD}" 2>/dev/null
-    #  else
-    #    sh "${pkexecWrapper}" x-terminal-emulator  -e "${terminalCMD}" 2>/dev/null
-    #fi
-    /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-view-auto-update-logs \
-    "${Title}" \
-    "$Icon"
+    script = shellvar + '''
+    Title="$(sed "s|[']|\\\\'|g" <<<"${Title}")";
+    read screenWidth screenHeight < <(xdotool getdisplaygeometry);
+    windowIcon=mx-updater;
+    /usr/local/bin/mx-updater_unattended_upgrades_log_view |
+    yad --window-icon=$windowIcon
+        --width=$(($screenWidth*3/4))
+        --height=$(($screenHeight*2/3))
+        --center
+        --title "$Title"
+        --text-info
+        --fontname=mono
+        --button=gtk-close
+        --margins=7
+        --borders=5;
     '''
-    script_file = tempfile.NamedTemporaryFile('wt')
-    script_file.write(script)
-    script_file.flush()
-    run = subprocess.Popen(["echo -n `bash %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
-    run.stdout.read(128)
-    script_file.close()
+    cmd = " ".join(script.split())
+    run = subprocess.run(cmd, shell=True, executable="/bin/bash",
+                         stdout=subprocess.DEVNULL,
+                         stderr=subprocess.DEVNULL)
 
 def view_unattended_upgrades_dpkg_logs():
     # ~~~ Localize 7 ~~~
@@ -2139,73 +2149,46 @@ def view_unattended_upgrades_dpkg_logs():
     t02 = _("No unattended-upgrades dpkg log(s) found.")
     t03 = _("Press 'h' for help, 'q' to quit")
     shellvar = (
-        '    Title="'                  + t01 + '"\n'
-        '    NoLogsFound="'            + t02 + '"\n'
-        '    LessPrompt="'             + t03 + '"\n'
+        '    Title="'                  + t01 + '";\n'
+        '    NoLogsFound="'            + t02 + '";\n'
+        '    LessPrompt="'             + t03 + '";\n'
         )
-    script = '''#!/bin/bash
-''' + shellvar + '''
-    Title="$(sed "s|[']|\\\\'|g" <<<"${Title}")"
-    #User=$(who | grep '(:0)' -m1 | awk '{print $1}')
-    #if [ "$User" != "root" ]
-    #  then IconLook="$(grep IconLook /home/"$User"/.config/apt-notifierrc | cut -f2 -d=)"
-    #  else IconLook="$(grep IconLook /root/.config/apt-notifierrc | cut -f2 -d=)"
-    #fi
-    
-    #Icon="mnotify-some-""$IconLook"
-    #if [[ $(find /usr/share/{icons,pixmaps} -name mx-updater.svg) ]]
-    #  then
-    #    if [ $(grep IconLook=wireframe ~/.config/apt-notifierrc) ]
-    #      then
-    #        if [[ $(xfconf-query -lvc xsettings | grep IconThemeName | grep .*Papirus.* -i) ]]
-    #          then
-    #            Icon=mx-updater
-    #          else
-    #            Icon=mnotify-some-wireframe
-    #        fi
-    #    fi
-    #fi     
-    #pkexecWrapper="/usr/lib/apt-notifier/pkexec-wrappers/mx-updater-view-auto-update-dpkg-logs"
-    #terminalCMD="mx-updater_unattended_upgrades_dpkg_log_view"
-    #Uncomment lines below to pass the strings as arguments
-    #NoLogsFound="$(sed "s|[']|\\\\\\'|g" <<<"$NoLogsFound")"
-    #NoLogsFound="$(sed 's/ /\\\\ /g' <<<"$NoLogsFound")"
-    #LessPrompt="$(sed "s|[']|\\\\\\'|g" <<<"$LessPrompt")"
-    #LessPrompt="$(sed 's/ /\\\\ /g' <<<"$LessPrompt")"
-    #terminalCMD="${terminalCMD}"" ""${NoLogsFound}"
-    #terminalCMD="${terminalCMD}"" ""${LessPrompt}"
-    #if [ -x /usr/bin/xfce4-terminal ]
-    #  then
-    #    sh "${pkexecWrapper}" xfce4-terminal --icon=/usr/share/icons/mnotify-some-"$IconLook".png\
-    #       --title='"'"${Title}"'"' --hide-menubar -e "${terminalCMD}" 2>/dev/null
-    #  else
-    #    sh "${pkexecWrapper}" x-terminal-emulator  -e "${terminalCMD}" 2>/dev/null
-    #fi
-    Icon=mx-updater
-    /usr/lib/apt-notifier/pkexec-wrappers/mx-updater-view-auto-update-dpkg-logs \
-    "${Title}" \
-    "$Icon"
+    #fehlix
+    script = shellvar + '''
+    Title="$(sed "s|[']|\\\\'|g" <<<"${Title}")";
+    read screenWidth screenHeight < <(xdotool getdisplaygeometry);
+    windowIcon=mx-updater;
+    /usr/local/bin/mx-updater_unattended_upgrades_dpkg_log_view |
+    yad --window-icon=$windowIcon
+        --width=$(($screenWidth*3/4))
+        --height=$(($screenHeight*2/3))
+        --center
+        --title "$Title"
+        --text-info
+        --fontname=mono
+        --button=gtk-close
+        --margins=7
+        --borders=5;
     '''
-    script_file = tempfile.NamedTemporaryFile('wt')
-    script_file.write(script)
-    script_file.flush()
-    run = subprocess.Popen(["echo -n `bash %s`" % script_file.name],shell=True, stdout=subprocess.PIPE)
-    run.stdout.read(128)
-    script_file.close()
+    cmd = " ".join(script.split())
+    run = subprocess.run(cmd, shell=True, executable="/bin/bash",
+                         stdout=subprocess.DEVNULL,
+                         stderr=subprocess.DEVNULL)
 
-# General application code	
+
+# General application code
 def main():
-    # Define Core objects, Tray icon and QTimer 
+    # Define Core objects, Tray icon and QTimer
     global AptNotify
     global AptIcon
     global QuitIcon
     global icon_config
-    global quit_action    
+    global quit_action
     global Timer
     global initialize_aptnotifier_prefs
     global read_icon_look
     global icon_set
-    
+
     set_translations()
     initialize_aptnotifier_prefs()
     AptNotify = QtWidgets.QApplication(sys.argv)
@@ -2216,19 +2199,28 @@ def main():
     global NoUpdatesIcon
     global NewUpdatesIcon
     global HelpIcon
-    
+
+    # fix  fluxbox startup if needed
+    fix_fluxbox_startup()
+
     # read in icon look into a variable
     icon_set = read_icon_look()
-    tray_icon_noupdates  =  "/usr/share/icons/mnotify-none-" + icon_set + ".png"
-    tray_icon_newupdates =  "/usr/share/icons/mnotify-some-" + icon_set + ".png"
+    tray_icon_noupdates  =  "/usr/share/icons/mnotify-none-" + str(icon_set) + ".png"
+    tray_icon_newupdates =  "/usr/share/icons/mnotify-some-" + str(icon_set) + ".png"
 
     # Detect WireframeTransparent is set ~/.config/apt-notifierrc
-    if "wireframe" in icon_set:
+    #if "wireframe" in icon_set:
+    if icon_set.startswith("wireframe"):
         tray_icon_newupdates =  "/usr/share/icons/mnotify-some-wireframe.png"
-        WireframeTransparent = subprocess.call(["grep -sq WireframeTransparent=true ~/.config/apt-notifierrc && exit 1 || exit 0"], shell=True, stdout=subprocess.PIPE)
+        cmd = "grep -sq '^WireframeTransparent=true' ~/.config/apt-notifierrc && exit 1 || exit 0"
+        WireframeTransparent = subprocess.run(cmd, shell=True).returncode
         if WireframeTransparent:
-            tray_icon_noupdates =  "/usr/share/icons/mnotify-none-" + icon_set + "-transparent.png"
-        
+            tray_icon_noupdates =  "/usr/share/icons/mnotify-none-" + str(icon_set) + "-transparent.png"
+
+    ## fehlix test
+    #tray_icon_newupdates =  "/usr/share/icons/mnotify-some-wireframe.png"
+    #tray_icon_noupdates  =  "/usr/share/icons/mnotify-none-wireframe-dark-transparent.png"
+
     NoUpdatesIcon   = QtGui.QIcon(tray_icon_noupdates)
     NewUpdatesIcon  = QtGui.QIcon(tray_icon_newupdates)
     HelpIcon = QtGui.QIcon("/usr/share/icons/oxygen/22x22/apps/help-browser.png")
@@ -2252,7 +2244,8 @@ def main():
 
 def systray_icon_hide():
 
-    running_in_plasma = subprocess.call(["pgrep  -x plasmashell >/dev/null && exit 1 || exit 0"], shell=True, stdout=subprocess.PIPE)
+    cmd = "pgrep -x plasmashell >/dev/null && exit 1 || exit 0"
+    running_in_plasma = subprocess.run(cmd, shell=True).returncode
     if not running_in_plasma:
        return
 
@@ -2261,13 +2254,13 @@ def systray_icon_hide():
 
     Script='''
     var iconName = 'apt-notifier.py';
-    for (var i in panels()) { 
-        p = panels()[i]; 
-        for (var j in p.widgets()) { 
-            w = p.widgets()[j];  
-            if (w.type == 'org.kde.plasma.systemtray') { 
-                s = desktopById(w.readConfig('SystrayContainmentId')); 
-                s.currentConfigGroup = ['General']; 
+    for (var i in panels()) {
+        p = panels()[i];
+        for (var j in p.widgets()) {
+            w = p.widgets()[j];
+            if (w.type == 'org.kde.plasma.systemtray') {
+                s = desktopById(w.readConfig('SystrayContainmentId'));
+                s.currentConfigGroup = ['General'];
                 var shownItems = s.readConfig('shownItems').split(',');
                 if (shownItems.indexOf(iconName) >= 0) {
                     shownItems.splice(shownItems.indexOf(iconName), 1);
@@ -2276,16 +2269,17 @@ def systray_icon_hide():
                     shownItems = [ 'auto' ];
                 }
                 s.writeConfig('shownItems', shownItems);
-                s.reloadConfig();  
-            } 
-        }  
+                s.reloadConfig();
+            }
+        }
     }
     '''
     run = subprocess.Popen(['qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "' + Script + '" '],shell=True)
 
 def systray_icon_show():
 
-    running_in_plasma = subprocess.call(["pgrep -x plasmashell >/dev/null && exit 1 || exit 0"], shell=True, stdout=subprocess.PIPE)
+    cmd = "pgrep -x plasmashell >/dev/null && exit 1 || exit 0"
+    running_in_plasma = subprocess.run(cmd, shell=True).returncode
     if not running_in_plasma:
        return
 
@@ -2294,13 +2288,13 @@ def systray_icon_show():
 
     Script='''
     var iconName = 'apt-notifier.py';
-    for (var i in panels()) { 
-        p = panels()[i]; 
-        for (var j in p.widgets()) { 
-            w = p.widgets()[j];  
-            if (w.type == 'org.kde.plasma.systemtray') { 
-                s = desktopById(w.readConfig('SystrayContainmentId')); 
-                s.currentConfigGroup = ['General']; 
+    for (var i in panels()) {
+        p = panels()[i];
+        for (var j in p.widgets()) {
+            w = p.widgets()[j];
+            if (w.type == 'org.kde.plasma.systemtray') {
+                s = desktopById(w.readConfig('SystrayContainmentId'));
+                s.currentConfigGroup = ['General'];
                 var shownItems = s.readConfig('shownItems').split(',');
                 if (( shownItems.length == 0 ) || ( shownItems.length == 1 && shownItems[0].length == 0 )) {
                     shownItems = [ iconName ];
@@ -2312,9 +2306,9 @@ def systray_icon_show():
                     shownItems.splice(shownItems.indexOf('auto'), 1);
                 }
                 s.writeConfig('shownItems', shownItems);
-                s.reloadConfig();  
-            } 
-        }  
+                s.reloadConfig();
+            }
+        }
     }
     '''
     run = subprocess.Popen(['qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "' + Script + '" '],shell=True)
