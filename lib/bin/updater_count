@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# this script is part of apt-notifier
+#
+
+if [ "$1" == "--count" ]; then
+    # to only show the number of available updates
+    DISPLAY_COUNT_NUMBER_ONLY=true
+else
+    # to show the count line's
+    DISPLAY_COUNT_NUMBER_ONLY=false
+fi
+
+
+UPDATER_APTPREF=/usr/lib/apt-notifier/shlib/updater_aptpref
+
+AptPref_Opts=""
+if [ -f "$UPDATER_APTPREF" ]; then
+      . "$UPDATER_APTPREF"
+fi
+
+
+# UpgradeType:  dist-upgrade or upgrade
+UpgradeCounts=""
+DistUpgradeCounts=""
+UpgradeType=$(grep -m1 ^UpgradeType /home/"$(logname)"/.config/apt-notifierrc 2>/dev/null | cut -f2 -d= )
+
+if [ "$UpgradeType" != "upgrade" ]; then
+       UpgradeType="dist-upgrade"
+fi
+
+APT_MSG=$(apt-get -s $AptPref_Opts $UpgradeType)
+Count=$(grep -c  '^Inst '<<<$APT_MSG)
+CountLine=$(grep -E '^[0-9]| [0-9]+ '<<<$APT_MSG)
+
+case $Count in
+    0) UpdatesMsg=$(/usr/bin/gettext -d apt-notifier "0 updates available")
+       ;;
+    1) UpdatesMsg=$(/usr/bin/gettext -d apt-notifier "1 new update available")
+       ;;
+    *) UpdatesMsg=$(/usr/bin/gettext -d apt-notifier -s '$count new updates available')
+       UpdatesMsg=${UpdatesMsg/\$count/$Count}
+       ;;
+  esac
+
+if [ "$DISPLAY_COUNT_NUMBER_ONLY" == "true" ]; then
+    echo $Count
+else
+    echo "$UpdatesMsg"
+    echo "($CountLine)";
+fi

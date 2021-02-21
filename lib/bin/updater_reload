@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# check privileges
+if [ $(id -u) != 0 ]; then
+    MSG='This command needs %s privileges to be executed.\n'
+    printf "$(gettext -d su-to-root "$MSG")" 'root'
+    exit 1
+fi
+  
+apt-get update
+working="...$(gettext -d apt ' [Working]')..." 
+printf "${working}"
+
+UPDATER_COUNTS=$(/usr/lib/apt-notifier/bin/updater_count)
+
+printf $'\r'"$(printf '%*s' ${#working})"
+echo
+echo "$UPDATER_COUNTS"
+echo
+declare -A CONFIG_ITEMS
+UPDATER_CONFIG="/usr/lib/apt-notifier/bin/updater_config"
+if [ -x "${UPDATER_CONFIG}" ]; then
+    eval "CONFIG_ITEMS=$(${UPDATER_CONFIG} --shell)"
+fi
+# auto close timeout
+AUTO_CLOSE_TIMEOUT="${CONFIG_ITEMS[reload_auto_close_timeout]}"
+: ${AUTO_CLOSE_TIMEOUT:=6}
+
+UPDATER_SHLIB=/usr/lib/apt-notifier/shlib/updater_shlib
+if [ -f "$UPDATER_SHLIB" ]; then
+      . "$UPDATER_SHLIB"
+  press_any_key_stop_auto_close && exit
+  press_any_key_to_close && exit
+fi
+
+
+exit

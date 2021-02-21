@@ -1,0 +1,74 @@
+#!/bin/bash
+
+
+# check privs
+if [ $(id -u) != 0 ]; then
+    MSG='This command needs %s privileges to be executed.\n'
+    printf "$(gettext -d su-to-root "$MSG")" 'root'
+    exit 1
+fi
+
+if [ ! -e /etc/apt/sources.list ]; then 
+    cat <<EOF > /etc/apt/sources.list
+#This sources.list is empty by default and is only included 
+#to avoid error messages from some package install scripts that expect 
+#to find it.
+#Sources are under /etc/apt/sources.list.d
+EOF
+fi
+
+APT_NOTIFIERRC="/home/$(logname)/.config/apt-notifierrc"
+
+UpgradeType=$(     grep -oP '^UpgradeType=\K.*'      "$APT_NOTIFIERRC" 2>/dev/null)
+UpgradeAssumeYes=$(grep -oP '^UpgradeAssumeYes=\K.*' "$APT_NOTIFIERRC" 2>/dev/null)
+UpgradeAutoClose=$(grep -oP '^UpgradeAutoClose=\K.*' "$APT_NOTIFIERRC" 2>/dev/null)
+
+# upgrade type dist-upgrade or upgrade
+export TEXTDOMAIN=apt-notifier
+if [ "$UpgradeType" = "upgrade" ]
+  then
+    gettext "basic upgrade"; echo
+  else
+    gettext "full upgrade" ; echo
+    UpgradeType='dist-upgrade'
+fi
+
+# assume yes handling
+if [ "$UpgradeAssumeYes" = "true" ]; then
+    AssumeYes="--assume-yes"
+else
+    AssumeYes=""
+fi
+
+# apt preference handling
+UPDATER_APTPREF=/usr/lib/apt-notifier/shlib/updater_aptpref
+AptPref_Opts=""
+if [ -f "$UPDATER_APTPREF" ]; then
+      . "$UPDATER_APTPREF"
+fi
+
+apt-get -V $AssumeYes $AptPref_Opts $UpgradeType
+
+echo ""
+
+if [ "$UpgradeType" = "upgrade" ]; then
+    gettext "basic upgrade complete (or was canceled)"; echo
+else
+    gettext "full upgrade complete (or was canceled)"; echo
+fi
+
+UPDATER_SHLIB=/usr/lib/apt-notifier/shlib/updater_shlib
+if [ -f "$UPDATER_SHLIB" ]; then
+      . "$UPDATER_SHLIB"
+fi
+echo
+echo
+gettext "this terminal window can now be closed" 
+echo
+echo
+if [ "$UpgradeAutoClose" = "true" ]; then
+    press_any_key_stop_auto_close && exit
+fi
+press_any_key_to_close && exit
+
+exit

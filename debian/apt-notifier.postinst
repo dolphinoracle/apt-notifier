@@ -5,64 +5,50 @@
 # postinst script for apt-notifier
 
 case "$1" in
-  configure)  #remove obsolete /etc/apt/apt.conf.d/15periodic-update file 
-              rm -f /etc/apt/apt.conf.d/15periodic-update
-
-              #if /etc/cron.daily/apt~ exists rename it back to /etc/cron.daily/apt
-              if [ -f /etc/cron.daily/apt~ ] && [ ! -f /etc/cron.daily/apt ]; then
-                mv /etc/cron.daily/apt~ /etc/cron.daily/apt
-              fi
-
-              #rename other config files with a APT::Periodic::Unattended-Upgrade setting (other than 02periodic)
-              for i in $(grep 'APT::Periodic::Unattended-Upgrade "[0-9]+";' /etc/apt/apt.conf.d/* -E | \
-              cut -f1 -d: | grep -v -e /etc/apt/apt.conf.d/02periodic -e /etc/apt/apt.conf.d/.*~); do mv $i $i~; done
-
-              if  [ ! -f /etc/apt/apt.conf.d/02periodic ]
-                then
-                  cp /usr/share/apt-notifier/02periodic /etc/apt/apt.conf.d/02periodic
-                  sed -i '/overwrite existing/d' /etc/apt/apt.conf.d/02periodic
-                else
-                  if [ "$(sed '/overwrite existing/d' /usr/share/apt-notifier/02periodic | md5sum)" = "$(cat /etc/apt/apt.conf.d/02periodic | md5sum)" ]
-                    then
-                      :
-                    else
-                      grep -q 'overwrite existing' /usr/share/apt-notifier/02periodic
-                      if [ $? -eq 0 ]
-                        then
-                          cp /usr/share/apt-notifier/02periodic /etc/apt/apt.conf.d/02periodic
-                          sed -i '/overwrite existing/d' /etc/apt/apt.conf.d/02periodic
-                        else
-                          :
-                      fi
-                  fi       
-              fi
-
-              if  [ ! -f /etc/apt/apt.conf.d/51unattended-upgrades-mx ]
-                then
-                  cp /usr/share/apt-notifier/51unattended-upgrades-mx /etc/apt/apt.conf.d/51unattended-upgrades-mx
-                  sed -i '/overwrite existing/d' /etc/apt/apt.conf.d/51unattended-upgrades-mx
-                else 
-                  if [ "$(cat <(grep 'Origins-Pattern {' /usr/share/apt-notifier/51unattended-upgrades-mx -B9999) \
-                              <(grep '};' /usr/share/apt-notifier/51unattended-upgrades-mx -A9999) | sed '/overwrite existing/d' | md5sum)" = \
-                       "$(cat <(grep 'Origins-Pattern {' /etc/apt/apt.conf.d/51unattended-upgrades-mx -B9999) \
-                              <(grep '};' /etc/apt/apt.conf.d/51unattended-upgrades-mx -A9999) | md5sum)" ]
-                    then
-                      :
-                    else
-                      grep -q 'overwrite existing' /usr/share/apt-notifier/51unattended-upgrades-mx
-                      if [ $? -eq 0 ]
-                        then
-                          cp /usr/share/apt-notifier/51unattended-upgrades-mx /etc/apt/apt.conf.d/51unattended-upgrades-mx
-                          sed -i '/overwrite existing/d' /etc/apt/apt.conf.d/51unattended-upgrades-mx
-                        else
-                          :
-                      fi
-                  fi       
-              fi
-              ;;
-
-          *)  :
-              ;;  
+  configure)  
+	#remove obsolete /etc/apt/apt.conf.d/15periodic-update file 
+	rm -f /etc/apt/apt.conf.d/15periodic-update
+	
+	#if /etc/cron.daily/apt~ exists rename it back to /etc/cron.daily/apt
+	if [ -f /etc/cron.daily/apt~ ] && [ ! -f /etc/cron.daily/apt ]; then
+		mv /etc/cron.daily/apt~ /etc/cron.daily/apt
+	fi
+	
+	if  [ ! -f /etc/apt/apt.conf.d/02periodic ]
+	then
+	  cp /usr/share/apt-notifier/02periodic /etc/apt/apt.conf.d/02periodic
+	  sed -i '/overwrite existing/d' /etc/apt/apt.conf.d/02periodic
+	else
+	  if [ "$(sed '/overwrite existing/d' /usr/share/apt-notifier/02periodic | md5sum)" = "$(cat /etc/apt/apt.conf.d/02periodic | md5sum)" ]
+		then
+		  :
+		else
+		  grep -q 'overwrite existing' /usr/share/apt-notifier/02periodic
+		  if [ $? -eq 0 ]
+			then
+			  cp /usr/share/apt-notifier/02periodic /etc/apt/apt.conf.d/02periodic
+			  sed -i '/overwrite existing/d' /etc/apt/apt.conf.d/02periodic
+			else
+			  :
+		  fi
+	  fi       
+	fi
+	if  [ ! -f /etc/apt/apt.conf.d/51unattended-upgrades-config ] && \
+	    [ -f /usr/share/apt-notifier/51unattended-upgrades-config ]; then
+		  cp /usr/share/apt-notifier/51unattended-upgrades-config \
+		     /etc/apt/apt.conf.d/51unattended-upgrades-config 2>/dev/null || :
+	fi
+	
+	# adjust desktop files for antiX
+	if [ -e /etc/antix-version ] && \
+	 grep -sq antiX /etc/antix-version && \
+	 grep -sq antiX /etc/lsb-release; 
+	then
+	 sed -i 's/MX //; s/ MX//; s/ MX / /;' \
+			/usr/share/applications/apt-notifier.desktop \
+			/etc/xdg/autostart/apt-notifier-autostart.desktop || :
+	fi
+	;;
 esac
 exit 0
 

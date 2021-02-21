@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# updater_aptpref
+# 
+# helper script to prepare apt preference handling 
+# for synaptic pinned packages
+# 
+# part of apt-notifer package
+#
+# this bash scripted is meant to be "sourced"
+# from /usr/lib/apt-notifier/lib/updater_aptpref
+
+# prepare pinned package handling
+AptPref_Opts=""
+AptPreferences=""
+PinnedPreferences=""
+SynapticPreferences=/var/lib/synaptic/preferences
+
+[ "${PATH%%/sbin*}" = "$PATH" ] && PATH="$PATH:/sbin:/usr/sbin"
+
+if which synaptic >/dev/null && grep -sq "^Package" "$SynapticPreferences"; then
+   PinnedPreferences="$SynapticPreferences"
+fi
+if [ -n "$PinnedPreferences" ] && [ -r "$PinnedPreferences" ]; then
+    eval $(apt-config shell AptPreferences Dir::Etc::preferences)
+    [ -n "${AptPreferences%%/*}" ] &&  AptPreferences=/etc/apt/${AptPreferences}
+    if [ ! -e ${AptPreferences} ]; then
+       AptPref_Opts=" -o Dir::Etc::preferences=${PinnedPreferences}"
+    else
+       if [ -z "${XDG_RUNTIME_DIR}" ] || [ "${XDG_RUNTIME_DIR}" != "/run/user/$(id -u)" ]; then
+          XDG_RUNTIME_DIR=/run/user/$(id -u)
+       fi
+       if [ ! -d "${XDG_RUNTIME_DIR}" ]; then
+          mkdir $XDG_RUNTIME_DIR
+          chmod 700 $XDG_RUNTIME_DIR
+       fi
+       
+       #tmp_apt_pref=$(mktemp -p $XDG_RUNTIME_DIR -t updater_tmp_apt_preferences.XXXXXXXXXXXX)
+       tmp_apt_pref=$(mktemp -p /dev/shm -t apt_pref.XXXXXXXXXXXX)
+       chmod 644 $tmp_apt_pref
+       trap "rm -f $tmp_apt_pref" EXIT
+       cat ${AptPreferences} >> $tmp_apt_pref
+       echo "" >> $tmp_apt_pref
+       cat $PinnedPreferences >> $tmp_apt_pref
+       AptPref_Opts=" -o Dir::Etc::preferences=${tmp_apt_pref}"
+    fi
+fi
+
