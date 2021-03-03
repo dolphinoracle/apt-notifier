@@ -434,10 +434,12 @@ def check_updates():
                 Check_for_Updates_by_User = False
                 return
     else:
-        short_run = False
         hash_changed = True
     
     WatchedFilesAndDirsHashPrevious = WatchedFilesAndDirsHashNow
+
+    if Check_for_Updates_by_User or hash_changed:
+        short_run = False
 
     Force_Check_Counter = 1
 

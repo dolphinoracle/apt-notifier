@@ -1,8 +1,14 @@
+apt-notifier (21.03.01a3) mx; urgency=medium
+
+  * forced check if manually checked by user
+
+ -- fehlix <fehlix@mxlinux.org>  Wed, 03 Mar 2021 12:37:43 -0400
+
 apt-notifier (21.03.01a2) mx; urgency=medium
 
   * forced check if package cache has changed
 
- -- fehlix <fehlix@mxlinux.org>  Sun, 03 Mar 2021 06:01:01 -0400
+ -- fehlix <fehlix@mxlinux.org>  Wed, 03 Mar 2021 06:01:01 -0400
 
 apt-notifier (21.03.01a1) mx; urgency=medium
 
