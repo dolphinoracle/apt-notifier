@@ -425,6 +425,7 @@ def check_updates():
     """
     debug_p(f"Hash: {WatchedFilesAndDirsHashNow} == {WatchedFilesAndDirsHashPrevious}")
     if WatchedFilesAndDirsHashNow == WatchedFilesAndDirsHashPrevious:
+        hash_changed = False
         if not Check_for_Updates_by_User:
             if Force_Check_Counter < check_for_updates_force_counter and check_for_updates_force_counter != 0:
                 Force_Check_Counter = Force_Check_Counter + 1
@@ -432,7 +433,10 @@ def check_updates():
                     AvailableUpdates = '0'
                 Check_for_Updates_by_User = False
                 return
-
+    else:
+        short_run = False
+        hash_changed = True
+    
     WatchedFilesAndDirsHashPrevious = WatchedFilesAndDirsHashNow
 
     Force_Check_Counter = 1

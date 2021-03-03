@@ -1,3 +1,9 @@
+apt-notifier (21.03.01a2) mx; urgency=medium
+
+  * forced check if package cache has changed
+
+ -- fehlix <fehlix@mxlinux.org>  Sun, 03 Mar 2021 06:01:01 -0400
+
 apt-notifier (21.03.01a1) mx; urgency=medium
 
   * restructured and reworked for antiX and MX
