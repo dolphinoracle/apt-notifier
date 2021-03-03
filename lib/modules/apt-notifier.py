@@ -13,20 +13,13 @@ import dbus
 import tempfile
 from os import environ
 
-from PyQt5 import QtWidgets, QtGui
 from PyQt5 import QtCore
+from PyQt5 import QtGui
+from PyQt5 import QtWidgets
 
 from distutils import spawn
 from time import sleep
 from string import Template # for simple string substitution (popup_msg...)
-
-
-
-def fix_fluxbox_startup():
-    cmd  = "[ -f  ~/.fluxbox/startup ]"
-    cmd += " && sed -i -r -e '\![[:space:]]*(/usr/bin/)?python[23]?[[:space:]]+(/usr/bin/)?apt-notifier.py.*!s![[:space:]]*(/usr/bin/)?python[23]?[[:space:]]+! !' ~/.fluxbox/startup;"
-    run = subprocess.run(cmd, shell=True, executable="/bin/bash")
-
 
 def set_package_manager():
     global package_manager
@@ -35,9 +28,14 @@ def set_package_manager():
     global package_manager_exec
     global package_manager_path
     global show_package_manager
+    global show_muon
+    global show_synaptic
     global show_package_manager_help
     global package_manager_available
-    try: 
+    global Package_Manager_Help
+    global Upgrade_using_package_manager
+
+    try:
         show_package_manager
     except:
         show_package_manager = False
@@ -45,7 +43,7 @@ def set_package_manager():
     try: package_manager_path
     except:
          package_manager_path = ''
-    
+
     #if show_package_manager and package_manager_path:
     #    return
     global conf
@@ -53,7 +51,15 @@ def set_package_manager():
     except NameError:
         from aptnotifier_config import AptNotifierConfig
         conf = AptNotifierConfig()
-    
+
+    global xlate
+    try: xlate
+    except NameError:
+        from aptnotifier_xlate import AptNotifierXlate
+        xlate = AptNotifierXlate()
+
+    show_muon = conf.config['show_muon']
+    show_synaptic = conf.config['show_synaptic']
     # allowed package manger
     default_list =  "synaptic, muon"
     default_list =  default_list.replace(',', ' ').split()
@@ -81,7 +87,7 @@ def set_package_manager():
                 package_manager_enabled = True
                 debug_p(f"found package_manager: {package_manager_exec}")
                 break
-            
+
             path = which("synaptic")
             if path:
                 package_manager = "synaptic"
@@ -100,7 +106,7 @@ def set_package_manager():
                 package_manager_available = False
                 package_manager_enabled = False
                 debug_p(f"no package_manager found: {pm}")
-                    
+
         if pm == 'muon':
             show_package_manager = conf.config['show_muon']
             show_package_manager_help = conf.get('show_muon_help')
@@ -135,6 +141,23 @@ def set_package_manager():
         print("Info: No package manager found! Disable packagemanager actions")
 
 
+    if package_manager_enabled or show_package_manager_help:
+        Package_Manager_Help                        = xlate.get('package_manager_help')
+        Package_Manager_Help = Package_Manager_Help.replace("Synaptic", package_manager_name)
+        Upgrade_using_package_manager = Upgrade_using_package_manager.replace('Synaptic', package_manager_name)
+
+    #left_click_package_manager                  = xlate.get('left_click_package_manager')
+
+    if package_manager_name:
+        xlate.left_click_package_manager = package_manager_name
+
+def package_manager_is_available():
+    from shutil import which
+    if which('synaptic') or  which('muon'):
+        return True
+    else:
+        False
+
 def set_globals():
     global Updater_Name
     global Package_Installer
@@ -144,12 +167,12 @@ def set_globals():
     global popup_title
     global popup_msg_1_new_update_available
     global popup_msg_multiple_new_updates_available
-    global Upgrade_using_package_manager
     global View_and_Upgrade
     global Hide_until_updates_available
     global Quit_Apt_Notifier
+    global Restart_Apt_Notifier
     global Apt_Notifier_Help
-    global Package_Manager_Help
+    global Upgrade_using_package_manager
     global Apt_Notifier_Preferences
     global Apt_History
     global Apt_History
@@ -160,7 +183,7 @@ def set_globals():
     Force_Check_Counter = 0
     global About
     global Check_for_Updates_by_User
-    Check_for_Updates_by_User = 'false'
+    Check_for_Updates_by_User = False
     global ignoreClick
     ignoreClick = '0'
     global WatchedFilesAndDirsHashNow
@@ -172,6 +195,8 @@ def set_globals():
     global Reload
     global notification
     notification = None
+    global check_for_updates_interval
+    global check_for_updates_force_counter
 
     # check version_at_start
     global version_at_start
@@ -184,16 +209,13 @@ def set_globals():
     global notification_icon
     notification_icon = "apt-notifier"
 
-
-###
-
     global xlate
     try: xlate
     except NameError:
         from aptnotifier_xlate import AptNotifierXlate
         xlate = AptNotifierXlate()
 
-    Updater_Name                                  = xlate.get('updater_name')
+    Updater_Name                                = xlate.get('updater_name')
     Apt_Notifier_Help                           = xlate.get('apt_notifier_help')
     Package_Installer                           = xlate.get('mx_package_installer')
     tooltip_0_updates_available                 = xlate.get('tooltip_0_updates_available')
@@ -204,9 +226,10 @@ def set_globals():
     popup_msg_1_new_update_available            = xlate.get('popup_msg_1_new_update_available')
     popup_msg_multiple_new_updates_available    = xlate.get('popup_msg_multiple_new_updates_available')
     Upgrade_using_package_manager               = xlate.get('upgrade_using_package_manager')
-    View_and_Upgrade                            = xlate.get("View and Upgrade")
-    Hide_until_updates_available                = xlate.get("Hide until updates available")
-    Quit_Apt_Notifier                           = xlate.get("Quit")
+    View_and_Upgrade                            = xlate.get("view_and_upgrade")
+    Hide_until_updates_available                = xlate.get("hide_until_updates_available")
+    Quit_Apt_Notifier                           = xlate.get("quit_apt_notifier")
+    Restart_Apt_Notifier                        = xlate.get("restart_apt_notifier")
     Apt_Notifier_Preferences                    = xlate.get("apt_notifier_preferences")
     Apt_History                                 = xlate.get("apt_history")
     View_Auto_Updates_Logs                      = xlate.get("view_auto_updates_logs")
@@ -214,38 +237,42 @@ def set_globals():
     Check_for_Updates                           = xlate.get("check_for_updates")
     About                                       = xlate.get("about")
     Reload                                      = xlate.get("reload")
-    left_click_package_manager                  = xlate.get('left_click_package_manager')
-    
-    global package_manager_name
-    if package_manager_name:
-        xlate.left_click_package_manager = package_manager_name
-    
-    global package_manager_enabled
-    set_package_manager()
-    if package_manager_enabled:
-        Package_Manager_Help = xlate.get('package_manager_help')
-        Package_Manager_Help = Package_Manager_Help.replace("Synaptic", package_manager_name)
-        Upgrade_using_package_manager = Upgrade_using_package_manager.replace('Synaptic', package_manager_name)
-
-    global show_package_manager_help
-    if show_package_manager_help:
-        Package_Manager_Help = xlate.get('package_manager_help')
-        Package_Manager_Help = Package_Manager_Help.replace("Synaptic", package_manager_name)
-        Upgrade_using_package_manager = Upgrade_using_package_manager.replace('Synaptic', package_manager_name)
 
     global conf
     try: conf
     except NameError:
         from aptnotifier_config import AptNotifierConfig
         conf = AptNotifierConfig()
+
+    check_for_updates_interval        = conf.get('check_for_updates_interval')
+    check_for_updates_force_counter   = conf.get('check_for_updates_force_counter')
+    
+    if check_for_updates_interval is None:
+        check_for_updates_interval        = 60
+    check_for_updates_interval = int(check_for_updates_interval)
+    if check_for_updates_interval < 15:
+        check_for_updates_interval = 15
+    elif check_for_updates_interval > 600:
+        check_for_updates_interval = 600 
+    
+
+    if check_for_updates_force_counter is None:
+        check_for_updates_force_counter   = 15
+    check_for_updates_force_counter = int(check_for_updates_force_counter)
+   
+    if check_for_updates_force_counter == 0:
+        # disabled
+        pass
+    elif check_for_updates_force_counter > 60:
+        check_for_updates_force_counter = 60
+    elif check_for_updates_force_counter < 5:
+        check_for_updates_force_counter = 5
+    
     global show_apt_notifier_help
     show_apt_notifier_help = conf.get('show_apt_notifier_help')
 
-    global apt_notifier_rc
-    try: apt_notifier_rc
-    except NameError:
-        from aptnotifier_rc import AptNotifierRC
-        apt_notifier_rc = AptNotifierRC()
+    from aptnotifier_rc import AptNotifierRC
+    apt_notifier_rc = AptNotifierRC()
 
     # UseNotifier
     global UseNotifier
@@ -272,17 +299,72 @@ def set_globals():
     debug_p(f"set_globals(): UseNotifier: {UseNotifier}")
     debug_p(f"set_globals(): use_dbus_notifications: {use_dbus_notifications}")
 
-
 # Check for updates, using subprocess.Popen
 def check_updates():
+    global check_for_updates_interval
+    global check_for_updates_force_counter
+    global check_updates_last_run
     global message_status
     global AvailableUpdates
+
+    global AvailableUpdatesPrevious
+    try: AvailableUpdatesPrevious
+    except: AvailableUpdatesPrevious=""
+
+    global unattatended_upgrade_last
+    try: 
+        unattatended_upgrade_last
+    except: 
+        unattatended_upgrade_last = unattended_upgrade_enabled()
+    
+    if unattatended_upgrade_last == unattended_upgrade_enabled():
+        unattatended_upgrade_changed = False
+    else:
+        unattatended_upgrade_changed = True
+    unattatended_upgrade_last = unattended_upgrade_enabled()        
+
+    global package_manager_path
+    global show_package_manager
+    
     global WatchedFilesAndDirsHashNow
     global WatchedFilesAndDirsHashPrevious
     global Check_for_Updates_by_User
     global Force_Check_Counter
+    global AptIcon
+    global tool_tip
+    tool_tip = ''
+    global version_at_start
 
-    debug_p("check_updates")
+    import datetime
+    now = datetime.datetime.now().strftime("%Y-%m-%d  %H:%M:%S")
+  
+    import time 
+    # seconds since epoch
+    check_updates_now_run = int(time.time())
+    
+    try: 
+        check_updates_last_run
+    except NameError:
+        check_updates_last_run = check_updates_now_run - check_for_updates_interval - 2
+    
+    delta = check_updates_now_run - check_updates_last_run
+    debug_p(f"delta = {check_updates_now_run} - {check_updates_last_run}")
+    
+    debug_p(f"check_updates at {now} rep {check_for_updates_interval} last: {delta}")
+    if delta >=  check_for_updates_interval and not Check_for_Updates_by_User or unattatended_upgrade_changed:
+        short_run = False
+        check_updates_last_run = check_updates_now_run
+    else:
+        short_run = True
+    debug_p(f"short_run : {short_run}")
+    
+    now = datetime.datetime.now().strftime("%Y-%m-%d  %H:%M:%S")
+    debug_p(f"Start check_updates by user {Check_for_Updates_by_User} with {AvailableUpdates} updates at {now}")
+
+    """ restart apt-notifier if another version have beeen installed
+    """
+    if  version_at_start != version_installed():
+        restart_apt_notifier()
 
     """
     Don't bother checking for updates when /var/lib/apt/periodic/update-stamp
@@ -302,9 +384,13 @@ def check_updates():
         else:
             AptIcon.setIcon(NoUpdatesIcon)
             if unattended_upgrade_enabled():
-                AptIcon.setToolTip("")
+                tool_tip = ""
+                AptIcon.setToolTip(tool_tip)
             else:
-                AptIcon.setToolTip(tooltip_0_updates_available)
+                tool_tip = tooltip_0_updates_available
+                AptIcon.setToolTip(tool_tip)
+                #AptIcon.setToolTip(tooltip_0_updates_available)
+        Check_for_Updates_by_User = False
         return
 
     """
@@ -322,28 +408,13 @@ def check_updates():
     cmd+= "| grep -qE 'lock$|lock-frontend$'"
     ret = subprocess.run(cmd, shell=True).returncode
     if ret == 0:
-        Force_Check_Counter = 5
+        Force_Check_Counter = check_for_updates_force_counter
+        Check_for_Updates_by_User = False
         return
 
     """
     Get a hash of files and directories we are watching
     """
-    script = '''#!/bin/bash
-    WatchedFilesAndDirs=(
-    /etc/apt/apt.conf*
-    /etc/apt/preferences*
-    /var/lib/apt*
-    /var/lib/apt/lists
-    /var/lib/apt/lists/partial
-    /var/lib/dpkg
-    /var/cache/apt
-    /var/lib/synaptic/preferences
-    )
-    stat -c %Y,%Z ${WatchedFilesAndDirs[*]} 2>/dev/null | md5sum
-    '''
-    #cmd = script
-    #run = subprocess.run(cmd, capture_output=True, shell=True, text=True, executable="/bin/bash")
-    #WatchedFilesAndDirsHashNow = run.stdout.strip()
     WatchedFilesAndDirsHashNow = get_stat_hash_of_watched_files_and_dirs()
     """
     If
@@ -354,31 +425,68 @@ def check_updates():
     """
     debug_p(f"Hash: {WatchedFilesAndDirsHashNow} == {WatchedFilesAndDirsHashPrevious}")
     if WatchedFilesAndDirsHashNow == WatchedFilesAndDirsHashPrevious:
-        if Check_for_Updates_by_User == 'false':
-            if Force_Check_Counter < 5:
+        if not Check_for_Updates_by_User:
+            if Force_Check_Counter < check_for_updates_force_counter and check_for_updates_force_counter != 0:
                 Force_Check_Counter = Force_Check_Counter + 1
                 if AvailableUpdates == '':
                     AvailableUpdates = '0'
+                Check_for_Updates_by_User = False
                 return
 
     WatchedFilesAndDirsHashPrevious = WatchedFilesAndDirsHashNow
-    WatchedFilesAndDirsHashNow = ''
 
     Force_Check_Counter = 1
 
-    Check_for_Updates_by_User = 'false'
-    global apt
-    try: apt
-    except NameError:
-        from aptnotifier_apt import Apt
-        apt = Apt()
-    AvailableUpdates = apt.available_updates()
-    debug_p(f"check_updates AvailableUpdates {AvailableUpdates}")
+    
+    from aptnotifier_apt import Apt
+    apt = Apt()
+    
+    # Suppress 'updates available' notification
+    # if Unattended-Upgrades are enabled
+    # AND apt-get upgrade & dist-upgrade output are the same
 
+    debug_p(f"unattended_upgrade_enabled(): {unattended_upgrade_enabled()}")
+    if unattended_upgrade_enabled():
+        if not short_run:
+            AvailableUpdates = apt.available_updates(['-d','-u']).split(':')
+            if AvailableUpdates[0] == AvailableUpdates[1]:
+                AvailableUpdates  = 0
+            elif AvailableUpdates[2] == 'dist-upgrade':
+                AvailableUpdates  = AvailableUpdates[0]
+            else:
+                AvailableUpdates  = AvailableUpdates[1]
+    else:
+        if not short_run:
+            AvailableUpdates = apt.available_updates(['-c'])
+    AvailableUpdates = str(AvailableUpdates)
+    
+    debug_p(f"check_updates AvailableUpdates {AvailableUpdates}")
+    debug_p(f"check_updates AvailableUpdates {AvailableUpdatesPrevious} -> {AvailableUpdates}")
+    package_manager_changed = False
+    if package_manager_path and show_package_manager and not os.path.exists(package_manager_path):
+        debug_p(f"[455] set_package_manager(): {package_manager_path}")
+        package_manager_changed = True
+    elif not package_manager_path and ( show_muon or show_synaptic) and package_manager_is_available():
+        debug_p(f"[457] set_package_manager(): {package_manager_path}")
+        package_manager_changed = True
+
+    """
+    elif AvailableUpdates == AvailableUpdatesPrevious:
+        # don't  change icon and tooltip if previous availables have not changed
+        # or available updates are still avaialble
+        AvailableUpdatesPrevious = AvailableUpdates
+        return
+    elif AvailableUpdates != "0" and AvailableUpdatesPrevious != "0" and AvailableUpdatesPrevious != "":
+        AvailableUpdatesPrevious = AvailableUpdates
+        return
+    """
+    
     # Alter both Icon and Tooltip, depending on updates available or not
     if AvailableUpdates == "":
         AvailableUpdates = "0"
+  
     if AvailableUpdates == "0":
+        debug_p(f'if AvailableUpdates == "0":')
         message_status = "not displayed"  # Resets flag once there are no more updates
         add_hide_action()
         if icon_config != "show":
@@ -386,14 +494,18 @@ def check_updates():
         else:
             AptIcon.setIcon(NoUpdatesIcon)
             if unattended_upgrade_enabled():
-                AptIcon.setToolTip("")
+                tool_tip = ""
+                AptIcon.setToolTip(tool_tip)
             else:
-                AptIcon.setToolTip(tooltip_0_updates_available)
+                tool_tip = tooltip_0_updates_available
+                AptIcon.setToolTip(tool_tip)
     else:
-        if AvailableUpdates == "1":
+        if AvailableUpdates == "1" and ( AvailableUpdates != AvailableUpdatesPrevious or  package_manager_changed):
+            debug_p(f'if AvailableUpdates == "1":')
             AptIcon.setIcon(NewUpdatesIcon)
             AptIcon.show()
-            AptIcon.setToolTip(tooltip_1_new_update_available)
+            tool_tip = tooltip_1_new_update_available
+            AptIcon.setToolTip(tool_tip)
             add_rightclick_actions()
             # Shows the pop up message only if not displayed before
             if message_status == "not displayed":
@@ -412,13 +524,13 @@ def check_updates():
                     else:
                         desktop_notification(popup_title, popup_msg_1_new_update_available, notification_icon)
                 """
-        else:
+        elif AvailableUpdates != AvailableUpdatesPrevious or package_manager_changed:
             AptIcon.setIcon(NewUpdatesIcon)
             AptIcon.show()
             tooltip_template=Template(tooltip_multiple_new_updates_available)
-            tooltip_with_count=tooltip_template.substitute(count=AvailableUpdates)
-            AptIcon.setToolTip(tooltip_with_count)
-            
+            tooltip_with_count = tooltip_template.substitute(count=AvailableUpdates)
+            tool_tip = tooltip_with_count
+            AptIcon.setToolTip(tool_tip)
             add_rightclick_actions()
             # Shows the pop up message only if not displayed before
             if message_status == "not displayed":
@@ -431,7 +543,8 @@ def check_updates():
                     popup_with_count=popup_template.substitute(count=AvailableUpdates)
                     show_popup(popup_title, popup_with_count, notification_icon)
                     message_status = "displayed"
-
+    AvailableUpdatesPrevious = AvailableUpdates
+    Check_for_Updates_by_User = False
 
 def run_with_restart(prog_exec=None):
     global AptIcon
@@ -458,23 +571,24 @@ def run_with_restart(prog_exec=None):
     if  version_at_start != version_installed():
         restart_apt_notifier()
     return ret
-    
+
 def start_package_manager():
     global Check_for_Updates_by_User
     global package_manager_available
     global version_at_start
-    
+
     debug_p(f"run_with_restart({package_manager_exec})")
     if not package_manager_available:
         return
 
     ret = run_with_restart(package_manager_exec)
-   
+
     if ret == 0:
-        Check_for_Updates_by_User = 'true'
+        Check_for_Updates_by_User = True
         debug_p("check_updates()")
         check_updates()
 
+"""
 def start_package_managerXXXX():
     global Check_for_Updates_by_User
     global package_manager_available
@@ -505,10 +619,10 @@ def start_package_managerXXXX():
         sleep(2)
 
     if ret == 0:
-        Check_for_Updates_by_User = 'true'
+        Check_for_Updates_by_User = True
         debug_p("check_updates()")
         check_updates()
-
+"""
 
 def start_viewandupgrade(action=None):
     notification_close()
@@ -523,17 +637,11 @@ def start_viewandupgrade(action=None):
         from aptnotifier_config import AptNotifierConfig
         conf = AptNotifierConfig()
 
-    global apt_notifier_rc
-    try: apt_notifier_rc
-    except NameError:
-        from aptnotifier_rc import AptNotifierRC
-        apt_notifier_rc = AptNotifierRC()
+    from aptnotifier_rc import AptNotifierRC
+    apt_notifier_rc = AptNotifierRC()
 
-    global view_and_upgrade
-    try: view_and_upgrade
-    except NameError:
-        from aptnotifier_viewandupgrade import ViewAndUpgrade
-        view_and_upgrade = ViewAndUpgrade()
+    from aptnotifier_viewandupgrade import ViewAndUpgrade
+    view_and_upgrade = ViewAndUpgrade()
 
     systray_icon_hide()
     while True:
@@ -567,17 +675,12 @@ def start_viewandupgrade(action=None):
             else:
             """
             run(cmd)
-            cmd = "dpkg-query -f ${Version} -W apt-notifier"
-            version_installed = subprocess.run(cmd.split(), capture_output=True, universal_newlines=True).stdout.strip()
-            if  version_installed != version_at_start:
-                cmd = "apt-notifier-unhide-Icon & disown -h >/dev/null 2>/dev/null"
-                run = subprocess.run(cmd, shell=True, executable="/bin/bash")
-                sleep(1)
-                sys.exit(0)
+            if  version_at_start != version_installed():
+                restart_apt_notifier()
 
             break
 
-        Check_for_Updates_by_User = 'true'
+        Check_for_Updates_by_User = True
     systray_icon_show()
     check_updates()
 
@@ -597,10 +700,7 @@ def initialize_aptnotifier_prefs():
 
     from aptnotifier_rc import AptNotifierRC
 
-    global apt_notifier_rc
-    try: apt_notifier_rc
-    except NameError:
-        apt_notifier_rc = AptNotifierRC()
+    apt_notifier_rc = AptNotifierRC()
 
     try: conf
     except NameError:
@@ -641,7 +741,7 @@ def aptnotifier_prefs():
 
     global Check_for_Updates_by_User
     global package_manager
-    
+
     systray_icon_hide()
 
     initialize_aptnotifier_prefs()
@@ -657,19 +757,15 @@ def aptnotifier_prefs():
 
     start = AutoStart()
     debug_p(f"form = Form() : {package_manager}")
-    
+
     form = Form()
 
     if not package_manager_available:
         form.show_left_click_behaviour_frame = False
 
     form.left_click_package_manager = package_manager
-    
-    global apt_notifier_rc
-    try:
-        apt_notifier_rc
-    except NameError:
-        apt_notifier_rc = AptNotifierRC()
+
+    apt_notifier_rc = AptNotifierRC()
 
     global autoupdate
     try:
@@ -687,14 +783,13 @@ def aptnotifier_prefs():
     conf_use_dbus_notifications  = conf.get('use_dbus_notifications')
     rc_use_dbus_notifications    = apt_notifier_rc.use_dbus_notifications
     show_switch_desktop_notifications = conf.get('show_switch_desktop_notifications')
+    if rc_use_dbus_notifications in [ True, False ]:
+        use_dbus_notifications = rc_use_dbus_notifications
+    else:
+        use_dbus_notifications = conf_use_dbus_notifications
 
     if show_switch_desktop_notifications:
-        if rc_use_dbus_notifications in [ True, False ]:
-            form.use_dbus_notifications = rc_use_dbus_notifications
-            form_use_dbus_notifications = rc_use_dbus_notifications
-        else:
-            form.use_dbus_notifications = conf_use_dbus_notifications
-            form_use_dbus_notifications = conf_use_dbus_notifications
+        form.use_dbus_notifications = use_dbus_notifications
 
     form.icon_look                = apt_notifier_rc.icon_look
     form.left_click               = apt_notifier_rc.left_click
@@ -731,8 +826,9 @@ def aptnotifier_prefs():
 
     if show_switch_desktop_notifications:
         if form.use_dbus_notifications in [ True, False ]:
-            if not form.use_dbus_notifications == form_use_dbus_notifications:
+            if not form.use_dbus_notifications == use_dbus_notifications:
                 apt_notifier_rc.use_dbus_notifications = form.use_dbus_notifications
+                use_dbus_notifications = form.use_dbus_notifications
 
     apt_notifier_rc.update
 
@@ -767,7 +863,7 @@ def aptnotifier_prefs():
             tray_icon_noupdates  = conf.get('wireframe_none_dark_transparent')
         else:
             tray_icon_noupdates  = conf.get('wireframe_none_dark')
-    
+
     set_QIcons()
 
     global AptIcon
@@ -780,7 +876,7 @@ def aptnotifier_prefs():
     AptIcon.show()
     add_rightclick_actions()
 
-    Check_for_Updates_by_User = 'true'
+    Check_for_Updates_by_User = True
     systray_icon_show()
 
 
@@ -792,9 +888,9 @@ def apt_history():
     except NameError:
         from aptnotifier_apt import Apt
         apt = Apt()
-  
+
     apt.apt_history()
-    
+
     systray_icon_show()
 
 def apt_get_update():
@@ -804,7 +900,7 @@ def apt_get_update():
 
     run = subprocess.run([ "/usr/lib/apt-notifier/bin/updater_reload_run" ])
 
-    Check_for_Updates_by_User = 'true'
+    Check_for_Updates_by_User = True
     systray_icon_show()
     check_updates()
 
@@ -823,13 +919,13 @@ def start_package_installer():
     debug_p(f"start_package_installer(): {cmd}")
     ret = run_with_restart(cmd)
     debug_p(f"start_package_installer(): run_with_restart{cmd}: {ret}")
-    
+
     if  version_at_start != version_installed():
         restart_apt_notifier()
         sleep(2)
-   
+
     if ret == 0:
-        Check_for_Updates_by_User = 'true'
+        Check_for_Updates_by_User = True
         debug_p("check_updates()")
         check_updates()
     systray_icon_show()
@@ -858,7 +954,7 @@ def start_package_installerXXX():
         run = subprocess.run(cmd, shell=True, executable="/bin/bash")
         sleep(2)
 
-    Check_for_Updates_by_User = 'true'
+    Check_for_Updates_by_User = True
     systray_icon_show()
     check_updates()
 
@@ -903,7 +999,11 @@ def start_package_installer_0():
 # Define the command to run when left clicking on the Tray Icon
 def left_click():
     if AvailableUpdates == "0":
-        start_package_manager0()
+        debug_p(f"package_manager_path: '{package_manager_path}'")
+        if package_manager_path:
+            start_package_manager0()
+        else:
+            start_package_installer_0()
     else:
         """Test ~/.config/apt-notifierrc for LeftClickViewAndUpgrade"""
         cmd = "grep -sq ^LeftClick=ViewAndUpgrade"
@@ -954,7 +1054,7 @@ def add_rightclick_actions():
     global show_package_manager_help
     global package_manager_path
     global rc_file_name
-    
+
     from shutil import which
     from subprocess import run, DEVNULL
 
@@ -962,8 +1062,8 @@ def add_rightclick_actions():
 
     ActionsMenu.clear()
     debug_p(f"add_rightclick_actions with {package_manager_path}")
-    cmd = f"grep -sq ^LeftClick=ViewAndUpgrade {rc_file_name}" 
-    cmd = cmd.split() 
+    cmd = f"grep -sq ^LeftClick=ViewAndUpgrade {rc_file_name}"
+    cmd = cmd.split()
     ret = run(cmd, stdout=DEVNULL, stderr=DEVNULL).returncode
     if ret == 0:
         ActionsMenu.addAction(View_and_Upgrade).triggered.connect( start_viewandupgrade0 )
@@ -977,10 +1077,10 @@ def add_rightclick_actions():
                 ActionsMenu.addAction(Upgrade_using_package_manager).triggered.connect( start_package_manager0)
                 ActionsMenu.addSeparator()
         ActionsMenu.addAction(View_and_Upgrade).triggered.connect( start_viewandupgrade0 )
-    
+
     # check we have a package installer
     pl = "mx-packageinstaller packageinstaller"
-    
+
     package_installer = list(filter( lambda x: which(x), pl.split()))[0]
     if package_installer:
         add_Package_Installer_action()
@@ -993,20 +1093,22 @@ def add_rightclick_actions():
 
     add_apt_get_update_action()
     add_apt_notifier_help_action()
-    
+
     if show_package_manager_help and package_manager_enabled:
         if package_manager_path:
             add_package_manager_help_action()
-    
+
     add_aptnotifier_prefs_action()
     add_about_action()
+    add_restart_action()
     add_quit_action()
-
+    """
+    probaly not needed anymore - so for now disabled
     cmd = '[ "$XDG_CURRENT_DESKTOP" = "XFCE" ] && '
     cmd+= 'which deartifact-xfce-systray-icons && '
     cmd+= 'deartifact-xfce-systray-icons 1 &'
     subprocess.run(cmd, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
+    """
 def add_hide_action():
     global show_package_manager
     global package_manager_enabled
@@ -1025,7 +1127,7 @@ def add_hide_action():
             if show_package_manager and package_manager_enabled:
                 ActionsMenu.addSeparator()
                 ActionsMenu.addAction(package_manager_name).triggered.connect( start_package_manager0 )
-    
+
     # check we have a package installer
     pl = "mx-packageinstaller packageinstaller"
     from shutil import which
@@ -1047,22 +1149,30 @@ def add_hide_action():
 
     add_aptnotifier_prefs_action()
     add_about_action()
+    add_restart_action()
     add_quit_action()
-
+    """
     cmd = '[ "$XDG_CURRENT_DESKTOP" = "XFCE" ] && '
     cmd+= 'which deartifact-xfce-systray-icons && '
     cmd+= 'deartifact-xfce-systray-icons 1 &'
     subprocess.run(cmd, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    """
+    
+def add_restart_action():
+    ActionsMenu.addSeparator()
+    restart_action = ActionsMenu.addAction(Restart_Apt_Notifier)
+    restart_action.triggered.connect( restart_apt_notifier )
 
 def add_quit_action():
     ActionsMenu.addSeparator()
     quit_action = ActionsMenu.addAction(QuitIcon,Quit_Apt_Notifier)
-    #quit_action.triggered.connect( exit )
     quit_action.triggered.connect( close_notifier )
 
 def close_notifier():
     notification_close()
     sys.exit(0)
+
+
 
 def add_apt_notifier_help_action():
     global show_apt_notifier_help
@@ -1082,13 +1192,13 @@ def open_apt_notifier_help():
     show_apt_notifier_help = conf.get("show_apt_notifier_help")
     if not show_apt_notifier_help:
         return
-        
+
     global apt_notifier_help
     try: apt_notifier_help
     except NameError:
         from aptnotifier_help import AptNotifierHelp
         apt_notifier_help = AptNotifierHelp()
-        
+
     apt_notifier_help.apt_notifier_help()
     systray_icon_show()
 
@@ -1115,7 +1225,7 @@ def open_package_manager_help():
     except NameError:
         from aptnotifier_help import AptNotifierHelp
         apt_notifier_help = AptNotifierHelp()
-        
+
     apt_notifier_help.open_package_manager_help(package_manager)
 
     systray_icon_show()
@@ -1217,9 +1327,10 @@ def set_QIcons():
 def systray_icon_hide():
     notification_close()
 
-    cmd = "pgrep -x plasmashell >/dev/null && exit 1 || exit 0"
-    running_in_plasma = subprocess.run(cmd, shell=True).returncode
-    if not running_in_plasma:
+    #cmd = "pgrep -x plasmashell >/dev/null && exit 1 || exit 0"
+    #running_in_plasma = subprocess.run(cmd, shell=True).returncode
+    #if not running_in_plasma:
+    if not run_in_plasma():
        return
 
     if not spawn.find_executable("qdbus"):
@@ -1251,9 +1362,10 @@ def systray_icon_hide():
 
 def systray_icon_show():
 
-    cmd = "pgrep -x plasmashell >/dev/null && exit 1 || exit 0"
-    running_in_plasma = subprocess.run(cmd, shell=True).returncode
-    if not running_in_plasma:
+    #cmd = "pgrep -x plasmashell >/dev/null && exit 1 || exit 0"
+    #running_in_plasma = subprocess.run(cmd, shell=True).returncode
+    #if not running_in_plasma:
+    if not run_in_plasma():
        return
 
     if not spawn.find_executable("qdbus"):
@@ -1289,25 +1401,61 @@ def systray_icon_show():
 #---------------------------------------------
 # notification with actions
 #---------------------------------------------
+
+def dbus_closed():
+    global AptIcon
+    global dbus_callback_closed
+    global tool_tip    
+    try: tool_tip
+    except: tool_tip = ""
+    dbus_callback_closed = True
+    debug_p(f"dbus_callback_closed: {dbus_callback_closed} ")
+    debug_p(f"Notification is closed")
+    try: AptIcon
+    except: return
+    AptIcon.setToolTip(tool_tip)
+
+
 def upgrade_cb(n, action):
     assert action == "upgrade"
     #print("You clicked 'View and Upgrade'")
     #cmd = "apt-notifier-unhide-Icon"
     #run = subprocess.Popen(cmd,shell=True)
+    AptIcon.hide()
     start_viewandupgrade(action)
+    restart_apt_notifier()
     n.close()
+    dbus_closed()
 
 def reload_cb(n, action):
     assert action == "reload"
     #print("You clicked Reload")
+    AptIcon.hide()
     apt_get_update()
+    restart_apt_notifier()
     n.close()
+    dbus_closed()
 
 def closed_cb(n):
     #print("Notification closed")
     n.close()
+    dbus_closed()
 
 def notification_close():
+    global notification
+    global dbus_callback_closed
+    try: 
+        dbus_callback_closed
+    except:
+        dbus_callback_closed = True
+    try:
+        if notification:
+            notification.close()
+            dbus_callback_closed = True
+    except:
+        pass
+
+def notification_closeXXX():
     global notification
     if notification:
         notification.close()
@@ -1317,7 +1465,8 @@ def desktop_notification(title, msg, icon):
     global notification
     notification = False
     try:
-        import notify2
+        #import notify2
+        import notify2_0_3_1_latest  as notify2
     except ImportError:
         return False
 
@@ -1334,7 +1483,8 @@ def desktop_notification(title, msg, icon):
 
         if ('actions' in notify2.get_server_caps()):
             notification.add_action("upgrade", View_and_Upgrade, upgrade_cb)
-            notification.add_action("reload", Reload, reload_cb)
+            # not used:
+            # notification.add_action("reload", Reload, reload_cb)
         notification.connect('closed', closed_cb)
         notification.timeout = 10000
         notification.update(title, msg)
@@ -1351,6 +1501,7 @@ def use_notifier():
         UseNotifier = "dbus"
     else:
         UseNotifier = "qt"
+        """ not used:
         ret = subprocess.run("pgrep -x xfdesktop".split(), stdout=subprocess.DEVNULL).returncode
         if ret == 0:
             running_in_xfce = True
@@ -1363,7 +1514,7 @@ def use_notifier():
                 UseNotifier = "dbus"
             else:
                 UseNotifier = "qt"
-
+        """
     debug_p(f"use_notifier(): UseNotifier: {UseNotifier}")
     return UseNotifier
 
@@ -1387,7 +1538,7 @@ def show_popup(popup_title, popup_msg, popup_icon):
 def another_apt_notifer_is_running():
     """
     simple process check for running apt-notifier
-    TODO: add a lock 
+    TODO: add a lock
     """
     from subprocess import run
     import os
@@ -1397,11 +1548,11 @@ def another_apt_notifer_is_running():
     # cmd = [ 'pgrep', '-u' , euid , '-c', '-f',  '/usr/bin/python /usr/bin/apt-notifier.py' ]
     # python3
     # count running apt-notifier processes of current user
-    
+
     cmd = [ 'pgrep', '-u' , euid , '-c', '-f',  '/usr/bin/python3 /usr/lib/apt-notifier/modules/apt-notifier.py' ]
     # check max n times whether another apt-notifer is running
     N=3
-    delay = 0.7 
+    delay = 0.7
     check = True
     for i in range(N):
         if check:
@@ -1413,19 +1564,19 @@ def another_apt_notifer_is_running():
             debug_p(f"{' '.join(cmd)}")
             if ret == 0 and cnt > 1:
                 # another instance of apt-notifer.py found
-                # wait a bit and check again 
+                # wait a bit and check again
                 if i+1 < N:
                     sleep(0.7)
                 else:
                     break
             else:
                 check = False
-    
+
     return check
 
 def run_in_plasma():
     global running_in_plasma
-    try: 
+    try:
         running_in_plasma
     except:
         from subprocess import run
@@ -1441,43 +1592,46 @@ def run_in_plasma():
     #-------------------------------
 
     return running_in_plasma
-  
+
 def debug_p(text=''):
-    """ 
+    """
     simple debug print helper -  msg get printed to stderr
     """
     if debugging():
         print("Debug: " + text, file = sys.stderr)
 
 def debugging():
-    """ 
+    """
     simple debugging helper
     """
     import os
     global debug_apt_notifier
-    try: 
+    try:
         debug_apt_notifier
     except:
-        try: 
+        try:
             debug_apt_notifier = os.getenv('DEBUG_APT_NOTIFIER')
-        except: 
+        except:
             debug_apt_notifier = False
-    
+
     return debug_apt_notifier
-    
+
 def version_installed():
     from subprocess import run
     cmd = "dpkg-query -f ${Version} -W apt-notifier"
     version_installed = run(cmd.split(), capture_output=True, text=True).stdout.strip()
     return version_installed
-    
+
 def restart_apt_notifier():
     from subprocess import run, DEVNULL
     debug_p("restart_apt_notifier.")
     notification_close()
+    cmd = "sleep 1; apt-notifier-unhide-Icon & disown -h >/dev/null 2>/dev/null"
     cmd = "apt-notifier-unhide-Icon & disown -h >/dev/null 2>/dev/null"
-    run(cmd, shell=True, executable="/bin/bash")
+    #run(cmd, shell=True, executable="/bin/bash", start_new_session=True, stdout=DEVNULL, stderr=DEVNULL)
+    run(cmd, shell=True, executable="/bin/bash", stdout=DEVNULL, stderr=DEVNULL)
     sleep(2)
+    sys.exit(1)
 
 def unattended_upgrade_enabled():
     """
@@ -1493,8 +1647,8 @@ def unattended_upgrade_enabled():
         return True
     else:
         return False
-        
-            
+
+
 def get_stat_hash_of_watched_files_and_dirs():
     import os
     import hashlib
@@ -1549,7 +1703,7 @@ def set_debug():
     # debug_opts = list(filter(lambda x: x in debug, sys.argv))
     if len(debug_opts) > 0:
         os.environ['DEBUG_APT_NOTIFIER'] = "true"
-        print(f"Debug: Debugging {os.getenv('DEBUG_APT_NOTIFIER')}")
+        debug_p(f" Debugging {os.getenv('DEBUG_APT_NOTIFIER')}")
 
 def fix_path():
     '''
@@ -1558,8 +1712,12 @@ def fix_path():
     import os
     path = '/usr/local/bin:/usr/bin:/bin:/sbin:/usr/sbin'
     os.environ['PATH'] = path
-    
-    
+
+def fix_fluxbox_startup():
+    from aptnotifier_autostart import AutoStart
+    ast = AutoStart()
+    ast.fix_fluxbox_autostart()
+
 #### main #######
 def main():
     # Define Core objects, Tray icon and QTimer
@@ -1573,7 +1731,7 @@ def main():
     global icon_look
 
     fix_path()
-    
+
     set_debug()
 
     if another_apt_notifer_is_running():
@@ -1584,7 +1742,7 @@ def main():
     # check version_at_start
     global version_at_start
     version_at_start = version_installed()
-    
+
     global rc_file_name
     rc_file_name = os.getenv('HOME') + '/.config/apt-notifierrc'
     global message_status
@@ -1595,10 +1753,10 @@ def main():
 
     # fix  fluxbox startup if needed
     fix_fluxbox_startup()
-    set_package_manager()
-    debug_p(f"set_package_manager() : {package_manager}")
 
     set_globals()
+    set_package_manager()
+    debug_p(f"set_package_manager() : {package_manager}")
     initialize_aptnotifier_prefs()
     AptNotify = QtWidgets.QApplication(sys.argv)
     AptIcon = QtWidgets.QSystemTrayIcon()
@@ -1625,7 +1783,12 @@ def main():
     if icon_config == "show":
         systray_icon_show()
         AptIcon.show()
-    Timer.start(60000)
+
+    global check_for_updates_interval
+
+    # Timer.start(60000)
+    # Timer.start(int(check_for_updates_interval)*1000)
+    Timer.start(15000)
     if AptNotify.isSessionRestored():
         sys.exit(1)
     sys.exit(AptNotify.exec_())

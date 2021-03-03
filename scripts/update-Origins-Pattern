@@ -103,36 +103,23 @@ d_print(f"Debug: Will write Origins-Pattern into: '{output}'")
 # based on get_distro_codename() used within unattended-upgrades script
 def debian_codename():
     try:
-        cmd = ["lsb_release", "-c", "-s"]
-        dc = run(cmd, check=True, capture_output=True, text=True)
-        return dc.stdout.strip()
-    except:
-        pass
-    try:
         with open("/etc/debian_version","r") as f:
             dv =  f.read().splitlines()[0]
             dv = dv.split(".")[0]
+            dv = dv.split("/")[0]
             if dv == "9":
-                dc = "stretch"
+                debian_codename = "stretch"
             elif dv == "10":
-                dc = "buster"
+                debian_codename = "buster"
             elif dv == "11":
-                dc = "bullseye"
+                debian_codename = "bullseye"
             elif dv == "12":
-                dc = "bookworm"
-            elif dv == "13":
-                # todo: read codenames from distro-info
-                dc = "xxx"
+                debian_codename = "bookworm"
             else:
-                """for antiX bullseye/testing replace sid -> testing
-                codename 'sid' is disabled in unattended-upgrade"""
-                dv = dv.replace('sid', 'testing')
-                dc = dv.split("/")[0]
-                
+                debian_codename = dv
     except FileNotFoundError as e:
-        dc = ""
-    return dc
-
+        debian_codename = "n/a"
+    return debian_codename
 
 # read current apt policy
 pol = run(['apt-cache', 'policy'], capture_output=True,text=True).stdout

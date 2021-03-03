@@ -13,9 +13,15 @@ class Apt:
 
 
     # Check for avalable updates
-    def available_updates(self):
+    def available_updates(self, opts=[]):
+        
         from subprocess import run
         cmd = "/usr/lib/apt-notifier/bin/updater_count --count"
+        if '-d' in opts or '--dist-upgrade' in opts:
+            cmd = cmd + ' --dist-upgrade'
+        if '-u' in opts or '--upgrade' in opts:
+            cmd = cmd + ' --upgrade'
+            
         run = subprocess.run(cmd.split(), capture_output=True, text=True)
         # Read the output into a text string
         self.__available_updates = run.stdout.strip()
@@ -40,7 +46,7 @@ class Apt:
                 else:
                     debian_codename = dv
         except FileNotFoundError as e:
-            debian_codename = ""
+            debian_codename = "n/a"
         self.__debian_codename = debian_codename
         return self.__debian_codename
         

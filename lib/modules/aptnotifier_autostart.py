@@ -4,8 +4,8 @@ import subprocess
 from subprocess import run, PIPE
 import sys
 import os
-from os import environ
 import shutil
+
 
 class AutoStart:
     """
@@ -13,34 +13,20 @@ class AutoStart:
     """
     def __init__(self):
 
-        self.__usr_autostart = environ.get('HOME') + '/.config/autostart/apt-notifier-autostart.desktop'
+        self.__usr_autostart = os.getenv('HOME') + '/.config/autostart/apt-notifier-autostart.desktop'
         self.__xdg_autostart = '/etc/xdg/autostart/apt-notifier-autostart.desktop'
         self.__session = ''
         self.detect_distro()
         self.detect_session()
+        # patterns to detect apt-notifier startup
+        # current use in MX fluxbox ( "/usr/bin/apt-notifer.py" )
+        self.pattern_1 = '^[^#].*apt-notifier.py.*'   
+        # used in antiX and now also in MX ( "/usr/bin/apt-notifer" )
+        self.pattern_2 = '^[^#].*apt-notifier.*'   
+        self.__pat_exec='*(/usr/bin/)?apt-notifier.*'
+        self.__pat_hash='[[:space:]#]*#[[:space:]#]*'
+        self.__pat_text='[^[:alpha:]#]*(sleep)?[^[:alpha:]#]*'
         
-        # patterns to detect  apt-notifier startup
-        # used in antiX, future-use in MX
-        self.__pat_1 = '[[:space:](]*(sleep [0-9]+[;&[:space:]]+)*(/usr/bin/)?apt-notifier'   
-        # current use in MX fluxbox 
-        self.__pat_2 = '(nohup sh -c .*)?ionice -c3 nice -n19 nohup( (usr/bin/)?python3?)? /usr/bin/apt-notifier.py'
-        # redirects and background &
-        self.__dev   = '[)[:space:]]*[12&>dev/null[:space:]]*&[12&>dev/null[:space:]]*'        
-        
-        self.__pat_1 += self.__dev 
-        self.__pat_2 += self.__dev 
-
-        # replace spaces with space-pattern
-        self.__pat_2 = self.__pat_2.replace(' ', '[[:space:]]+')
-
-        # leading spaces
-        self.__pat_a = '^[[:space:]]*'
-        # spaces and hash-signs
-        self.__pat_b = '[[:space:]#]*'
-        # trailing spaces and comments
-        self.__pat_z = '[[:space:]]*(#.*)?$'
-        #self.__pat_z = '[[:space:]]*[12&>dev/null[:space:]]*(#.*)?'        
-
     def detect_distro(self):
         """
         detect distro
@@ -50,7 +36,7 @@ class AutoStart:
             self.__startup = self.__usr_autostart
         elif os.path.exists("/etc/antix-version"):
             self.__distro = 'antiX'
-            self.__startup = environ.get('HOME') + '/.desktop-session/startup'
+            self.__startup = os.getenv('HOME') + '/.desktop-session/startup'
         else:
             self.__distro = 'other'
             self.__startup = self.__usr_autostart
@@ -70,7 +56,7 @@ class AutoStart:
             if not self.__distro:
                 self.detect_distro()
             if self.__distro != 'antiX':
-                self.__startup = environ.get('HOME') + '/.fluxbox/startup'
+                self.__startup = os.getenv('HOME') + '/.fluxbox/startup'
             return self.__session
         except subprocess.CalledProcessError:
             pass
@@ -92,13 +78,6 @@ class AutoStart:
         detect apt-notifier autostart
         """
         from subprocess import run, PIPE, DEVNULL
-        pat_1 = self.__pat_1
-        pat_2 = self.__pat_2
-        pat_a = self.__pat_a
-        pat_z = self.__pat_z
-
-        pattern_1 = pat_a + pat_1 + pat_z
-        pattern_2 = pat_a + pat_2 + pat_z
 
         if not self.__distro:
             self.detect_distro()
@@ -108,8 +87,9 @@ class AutoStart:
             '''
             detect autostart in ~/.desktop-session/startup
             '''
-            check1 = run(['grep', '-sqE', pattern_1, self.__startup ])
-            if check1.returncode == 0:
+            pat = f"^{self.__pat_text}{self.__pat_exec}"
+            ret = run(['grep', '-sqE', pat, self.__startup ], stdout=DEVNULL, stderr=DEVNULL)
+            if ret.returncode == 0:
                 self.__autostart = True
             else:
                 self.__autostart = False
@@ -118,10 +98,10 @@ class AutoStart:
             '''
             detect autostart in ~/.fluxbox/startup
             '''
-            check1 = run(['grep', '-sqE', pattern_1, self.__startup ])
-            check2 = run(['grep', '-sqE', pattern_2, self.__startup ])
+            pat = f"^{self.__pat_text}{self.__pat_exec}"
+            ret = run(['grep', '-sqE', pat, self.__startup ], stdout=DEVNULL, stderr=DEVNULL)
 
-            if check1.returncode == 0 or check2.returncode == 0:
+            if ret.returncode == 0:
                 self.__autostart = True
             else:
                 self.__autostart = False
@@ -147,15 +127,6 @@ class AutoStart:
             #print("Autostart already disabled!")
             return autostart
             
-        pat_1 = self.__pat_1
-        pat_2 = self.__pat_2
-        pat_a = self.__pat_a
-        pat_b = self.__pat_b
-        pat_z = self.__pat_z
-
-        pattern_1 = pat_a + pat_1 + pat_z
-        pattern_2 = pat_a + pat_2 + pat_z
-
         if not self.__distro:
             self.detect_distro()
         #antiX
@@ -163,22 +134,22 @@ class AutoStart:
             '''
             disable autostart in ~/.desktop-session/startup
             '''
-            # comment out startup lines found
-            run(['sed', '-i', '-r', 's!' + pattern_1 + '!#&!', self.__startup ], stderr=DEVNULL)
+            # comment out startup line(s) found
+            pat = f"^({self.__pat_text}{self.__pat_exec})"
+            cmd = f"sed -i -r \\@{pat}@s@@#&@"
+            run( cmd.split() + [ self.__startup ], stdout=DEVNULL, stderr=DEVNULL)
             return self.detect_autostart()
         #MX fluxbox
         elif self.__session == 'fluxbox':
             '''
             disable autostart in ~/.fluxbox/startup
             '''
-            if run(['grep', '-sqE', pattern_1, self.__startup ]).returncode == 0:
-                # comment out startup lines found
-                run(['sed', '-i', '-r', 's!' + pattern_1 + '!#&!', self.__startup ], stderr=DEVNULL)
-            elif run(['grep', '-sqE', pattern_2, self.__startup ]).returncode == 0:
-                # comment out startup lines found
-                run(['sed', '-i', '-r', 's!' + pattern_2 + '!#&!', self.__startup ], stderr=DEVNULL)
+            # comment out startup line(s) found
+            pat = f"^({self.__pat_text}{self.__pat_exec})"
+            cmd = f"sed -i -r \\@{pat}@s@@#&@"
+            run( cmd.split() + [ self.__startup ], stdout=DEVNULL, stderr=DEVNULL)
             return self.detect_autostart()
-        #MX or anything else
+        #MX or another
         else:
             '''
             disable autostart in ~/.config/autostart/apt-notifier-autostart.desktop'
@@ -209,15 +180,6 @@ class AutoStart:
             # print("Autostart already enabled!")
             return autostart
 
-        pat_1 = self.__pat_1
-        pat_2 = self.__pat_2
-        pat_a = self.__pat_a
-        pat_b = self.__pat_b
-        pat_z = self.__pat_z
-
-        pattern_1 = pat_a + '#' + pat_b  + '('  + pat_1 + pat_z +')'
-        pattern_2 = pat_a + '#' + pat_b  + '('  + pat_2 + pat_z +')'
-
         if not self.__distro:
             self.detect_distro()
 
@@ -227,7 +189,9 @@ class AutoStart:
             enable autostart in ~/.desktop-session/startup
             '''
             # uncomment first startup line found
-            run(['sed', '-i', '-r', '0,\!' + pattern_1 + '!s!' + pattern_1 + '!\\1!', self.__startup ], stderr=DEVNULL)
+            pat = f"^{self.__pat_hash}({self.__pat_text}{self.__pat_exec})"
+            cmd = f"sed -i -r 0,\\@{pat}@s@@\\1@"
+            run( cmd.split() + [ self.__startup ], stdout=DEVNULL, stderr=DEVNULL)
             return self.detect_autostart()
 
         #MX enable fluxbox startup
@@ -235,12 +199,10 @@ class AutoStart:
             '''
             enable autostart in ~/.fluxbox/startup
             '''
-            if run(['grep', '-sqE', pattern_1, self.__startup ]).returncode == 0:
-                # uncomment first startup line found
-                run(['sed', '-i', '-r', '0,\!' + pattern_1 + '!s!' + pattern_2 + '!\\1!', self.__startup ], stderr=DEVNULL)
-            elif run(['grep', '-sqE', pattern_2, self.__startup ]).returncode == 0:
-                # uncomment first startup line found
-                run(['sed', '-i', '-r', '0,\!' + pattern_2 + '!s!' + pattern_2 + '!\\1!', self.__startup ], stderr=DEVNULL)
+            # uncomment first startup line found
+            pat = f"^{self.__pat_hash}({self.__pat_text}{self.__pat_exec})"
+            cmd = f"sed -i -r 0,\\@{pat}@s@@\\1@"
+            run( cmd.split() + [ self.__startup ], stdout=DEVNULL, stderr=DEVNULL)
             return self.detect_autostart()
 
         #MX non-fluxbox startup
@@ -292,12 +254,75 @@ class AutoStart:
             self.disable_autostart()
         return x
 
+    def fix_fluxbox_autostart(self):
+        """
+        fix  apt-notifier autostart within ~/.fluxbx/startup
+        and replace obsolete startup line containing /usr/bin/apt-notifier.py
+        with '(sleep 6; /usr/bin/apt-notifier )&'
+        """
+        from subprocess import run, PIPE, DEVNULL
+
+        # detect fluxbox startup files exists
+        startup = os.getenv('HOME') + '/.fluxbox/startup'
+        if not os.path.isfile(startup):
+            # no startup file found - nothing to fix
+            return
+
+        # detect 'old' autostart entry
+        #print("detect 'old' autostart entry")
+        #hash='[[:space:]#]*#[[:space:]#]*'
+        old='(nohup|ionice).*(/usr/bin/)?apt-notifier[.]py.*'
+        new='(sleep 6; /usr/bin/apt-notifier)\&'
+        pat = f"^({self.__pat_hash})?{old}"
+        #cmd = f"grep -sqE '{pat}'  {startup}"
+        #print(cmd)
+        cmd = f"grep -sqE  {pat}  {startup}"
+        ret = run(cmd.split(), stdout=DEVNULL, stderr=DEVNULL).returncode
+        if ret:
+            # OK. fluxbox startup does not contain an old entry
+            # print(" OK. fluxbox startup does not contain an old entry")
+            return True
+        
+        # replace 'old' startup entry with the new startup line 
+        # but keep commented out in case
+        # cmd=['sed', '-i.pre_fix', '-r',  f's%^({self.__pat_hash})?({old})%\\1{new}%', startup]
+        cmd=['sed', '-i', '-r',  f's%^({self.__pat_hash})?({old})%\\1{new}%', startup]
+        #print(cmd)
+        run(cmd)
+        #run(cmd, stdout=DEVNULL, stderr=DEVNULL)
+        
+        # check whether fix applied
+        pat = f"^({self.__pat_hash})?{old}"
+        cmd = f"grep -sqE '{pat}'  {startup}"
+        #print(cmd)
+        cmd = f"grep -sqE  {pat}  {startup}"
+        ret = run(cmd.split(), stdout=DEVNULL, stderr=DEVNULL).returncode
+        if ret:
+            #print("Ok fix worked - no old startup line found")
+            pass
+        else:
+            #print("Nope - fix not work - old startup line found")
+            return False
+        
+        # check and detect new startup line
+        pat = f"^({self.__pat_hash})?({self.__pat_text}{self.__pat_exec})"
+        cmd = f"grep -sqE {pat}"
+        ret = run(cmd.split() + [ startup ], stdout=DEVNULL, stderr=DEVNULL)
+        if ret.returncode:
+            #print("Opps fix not worked - no new startup line found")
+            return False
+        else:
+            #print("Ok fix worked - new startup line found")
+            return True
+            
+        
 
 def __run_check_autostart():
 
     ast = AutoStart()
 
-    print(F"Detected AutoStart: {ast.autostart}")
+    #print(f"Detected AutoStart: {ast.autostart}")
+    print(f"Fix fluxbox autostart: {ast.fix_fluxbox_autostart()}")
 
     """
     print("Toggle AutoStart:")

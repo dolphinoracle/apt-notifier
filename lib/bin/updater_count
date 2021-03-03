@@ -1,50 +1,142 @@
 #!/bin/bash
 
-# this script is part of apt-notifier
+# this script is part of apt-notifier package
 #
 
-if [ "$1" == "--count" ]; then
-    # to only show the number of available updates
+ME=${0##*/}
+
+usage() {
+    cat<<USAGE
+    
+$ME - helper script to display available updates
+      part of apt-notifier package
+    
+Usage: $ME [options]
+    
+    Without options a first localized (translated) line of the total 
+    count-number (C) of available updates in the form
+    
+    {C} new updates available
+    
+    will be displayed followed by a 2nd line with some more aditional 
+    details about the number of new (N), removed (R) and not upgraded (P) 
+    packages in the form 
+    
+    ({C} upgraded, {N} newly installed, {R} to remove and {P} not upgraded.)
+
+Options:
+        -c|--count         display the count number only
+        -d|--dist-upgrade  display the counts for dist-upgrade
+        -u|--upgrade       display the counts for upgrade
+        -h|--help          display this help text
+    
+    In case neither -d or -u is given the upgrade-type either 'dist-upgrade'
+    or 'upgrade' is detected from users apt-notifierrc preferences.
+    
+    In case -d and -u is given --count is implicitely set and
+    the displayed counts line consists of two count numbers separeted
+    followed by user's chosen upgrade-type  by colon in the format
+    {dist-upgrade-counts}:{upgrade-counts}:{UpgradeType}
+    
+USAGE
+exit 1
+}
+
+D="" ; C="" ; U=""
+CheckType=""
+
+for i in "$@"; do
+   case "$i" in
+     -c|--count)        C="true";;
+     -d|--dist-upgrade) D="dist-upgrade"; CheckType=$D;;
+     -u|--upgrade)      U="upgrade"; CheckType=$U ;;
+     -h|--help)         usage;;
+      *)                usage;;
+   esac
+done
+
+if [ -n "$D" ] && [ -n "$U" ]; then
+    CheckType="both"
+    C="true"
+fi
+
+if [ -n "$C" ]; then
+    # only show the number of available updates
     DISPLAY_COUNT_NUMBER_ONLY=true
 else
-    # to show the count line's
+    # show the count line's
     DISPLAY_COUNT_NUMBER_ONLY=false
 fi
 
+# UpgradeType:  dist-upgrade or upgrade
+# check argv opts 
+if [ "${CheckType}" = "both" ] ; then
+    # get UpgradeType to count from apt-notifierrc
+    if grep -sq '^UpgradeType=upgrade' /home/"$(logname)"/.config/apt-notifierrc 2>/dev/null; then
+        UpgradeType="upgrade"
+    else
+        UpgradeType="dist-upgrade"
+    fi
+fi
+
+if [ -z "${CheckType}" ]; then
+    # nope - so we get UpgradeType to count from apt-notifierrc
+    if grep -sq '^UpgradeType=upgrade' /home/"$(logname)"/.config/apt-notifierrc 2>/dev/null; then
+        CheckType="upgrade"
+        UpgradeType="upgrade"
+    else
+        CheckType="dist-upgrade"
+        UpgradeType="dist-upgrade"
+    fi
+fi
 
 UPDATER_APTPREF=/usr/lib/apt-notifier/shlib/updater_aptpref
-
 AptPref_Opts=""
 if [ -f "$UPDATER_APTPREF" ]; then
       . "$UPDATER_APTPREF"
 fi
 
-
-# UpgradeType:  dist-upgrade or upgrade
-UpgradeCounts=""
+UpgradeCount=""
 DistUpgradeCounts=""
-UpgradeType=$(grep -m1 ^UpgradeType /home/"$(logname)"/.config/apt-notifierrc 2>/dev/null | cut -f2 -d= )
+CountLine=""
+Count=""
 
-if [ "$UpgradeType" != "upgrade" ]; then
-       UpgradeType="dist-upgrade"
-fi
+case "$CheckType" in
+    upgrade|dist-upgrade)
+        APT_MSG=$(apt-get -s $AptPref_Opts $CheckType)
+        Count=$(grep -c  '^Inst '<<<$APT_MSG)
+        if [ -z "$C" ]; then
+            CountLine=$(grep -E '^[0-9]| [0-9]+ '<<<$APT_MSG)
+        fi
+        ;;
+    both)
+        Count=""
+        APT_MSG=$(apt-get -s $AptPref_Opts dist-upgrade)
+        DistUpgradeCount=$(grep -c  '^Inst '<<<$APT_MSG)
+        APT_MSG=$(apt-get -s $AptPref_Opts upgrade)
+        UpgradeCount=$(grep -c  '^Inst '<<<$APT_MSG)
+        ;;
+            
+esac
 
-APT_MSG=$(apt-get -s $AptPref_Opts $UpgradeType)
-Count=$(grep -c  '^Inst '<<<$APT_MSG)
-CountLine=$(grep -E '^[0-9]| [0-9]+ '<<<$APT_MSG)
 
 case $Count in
     0) UpdatesMsg=$(/usr/bin/gettext -d apt-notifier "0 updates available")
        ;;
     1) UpdatesMsg=$(/usr/bin/gettext -d apt-notifier "1 new update available")
        ;;
-    *) UpdatesMsg=$(/usr/bin/gettext -d apt-notifier -s '$count new updates available')
+    [0-9]*) UpdatesMsg=$(/usr/bin/gettext -d apt-notifier -s '$count new updates available')
        UpdatesMsg=${UpdatesMsg/\$count/$Count}
        ;;
   esac
 
+
 if [ "$DISPLAY_COUNT_NUMBER_ONLY" == "true" ]; then
-    echo $Count
+    case "$CheckType" in
+        both)  echo "${DistUpgradeCount}:${UpgradeCount}:${UpgradeType}" ;;
+           *)  echo "$Count" ;;
+    esac
+           
 else
     echo "$UpdatesMsg"
     echo "($CountLine)";

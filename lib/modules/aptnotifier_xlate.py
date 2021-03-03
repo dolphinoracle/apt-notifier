@@ -105,6 +105,7 @@ class AptNotifierXlate:
             'anykey_to_close'                            : _("press any key to close"),
             'pressanykey'                                : _("press any key to close"),
             'quit_apt_notifier'                          : _("Quit"),
+            'restart_apt_notifier'                       : _("Restart MX Updater"),
             'reload'                                     : _("Reload"),
             'reload_tooltip'                             : _("Reload the package information to become informed about new, removed or upgraded software packages. (apt-get update)"),
             'for_less_detailed_view_see_history'         : _("For a less detailed view see 'Auto-update dpkg log(s)' or 'History'."),

@@ -15,15 +15,15 @@ fi
 # Kill running apt-notifier.py(s) while still in unhide script
 # started from /usr/bin - not used in the current version
 if pgrep -f 'python[23]? .*/usr/bin/apt-notifier.py' >/dev/null; then
-   pkill -f 'python[23]? .*/usr/bin/apt-notifier.py'
+   pkill -f 'python[23]? .*/usr/bin/apt-notifier.py' >/dev/null 2>/dev/null
    sleep 0.2
 fi
 
 # started from /usr/lib/apt-notifier/modules/apt-notifier.py
-if pgrep -f 'python3? .*/usr/lib/apt-notifier/modules/apt-notifier.py' >/dev/null; then
-   pkill -f 'python3? .*/usr/lib/apt-notifier/modules/apt-notifier.py'
+if pgrep -f 'python3 .*/usr/lib/apt-notifier/modules/apt-notifier.py' >/dev/null; then
+   pkill -f 'python3 .*/usr/lib/apt-notifier/modules/apt-notifier.py' >/dev/null 2>/dev/null
    sleep 0.2
 fi
 
 # start the notifier from the startup script
-/usr/bin/apt-notifier
+/usr/bin/apt-notifier 

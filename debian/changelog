@@ -1,8 +1,8 @@
-apt-notifier (21.02.09mx) mx; urgency=medium
+apt-notifier (21.03.01a1) mx; urgency=medium
 
   * restructured and reworked for antiX and MX
 
- -- fehlix <fehlix@mxlinux.org>  Sun, 16 Feb 2021 12:12:52 -0400
+ -- fehlix <fehlix@mxlinux.org>  Sun, 01 Mar 2021 21:03:01 -0400
 
 apt-notifier (20.12.01mx19) mx; urgency=medium
 

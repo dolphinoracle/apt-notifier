@@ -81,7 +81,7 @@ if [ "$?" = "0" ]
 fi
 
 # start the notifier (nicely)
-ionice -c3 nice -n19 /usr/bin/python3 /usr/lib/apt-notifier/modules/apt-notifier.py & disown -h
+ionice -c3 nice -n19 /usr/bin/python3 /usr/lib/apt-notifier/modules/apt-notifier.py & disown -h 1>/dev/null 2>&1
 
 # Fix Systray Icons - fehlix's method, not using
 #sleep 3

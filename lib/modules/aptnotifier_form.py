@@ -616,11 +616,14 @@ class Form:
         else:
             self.wireframe_transparent = 'false'
 
-        if dialog['LeftClickViewAndUpgrade'] == 'true':
-            self.left_click = 'ViewAndUpgrade'
-        else:
-            self.left_click = 'PackageManager'
-
+        try:
+            if dialog['LeftClickViewAndUpgrade'] == 'true':
+                self.left_click = 'ViewAndUpgrade'
+            else:
+                self.left_click = 'PackageManager'
+        except KeyError:
+            pass
+            
         if dialog['IconLook_wireframe_dark'] == 'true':
             self.icon_look = 'wireframe-dark'
         elif dialog['IconLook_wireframe_light'] == 'true':

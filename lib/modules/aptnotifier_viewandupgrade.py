@@ -26,11 +26,8 @@ class ViewAndUpgrade:
             from aptnotifier_config import AptNotifierConfig
             conf = AptNotifierConfig()
 
-        global apt_notifier_rc
-        try: apt_notifier_rc
-        except NameError:
-            from aptnotifier_rc import AptNotifierRC
-            apt_notifier_rc = AptNotifierRC()
+        from aptnotifier_rc import AptNotifierRC
+        apt_notifier_rc = AptNotifierRC()
         
         self.__tokens = {}
         cmd = ['xdotool', 'getdisplaygeometry']

@@ -11,21 +11,13 @@
         <variable>UpgradeType_upgrade</variable>
         <action>:</action>
       </radiobutton>
+      <checkbox active="{unattended_upgrade}">
+        <label>{auto_update_checkbox_txt}</label>
+        <variable>AutoUpdate</variable>
+        <action>:</action>
+      </checkbox>
     </frame>
     {LeftClickBehaviourPackageManagerFrame}
-    <frame {frame_other_options}>
-      <checkbox active="{UpgradeAssumeYes}">
-        <label>{use_apt_get_dash_dash_yes}</label>
-        <variable>UpgradeAssumeYes</variable>
-        <action>:</action>
-      </checkbox>
-      <checkbox active="{UpgradeAutoClose}">
-        <label>{auto_close_term_window_when_complete}</label>
-        <variable>UpgradeAutoClose</variable>
-        <action>:</action>
-      </checkbox>
-      {NotificationCheckBox}
-    </frame>
     <frame {frame_Icons}>
       <hbox homogeneous="true">
         <vbox>
@@ -73,14 +65,18 @@
         <action>:</action>
       </checkbox>
     </frame>
-    <frame {frame_Auto_update}>
-      <checkbox active="{unattended_upgrade}">
-        <label>{auto_update_checkbox_txt}</label>
-        <variable>AutoUpdate</variable>
+    <frame {frame_other_options}>
+      <checkbox active="{UpgradeAssumeYes}">
+        <label>{use_apt_get_dash_dash_yes}</label>
+        <variable>UpgradeAssumeYes</variable>
         <action>:</action>
       </checkbox>
-    </frame>
-    <frame Auto-start>
+      <checkbox active="{UpgradeAutoClose}">
+        <label>{auto_close_term_window_when_complete}</label>
+        <variable>UpgradeAutoClose</variable>
+        <action>:</action>
+      </checkbox>
+      {NotificationCheckBox}
       <checkbox active="{AutoStart}">
         <label>{label_autostart}</label>
         <variable>PrefAutoStart</variable>

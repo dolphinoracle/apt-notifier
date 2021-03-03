@@ -84,6 +84,7 @@ lib/modules/apt-notifier.py                                       usr/lib/apt-no
 lib/modules/aptnotifier_rc.py                                     usr/lib/apt-notifier/modules
 lib/modules/aptnotifier_viewandupgrade.py                         usr/lib/apt-notifier/modules
 lib/modules/aptnotifier_xlate.py                                  usr/lib/apt-notifier/modules
+lib/modules/notify2_0_3_1_latest.py                               usr/lib/apt-notifier/modules
 lib/policy/org.mxlinux.apt-notifier.auto-update-disable.policy    usr/share/polkit-1/actions
 lib/policy/org.mxlinux.apt-notifier.auto-update-enable.policy     usr/share/polkit-1/actions
 lib/policy/org.mxlinux.apt-notifier.basic-upgrade.policy          usr/share/polkit-1/actions
@@ -95,6 +96,8 @@ lib/policy/org.mxlinux.apt-notifier.reload_run.policy             usr/share/polk
 lib/shlib/updater_aptpref                                         usr/lib/apt-notifier/shlib
 lib/shlib/updater_shlib                                           usr/lib/apt-notifier/shlib
 license.html                                                      usr/share/doc/apt-notifier
+LICENSE                                                           usr/share/doc/apt-notifier
+LICENSE_notify2                                                   usr/share/doc/apt-notifier
 scripts/1-quick-live-update                                       usr/share/apt-notifier
 scripts/2-apt-compat                                              usr/share/apt-notifier
 scripts/apt-history                                               usr/bin
