@@ -94,22 +94,20 @@ check_authenticator() {
 	       authenticator=sudo
 	    fi
     fi
-    
     echo "$authenticator"
 }
 
-if [ "$(id -u)" != "0" ]; then
+if [ "$EUID" != 0 ]; then
     # normal user
     case $(check_authenticator) in
         *pkexec)
             EXEC=/usr/bin/pkexec
-            RUN_ENV=( $(printenv | grep -E '^(LANG=|LANGUAGE=|QT_[[:alnum:]_]+=)') )
             if [ "$MODE" = "run" ]; then
                 RUN="${RUN}"
             else
                 RUN="${ME}"
             fi
-            $EXEC "$RUN" "${RUN_ENV[@]}"
+            $EXEC "$RUN"
             ;;
         *gksu)
             sudo -k
@@ -135,10 +133,44 @@ else
         chmod 700 $XDG_RUNTIME_DIR
         chown 0:0 $XDG_RUNTIME_DIR
     fi
+    
     #suppress "AT-SPI: Couldn't connect to accessibility bus" warnings
-    export NO_AT_BRIDGE=1
-    #get QT and LANG environment from user
-    for i;  do IFS='=' read  -r k v <<<$i; export $k="$v"; done
+    #export NO_AT_BRIDGE=1
+    
+    #----------------------------------------------------------
+    # put pattern list of environment variables we want get 
+    # from users environment into an array
+    __ENVIRONEMENT_PATTERN__=(
+    DESKTOP_SESSION=
+    KDE_FULL_SESSION=
+    LANG=
+    LANGUAGE=
+    LC_[[:alpha:]]+=
+    PWD=
+    QT_[[:alnum:]_]+=
+    XDG_CURRENT_DESKTOP=
+    XDG_SESSION_TYPE=
+    WAYLAND_DISPLAY=
+    )
+    # combine array into a string of space separated entries 
+    __ENVIRONEMENT_PATTERN__="${__ENVIRONEMENT_PATTERN__[*]}"
+    # replace spaces with pipe-symbole as pattern alternative
+    __ENVIRONEMENT_PATTERN__="^(${__ENVIRONEMENT_PATTERN__// /|})"
+    # read environment variables from users process environement table
+    while read -r; do  
+        IFS='=' read -r  k v  <<<"$REPLY" 
+        # remove any 'bad' special char's like back-quotes and dollar sign
+        v="${v//[\`\$]/}"
+        # change to user working dir
+        [ -z "${k##PWD=*}" ] && cd "$v" && continue
+        # echo export $k="${v@Q}"  
+        export $k="$v"  
+    done < <( xargs -0 -L1 -a /proc/$PPID/environ \
+            | grep -E "${__ENVIRONEMENT_PATTERN__}")
+
+    unset k v
+    unset __ENVIRONEMENT_PATTERN__
+    
     exec "$RUN"
 fi
 exit 0

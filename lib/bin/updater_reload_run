@@ -50,19 +50,6 @@ if [ "$(id -u)"  != "0" ]; then
         exit $?
     fi  
 else
-    #root user
-    #check XDG_RUNTIME_DIR
-    if [ "$XDG_RUNTIME_DIR" != "/run/user/0" ]; then
-        export XDG_RUNTIME_DIR=/run/user/0
-        [ -d $XDG_RUNTIME_DIR ] || mkdir -p $XDG_RUNTIME_DIR
-        chmod 700 $XDG_RUNTIME_DIR
-        chown 0:0 $XDG_RUNTIME_DIR
-    fi
-    #suppress "AT-SPI: Couldn't connect to accessibility bus" warnings
-    export NO_AT_BRIDGE=1
-    #get QT and LANG environment from user
-    for i;  do IFS='=' read  -r k v <<<$i; export $k="$v"; done
-
     RUN="/usr/lib/apt-notifier/actions/updater_reload"
 fi
 

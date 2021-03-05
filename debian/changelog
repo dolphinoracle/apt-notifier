@@ -1,3 +1,9 @@
+apt-notifier (21.03.01a4) mx; urgency=medium
+
+  * retain Qt-env, XDG_RUNTIME_DIR check, based on new mx-pkexec 
+
+ -- fehlix <fehlix@mxlinux.org>  Fri, 05 Mar 2021 17:32:12 -0400
+
 apt-notifier (21.03.01a3) mx; urgency=medium
 
   * forced check if manually checked by user
