@@ -3,6 +3,9 @@
 
 import sys
 sys.path.append("/usr/lib/apt-notifier/modules")
+MODULES = "/usr/lib/apt-notifier/modules"
+if MODULES not in sys.path:
+    sys.path.append(MODULES)
 
 import gettext
 import locale
@@ -120,6 +123,7 @@ class AptNotifierXlate:
             'tooltip_0_updates_available'                : _("No updates available"),
             'tooltip_1_new_update_available'             : _("1 new update available"),
             'tooltip_multiple_new_updates_available'     : _("$count new updates available"),
+            'unattended_upgrades'                        : _("Unattended-upgrades"),
             'upgrade_tooltip_basic'                      : _("Using basic upgrade (not recommended)"),
             'upgrade_tooltip_full'                       : _("Using full upgrade"),
             'upgrade'                                    : _("upgrade"),

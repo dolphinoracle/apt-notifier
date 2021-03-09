@@ -6,7 +6,7 @@ MODULES = "/usr/lib/apt-notifier/modules"
 if MODULES not in sys.path:
     sys.path.append(MODULES)
 import subprocess
-from subprocess import run, PIPE
+from subprocess import run, PIPE, Popen, DEVNULL
 
 import os
 from os import environ
@@ -93,30 +93,6 @@ class Form:
             'window_icon_name'                      : conf.config['window_icon_name'],
         }
 
-        """
-        self.__filled_token_XXX = {
-            'window_title'                         : _("MX Updater preferences"),
-            'frame_upgrade_behaviour'              : _("Upgrade mode"),
-            'full_upgrade'                         : _("full upgrade   (recommended)"),
-            'basic_upgrade'                        : _("basic upgrade"),
-            'frame_left_click_behaviour'           : _("Left-click behaviour   (when updates are available)"),
-            'frame_other_options'                  : _("Other options"),
-            'left_click_package_manager'           : _("opens Synaptic"),
-            'left_click_ViewandUpgrade'            : _("opens MX Updater 'View and Upgrade' window"),
-            'use_apt_get_dash_dash_yes'            : _("Automatically answer 'yes' to all prompts during full/basic upgrade"),
-            'auto_close_term_window_when_complete' : _("automatically close terminal window when full/basic upgrade complete"),
-            'check_for_autoremoves'                : _("check for autoremovable packages after full/basic upgrade"),
-            'frame_Icons'                          : _("Icons"),
-            'label_classic'                        : _("classic"),
-            'label_pulse'                          : _("pulse"),
-            'label_wireframe'                      : _("wireframe"),
-            'frame_Auto_update'                    : _("Auto-update"),
-            'auto_update_checkbox_txt'             : _("update automatically   (will not add new or remove existing packages)"),
-            'label_autostart'                      : _("start MX Updater at login"),
-            'label_wireframe_transparent'          : _("use transparent interior for no-updates wireframe"),
-            'label_notifications_with_actions'     : _("display notifications with action-buttons")
-        }
-        """
         self.__filled_values = {
             'UpgradeBehaviourAptGetDistUpgrade':   'true',
             'UpgradeBehaviourAptGetUpgrade'    :   'false',
@@ -567,6 +543,29 @@ class Form:
             print("Error[423]: form not valid or not filled")
             return False
         else:
+            title = self.__filled_token['window_title_preferences']     
+            class_name = "apt-notifier"
+            def set_class_name(title=title, class_name_new=class_name):
+                class_name_old = "gtkdialog"
+                clx_filler = {
+                    'class_name_old': class_name_old,
+                    'class_name_new': class_name_new,
+                    'title': title,
+                }
+
+                clx = """xdotool sleep 0.2 
+                    search --onlyvisible --classname {class_name_old}  
+                    search --onlyvisible --class {class_name_old}  
+                    search --name  {title}  
+                    set_window  --classname {class_name_new} 
+                                --class {class_name_new}
+                    """
+                y = [ x.strip() for x in clx.strip().split('\n') ]
+                clx = [ x.format(**clx_filler) for x in ' '.join(y).split() ]
+                r = Popen(clx)
+            
+            set_class_name(title, class_name)
+            
             d = run(['/usr/bin/gtkdialog', '-c', '-s'],
                 capture_output=True,
                 text=True,

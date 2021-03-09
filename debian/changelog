@@ -1,3 +1,10 @@
+apt-notifier (21.03.02b1) mx; urgency=medium
+
+  * fix displayed window-icons in taskbar to show apt-notifier icon
+  * added status of unattended upgrades in tray icon tooltip
+
+ -- fehlix <fehlix@mxlinux.org>  Tue, 09 Mar 2021 15:20:42 -0400
+
 apt-notifier (21.03.01a4) mx; urgency=medium
 
   * retain Qt-env, XDG_RUNTIME_DIR check, based on new mx-pkexec 

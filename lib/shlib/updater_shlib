@@ -108,9 +108,15 @@ updater_show() {
     TX=$((($DW-$TW)/2 + ${XOFF}))
     TY=$((($DH-$TH)/2 + ${YOFF}))
 
-    XSIZE="xdotool getactivewindow windowsize $TW $TH"
-    XMOVE="xdotool getactivewindow windowmove $TX $TY"
-    XDO="$XSIZE; $XMOVE"
+    
+    XSEARCH="xdotool sleep 0.2 search --onlyvisible --name '$T'"
+    XSIZE="windowsize $TW $TH"
+    XMOVE="windowmove $TX $TY"
+    CLASS_NAME='apt-notifier'
+    XCLASS="set_window --classname ${CLASS_NAME} --class ${CLASS_NAME}"
+
+    XDO="$XSEARCH $XSIZE $XMOVE $XCLASS"
+
 
     CW=10 # char width - rough default
     CH=20 # char hight - rough default
@@ -120,7 +126,7 @@ updater_show() {
 
     SLEEP=0.3 # sleep
 
-    C='bash -c "echo '"$msg"'; sleep 1;'" $XDO;"' '"$RUN"'"'
+    C='bash -c "echo '"$msg"'; sleep 0.5;'" $XDO;"' '"$RUN"'"'
     K='bash -c "echo '"$msg"'; sleep 1; '"$RUN"'"'
 
 

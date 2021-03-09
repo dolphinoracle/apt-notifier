@@ -46,23 +46,6 @@ class AptNotifierHelp():
         self.__apt_notifier_viewer = list(filter( lambda x: which(x), viewer_list))[0]
         return self.__apt_notifier_viewer
 
-    """
-    def open_apt_notifier_help():
-        from subprocess import run
-        script = '''#!/bin/sh
-        case "${LANG%%_*}" in
-          fr) HelpUrl="https://mxlinux.org/wiki/help-files/help-mx-apt-notifier-notificateur-dapt" ;;
-           *) HelpUrl="https://mxlinux.org/wiki/help-files/help-mx-apt-notifier" ;;
-        esac
-        if which mx-viewer >/dev/null; then
-            mx-viewer $HelpUrl
-        else
-            xdg-open  $HelpUrl
-        fi
-        '''
-        subprocess.run(script, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
-    """
 
     def apt_notifier_help(self):
         global apt_notifier_conf
@@ -113,7 +96,6 @@ class AptNotifierHelp():
         from subprocess import run, DEVNULL
         run(cmd, stdout=DEVNULL, stderr=DEVNULL )
 
-#####################################
 
     def open_package_manager_help(self, package_manager=None):
         from subprocess import Popen, check_call, run
@@ -178,55 +160,7 @@ class AptNotifierHelp():
         debug_p(f"{cmd}")
         run(cmd, stdout=DEVNULL, stderr=DEVNULL )
 
-    #####################################
-    def open_package_manager_helpXXXX(self):
-        global show_package_manager_help
-        if not show_package_manager_help:
-            return
-        systray_icon_hide()
-    
-        HelpUrlBase="https://mxlinux.org/wiki/help-files/help-" + package_manager
-        script = '''#!/bin/bash
-    
-        '''
-        script = script +  "HelpUrlBase=" + HelpUrlBase
-        script = script +  '''
-    
-        #english     HelpUrl = HelpUrlBase
-        #non-english HelpUrl = HelpUrlBase + "-" + "{2 character suffix - de, es, fr, it, etc.}"
-        case $(echo $LANG | cut -f1 -d_) in
-          en) HelpUrl="$HelpUrlBase"                                 ;;
-           *) HelpUrl="$HelpUrlBase""-""$(echo $LANG | cut -f1 -d_)" ;;
-        esac
-        #test to see if HelpUrl page exists, if it doesn't change it to HelpUrlBase (english version)
-        wget $HelpUrl --spider -q
-        if [ $? -eq 0 ]
-          then :
-          else HelpUrl="$HelpUrlBase"
-        fi
-        #test to see if pdf or html (a 0 result = pdf)
-        echo $HelpUrl | grep \.pdf > /dev/null
-        if [ $? -eq 0 ]
-          then
-            TMP=$(mktemp -d /tmp/package_manager_help.XXXXXX)
-            curl $HelpUrl -o "$TMP"/$(basename $HelpUrl)
-            qpdfview "$TMP"/$(basename $HelpUrl)#$SynapticPage
-            rm -rf "$TMP"
-          else
-            test -e /usr/bin/mx-viewer
-            if [ $? -eq 0 ]
-              then
-                mx-viewer $HelpUrl
-              else
-                xdg-open  $HelpUrl
-            fi
-        fi
-        '''
-        run = subprocess.run(script, shell=True, executable="/bin/bash",
-                             stdout=subprocess.DEVNULL,
-                             stderr=subprocess.DEVNULL)
-        systray_icon_show()
-    
+   
 def debug_p(text=''):
     """
     simple debug print helper
@@ -240,7 +174,6 @@ def debug_p(text=''):
         debug_me = False
     if debug_me:
         print("Debug: " + text, file = sys.stderr)
-
 
 def __run():
 

@@ -197,7 +197,9 @@ def set_globals():
     notification = None
     global check_for_updates_interval
     global check_for_updates_force_counter
-
+    global unattended_upgrades
+    global debug_p
+    
     # check version_at_start
     global version_at_start
     version_at_start = version_installed()
@@ -237,6 +239,7 @@ def set_globals():
     Check_for_Updates                           = xlate.get("check_for_updates")
     About                                       = xlate.get("about")
     Reload                                      = xlate.get("reload")
+    unattended_upgrades                         = xlate.get("unattended_upgrades")
 
     global conf
     try: conf
@@ -348,14 +351,19 @@ def check_updates():
         check_updates_last_run = check_updates_now_run - check_for_updates_interval - 2
     
     delta = check_updates_now_run - check_updates_last_run
-    debug_p(f"delta = {check_updates_now_run} - {check_updates_last_run}")
+    debug_p(f"delta = {check_updates_now_run} - {check_updates_last_run} by User {Check_for_Updates_by_User}")
     
     debug_p(f"check_updates at {now} rep {check_for_updates_interval} last: {delta}")
-    if delta >=  check_for_updates_interval and not Check_for_Updates_by_User or unattatended_upgrade_changed:
+    if delta >=  check_for_updates_interval or unattatended_upgrade_changed:
         short_run = False
         check_updates_last_run = check_updates_now_run
     else:
         short_run = True
+    
+    if Check_for_Updates_by_User:
+        short_run = False
+        check_updates_last_run = check_updates_now_run
+         
     debug_p(f"short_run : {short_run}")
     
     now = datetime.datetime.now().strftime("%Y-%m-%d  %H:%M:%S")
@@ -384,12 +392,11 @@ def check_updates():
         else:
             AptIcon.setIcon(NoUpdatesIcon)
             if unattended_upgrade_enabled():
-                tool_tip = ""
+                tool_tip = unattended_upgrades
                 AptIcon.setToolTip(tool_tip)
             else:
                 tool_tip = tooltip_0_updates_available
                 AptIcon.setToolTip(tool_tip)
-                #AptIcon.setToolTip(tooltip_0_updates_available)
         Check_for_Updates_by_User = False
         return
 
@@ -500,7 +507,9 @@ def check_updates():
         else:
             AptIcon.setIcon(NoUpdatesIcon)
             if unattended_upgrade_enabled():
-                tool_tip = ""
+
+                tool_tip = unattended_upgrades
+                debug_p(f"AptIcon.setToolTip(tool_tip): AptIcon.setToolTip('{tool_tip}')")
                 AptIcon.setToolTip(tool_tip)
             else:
                 tool_tip = tooltip_0_updates_available
@@ -530,7 +539,8 @@ def check_updates():
                     else:
                         desktop_notification(popup_title, popup_msg_1_new_update_available, notification_icon)
                 """
-        elif AvailableUpdates != AvailableUpdatesPrevious or package_manager_changed:
+        #elif AvailableUpdates != AvailableUpdatesPrevious or package_manager_changed:
+        else:
             AptIcon.setIcon(NewUpdatesIcon)
             AptIcon.show()
             tooltip_template=Template(tooltip_multiple_new_updates_available)
@@ -594,42 +604,6 @@ def start_package_manager():
         debug_p("check_updates()")
         check_updates()
 
-"""
-def start_package_managerXXXX():
-    global Check_for_Updates_by_User
-    global package_manager_available
-    if not package_manager_available:
-        return
-    from subprocess import run
-    cmd = "pgrep -x plasmashell >/dev/null && exit 1 || exit 0"
-    running_in_plasma = subprocess.run(cmd, shell=True).returncode
-    if  running_in_plasma:
-        systray_icon_hide()
-        #cmd = package_manager_exec + "; ionice -c3 nice -n19 /usr/bin/apt-notifier.py & disown -h;"
-        cmd = package_manager_exec
-        ret = run(cmd.split()).returncode
-        systray_icon_show()
-    else:
-        cmd = "sudo -k"
-        run(cmd.split())
-        cmd = package_manager_exec
-        ret = run(cmd.split()).returncode
-
-    debug_p(f"run(cmd.split()) = run({cmd.split()})")
-    debug_p(f"run(cmd.split()).returncode= {ret}")
-    cmd = "dpkg-query -f ${Version} -W apt-notifier"
-    version_installed = run(cmd.split(), capture_output=True, text=True).stdout.strip()
-    if  version_installed != version_at_start:
-        cmd = "apt-notifier-unhide-Icon & disown -h >/dev/null 2>/dev/null"
-        run(cmd, shell=True, executable="/bin/bash")
-        sleep(2)
-
-    if ret == 0:
-        Check_for_Updates_by_User = True
-        debug_p("check_updates()")
-        check_updates()
-"""
-
 def start_viewandupgrade(action=None):
     notification_close()
     global Check_for_Updates_by_User
@@ -686,8 +660,9 @@ def start_viewandupgrade(action=None):
 
             break
 
-        Check_for_Updates_by_User = True
+    Check_for_Updates_by_User = True
     systray_icon_show()
+    debug_p(f"start_viewandupgrade : check_updates()")
     check_updates()
 
 def initialize_aptnotifier_prefs():
@@ -935,34 +910,6 @@ def start_package_installer():
         debug_p("check_updates()")
         check_updates()
     systray_icon_show()
-
-
-def start_package_installerXXX():
-    global Check_for_Updates_by_User
-    systray_icon_hide()
-
-    # find usable package installer
-    pl = "mx-packageinstaller packageinstaller"
-    from shutil import which
-    package_installer = list(filter( lambda x: which(x), pl.split()))[0]
-    if not package_installer:
-        return
-
-    # run package installer
-    cmd = f"su-to-root -X -c {package_installer}"
-    run = subprocess.run(cmd.split())
-    # check a newer version of apt-notifier was just installed
-    # and restart newer version
-    cmd = "dpkg-query -f ${Version} -W apt-notifier"
-    version_installed = subprocess.run(cmd.split(), capture_output=True, universal_newlines=True).stdout.strip()
-    if  version_installed != version_at_start:
-        cmd = "apt-notifier-unhide-Icon & disown -h >/dev/null 2>/dev/null"
-        run = subprocess.run(cmd, shell=True, executable="/bin/bash")
-        sleep(2)
-
-    Check_for_Updates_by_User = True
-    systray_icon_show()
-    check_updates()
 
 
 def re_enable_click():
@@ -1460,11 +1407,6 @@ def notification_close():
             dbus_callback_closed = True
     except:
         pass
-
-def notification_closeXXX():
-    global notification
-    if notification:
-        notification.close()
 
 def desktop_notification(title, msg, icon):
     notify2_initiated = False

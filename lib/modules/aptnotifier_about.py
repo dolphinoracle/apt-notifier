@@ -82,8 +82,8 @@ class AptnotifierAbout():
         License_Button   = License
 
 
-        cmd = "dpkg-query -f ${Version} -W apt-notifier"
-        updater_version = run(cmd.split(), capture_output=True, text=True).stdout.strip()
+        cmd = "dpkg-query -f ${Version} -W apt-notifier".split()
+        updater_version = run(cmd, capture_output=True, text=True).stdout.strip()
 
         aboutText= f'''
         <p align=center><b><h2>{updater_name}</h2></b></p>
@@ -104,9 +104,24 @@ class AptnotifierAbout():
         aboutBox.setDefaultButton(closeButton)
         aboutBox.setEscapeButton(closeButton)
 
-        
+        class_name = "apt-notifier"
 
+        def set_class_name(class_name_new=class_name):
+            class_name_old = "aptnotifier_about.py"
+            clx = f"""xdotool sleep 0.3 
+                search --onlyvisible --classname {class_name_old}  
+                search --class {class_name_old}  
+                set_window --classname {class_name_new} --class {class_name_new}
+                """
+            debug_p(clx)               
+            y = [ x.strip() for x in clx.strip().split('\n') ]
+            clx =  ' '.join(y)
+            r = Popen(clx.split())
+        
+        set_class_name(class_name)
+            
         while True:
+            
             reply = aboutBox.exec_()
             #print(reply)
             if aboutBox.clickedButton() == closeButton:
@@ -116,11 +131,28 @@ class AptnotifierAbout():
                 about_viewer = self.about_viewer
                 if about_viewer in ['mx-viewer', 'antix-viewer' ]:
                     cmd = [about_viewer, license_file, license_title]
+                    clx_filler = {
+                        'about_viewer': about_viewer,
+                        'license_title': license_title,
+                        'class_name': class_name,
+                    }
+                    clx = """
+                        xdotool sleep 0.3 
+                        search --onlyvisible --class {about_viewer} 
+                        search --classname {about_viewer}
+                        search --name {license_title} 
+                        set_window --classname {class_name} --class {class_name}
+                        """
+
+                    y = [ x.strip() for x in clx.strip().split('\n') ]
+                    clx = [ x.format(**clx_filler) for x in ' '.join(y).split() ]
+                    debug_p(clx)               
+                    r = Popen(clx)
+                    
                 elif about_viewer == 'exo-open':
                     cmd = ['exo-open', '--launch', 'WebBrowser', license_file ]
                 else:
                     cmd = [about_viewer, license_file ]
-                #print(cmd)
                 r = run(cmd, capture_output=True, text=True)
 
             if aboutBox.clickedButton() == changelogButton:
@@ -133,16 +165,19 @@ class AptnotifierAbout():
                     'width'                 : int(width),
                     'height'                : int(height),
                     'changelog_window_icon' : changelog_window_icon,
-                    'changelog_title'       : changelog_title
+                    'changelog_title'       : changelog_title,
+                    'close'                 : Close,
+                    'class_name'            : class_name
                     }
                 yad = """
                       /usr/bin/yad
                       --title={changelog_title}
+                      --class={class_name}
                       --window-icon={changelog_window_icon}
                       --width={width}
                       --height={height}
                       --center
-                      --button=gtk-close
+                      --button={close}!gtk-close
                       --fontname=mono
                       --margins=7
                       --borders=5
@@ -219,6 +254,29 @@ class AptnotifierAbout():
         about.About(aboutBox)
         aboutBox.show()
         sys.exit(app.exec_())
+
+def debugging():
+    """
+    simple debugging helper
+    """
+    import os
+    global debug_apt_notifier
+    try:
+        debug_apt_notifier
+    except:
+        try:
+            debug_apt_notifier = os.getenv('DEBUG_APT_NOTIFIER')
+        except:
+            debug_apt_notifier = False
+
+    return debug_apt_notifier
+
+def debug_p(text=''):
+    """
+    simple debug print helper -  msg get printed to stderr
+    """
+    if debugging():
+        print("Debug: " + text, file = sys.stderr)
 
 def __run():
 

@@ -46,6 +46,7 @@ class ViewAndUpgrade:
         self.__tokens['reload_tooltip'] = xlate.get('reload_tooltip')
         self.__tokens['use_apt_get_dash_dash_yes'] = xlate.get('use_apt_get_dash_dash_yes')
         self.__tokens['auto_close_window'] = xlate.get('auto_close_window')
+        self.__tokens['close'] = xlate.get('close')
 
         self.__tokens['upgrade_label'] = xlate.get('upgrade_label')
         if self.__tokens['upgrade_type'] == 'upgrade':
@@ -160,6 +161,7 @@ class ViewAndUpgrade:
         yad="""
         /usr/bin/yad
             --window-icon={icon}
+            --class=apt-notifier
             --width={width}
             --height={height}
             --center
@@ -168,9 +170,9 @@ class ViewAndUpgrade:
             --field=:TXT
             --field={use_apt_get_dash_dash_yes}:CHK 
             --field={auto_close_window}:CHK 
-            --button={reload_button}!reload!{reload_tooltip}:8
+            --button={reload_button}!gtk-refresh!{reload_tooltip}:8
             --button={upgrade_label}!{icon}!{upgrade_tooltip}:0
-            --button=gtk-cancel:2
+            --button={close}!gtk-close:2
             --buttons-layout=spread
             --margins=7
             --borders=5
