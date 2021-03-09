@@ -121,16 +121,18 @@ class UnattendedUpgrade:
 
         window_icon   = conf.config['window_icon']
         self.__tokens['title'] = xlate.get('title_unattended-upgrades_log_viewer')
+        self.__tokens['close'] = xlate.get('close')
         yad ="""
         /usr/bin/yad 
             --window-icon={window_icon}
+            --class=apt-notifier
             --width={width}
             --height={height}
             --center
             --title={title}
             --text-info
             --fontname=mono
-            --button=gtk-close
+            --button={close}!gtk-close
             --margins=7
             --borders=5
         """
@@ -149,16 +151,18 @@ class UnattendedUpgrade:
         from subprocess import run, PIPE, Popen
         window_icon   = conf.config['window_icon']
         self.__tokens['title'] = xlate.get('title_unattended-upgrades_dpkg_log_viewer')
+        self.__tokens['close'] = xlate.get('close')
         yad ="""
         /usr/bin/yad 
             --window-icon={window_icon}
+            --class=apt-notifier
             --width={width}
             --height={height}
             --center
             --title={title}
             --text-info
             --fontname=mono
-            --button=gtk-close
+            --button={close}!gtk-close
             --margins=7
             --borders=5
         """
