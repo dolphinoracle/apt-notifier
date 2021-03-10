@@ -1,3 +1,9 @@
+apt-notifier (21.03.02b2) mx; urgency=medium
+
+  * apt history taskbar icon fix
+
+ -- fehlix <fehlix@mxlinux.org>  Wed, 10 Mar 2021 19:48:38 -0400
+
 apt-notifier (21.03.02b1) mx; urgency=medium
 
   * fix displayed window-icons in taskbar to show apt-notifier icon
