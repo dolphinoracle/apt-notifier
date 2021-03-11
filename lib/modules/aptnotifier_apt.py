@@ -88,6 +88,7 @@ class Apt:
               --text-info
               --title={window_title}
               --window-icon={window_icon}
+              --class=apt-notifier
               --width={width}
               --height={height}
               --center
