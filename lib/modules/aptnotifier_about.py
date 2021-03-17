@@ -10,6 +10,8 @@ from PyQt5 import QtWidgets, QtGui, QtCore
 from PyQt5.QtWidgets import QApplication, QPushButton, QMessageBox
 from PyQt5.QtGui import QIcon
 
+BUILD_VERSION='n/a' # this line is adjusted during package creation
+
 class AptnotifierAbout():
 
     def __init__(self):
@@ -81,9 +83,10 @@ class AptnotifierAbout():
         Close_Button     = Close
         License_Button   = License
 
-
+        global BUILD_VERSION
         cmd = "dpkg-query -f ${Version} -W apt-notifier".split()
         updater_version = run(cmd, capture_output=True, text=True).stdout.strip()
+        updater_version = BUILD_VERSION
 
         aboutText= f'''
         <p align=center><b><h2>{updater_name}</h2></b></p>

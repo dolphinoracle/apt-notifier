@@ -21,6 +21,8 @@ from distutils import spawn
 from time import sleep
 from string import Template # for simple string substitution (popup_msg...)
 
+BUILD_VERSION='n/a' # this line is adjusted during package creation
+
 def set_package_manager():
     global package_manager
     global package_manager_enabled

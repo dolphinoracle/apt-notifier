@@ -1,4 +1,10 @@
-apt-notifier (21.03.02b2) mx; urgency=medium
+apt-notifier (21.03.03mx21) mx; urgency=medium
+
+  * added build version info
+
+ -- fehlix <fehlix@mxlinux.org>  Tue, 16 Mar 2021 19:21:56 -0400
+
+apt-notifier (21.03.02b3) mx; urgency=medium
 
   * apt history taskbar icon fix
 
