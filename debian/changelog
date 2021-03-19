@@ -1,3 +1,11 @@
+apt-notifier (21.03.04mx21) mx; urgency=medium
+
+  * use lslocks with pkexec instead of lsof with sudo
+  * added ngettext to corectly translate plural forms
+  * added translator comments for transifex
+
+ -- fehlix <fehlix@mxlinux.org>  Fri, 19 Mar 2021 11:54:45 -0400
+
 apt-notifier (21.03.03mx21) mx; urgency=medium
 
   * added build version info

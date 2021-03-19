@@ -129,7 +129,7 @@ class AptNotifierXlate:
             'upgrade'                                    : _("upgrade"),
             'upgrade_label'                              : _("upgrade"),
             'upgrade_using_package_manager'              : _("Upgrade using Synaptic"),
-            #'use_apt_get_dash_dash_yes'                  : _("Automatically answer 'yes' to all prompts during full/basic upgrade"),
+            'use_apt_get_dash_dash_yes'                  : _("Automatically answer 'yes' to all prompts during full/basic upgrade"),
             'use_apt_get_dash_dash_yes'                  : _("Automatically answer 'yes' to all prompts during upgrade"),
             'view_and_upgrade'                           : _("View and Upgrade"),
             'view_auto_updates_dpkg_logs'                : _("Auto-update dpkg log(s)"),

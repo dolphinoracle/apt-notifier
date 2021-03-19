@@ -93,6 +93,7 @@ lib/policy/org.mxlinux.apt-notifier.full-upgrade.policy           usr/share/polk
 lib/policy/org.mxlinux.apt-notifier.full-upgrade_run.policy       usr/share/polkit-1/actions
 lib/policy/org.mxlinux.apt-notifier.reload.policy                 usr/share/polkit-1/actions
 lib/policy/org.mxlinux.apt-notifier.reload_run.policy             usr/share/polkit-1/actions
+lib/policy/org.mxlinux.apt-notifier.lslocks.policy                usr/share/polkit-1/actions
 lib/shlib/updater_aptpref                                         usr/lib/apt-notifier/shlib
 lib/shlib/updater_shlib                                           usr/lib/apt-notifier/shlib
 license.html                                                      usr/share/doc/apt-notifier
@@ -108,7 +109,6 @@ scripts/apt-notifier                                              usr/bin
 scripts/apt.systemd.daily                                         usr/lib/apt-notifier
 scripts/deartifact-xfce-systray-icons                             usr/bin
 scripts/update-Origins-Pattern                                    usr/bin
-sudoers/lsof-apt-notifier                                         etc/sudoers.d
 translations_script/mo/am/apt-notifier.mo                         usr/share/locale/am/LC_MESSAGES
 translations_script/mo/ar/apt-notifier.mo                         usr/share/locale/ar/LC_MESSAGES
 translations_script/mo/bg/apt-notifier.mo                         usr/share/locale/bg/LC_MESSAGES

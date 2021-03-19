@@ -1,10 +1,16 @@
 #!/bin/bash
 
+# script to upgrade packages with user's preferred upgrade type
+# this script is part of apt-notifier package
+
+# translations are defined within apt-notifier python modules 
+# define a function to make xgettext ignore translations used here
+mygettext() { gettext "$@"; }
 
 # check privs
 if [ $(id -u) != 0 ]; then
     MSG='This command needs %s privileges to be executed.\n'
-    printf "$(gettext -d su-to-root "$MSG")" 'root'
+    printf "$(mygettext -d su-to-root "$MSG")" 'root'
     exit 1
 fi
 
@@ -27,9 +33,9 @@ UpgradeAutoClose=$(grep -oP '^UpgradeAutoClose=\K.*' "$APT_NOTIFIERRC" 2>/dev/nu
 export TEXTDOMAIN=apt-notifier
 if [ "$UpgradeType" = "upgrade" ]
   then
-    gettext "basic upgrade"; echo
+    mygettext "basic upgrade"; echo
   else
-    gettext "full upgrade" ; echo
+    mygettext "full upgrade" ; echo
     UpgradeType='dist-upgrade'
 fi
 
@@ -52,9 +58,9 @@ apt-get -V $AssumeYes $AptPref_Opts $UpgradeType
 echo ""
 
 if [ "$UpgradeType" = "upgrade" ]; then
-    gettext "basic upgrade complete (or was canceled)"; echo
+    mygettext "basic upgrade complete (or was canceled)"; echo
 else
-    gettext "full upgrade complete (or was canceled)"; echo
+    mygettext "full upgrade complete (or was canceled)"; echo
 fi
 
 UPDATER_SHLIB=/usr/lib/apt-notifier/shlib/updater_shlib
@@ -62,8 +68,7 @@ if [ -f "$UPDATER_SHLIB" ]; then
       . "$UPDATER_SHLIB"
 fi
 echo
-echo
-gettext "this terminal window can now be closed" 
+mygettext "this terminal window can now be closed" 
 echo
 echo
 if [ "$UpgradeAutoClose" = "true" ]; then

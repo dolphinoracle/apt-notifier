@@ -1,4 +1,4 @@
 apt-notifier
 ============
 
-Notifier program for updates for MEPIS, MX and antiX
+Notifier program for updates for MX and antiX

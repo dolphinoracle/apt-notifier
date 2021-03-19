@@ -5,10 +5,10 @@
 # helper script to prepare apt preference handling
 # for synaptic pinned packages
 #
-# part of apt-notifer package
+# part of apt-notifier package
 #
 # this bash scripted is meant to be "sourced"
-# from /usr/lib/apt-notifier/lib/updater_aptpref
+# at /usr/lib/apt-notifier/lib/updater_aptpref
 
 # prepare pinned package handling
 AptPref_Opts=""
@@ -16,7 +16,7 @@ AptPreferences=""
 PinnedPreferences=""
 SynapticPreferences=/var/lib/synaptic/preferences
 
-# make sure we have /sbin in PATH 
+# make sure we have /sbin in PATH
 [ -z "${PATH##*:/sbin:*}" ] || PATH="$PATH:/sbin:/usr/sbin"
 
 # check we have packages pinned by Synaptic
@@ -36,21 +36,21 @@ if [ -n "$PinnedPreferences" ]; then
     if [ -r ${AptPreferences} ] && \
        grep -sqE '^[[:space:]]*[^#[:space:]]+' ${AptPreferences}; then
        # some settings found in apt's main preferences
-       # ok we merge both into one temporary preferences file 
-       # placed into a temporary directory 
-	   # ckeck we have a standard xdg-runtime-dir 
-	   # owned by the user and read/writable
-	   EUID=$(id -u)
-	   _TD=/run/user/${EUID}
-	   if [ -d $_TD ] && [ -O $_TD ] && [ -r $_TD ] && [ -w $_TD ]; then
-		   tmpdir_apt_pref=$_TD
-		   unset _TD
-	   elif [ -d /dev/shm ] && [ -r /dev/shm ] && [ -w /dev/shm ]; then
-		   tmpdir_apt_pref=/dev/shm
-	   else
-	       tmpdir_apt_pref=/tmp
-	   fi   
-	   tmp_apt_pref=$(mktemp -p $tmpdir_apt_pref -t apt_pref.${EUID}.XXXXXXXXXXXX)
+       # ok we merge both into one temporary preferences file
+       # placed into a temporary directory
+       # ckeck we have a standard xdg-runtime-dir
+       # owned by the user and read/writable
+       EUID=$(id -u)
+       _TD=/run/user/${EUID}
+       if [ -d $_TD ] && [ -O $_TD ] && [ -r $_TD ] && [ -w $_TD ]; then
+           tmpdir_apt_pref=$_TD
+           unset _TD
+       elif [ -d /dev/shm ] && [ -r /dev/shm ] && [ -w /dev/shm ]; then
+           tmpdir_apt_pref=/dev/shm
+       else
+           tmpdir_apt_pref=/tmp
+       fi
+       tmp_apt_pref=$(mktemp -p $tmpdir_apt_pref -t apt_pref.${EUID}.XXXXXXXXXXXX)
        chmod 644 $tmp_apt_pref
        # prepare tidy up on exit
        trap "rm -f $tmp_apt_pref" EXIT

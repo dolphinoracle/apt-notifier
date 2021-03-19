@@ -1,14 +1,21 @@
 #!/bin/bash
 
+# script to refresh pakages lists by running apt-get update
+# with adding count lines of available and held back upgrades
+# part of apt-notifier package
+
+# define a function to make xgettext ignore translations used here
+mygettext() { gettext "$@"; }
+
 # check privileges
 if [ $(id -u) != 0 ]; then
     MSG='This command needs %s privileges to be executed.\n'
-    printf "$(gettext -d su-to-root "$MSG")" 'root'
+    printf "$(mygettext -d su-to-root "$MSG")" 'root'
     exit 1
 fi
-  
+
 apt-get update
-working="...$(gettext -d apt ' [Working]')..." 
+working="...$(mygettext -d apt ' [Working]')..."
 printf "${working}"
 
 UPDATER_COUNTS=$(/usr/lib/apt-notifier/bin/updater_count)

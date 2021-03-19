@@ -42,6 +42,12 @@ USAGE
 exit 1
 }
 
+# translations are defined within apt-notifier python modules 
+# define functions to make xgettext ignore translations used here
+mygettext()  { gettext "$@"; }
+myngettext() { ngettext "$@"; }
+
+
 D="" ; C="" ; U=""
 CheckType=""
 
@@ -119,17 +125,55 @@ case "$CheckType" in
             
 esac
 
-
 case $Count in
-    0) UpdatesMsg=$(/usr/bin/gettext -d apt-notifier "0 updates available")
-       ;;
-    1) UpdatesMsg=$(/usr/bin/gettext -d apt-notifier "1 new update available")
-       ;;
-    [0-9]*) UpdatesMsg=$(/usr/bin/gettext -d apt-notifier -s '$count new updates available')
-       UpdatesMsg=${UpdatesMsg/\$count/$Count}
-       ;;
-  esac
+    0)  # untranslated old non-plurals msg
+        umsg="0 updates available"
+        # translated old non-plurals msg
+        tmsg=$(mygettext -d apt-notifier "$umsg")
+        
+        numsg='No updates available'
+        nmsg=$(mygettext -d apt-notifier "$numsg")
+        ;;
+    1)  # untranslated old non-plurals msg
+        umsg='1 new update available'
+        # translated old non-plurals msg
+        tmsg=$(mygettext -d apt-notifier "$umsg")
 
+        numsg='{num} new update available'
+        nmsg=$(myngettext '{num} new update available'  '{num} new updates available' $Count)
+        nmsg="${nmsg/\{num\}/$Count}"
+        numsg="${nmsg/\{num\}/$Count}"
+        ;;
+    *)  # untranslated old non-plurals msg
+        umsg='$count new updates available'
+        # translated old non-plurals msg
+        tmsg=$(mygettext -d apt-notifier "$umsg")
+        tmsg="${tmsg/\$count/$Count}"
+
+        numsg='{num} new updates available'
+        nmsg=$(myngettext '{num} new update available'  '{num} new updates available' $Count)
+        nmsg="${nmsg/\{num\}/$Count}"
+        numsg="${numsg/\{num\}/$Count}"
+        ;;
+esac
+
+# check we have translations of the plurals msg
+if [ "$nmsg" != "$numsg" ]; then
+    # yep, translated - we take the new plurals msg
+    msg="$nmsg"
+else
+    # check we have translated old non-plurals msg  
+    if [ "$tmsg" != "$umsg" ]; then
+        # yep, so we take the old translated one
+        msg=$tmsg
+    else
+        # neither old non-plurals nor new plurals are translated
+        # se we take the new plurals msg
+        msg=$nmsg
+    fi
+fi
+
+UpdatesMsg=$msg
 
 if [ "$DISPLAY_COUNT_NUMBER_ONLY" == "true" ]; then
     case "$CheckType" in

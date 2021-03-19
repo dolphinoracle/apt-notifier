@@ -34,10 +34,14 @@ ShowUnattendedUpgradesLogs()
  sed 's/, \x27origin=/,\n\x27origin=/g'                        |\
  sed 's/, \x27suite=/,\n\x27suite=/g'
 }
+
 #set strings using translations from the apt-notfier.py python script
-LessPrompt="` gettext -d apt-notifier \"Press 'h' for help, 'q' to quit\"`"
-NoLogsFound="`gettext -d apt-notifier \"No logs found.\"`"
-SeeHistory="` gettext -d apt-notifier \"For a less detailed view see 'Auto-update dpkg log(s)' or 'History'.\"`"
+#define a wrapper function so xgettext will ignore the strings here
+mygettext() { gettext "$@"; }
+
+ LessPrompt=$(mygettext -d apt-notifier "Press 'h' for help, 'q' to quit")
+NoLogsFound=$(mygettext -d apt-notifier "No logs found.")
+ SeeHistory=$(mygettext -d apt-notifier "For a less detailed view see 'Auto-update dpkg log(s)' or 'History'.")
 
 if [ -f /var/log/unattended-upgrades/unattended-upgrades.log ]
   then 

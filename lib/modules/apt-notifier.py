@@ -1,10 +1,11 @@
 #! /usr/bin/python3
 # -*- coding: utf-8 -*-
 
-import subprocess
-import sys
+BUILD_VERSION='21.03.04mx21'
 MODULES = "/usr/lib/apt-notifier/modules"
 
+import subprocess
+import sys
 if MODULES not in sys.path:
     sys.path.append(MODULES)
 
@@ -21,7 +22,13 @@ from distutils import spawn
 from time import sleep
 from string import Template # for simple string substitution (popup_msg...)
 
-BUILD_VERSION='n/a' # this line is adjusted during package creation
+import gettext
+translation = gettext.translation(
+            'apt-notifier', '/usr/share/locale', fallback=True)
+
+_ = translation.gettext
+ngettext = translation.ngettext
+
 
 def set_package_manager():
     global package_manager
@@ -336,8 +343,8 @@ def check_updates():
     global Check_for_Updates_by_User
     global Force_Check_Counter
     global AptIcon
-    global tool_tip
-    tool_tip = ''
+    #global tool_tip
+    #tool_tip = ''
     global version_at_start
 
     import datetime
@@ -394,11 +401,9 @@ def check_updates():
         else:
             AptIcon.setIcon(NoUpdatesIcon)
             if unattended_upgrade_enabled():
-                tool_tip = unattended_upgrades
-                AptIcon.setToolTip(tool_tip)
+                AptIcon.setToolTip(unattended_upgrades)
             else:
-                tool_tip = tooltip_0_updates_available
-                AptIcon.setToolTip(tool_tip)
+                AptIcon.setToolTip(tooltip_msg(0))
         Check_for_Updates_by_User = False
         return
 
@@ -408,15 +413,7 @@ def check_updates():
     to avoid getting a hit on /usr/share/unattended-upgrades/unattended-upgrade-shutdown
     which appears to be started automatically when using systemd as init.
     """
-    cmd = "sudo lsof "
-    cmd+= "/var/lib/dpkg/lock "
-    cmd+= "/var/lib/dpkg/lock-frontend "
-    cmd+= "/var/lib/apt/lists/lock "
-    cmd+= "/var/cache/apt/archives/lock "
-    cmd+= "2>/dev/null "
-    cmd+= "| grep -qE 'lock$|lock-frontend$'"
-    ret = subprocess.run(cmd, shell=True).returncode
-    if ret == 0:
+    if apt_dpkg_is_locked():
         Force_Check_Counter = check_for_updates_force_counter
         Check_for_Updates_by_User = False
         return
@@ -510,26 +507,26 @@ def check_updates():
             AptIcon.setIcon(NoUpdatesIcon)
             if unattended_upgrade_enabled():
 
-                tool_tip = unattended_upgrades
-                debug_p(f"AptIcon.setToolTip(tool_tip): AptIcon.setToolTip('{tool_tip}')")
-                AptIcon.setToolTip(tool_tip)
+                #tool_tip = unattended_upgrades
+                debug_p(f"AptIcon.setToolTip(tool_tip): AptIcon.setToolTip('{unattended_upgrades}')")
+                AptIcon.setToolTip(unattended_upgrades)
             else:
-                tool_tip = tooltip_0_updates_available
-                AptIcon.setToolTip(tool_tip)
+                #tool_tip = tooltip_0_updates_available
+                AptIcon.setToolTip(tooltip_msg(0))
     else:
         if AvailableUpdates == "1" and ( AvailableUpdates != AvailableUpdatesPrevious or  package_manager_changed):
             debug_p(f'if AvailableUpdates == "1":')
             AptIcon.setIcon(NewUpdatesIcon)
             AptIcon.show()
-            tool_tip = tooltip_1_new_update_available
-            AptIcon.setToolTip(tool_tip)
+            #tool_tip = tooltip_1_new_update_available
+            AptIcon.setToolTip(tooltip_msg(1))
             add_rightclick_actions()
             # Shows the pop up message only if not displayed before
             if message_status == "not displayed":
                 cmd = "for WID in $(wmctrl -l | cut -d' ' -f1); do xprop -id $WID | grep 'NET_WM_STATE(ATOM)'; done | grep -sq _NET_WM_STATE_FULLSCREEN"
                 run = subprocess.run(cmd, shell=True)
                 if run.returncode == 1:
-                    show_popup(popup_title, popup_msg_1_new_update_available, notification_icon)
+                    show_popup(popup_title, popup_msg(1), notification_icon)
                     message_status = "displayed"
                 """
                     UseNotifier = use_notifier()
@@ -545,10 +542,10 @@ def check_updates():
         else:
             AptIcon.setIcon(NewUpdatesIcon)
             AptIcon.show()
-            tooltip_template=Template(tooltip_multiple_new_updates_available)
-            tooltip_with_count = tooltip_template.substitute(count=AvailableUpdates)
-            tool_tip = tooltip_with_count
-            AptIcon.setToolTip(tool_tip)
+            #tooltip_template=Template(tooltip_multiple_new_updates_available)
+            #tooltip_with_count = tooltip_template.substitute(count=AvailableUpdates)
+            #tool_tip = tooltip_with_count
+            AptIcon.setToolTip(tooltip_msg(AvailableUpdates))
             add_rightclick_actions()
             # Shows the pop up message only if not displayed before
             if message_status == "not displayed":
@@ -557,9 +554,9 @@ def check_updates():
                 if run.returncode == 1:
                     # ~~~ Localize 1b ~~~
                     # Use embedded count placeholder.
-                    popup_template=Template(popup_msg_multiple_new_updates_available)
-                    popup_with_count=popup_template.substitute(count=AvailableUpdates)
-                    show_popup(popup_title, popup_with_count, notification_icon)
+                    #popup_template=Template(popup_msg_multiple_new_updates_available)
+                    #popup_with_count=popup_template.substitute(count=AvailableUpdates)
+                    show_popup(popup_title, popup_msg(AvailableUpdates), notification_icon)
                     message_status = "displayed"
     AvailableUpdatesPrevious = AvailableUpdates
     Check_for_Updates_by_User = False
@@ -1360,15 +1357,15 @@ def systray_icon_show():
 def dbus_closed():
     global AptIcon
     global dbus_callback_closed
-    global tool_tip    
-    try: tool_tip
-    except: tool_tip = ""
+    #global tool_tip    
+    #try: tool_tip
+    #except: tool_tip = ""
     dbus_callback_closed = True
     debug_p(f"dbus_callback_closed: {dbus_callback_closed} ")
     debug_p(f"Notification is closed")
     try: AptIcon
     except: return
-    AptIcon.setToolTip(tool_tip)
+    #AptIcon.setToolTip(tool_tip)
 
 
 def upgrade_cb(n, action):
@@ -1667,6 +1664,150 @@ def fix_fluxbox_startup():
     from aptnotifier_autostart import AutoStart
     ast = AutoStart()
     ast.fix_fluxbox_autostart()
+
+def tooltip_msg(num):
+    num = int(num)
+    if num == 0:
+        # untranslated old non-plurals msg
+        umsg = '0 updates available'
+        tmsg = _(umsg)
+
+        numsg = 'No updates available'
+        nmsg = _('No updates available')
+    else:
+        if num == 1:
+            # untranslated old non-plurals msg
+            umsg = '1 new update available'
+            # translated old non-plurals msg
+            tmsg = _(umsg)
+        else:
+            # untranslated old non-plurals msg
+            umsg = '$count new updates available'
+            # translated old non-plurals msg
+            tmsg = _(umsg).replace('$count', str(num))
+            # polpulate with the number
+            umsg  = umsg.replace('$count', str(num))
+        
+        # TRANSLATORS: Fill in all plural forms. The parenthesized expression '{num}'
+        # is replaced by the actual number of updates available at runtime.
+        # For the singular form, you can replace '{num}' with 'one'.
+        # Example with 2 plural forms:
+        # msgstr[0] -> singular form: use 'one new update' or '{num} new update'.
+        # msgstr[1] -> plural form: use '{num} new updates'.
+        nmsg = ngettext('{num} new update available', '{num} new updates available', num)
+        
+        # new translated plurals msg
+        nmsg = nmsg.format(num=num)
+        # new untranslated plurals msg
+        if num == 1:
+            numsg = '{num} new update available'.format(num=num)
+        else:
+            numsg = '{num} new updates available'.format(num=num)
+        
+    # check we have translations of the plurals msg
+    if nmsg not in numsg:
+        # yep, translated - we take the new plurals msg
+        msg = nmsg
+    else:
+        # check we have translated old non-plurals msg  
+        if tmsg not in umsg:
+            # yep, so we take the old translated one
+            msg = tmsg
+        else:
+            # neither old non-plurals nor new plurals are translated
+            # se we take the new plurals msg
+            msg = nmsg
+    return msg
+
+    
+def popup_msg(num):
+    num = int(num)
+    if num == 0:
+        # untranslated old non-plurals msg
+        umsg = '0 updates available'
+        tmsg = _(umsg)
+
+        numsg = 'No updates available'
+        nmsg = _('No updates available')
+        """
+        # untranslated old non-plurals msg
+        umsg = 'You have $count new updates available'
+        tmsg = _(umsg)
+        umsg = umsg.replace('$count', '0')
+        tmsg = tmsg.replace('$count', '0')
+
+        numsg = 'You have no new updates available'
+        nmsg = _('You have no new updates available')
+        """
+    else:
+        if num == 1:
+            # untranslated old non-plurals msg
+            umsg = 'You have 1 new update available'
+            # translated old non-plurals msg
+            tmsg = _(umsg)
+        else:
+            # untranslated old non-plurals msg
+            umsg = 'You have $count new updates available'
+            # translated old non-plurals msg
+            tmsg = _(umsg).replace('$count', str(num))
+            # polpulate with the number
+            umsg  = umsg.replace('$count', str(num))
+        
+        # TRANSLATORS: Fill in all plural forms. The parenthesized expression '{num}'
+        # is replaced by the actual number of updates available at runtime.
+        # For the singular form, you can replace '{num}' with 'one'.
+        # Example with 2 plural forms:
+        # msgstr[0] -> singular form: use 'one new update' or '{num} new update'.
+        # msgstr[1] -> plural form: use '{num} new updates'.
+        nmsg = ngettext('You have {num} new update available', 'You have {num} new updates available', num)
+        
+        # new translated plurals msg
+        nmsg = nmsg.format(num=num)
+        # new untranslated plurals msg
+        if num == 1:
+            numsg = 'You have {num} new update available'.format(num=num)
+        else:
+            numsg = 'You have {num} new updates available'.format(num=num)
+        
+    # check we have translations of the plurals msg
+    if nmsg not in numsg:
+        # yep, translated - we take the new plurals msg
+        msg = nmsg
+    else:
+        # check we have translated old non-plurals msg  
+        if tmsg not in umsg:
+            # yep, so we take the old translated one
+            msg = tmsg
+        else:
+            # neither old non-plurals nor new plurals are translated
+            # se we take the new plurals msg
+            msg = nmsg
+    return msg
+
+
+def apt_dpkg_is_locked():
+    """
+    check for apt/dpkg locks
+    """
+    locks = """
+            /var/lib/dpkg/lock
+            /var/lib/dpkg/lock-frontend
+            /var/lib/apt/lists/lock
+            /var/cache/apt/archives/lock
+            """
+
+    locks = locks.strip().split()
+
+    cmd = "pkexec /usr/bin/lslocks --noheadings --notruncate --output PATH".split()
+    lslocks = subprocess.run(cmd, capture_output=True, text=True).stdout
+    lslocks = lslocks.strip().split()
+
+
+    if list(filter(lambda x : x in locks, lslocks)):
+        return True
+    else:
+        return False
+
 
 #### main #######
 def main():

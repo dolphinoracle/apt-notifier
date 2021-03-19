@@ -24,8 +24,11 @@ ShowUnattendedUpgradesDpkgLogs()
 }
 
 #set strings using translations from the apt-notfier.py python script
-LessPrompt="` gettext -d apt-notifier \"Press 'h' for help, 'q' to quit\"`"
-NoLogsFound="`gettext -d apt-notifier \"No logs found.\"`"
+#define a wrapper function so xgettext will ignore the strings here
+mygettext() { gettext "$@"; }
+ LessPrompt=$(mygettext -d apt-notifier "Press 'h' for help, 'q' to quit")
+NoLogsFound=$(mygettext -d apt-notifier "No logs found.")
+
 
 if [ -f /var/log/unattended-upgrades/unattended-upgrades-dpkg.log ]
   then 

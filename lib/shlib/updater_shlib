@@ -4,7 +4,7 @@
 #
 # helper script to define utility functions
 #
-# part of apt-notifer package
+# part of apt-notifier package
 #
 # this bash scripted is meant to be "sourced"
 # at /usr/lib/apt-notifier/lib/updater_shlib
@@ -30,8 +30,8 @@ press_any_key_stop_auto_close() {
     local space_line=$(printf '%*s' $cols)
     local done_line=$(printf '_''%.0s' $(eval echo {1..$cols}))
 
-    local anykey_to_stop=$(gettext -d apt-notifier "press any key to stop automatic closing")
-    local anykey_to_close=$(gettext -d apt-notifier "press any key to close")
+    local anykey_to_stop=$(mygettext -d apt-notifier "press any key to stop automatic closing")
+    local anykey_to_close=$(mygettext -d apt-notifier "press any key to close")
 
     anykey_to_stop="${anykey_to_stop^}..."
     anykey_to_close="${anykey_to_close^}..."
@@ -56,7 +56,7 @@ press_any_key_stop_auto_close() {
 press_any_key_to_close() {
 
     local cls_msg_en="press any key to close"
-    local cls_msg=$(gettext -d apt-notifier "press any key to close")
+    local cls_msg=$(mygettext -d apt-notifier "press any key to close")
     # capitilize
     cls_msg=${cls_msg^}
     # add ellipses
@@ -70,7 +70,8 @@ translate() {
     local text="$1"
     local domain="MX"
 
-    text=$(gettext -d apt-notifier "$text")
+    #text=$(gettext -d apt-notifier "$text")
+    text=$(mygettext -d apt-notifier "$text")
     # check DOMAIN is set - but could be  empty
     [ -z "${DOMAIN+set}" ] && echo "$text" && return
     # check text contains $domain
@@ -161,3 +162,6 @@ updater_show() {
     esac
 }
 
+mygettext() {
+	gettext "$@"
+}
