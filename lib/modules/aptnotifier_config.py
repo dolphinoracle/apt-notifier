@@ -51,6 +51,8 @@ wireframe_none_dark     = /usr/share/icons/mnotify-none-wireframe-dark.png
 wireframe_none_light    = /usr/share/icons/mnotify-none-wireframe-light.png
 wireframe_none_dark_transparent  = /usr/share/icons/mnotify-none-wireframe-dark-transparent.png
 wireframe_none_light_transparent = /usr/share/icons/mnotify-none-wireframe-light-transparent.png
+use_wireframe_transparent = true
+
 # window icons
 window_icon             = /usr/share/icons/apt-notifier.png
 window_icon_name        = apt-notifier

@@ -1,0 +1,53 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Sat, 27 Mar 2021 07:00:19 -0400
+Source: apt-notifier
+Binary: apt-notifier
+Architecture: source all
+Version: 21.03.05mx21
+Distribution: mx
+Urgency: medium
+Maintainer: Kent Mathern <maintainer@mepiscommunity.org>
+Changed-By: fehlix <fehlix@mxlinux.org>
+Description:
+ apt-notifier - tray applet to notify of system and application updates
+Changes:
+ apt-notifier (21.03.05mx21) mx; urgency=medium
+ .
+   * set terminal window size to 4/5 for screen width smaller than 1440
+   * re-added lslocks with sudo
+Checksums-Sha1:
+ dbf0ee86e25ff0abfde550c9224039c6cb1da315 1544 apt-notifier_21.03.05mx21.dsc
+ 1b0232797b7d24a1f2aad4db5f32722214f737f9 1121988 apt-notifier_21.03.05mx21.tar.xz
+ 9b35bd86efb12961246b7402096e6355822e161d 218176 apt-notifier_21.03.05mx21_all.deb
+ 8d06b046af7849b6afdf02b186ce8d37911b68cb 5888 apt-notifier_21.03.05mx21_amd64.buildinfo
+Checksums-Sha256:
+ 4dd3991a510ab28b8575d19bfd6ce8e584669fd3e766452c8b616044f2766de1 1544 apt-notifier_21.03.05mx21.dsc
+ 7a2400891b3fe795bb9822cfb380fe300971a774387e6405d2d53ab623b8806e 1121988 apt-notifier_21.03.05mx21.tar.xz
+ dd8493f2421c6cb78eab4855af55e38f882cc94f738732c72f97df470adf1058 218176 apt-notifier_21.03.05mx21_all.deb
+ 1b2c525be1419d80f13e46cc912b3dd12529044e2bc9d52d59e4e269f2f44461 5888 apt-notifier_21.03.05mx21_amd64.buildinfo
+Files:
+ fbfbdeb6852dd352096c7b8985370b50 1544 admin optional apt-notifier_21.03.05mx21.dsc
+ 2d9e14cc494d56ee6f08c4b6bbcb93f6 1121988 admin optional apt-notifier_21.03.05mx21.tar.xz
+ 675ebd3433c7bb01b4fd2f8797164647 218176 admin optional apt-notifier_21.03.05mx21_all.deb
+ 34c6839a9e5d491481e6d7fb31f0a733 5888 admin optional apt-notifier_21.03.05mx21_amd64.buildinfo
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJHBAEBCgAxFiEEgRnC8/wKXRM2S0xLL1ePG6ydm+kFAmBfE8gTHGZlaGxpeEBt
+eGxpbnV4Lm9yZwAKCRAvV48brJ2b6XYVEACwyOjIaRBXBEtDi767IvNXz01VY3Zo
+QMz/0MKP2Qp3TZmZm3ywhijZzUc8u5eMigEpdV+P9wPMVlApcIJzfZu9aJv9ZG2B
+XWqqerHRYne9pzPuoYS4eVDGEkI+d+pcdkNhNgFWRz5IW9K3hR5TWNUltGrcAvJk
+rTBM1ghKQjEX5BhIBPSxeUm69rlV1PjFxe93QTkgmbhdPNdWK+Xpgs3T2yxFhash
+WObZCxphb65jZWqpJQR/ksh0bff3yflQjnlW8Kd83ZTVAZnXq28vcmdO0EherfJO
+OT2LByIoOChiztWZrZOb9HszlMhFmOpYk0Qpj9FPKCCtbs8ElOJ/frAb/+UsmI8D
+X9mCIVWSdKpTR7n5wPvo10Y8rKhBpSSJsA/07VvnA+DY75zYx3YD4AetArhZqiOs
+kJ5aFUqA1lYs5Dc4PdCbPsZkNU8MI4/OcuddojBbi6IkkQaN9ypZaWH+ymvNXj/o
+Oer0F071YX252upDo/P8RMyZgtEgkjLzLBSIM4gvOmnvvhmAOyPldMnuqLjZIIs9
+VNlCWpGg2g8i45aXVa1ALd0wTIWIclyoNT/IJRgN2QSjN4BqhS7PHZeIhkmgFLdO
+h6LpcuwQ73pbh6V2Ob5seittxLC5c2t78O996fJgdDsDONGdttqRO4jYHv/IZ7dt
+LNTt5Aq14lFWQA==
+=5M76
+-----END PGP SIGNATURE-----

@@ -16,8 +16,6 @@ case "$1" in
     rm -f /etc/cron.d/mx-Unattended-Origins-Pattern-update           || :
     rm -r /usr/lib/apt-notifier/modules/__pycache__    2>/dev/null   || :      
     rm -f /etc/apt/apt.conf.d/51unattended-upgrades-mx 2>/dev/null   || :      
-    rm -f /etc/sudoers.d/lsof-mx             2>/dev/null             || :
-    rm -f /etc/sudoers.d/lsof-apt-notifier   2>/dev/null             || :
   ;;  
 esac
 exit 0

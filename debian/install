@@ -3,6 +3,7 @@ conf/02periodic                                                   usr/share/apt-
 conf/51unattended-upgrades-config                                 usr/share/apt-notifier
 conf/51unattended-upgrades-disable                                usr/share/apt-notifier
 conf/51unattended-upgrades-enable                                 usr/share/apt-notifier
+conf/lslocks-apt-notifier                                         etc/sudoers.d
 conf/51unattended-upgrades-origins                                usr/share/apt-notifier
 icons/128x128/apps/mnotify-none-wireframe-dark.png                usr/share/icons/hicolor/128x128/apps
 icons/128x128/apps/mnotify-none-wireframe-dark-transparent.png    usr/share/icons/hicolor/128x128/apps

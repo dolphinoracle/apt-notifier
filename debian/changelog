@@ -1,3 +1,10 @@
+apt-notifier (21.03.05mx21) mx; urgency=medium
+
+  * set terminal window size to 4/5 for screen width smaller than 1440
+  * re-added lslocks with sudo
+
+ -- fehlix <fehlix@mxlinux.org>  Sat, 27 Mar 2021 07:00:19 -0400
+
 apt-notifier (21.03.04mx21) mx; urgency=medium
 
   * use lslocks with pkexec instead of lsof with sudo

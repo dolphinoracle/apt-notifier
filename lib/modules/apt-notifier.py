@@ -1797,8 +1797,16 @@ def apt_dpkg_is_locked():
             """
 
     locks = locks.strip().split()
-
-    cmd = "pkexec /usr/bin/lslocks --noheadings --notruncate --output PATH".split()
+    
+    from shutil import which
+    path = which("pkexec")
+    if path:
+        sudo = "pkexec"
+    else:
+        sudo = "sudo"
+    
+    cmd = f"{sudo} /usr/bin/lslocks --noheadings --notruncate --output PATH".split()
+    
     lslocks = subprocess.run(cmd, capture_output=True, text=True).stdout
     lslocks = lslocks.strip().split()
 
