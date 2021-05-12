@@ -1,3 +1,9 @@
+apt-notifier (21.03.06mx21) mx; urgency=medium
+
+  * translations refresh 
+
+ -- fehlix <fehlix@mxlinux.org>  Wed, 12 May 2021 15:07:57 +0200
+
 apt-notifier (21.03.05mx21) mx; urgency=medium
 
   * set terminal window size to 4/5 for screen width smaller than 1440
