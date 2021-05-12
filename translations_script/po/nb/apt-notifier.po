@@ -1,0 +1,292 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the apt-notifier package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# James Bowlin <BitJam@gmail.com>, 2018
+# xmaus <49bolgen@gmail.com>, 2018
+# anticapitalista <anticapitalista@riseup.net>, 2021
+# heskjestad <cato@heskjestad.xyz>, 2021
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: apt-notifier\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-03-19 17:30+0100\n"
+"PO-Revision-Date: 2017-05-11 01:14+0000\n"
+"Last-Translator: heskjestad <cato@heskjestad.xyz>, 2021\n"
+"Language-Team: Norwegian Bokmål (https://www.transifex.com/anticapitalista/teams/10162/nb/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "No updates available"
+msgstr "Ingen oppdateringer er tilgjengelige"
+
+#. TRANSLATORS: Fill in all plural forms. The parenthesized expression '{num}'
+#. is replaced by the actual number of updates available at runtime.
+#. For the singular form, you can replace '{num}' with 'one'.
+#. Example with 2 plural forms:
+#. msgstr[0] -> singular form: use 'one new update' or '{num} new update'.
+#. msgstr[1] -> plural form: use '{num} new updates'.
+#, python-brace-format
+msgid "{num} new update available"
+msgid_plural "{num} new updates available"
+msgstr[0] "{num} ny oppdatering tilgjengelig"
+msgstr[1] "{num} nye oppdateringer tilgjengelige"
+
+#. TRANSLATORS: Fill in all plural forms. The parenthesized expression '{num}'
+#. is replaced by the actual number of updates available at runtime.
+#. For the singular form, you can replace '{num}' with 'one'.
+#. Example with 2 plural forms:
+#. msgstr[0] -> singular form: use 'one new update' or '{num} new update'.
+#. msgstr[1] -> plural form: use '{num} new updates'.
+#, python-brace-format
+msgid "You have {num} new update available"
+msgid_plural "You have {num} new updates available"
+msgstr[0] "Det er {num} ny oppdatering tilgjengelig"
+msgstr[1] "Det er {num} nye oppdateringer tilgjengelige"
+
+msgid "MX Updater"
+msgstr "MX Oppdateringsverktøy"
+
+msgid "About"
+msgstr "Om"
+
+msgid "About MX Updater"
+msgstr "Om MX Oppdateringsverktøy"
+
+msgid "History"
+msgstr "Historikk"
+
+msgid "MX Updater Help"
+msgstr "Hjelpetekst for MX Oppdateringsverktøy"
+
+msgid "Preferences"
+msgstr "Innstillinger"
+
+msgid "automatically close terminal window when full/basic upgrade complete"
+msgstr ""
+"lukk automatisk terminalvinduet etter at full/enkel oppgradering er fullført"
+
+msgid "automatically close terminal window when upgrade complete"
+msgstr "lukk automatisk terminalvinduet etter at oppgraderingen er fullført"
+
+msgid "Unneeded packages are installed that can be removed."
+msgstr "Installerte pakker som ikke trengs lenger kan fjernes."
+
+msgid "Running apt-get autoremove, if you are unsure type 'n'."
+msgstr "Kjører apt-get autoremove. Trykk «n» hvis du er usikker."
+
+msgid "update automatically   (will not add new or remove existing packages)"
+msgstr ""
+"automatisk oppdatering   (legger ikke til nye pakker eller fjerner "
+"eksisterende)"
+
+msgid "Tray applet to notify of system and application updates"
+msgstr ""
+"Program i systemkurven som varsler om oppdatering av system og programvare"
+
+msgid "basic upgrade"
+msgstr "enkel oppgradering"
+
+msgid "Cancel"
+msgstr "Avbryt"
+
+msgid "Changelog"
+msgstr "Endringslogg"
+
+msgid "check for autoremovable packages after full/basic upgrade"
+msgstr "se etter fjernbare pakker etter full/enkel oppgradering"
+
+msgid "Check for Updates"
+msgstr "Se etter oppdateringer"
+
+msgid "Close"
+msgstr "Lukk"
+
+msgid "basic upgrade complete (or was canceled)"
+msgstr "enkel oppgradering fullført (eller ble avbrutt)"
+
+msgid "full upgrade complete (or was canceled)"
+msgstr "full oppgradering fullført (eller ble avbrutt)"
+
+msgid "this terminal window can now be closed"
+msgstr "dette terminalvinduet kan nå lukkes"
+
+msgid "Auto-update"
+msgstr "Auto-oppdatering"
+
+msgid "Icons"
+msgstr "Ikoner"
+
+msgid "Left-click behaviour   (when updates are available)"
+msgstr ""
+"Hva skal skje ved venstreklikk   (når oppgraderinger er tilgjengelige)"
+
+msgid "Other options"
+msgstr "Andre alternativer"
+
+msgid "Upgrade mode"
+msgstr "Oppgraderingsmodus"
+
+msgid "full upgrade"
+msgstr "full oppgradering"
+
+msgid "full upgrade   (recommended)"
+msgstr "full oppgradering   (anbefalt)"
+
+msgid "Hide until updates available"
+msgstr "Skjul fram til oppdateringer blir tilgjengelige"
+
+msgid "start MX Updater at login"
+msgstr "start MX Oppdateringsverktøy ved innlogging"
+
+msgid "classic"
+msgstr "klassisk"
+
+msgid "use desktop notifications"
+msgstr "bruk skrivebordsvarsler"
+
+msgid "pulse"
+msgstr "puls"
+
+msgid "use transparent interior for no-updates wireframe"
+msgstr "kantlinje med indre gjennomsiktighet for ingen oppdateringer"
+
+msgid "wireframe"
+msgstr "kantlinjer"
+
+msgid "opens Synaptic"
+msgstr "åpner Synaptic"
+
+msgid "opens MX Updater 'View and Upgrade' window"
+msgstr "åpner vinduet «Vis og oppgrader» i MX Oppdateringsverktøy"
+
+msgid "Press 'h' for help, 'q' to quit"
+msgstr "Trykk «h» for hjelp, «q» for å avslutte"
+
+msgid "License"
+msgstr "Lisens"
+
+msgid "MX Package Installer"
+msgstr "MX Verktøy for pakkeinstallering"
+
+msgid "No logs found."
+msgstr "Fant ingen logger."
+
+msgid "No unattended-upgrades dpkg log(s) found."
+msgstr "Fant ingen logger for auto-oppgradering med dpkg."
+
+msgid "Synaptic Help"
+msgstr "Hjelpetekst for Synaptic"
+
+msgid "You have 1 new update available"
+msgstr "Det er 1 ny oppdatering tilgjengelig"
+
+msgid "You have $count new updates available"
+msgstr "Det er $count nye oppdateringer tilgjengelige"
+
+msgid "Updates"
+msgstr "Oppdateringer"
+
+msgid "press any key to stop automatic closing"
+msgstr "trykk en vilkårlig tast for å hindre automatisk lukking"
+
+msgid "press any key to close"
+msgstr "trykk en vilkårlig tast for å lukke"
+
+msgid "Quit"
+msgstr "Avslutt"
+
+msgid "Restart MX Updater"
+msgstr "Start MX Oppdateringsverktøy på nytt"
+
+msgid "Reload"
+msgstr "Last inn på nytt"
+
+msgid ""
+"Reload the package information to become informed about new, removed or "
+"upgraded software packages. (apt-get update)"
+msgstr ""
+"Last inn pakkeinformasjonen på nytt for å få info om nye, fjernede eller "
+"oppgraderte programvarepakker (apt-get update)"
+
+msgid "For a less detailed view see 'Auto-update dpkg log(s)' or 'History'."
+msgstr ""
+"Se «dpkgs loggfil(er) for auto-oppdatering» eller «Historikk» for mindre "
+"detaljert visning."
+
+msgid "switch to basic upgrade"
+msgstr "bytt til enkel oppgradering"
+
+msgid "switch to full upgrade"
+msgstr "bytt til full oppgradering"
+
+msgid ""
+"Switches the type of Upgrade that will be performed, alternating back and "
+"forth between 'full upgrade' and 'basic upgrade'."
+msgstr ""
+"Endrer type oppgradering som skal utføres. Velg mellom full og enkel "
+"oppgradering."
+
+msgid "MX Auto-update  --  unattended-upgrades log viewer"
+msgstr "MX Auto-oppdatering – loggede oppgraderinger"
+
+msgid "MX Auto-update  --  unattended-upgrades dpkg log viewer"
+msgstr "MX Auto-oppdatering – loggede dpkg-oppgraderinger"
+
+msgid "0 updates available"
+msgstr "0 oppdateringer tilgjengelige"
+
+msgid "1 new update available"
+msgstr "1 oppdatering tilgjengelig"
+
+msgid "$count new updates available"
+msgstr "$count oppdateringer tilgjengelige"
+
+msgid "Unattended-upgrades"
+msgstr "Oppgradering uten tilstedeværelse"
+
+msgid "Using basic upgrade (not recommended)"
+msgstr "Bruker enkel oppgradering (ikke anbefalt)"
+
+msgid "Using full upgrade"
+msgstr "Bruker full oppgradering"
+
+msgid "upgrade"
+msgstr "oppgrader"
+
+msgid "Upgrade using Synaptic"
+msgstr "Oppgrader med Synaptic"
+
+msgid "Automatically answer 'yes' to all prompts during full/basic upgrade"
+msgstr ""
+"Svar automatisk «ja» til alle forespørsler under full/enkel oppgradering"
+
+msgid "Automatically answer 'yes' to all prompts during upgrade"
+msgstr "Svar automatisk «ja» til alle forespørsler under oppgraderingen "
+
+msgid "View and Upgrade"
+msgstr "Vis og oppgrader"
+
+msgid "Auto-update dpkg log(s)"
+msgstr "dpkgs loggfil(er) for auto-oppdatering"
+
+msgid "Auto-update log(s)"
+msgstr "Loggfil(er) for auto-oppdatering"
+
+msgid "MX Updater--View and Upgrade, previewing: basic upgrade"
+msgstr ""
+"MX Oppdateringsverktøy – vis og oppgrader, forhåndsviser enkel oppgradering"
+
+msgid "MX Updater--View and Upgrade, previewing: full upgrade"
+msgstr ""
+"MX Oppdateringsverktøy – vis og oppgrader, forhåndsviser full oppgradering"
+
+msgid "MX Updater preferences"
+msgstr "Innstillinger for MX Oppdateringsverktøy"

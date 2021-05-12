@@ -1,0 +1,277 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the apt-notifier package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# samson <sambelet@yahoo.com>, 2021
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: apt-notifier\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-03-19 17:30+0100\n"
+"PO-Revision-Date: 2017-05-11 01:14+0000\n"
+"Last-Translator: samson <sambelet@yahoo.com>, 2021\n"
+"Language-Team: Amharic (https://www.transifex.com/anticapitalista/teams/10162/am/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: am\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "No updates available"
+msgstr ""
+
+#. TRANSLATORS: Fill in all plural forms. The parenthesized expression '{num}'
+#. is replaced by the actual number of updates available at runtime.
+#. For the singular form, you can replace '{num}' with 'one'.
+#. Example with 2 plural forms:
+#. msgstr[0] -> singular form: use 'one new update' or '{num} new update'.
+#. msgstr[1] -> plural form: use '{num} new updates'.
+#, python-brace-format
+msgid "{num} new update available"
+msgid_plural "{num} new updates available"
+msgstr[0] ""
+msgstr[1] ""
+
+#. TRANSLATORS: Fill in all plural forms. The parenthesized expression '{num}'
+#. is replaced by the actual number of updates available at runtime.
+#. For the singular form, you can replace '{num}' with 'one'.
+#. Example with 2 plural forms:
+#. msgstr[0] -> singular form: use 'one new update' or '{num} new update'.
+#. msgstr[1] -> plural form: use '{num} new updates'.
+#, python-brace-format
+msgid "You have {num} new update available"
+msgid_plural "You have {num} new updates available"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "MX Updater"
+msgstr ""
+
+msgid "About"
+msgstr "ስለ"
+
+msgid "About MX Updater"
+msgstr ""
+
+msgid "History"
+msgstr "ታሪክ"
+
+msgid "MX Updater Help"
+msgstr "MX ማሻሻያ እርዳታ"
+
+msgid "Preferences"
+msgstr "ምርጫዎች"
+
+msgid "automatically close terminal window when full/basic upgrade complete"
+msgstr ""
+
+msgid "automatically close terminal window when upgrade complete"
+msgstr ""
+
+msgid "Unneeded packages are installed that can be removed."
+msgstr "የማይፈለግ ጥቅል ተገጥሟል: መወገድ ያለበት"
+
+msgid "Running apt-get autoremove, if you are unsure type 'n'."
+msgstr "apt-get autoremove, በ ማስኬድ ላይ: እርስዎ እርግጠኛ ካልሆኑ ይጻፉ'n'."
+
+msgid "update automatically   (will not add new or remove existing packages)"
+msgstr ""
+
+msgid "Tray applet to notify of system and application updates"
+msgstr ""
+
+msgid "basic upgrade"
+msgstr "መሰረታዊ ማሻሻያ"
+
+msgid "Cancel"
+msgstr "መሰረዣ"
+
+msgid "Changelog"
+msgstr ""
+
+msgid "check for autoremovable packages after full/basic upgrade"
+msgstr ""
+
+msgid "Check for Updates"
+msgstr "ማሻሻያ መፈለጊያ"
+
+msgid "Close"
+msgstr "መዝጊያ"
+
+msgid "basic upgrade complete (or was canceled)"
+msgstr ""
+
+msgid "full upgrade complete (or was canceled)"
+msgstr ""
+
+msgid "this terminal window can now be closed"
+msgstr "ይህን የ ተርሚናል መስኮት አሁን መዝጋት ይችላሉ"
+
+msgid "Auto-update"
+msgstr "በራሱ-ማሻሻያ"
+
+msgid "Icons"
+msgstr "ምልክት"
+
+msgid "Left-click behaviour   (when updates are available)"
+msgstr "በ ግራ-መጫኛ ባህሪ   (ማሻሻያ በሚኖር ጊዜ)"
+
+msgid "Other options"
+msgstr "ሌሎች ምርጫዎች"
+
+msgid "Upgrade mode"
+msgstr "የ ማሻሻያ ዘዴ"
+
+msgid "full upgrade"
+msgstr "ሙሉ ማሻሻያ"
+
+msgid "full upgrade   (recommended)"
+msgstr ""
+
+msgid "Hide until updates available"
+msgstr "ዝግጁ ማሻሻያ እስከሚኖር መደበቂያ"
+
+msgid "start MX Updater at login"
+msgstr ""
+
+msgid "classic"
+msgstr "ዘመናዊ"
+
+msgid "use desktop notifications"
+msgstr ""
+
+msgid "pulse"
+msgstr "pulse"
+
+msgid "use transparent interior for no-updates wireframe"
+msgstr ""
+
+msgid "wireframe"
+msgstr "የ ሽቦ ክፈፍ"
+
+msgid "opens Synaptic"
+msgstr "ሲናፕቴክ መክፈቻ"
+
+msgid "opens MX Updater 'View and Upgrade' window"
+msgstr "የ MX ማሻሻያ መክፈቻ 'መመልከቻ እና ማሻሻያ' መስኮት"
+
+msgid "Press 'h' for help, 'q' to quit"
+msgstr ""
+
+msgid "License"
+msgstr "ፍቃድ"
+
+msgid "MX Package Installer"
+msgstr ""
+
+msgid "No logs found."
+msgstr ""
+
+msgid "No unattended-upgrades dpkg log(s) found."
+msgstr ""
+
+msgid "Synaptic Help"
+msgstr "ሲናፕቲክ እርዳታ"
+
+msgid "You have 1 new update available"
+msgstr "እርስዎ 1 አዲስ ማሻሻያ አለዎት"
+
+msgid "You have $count new updates available"
+msgstr "እርስዎ $መቁጠሪያ ማሻሻያ አለዎት"
+
+msgid "Updates"
+msgstr "ማሻሻያ"
+
+msgid "press any key to stop automatic closing"
+msgstr ""
+
+msgid "press any key to close"
+msgstr "ለ መዝጋት ማንኛውንም ቁልፍ ይጫኑ"
+
+msgid "Quit"
+msgstr "ማጥፊያ"
+
+msgid "Restart MX Updater"
+msgstr ""
+
+msgid "Reload"
+msgstr "ዳግም መጫኛ: "
+
+msgid ""
+"Reload the package information to become informed about new, removed or "
+"upgraded software packages. (apt-get update)"
+msgstr ""
+"የ ጥቅል መረጃ ዳግም መጫኛ: ስለ አዲሱ መረጃ ለ ማግኘት: ለ ማስወገድ: ወይንም የ ሶፍትዌር ጥቅል ለ ማሻሻል በ "
+"(apt-get update)"
+
+msgid "For a less detailed view see 'Auto-update dpkg log(s)' or 'History'."
+msgstr ""
+
+msgid "switch to basic upgrade"
+msgstr "ወደ መሰረታዊ ማሻሻያ መቀየሪያ"
+
+msgid "switch to full upgrade"
+msgstr "ወደ ሙሉ ማሻሻያ መቀየሪያ"
+
+msgid ""
+"Switches the type of Upgrade that will be performed, alternating back and "
+"forth between 'full upgrade' and 'basic upgrade'."
+msgstr ""
+
+msgid "MX Auto-update  --  unattended-upgrades log viewer"
+msgstr ""
+
+msgid "MX Auto-update  --  unattended-upgrades dpkg log viewer"
+msgstr ""
+
+msgid "0 updates available"
+msgstr "0 ዝግጁ ማሻሻያ"
+
+msgid "1 new update available"
+msgstr "1 አዲስ ማሻሻያ ተገኝቷል"
+
+msgid "$count new updates available"
+msgstr "$መቁጠሪያ አዲስ ዝግጁ ማሻሻያ"
+
+msgid "Unattended-upgrades"
+msgstr ""
+
+msgid "Using basic upgrade (not recommended)"
+msgstr ""
+
+msgid "Using full upgrade"
+msgstr ""
+
+msgid "upgrade"
+msgstr ""
+
+msgid "Upgrade using Synaptic"
+msgstr "ሲናፕቴክ በ መጠቀም ማሻሻያ"
+
+msgid "Automatically answer 'yes' to all prompts during full/basic upgrade"
+msgstr ""
+
+msgid "Automatically answer 'yes' to all prompts during upgrade"
+msgstr ""
+
+msgid "View and Upgrade"
+msgstr "መመልከቻ እና ማሻሻያ"
+
+msgid "Auto-update dpkg log(s)"
+msgstr ""
+
+msgid "Auto-update log(s)"
+msgstr ""
+
+msgid "MX Updater--View and Upgrade, previewing: basic upgrade"
+msgstr ""
+
+msgid "MX Updater--View and Upgrade, previewing: full upgrade"
+msgstr ""
+
+msgid "MX Updater preferences"
+msgstr "MX የ ማሻሻያ ምርጫ"
