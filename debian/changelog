@@ -1,7 +1,7 @@
 apt-notifier (21.07.01mx21) mx; urgency=medium
 
   * adjust upgrade_auto_close_timeout config
-  * add user config as ~/.config/{dist}/apt-notifer.conf
+  * add user config as ~/.config/{dist}/apt-notifier.conf
 
  -- fehlix <fehlix@mxlinux.org>  Mon, 19 Jul 2021 12:06:18 -0400
 

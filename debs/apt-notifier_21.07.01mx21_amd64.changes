@@ -17,37 +17,37 @@ Changes:
  apt-notifier (21.07.01mx21) mx; urgency=medium
  .
    * adjust upgrade_auto_close_timeout config
-   * add user config as ~/.config/{dist}/apt-notifer.conf
+   * add user config as ~/.config/{dist}/apt-notifier.conf
 Checksums-Sha1:
- d693d2aa60c27f65f92920f99a7d66c56147b755 1544 apt-notifier_21.07.01mx21.dsc
- cbbda102322a65bda69ed137460645cbedac4f43 1546220 apt-notifier_21.07.01mx21.tar.xz
- e2fd9456ff4b0ef0d1cf12013f3d2b3db5b59cbc 226240 apt-notifier_21.07.01mx21_all.deb
- 6a7cb920335ebe09d6d8f727761f114db705e6bd 6315 apt-notifier_21.07.01mx21_amd64.buildinfo
+ 6b7ea71783cfbdd252440a30d457a2113911d598 1544 apt-notifier_21.07.01mx21.dsc
+ 75e87025eba673706957b4e189abcc6fcaaf3e3e 2016200 apt-notifier_21.07.01mx21.tar.xz
+ bdee975499b425fe5f59b288ea89736f1544658b 226204 apt-notifier_21.07.01mx21_all.deb
+ 521b50898b051a20ee0adf5f6efbe1d96e54afd1 6315 apt-notifier_21.07.01mx21_amd64.buildinfo
 Checksums-Sha256:
- da9463524a24a28eedbeaf3525ec4e47c22ac3e18701a2a7597d91212ceadf75 1544 apt-notifier_21.07.01mx21.dsc
- 3e5466d63d76980593eb1f872e19ad283b16205a094fd1b09cbd067d57a4159e 1546220 apt-notifier_21.07.01mx21.tar.xz
- 258f64d94525be957c195f69855ba4b9375c9d3a5f464989dfadb6432db31429 226240 apt-notifier_21.07.01mx21_all.deb
- e55bfbcf50de0de56e160d83fd67be8e9d5c860186cde101c1e45f77f4739dae 6315 apt-notifier_21.07.01mx21_amd64.buildinfo
+ fdee994154a6cb4308eaefd2bb6e5b1ee9cd9fb7ed26242801eea17cf51b39ce 1544 apt-notifier_21.07.01mx21.dsc
+ 7b107d47552532086e6cd6f15df9f682a1df34d6e350bf82c7bca21b1e0c6daf 2016200 apt-notifier_21.07.01mx21.tar.xz
+ 509ce060e2a7587c99cffb21c2860444ea49a5b89b26aaae368df5b1eb94f0a1 226204 apt-notifier_21.07.01mx21_all.deb
+ ca0cfbe96f2eaca15eb1bd803c396429be447a40a178386e6cfdcae3d7e43ffa 6315 apt-notifier_21.07.01mx21_amd64.buildinfo
 Files:
- 0e76040c08392510d583b5dd47f048e0 1544 admin optional apt-notifier_21.07.01mx21.dsc
- 717d573e16c59a1bee9e7bef7fbf0c1a 1546220 admin optional apt-notifier_21.07.01mx21.tar.xz
- 3a77096aea08f08cafa6827b9238fb19 226240 admin optional apt-notifier_21.07.01mx21_all.deb
- 756af4e1f46f75787e4b6c991fd3b963 6315 admin optional apt-notifier_21.07.01mx21_amd64.buildinfo
+ 25ff6f82e460f297a4ed84872c947f9e 1544 admin optional apt-notifier_21.07.01mx21.dsc
+ 5d4029e3037c6ac5ab7667fae385fb36 2016200 admin optional apt-notifier_21.07.01mx21.tar.xz
+ 10a92de1a0718b6609fcf3e95c96e15b 226204 admin optional apt-notifier_21.07.01mx21_all.deb
+ 55f5ba7d248312279fa8eb41517e6218 6315 admin optional apt-notifier_21.07.01mx21_amd64.buildinfo
 
 -----BEGIN PGP SIGNATURE-----
 
-iQJHBAEBCgAxFiEEgRnC8/wKXRM2S0xLL1ePG6ydm+kFAmD2AHUTHGZlaGxpeEBt
-eGxpbnV4Lm9yZwAKCRAvV48brJ2b6YM0D/4lrDJrmREc4s/To5M6tzQCrMPyjmnM
-OLAHbFu50y3rt/W/1qf7R5DVxB9TWu09oYpA87PpSsIXUcFN69l02pEayY9Qx93G
-Zaj/luZi45hlEc9VibhB+2ou/LuAHaVKkn5LGjpKsJOszN76Q6QDS1NSXJahx0jF
-bNYaCt1BuUf0qUc5LDwHtnDy/9L0JTa/SgJu6O/6XDcXiSf4EhGUMbDGvH1rkuq6
-nCoMWAnYFX1HAWEB/r0X0Pf7Hqxw1LyexcI+ZgBlLtd95eLYkCDFTL1AzZ8RMTZv
-Abf2r8tdzINj2tm/BKqnhrYWcRNXsiWcygruCipkyD1Q7VtTdaU+er7tDV3rtecf
-qIkX4cRy3RWWlJwqDNEwzuDqnpqZaxXavOvB9Lygt7IPjwN9/SDQopQf7fjA7JL3
-S4U+2i1noOFPMzIAArclSmctZavjx4oWGvXVl2/GZpw7sRgVMASrsyfAe6TnGVOU
-s8nIfNYSfqPr7EAtE1gEU4QJBoRVl0baZImvNu023YszrqpD8OqtQTKdSigOPKgM
-IFT+rvKn5vX53c8qywjcyhtp3wlKGKE8d7gYAh29WzCpgUcLqtfTit9sWPQ5MGGe
-ZbuMdoyXx9RPNHUVHrXog4688YyeT88KhiHrB6tn8dNbzS9TJP+cdKrMjdxJHcHJ
-XowgN8k9yTrsbQ==
-=2NPt
+iQJHBAEBCgAxFiEEgRnC8/wKXRM2S0xLL1ePG6ydm+kFAmD2A08THGZlaGxpeEBt
+eGxpbnV4Lm9yZwAKCRAvV48brJ2b6dAKD/0YARiFv5vLa30E7An8N16SmEhKlAo/
+WH8e0ze6qIdzdIuvUSsJCWZTuG53nf5cbaF0o6pSUG7MkQwmHKtfFOAxHshZ5LxJ
+rAkn9NPTwR2lfSiyRso7upSu8kZ9/6hzVSnrFjqm/2hIh/smi55OeFgTfo3LNKLs
+Aai5bQC1+1n5BSGN7dIYoclqgSYxFJyQiQu58zrsgCwN85zkRlHpaoH7p0q4O9My
+tbgQN9ZTQ0d6cBB9x9UmvlUTvk6fnY+GfeIk0ytG/W7Qs4JWrJEm2hAMR+/WWOa2
+ij9T7rc0ci0NjrtmQuENMnb6XWuObJwNC45p7NfCdqjj8Iy7DoINnujxXL6qtpHm
+gixQCnZ8ck7ZPLhHRztGkT3foXzpPTGbS1KIsQuPmygXFqapeXDFU9+timBuKmwE
+4RI8uwc9lwtvwGPeyx6X0MPfg59Hq0MxUTH6ex36+08WOcsW6GTh7ET0SeoKhvbM
+T1AARFxi28fS/NASplPJgIs72Z4QXSd9iB5ygu7zsZtxSSfGX0OieVfwe0wtxO8X
+E9xhsZFLAAFbV8eBOwhRmdY5/X2ZHbf1mBMryORxTS5PdRx9plxD/bkoAXsncjiu
+66PmXKCMEzGCZR6VIMP779qCAwtxJQBq/afukTI1mFgsUs463dbU8Tt/vYx/usKU
+JwlOieyuKI0WLA==
+=sI9J
 -----END PGP SIGNATURE-----
