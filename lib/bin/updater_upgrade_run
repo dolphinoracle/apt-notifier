@@ -1,13 +1,14 @@
 #!/bin/bash
 
 # load updater_config settings
-declare -A CONFIG_ITEMS
+unset APT_NOTIFIER_CONFIG_ITEMS
+declare -A APT_NOTIFIER_CONFIG_ITEMS
 UPDATER_CONFIG="/usr/lib/apt-notifier/bin/updater_config"
 if [ -x "${UPDATER_CONFIG}" ]; then
-    eval "CONFIG_ITEMS=$(${UPDATER_CONFIG} --shell)"
+    eval "APT_NOTIFIER_CONFIG_ITEMS=$(${UPDATER_CONFIG} --shell)"
 fi
 
-upgrade_in_root_terminal="${CONFIG_ITEMS[upgrade_in_root_terminal]}"
+upgrade_in_root_terminal="${APT_NOTIFIER_CONFIG_ITEMS[upgrade_in_root_terminal]}"
 
 check_authenticator() {
     local authenticator 
@@ -54,9 +55,9 @@ if [ -f "$UPDATER_SHLIB" ]; then
       . "$UPDATER_SHLIB"
 fi
 
-ICON="${CONFIG_ITEMS[window_icon]}"
-ICON_KDE="${CONFIG_ITEMS[window_icon_KDE]}"
-DOMAIN="${CONFIG_ITEMS[domain]}"
+ICON="${APT_NOTIFIER_CONFIG_ITEMS[window_icon]}"
+ICON_KDE="${APT_NOTIFIER_CONFIG_ITEMS[window_icon_KDE]}"
+DOMAIN="${APT_NOTIFIER_CONFIG_ITEMS[domain]}"
 UPDATER=$(translate "MX Updater")
 
 export TEXTDOMAIN=apt-notifier

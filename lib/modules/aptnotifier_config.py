@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import subprocess
 from subprocess import run, PIPE
+import getpass
 import sys
 
 MODULES = "/usr/lib/apt-notifier/modules"
@@ -10,9 +11,11 @@ if MODULES not in sys.path:
 
 import os
 import os.path
+import pwd
 from glob import glob
 import configparser
 from configparser import ConfigParser
+from pathlib import Path
 
 
 class AptNotifierConfig:
@@ -29,6 +32,13 @@ class AptNotifierConfig:
         /usr/local/share/apt-notifier/conf/apt-notifier.conf.d/*.conf
         """
 
+        logname = run([ "/usr/bin/logname" ], capture_output=True, text=True).stdout.strip()
+        logid   = run([ "/usr/bin/id", "-u", logname ], capture_output=True, text=True).stdout.strip()
+        home = pwd.getpwuid(int(logid))[5]
+
+        for dist in [ "antiX", "MX-Linux" ]:
+            self.__conf_files += f"{home}/.config/{dist}/apt-notifier.conf\n"
+        
         self.__config_defaults="""
 #---------------------------------
 # default section (build-in)
@@ -150,7 +160,7 @@ domain                   = antiX
                 g = glob(x)
                 g.sort()
                 self.__config_file_list.extend(g)
-
+                
         self.__config_domain = self.config_domain()
         self.__config = self.config_parser()
 
@@ -215,6 +225,21 @@ domain                   = antiX
         if x in self.__config.keys():
             return self.__config[x]
         return ""
+
+def debug_p(text=''):
+    """
+    simple debug print helper
+    msg get printed to stderr
+    """
+    import os, sys
+    debug_me = ''
+    try:
+        debug_me = os.getenv('DEBUG_APT_NOTIFIER')
+    except:
+        debug_me = False
+    if debug_me:
+        print("Debug: " + text, file = sys.stderr)
+
 
 def __run_config():
 

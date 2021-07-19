@@ -24,13 +24,14 @@ printf $'\r'"$(printf '%*s' ${#working})"
 echo
 echo "$UPDATER_COUNTS"
 echo
-declare -A CONFIG_ITEMS
+unset APT_NOTIFIER_CONFIG_ITEMS
+declare -A APT_NOTIFIER_CONFIG_ITEMS
 UPDATER_CONFIG="/usr/lib/apt-notifier/bin/updater_config"
 if [ -x "${UPDATER_CONFIG}" ]; then
-    eval "CONFIG_ITEMS=$(${UPDATER_CONFIG} --shell)"
+    eval "APT_NOTIFIER_CONFIG_ITEMS=$(${UPDATER_CONFIG} --shell)"
 fi
 # auto close timeout
-AUTO_CLOSE_TIMEOUT="${CONFIG_ITEMS[reload_auto_close_timeout]}"
+AUTO_CLOSE_TIMEOUT="${APT_NOTIFIER_CONFIG_ITEMS[reload_auto_close_timeout]}"
 : ${AUTO_CLOSE_TIMEOUT:=6}
 
 UPDATER_SHLIB=/usr/lib/apt-notifier/shlib/updater_shlib
