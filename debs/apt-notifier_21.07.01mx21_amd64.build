@@ -1,0 +1,119 @@
+ dpkg-buildpackage -us -uc -ui -sa
+dpkg-buildpackage: info: source package apt-notifier
+dpkg-buildpackage: info: source version 21.07.01mx21
+dpkg-buildpackage: info: source distribution mx
+dpkg-buildpackage: info: source changed by fehlix <fehlix@mxlinux.org>
+ dpkg-source --before-build .
+dpkg-buildpackage: info: host architecture amd64
+ fakeroot debian/rules clean
+dh clean 
+   dh_clean
+ dpkg-source -b .
+dpkg-source: info: using source format '3.0 (native)'
+dpkg-source: info: building apt-notifier in apt-notifier_21.07.01mx21.tar.xz
+dpkg-source: info: building apt-notifier in apt-notifier_21.07.01mx21.dsc
+ debian/rules build
+dh build 
+   dh_update_autotools_config
+   dh_autoreconf
+   debian/rules override_dh_auto_build
+make[1]: Entering directory '/tmpdir/work_fehlix_apt-notifier/BUILD_apt-notifier'
+bash scripts/build_version
+BUILD_VERSION=21.07.01mx21
+dh_auto_build
+make[1]: Leaving directory '/tmpdir/work_fehlix_apt-notifier/BUILD_apt-notifier'
+   create-stamp debian/debhelper-build-stamp
+ fakeroot debian/rules binary
+dh binary 
+   dh_testroot
+   dh_prep
+   dh_installdirs
+   dh_install
+   dh_installdocs
+   dh_installchangelogs
+   dh_icons
+   dh_perl
+   dh_link
+   dh_strip_nondeterminism
+	Normalized debian/apt-notifier/usr/share/locale/is/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/id/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/hu/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/hr/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/hi/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/he_IL/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/gu/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/gl_ES/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/fr_BE/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/fr/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/fil_PH/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/fi/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/fa/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/eu/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/et/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/es_ES/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/es/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/el/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/de/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/da/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/cs/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/ca/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/bn/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/bg/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/be/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/ar/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/am/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/zh_TW/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/zh_HK/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/zh_CN/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/vi/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/uk/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/tr/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/th/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/sv/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/sr/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/sq/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/sl/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/sk/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/ru/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/ro/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/pt_BR/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/pt/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/pl/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/nl_BE/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/nl/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/nb_NO/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/nb/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/mr/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/mk/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/lt/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/ko/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/kk/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/ja/LC_MESSAGES/apt-notifier.mo
+	Normalized debian/apt-notifier/usr/share/locale/it/LC_MESSAGES/apt-notifier.mo
+   dh_compress
+   dh_fixperms
+   dh_missing
+   dh_installdeb
+   dh_gencontrol
+   dh_md5sums
+   debian/rules override_dh_builddeb
+make[1]: Entering directory '/tmpdir/work_fehlix_apt-notifier/BUILD_apt-notifier'
+dh_builddeb -- -Z xz
+dpkg-deb: building package 'apt-notifier' in '../apt-notifier_21.07.01mx21_all.deb'.
+make[1]: Leaving directory '/tmpdir/work_fehlix_apt-notifier/BUILD_apt-notifier'
+ dpkg-genbuildinfo
+ dpkg-genchanges -sa >../apt-notifier_21.07.01mx21_amd64.changes
+dpkg-genchanges: info: including full source code in upload
+ dpkg-source --after-build .
+dpkg-buildpackage: info: full upload; Debian-native package (full source is included)
+Now signing changes and any dsc files...
+ signfile dsc apt-notifier_21.07.01mx21.dsc fehlix <fehlix@mxlinux.org>
+
+ fixup_buildinfo apt-notifier_21.07.01mx21.dsc apt-notifier_21.07.01mx21_amd64.buildinfo
+ signfile buildinfo apt-notifier_21.07.01mx21_amd64.buildinfo fehlix <fehlix@mxlinux.org>
+
+ fixup_changes dsc apt-notifier_21.07.01mx21.dsc apt-notifier_21.07.01mx21_amd64.changes
+ fixup_changes buildinfo apt-notifier_21.07.01mx21_amd64.buildinfo apt-notifier_21.07.01mx21_amd64.changes
+ signfile changes apt-notifier_21.07.01mx21_amd64.changes fehlix <fehlix@mxlinux.org>
+
+Successfully signed dsc, buildinfo, changes files

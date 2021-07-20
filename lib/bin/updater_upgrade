@@ -63,6 +63,16 @@ else
     mygettext "full upgrade complete (or was canceled)"; echo
 fi
 
+unset APT_NOTIFIER_CONFIG_ITEMS
+declare -A APT_NOTIFIER_CONFIG_ITEMS
+UPDATER_CONFIG="/usr/lib/apt-notifier/bin/updater_config"
+if [ -x "${UPDATER_CONFIG}" ]; then
+    eval "APT_NOTIFIER_CONFIG_ITEMS=$(${UPDATER_CONFIG} --shell)"
+fi
+# auto close timeout
+AUTO_CLOSE_TIMEOUT="${APT_NOTIFIER_CONFIG_ITEMS[upgrade_auto_close_timeout]}"
+: ${AUTO_CLOSE_TIMEOUT:=10}
+
 UPDATER_SHLIB=/usr/lib/apt-notifier/shlib/updater_shlib
 if [ -f "$UPDATER_SHLIB" ]; then
       . "$UPDATER_SHLIB"
