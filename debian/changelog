@@ -1,3 +1,9 @@
+apt-notifier (21.08.01mx21) mx; urgency=medium
+
+  * fix execution permission of apt-notifier.py 
+
+ -- fehlix <fehlix@mxlinux.org>  Wed, 25 Aug 2021 21:01:09 +0000
+
 apt-notifier (21.07.01mx21) mx; urgency=medium
 
   * adjust upgrade_auto_close_timeout config
