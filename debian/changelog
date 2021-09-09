@@ -1,3 +1,9 @@
+apt-notifier (21.09.01mx21) mx; urgency=medium
+
+  * adjust escape-ok in View and Upgrade dialog
+
+ -- fehlix <fehlix@mxlinux.org>  Thu, 09 Sep 2021 23:11:10 +0000
+
 apt-notifier (21.08.01mx21) mx; urgency=medium
 
   * fix execution permission of apt-notifier.py 
