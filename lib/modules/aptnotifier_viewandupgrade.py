@@ -176,6 +176,8 @@ class ViewAndUpgrade:
             --buttons-layout=spread
             --margins=7
             --borders=5
+            --escape-ok 
+            --response=2
         """
 
         yad = yad.strip()    
