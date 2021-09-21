@@ -1,23 +1,20 @@
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA512
-
 Format: 1.0
 Source: apt-notifier
 Binary: apt-notifier
 Architecture: all source
-Version: 21.09.01mx21
+Version: 21.09.01mx21+1
 Checksums-Md5:
- e083c90432e3d242ae5aae466767a076 1544 apt-notifier_21.09.01mx21.dsc
- f0eeb8aadef9b15c9d3a682fea730496 226352 apt-notifier_21.09.01mx21_all.deb
+ 351f7076b3295cba8f11b4d4664c3748 637 apt-notifier_21.09.01mx21+1.dsc
+ 91e201233e50b6084f408bcd8b981b21 226352 apt-notifier_21.09.01mx21+1_all.deb
 Checksums-Sha1:
- 4fc932a92a5de476be6dfab26948c8e4868d5f1a 1544 apt-notifier_21.09.01mx21.dsc
- 834e23e7d7898147a815e39646b14110a2a2e1a2 226352 apt-notifier_21.09.01mx21_all.deb
+ 6d891be99f1247718f8a98d77940d041b4cd858c 637 apt-notifier_21.09.01mx21+1.dsc
+ 225cc55811a391003a6e6de2e83a253b5a9d5b84 226352 apt-notifier_21.09.01mx21+1_all.deb
 Checksums-Sha256:
- 2b3eea001f975162934094b70b5048a4cd55424604e7f8a0a63925557b712858 1544 apt-notifier_21.09.01mx21.dsc
- 1c9b7c9d12651b15d4822e5269691f51501e0e7ffcac1babc0efcfd3817b3784 226352 apt-notifier_21.09.01mx21_all.deb
+ 89cd1d2c13c590d8c2b92e77e0e920d6945757f41b7877be4b3377a084087fb6 637 apt-notifier_21.09.01mx21+1.dsc
+ 2f4223a29ebd3e9f37856da3b0a6090986a75dd4b41954c114a2de334499e669 226352 apt-notifier_21.09.01mx21+1_all.deb
 Build-Origin: Debian
 Build-Architecture: amd64
-Build-Date: Fri, 10 Sep 2021 01:12:23 +0200
+Build-Date: Mon, 20 Sep 2021 20:50:14 -0400
 Build-Tainted-By:
  merged-usr-via-aliased-dirs
  usr-local-has-libraries
@@ -169,7 +166,7 @@ Installed-Build-Depends:
  libxml2 (= 2.9.10+dfsg-6.7),
  libz3-4 (= 4.8.10-1),
  libzstd1 (= 1.4.8+dfsg-2.1),
- linux-libc-dev (= 5.13.12-1~mx21+1),
+ linux-libc-dev (= 5.14.3-1~mx21),
  login (= 1:4.8.1-1),
  lsb-base (= 11.1.0),
  m4 (= 1.4.18-5),
@@ -194,23 +191,5 @@ Installed-Build-Depends:
  zlib1g (= 1:1.2.11.dfsg-2)
 Environment:
  DEB_BUILD_OPTIONS="parallel=4"
- LANG="de_DE.UTF-8"
- SOURCE_DATE_EPOCH="1631229070"
-
------BEGIN PGP SIGNATURE-----
-
-iQJHBAEBCgAxFiEEgRnC8/wKXRM2S0xLL1ePG6ydm+kFAmE6lOQTHGZlaGxpeEBt
-eGxpbnV4Lm9yZwAKCRAvV48brJ2b6aaLD/9V/dzaAawiXwFlpSmvT+WUd3Ebfy4M
-RULf7UKWAnMiWuyvuE/umtUI7Pa0nYumgcbiKKBBQSpvayhvHqwec9Bs0A6QbU6l
-LKYhG8i8pqXgLb4LDxTF0xwLMLa88MwHTL0XRKwNwGYgunpi1lxXXyO1frQha56g
-L+ouyFstp+Owo9soT5TB1d3vfuu/xUVuCYf8QDk72Iptx1+1TpQc1R6wO+fthJZO
-0elI1oXL7oEK4TYQX7ldr6FhWwl5BdKusRkD4xpzyZShe7HPKs5EjP+ZHq53L4yt
-AKbYEj516QKTAOGagEdU7EIFir04wGD2/PqTLMhSs4I4aogbVLbXP1jK1tZpOvl5
-C328V6QKUqzy8+IUf8U/1YgOthEHFCKuBpE0vcEV5ypclKgk38eJOXm1kkQBxzE4
-ibQy8L1EUTeUxw7cUQnubSb/PyUevxjbt1+BOPUH1M4kY6+7f4Tf4LyqTDQAbmn5
-xVIZCqfDCxVP6DQ818jkDa5Xgn+wWm5BPsGh/P0EhpcDdgEZZsTc+yd9gXHR87VE
-1Jr0oCa28RpL0e6F4f+OH3RSgcfYRQ2bUSRebm+NTWnXO0t0khW+sMEshBfdRlMm
-UUEu5bIMU7rAdlBYnce6JetGrDCYs6lFWclX+M0f2UItKEoyhXpgVvlYsZoOq5VM
-FkwyTxcwuIF4MA==
-=6j43
------END PGP SIGNATURE-----
+ LANG="en_US.UTF-8"
+ SOURCE_DATE_EPOCH="1632185380"

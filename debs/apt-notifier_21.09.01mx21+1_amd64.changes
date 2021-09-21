@@ -1,0 +1,31 @@
+Format: 1.8
+Date: Mon, 20 Sep 2021 20:49:40 -0400
+Source: apt-notifier
+Binary: apt-notifier
+Architecture: source all
+Version: 21.09.01mx21+1
+Distribution: mx
+Urgency: medium
+Maintainer: Kent Mathern <maintainer@mepiscommunity.org>
+Changed-By: Dolphin Oracle <dolphinoracle@gmail.com>
+Description:
+ apt-notifier - tray applet to notify of system and application updates
+Changes:
+ apt-notifier (21.09.01mx21+1) mx; urgency=medium
+ .
+   * fresh builds
+Checksums-Sha1:
+ 6d891be99f1247718f8a98d77940d041b4cd858c 637 apt-notifier_21.09.01mx21+1.dsc
+ 11a7ee52b9e290687fd658d40a81a24a06ef411b 236812 apt-notifier_21.09.01mx21+1.tar.xz
+ 225cc55811a391003a6e6de2e83a253b5a9d5b84 226352 apt-notifier_21.09.01mx21+1_all.deb
+ 73e8e36c1e8cf096a56e3345abd66f61f489491d 5458 apt-notifier_21.09.01mx21+1_amd64.buildinfo
+Checksums-Sha256:
+ 89cd1d2c13c590d8c2b92e77e0e920d6945757f41b7877be4b3377a084087fb6 637 apt-notifier_21.09.01mx21+1.dsc
+ 21bf47ac2eb2fd1bed9be064aab538e04393a897c0478c7f44b2fc0a6573e815 236812 apt-notifier_21.09.01mx21+1.tar.xz
+ 2f4223a29ebd3e9f37856da3b0a6090986a75dd4b41954c114a2de334499e669 226352 apt-notifier_21.09.01mx21+1_all.deb
+ af4e7845e7ed8b58e145bee9133d2ea61ec9060bdcb56f1ce753799866de9616 5458 apt-notifier_21.09.01mx21+1_amd64.buildinfo
+Files:
+ 351f7076b3295cba8f11b4d4664c3748 637 admin optional apt-notifier_21.09.01mx21+1.dsc
+ 60883a75f7d541e2004403dd5d0bc3fe 236812 admin optional apt-notifier_21.09.01mx21+1.tar.xz
+ 91e201233e50b6084f408bcd8b981b21 226352 admin optional apt-notifier_21.09.01mx21+1_all.deb
+ 954db56275627c9df53364e6cbe22339 5458 admin optional apt-notifier_21.09.01mx21+1_amd64.buildinfo

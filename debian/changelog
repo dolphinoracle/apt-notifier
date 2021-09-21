@@ -1,3 +1,9 @@
+apt-notifier (21.09.01mx21+1) mx; urgency=medium
+
+  * fresh builds 
+
+ -- Dolphin Oracle <dolphinoracle@gmail.com>  Mon, 20 Sep 2021 20:49:40 -0400
+
 apt-notifier (21.09.01mx21) mx; urgency=medium
 
   * adjust escape-ok in View and Upgrade dialog
