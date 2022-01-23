@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=MX Updater
+Comment=An applet to show updates
+Exec=sh -c "sleep 6; exec /usr/bin/apt-notifier"
+Icon=apt-notifier
+StartupNotify=false
+Terminal=false
+Type=Application
+Categories=System;Qt;KDE;Utility;X-KDE-Utilities-Desktop;
+

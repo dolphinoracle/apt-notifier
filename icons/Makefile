@@ -1,12 +1,12 @@
 
 PNG_DIR := .
 SVG_DIR := .
-SHARE   := ./share
+BUILD   := ./build
 
 SVGS = $(wildcard $(SVG_DIR)/*.svg)
 PNGS = $(wildcard $(PNG_DIR)/*.png)
 
-HICOLOR := $(SHARE)/icons/hicolor
+HICOLOR := $(BUILD)/icons/hicolor
 HICO32  := $(HICOLOR)/32x32/apps
 
 APPS_DIR = $(HICOLOR)/$${SIZE}x$${SIZE}/apps
@@ -47,11 +47,11 @@ links:
 	@cd $(HICOLOR)/scalable && \
 		ln -s mnotify-some-wireframe.svg apt-notifier.svg && \
 		ln -s mnotify-some-wireframe.svg mx-updater.svg
-	@cd $(SHARE)/icons && \
+	@cd $(BUILD)/icons && \
 		ln -s hicolor/32x32/apps/*.png . && \
 		ln -s hicolor/256x256/apps/mnotify-some-wireframe.png mnotify-some-wireframe-pkexec.png 
 
 clean:
-	-@rm -rf $(SHARE)
+	-@rm -rf $(BUILD)
 
 .PHONY: all dirs pngs svg2png svgs links clean
