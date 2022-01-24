@@ -10,7 +10,7 @@ from PyQt5 import QtWidgets, QtGui, QtCore
 from PyQt5.QtWidgets import QApplication, QPushButton, QMessageBox
 from PyQt5.QtGui import QIcon
 
-BUILD_VERSION='21.07.01mx21'
+BUILD_VERSION='22.01.01mx21'
 
 class AptnotifierAbout():
 

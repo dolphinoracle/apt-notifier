@@ -1,7 +1,8 @@
-apt-notifier (22.01.01mx21~04) mx; urgency=medium
+apt-notifier (22.01.01mx21) mx; urgency=medium
 
   * adjust icons and translations build
   * adjust lock check, min./max. update check interval  
+  * remove gettext translation class and fallback handling
 
  -- fehlix <fehlix@mxlinux.org>  Sat, 22 Jan 2022 18:44:28 -0400
 

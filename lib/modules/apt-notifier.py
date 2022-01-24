@@ -1,7 +1,7 @@
 #! /usr/bin/python3
 # -*- coding: utf-8 -*-
 
-BUILD_VERSION='21.07.01mx21'
+BUILD_VERSION='22.01.01mx21'
 MODULES = "/usr/lib/apt-notifier/modules"
 
 import subprocess
@@ -23,12 +23,12 @@ from time import sleep
 from string import Template # for simple string substitution (popup_msg...)
 
 import gettext
-translation = gettext.translation(
-            'apt-notifier', '/usr/share/locale', fallback=True)
+gettext.bindtextdomain('apt-notifier', '/usr/share/locale')
+gettext.textdomain('apt-notifier')
 
-_ = translation.gettext
-ngettext = translation.ngettext
+_ = gettext.gettext
 
+ngettext = gettext.ngettext
 
 def set_package_manager():
     global package_manager
