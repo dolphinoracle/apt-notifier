@@ -1,0 +1,42 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the apt-notifier package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# Владимир Н <ua3elr@gmail.com>, 2018
+# Вячеслав Волошин <vol_vel@mail.ru>, 2020
+# Vladimir O <vldoduv@yandex.ru>, 2020
+# Geoff Gigg <geoffgigg@hotmail.com>, 2021
+# какой-то человек, 2021
+# Andrei Stepanov, 2022
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: apt-notifier\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-03-19 17:30+0100\n"
+"PO-Revision-Date: 2017-05-11 01:14+0000\n"
+"Last-Translator: Andrei Stepanov, 2022\n"
+"Language-Team: Russian (https://www.transifex.com/anticapitalista/teams/10162/ru/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "MX Updater"
+msgstr "MX Обновления"
+
+msgid "An applet to show updates"
+msgstr "Приложение для показа обновлений"
+
+msgid "Re-enable MX Updater icon even if no updates available"
+msgstr "Ре-активировать иконку MX Обновления в случае, когда нет обновлений"
+
+msgid "Disable Auto-update"
+msgstr "Отключить автообновление"
+
+msgid "Enable Auto-update"
+msgstr "Включить автообновление"

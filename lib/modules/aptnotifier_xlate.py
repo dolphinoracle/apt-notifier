@@ -10,39 +10,16 @@ if MODULES not in sys.path:
 import gettext
 import locale
 
+gettext.bindtextdomain('apt-notifier', '/usr/share/locale')
+gettext.textdomain('apt-notifier')
 
-class gettextTranslations(gettext.GNUTranslations, object):
-    """
-    class to add fallback
-    """
-    def __init__(self, *args, **kwargs):
-        super(gettextTranslations, self).__init__(*args, **kwargs)
-        self.add_fallback(gettextFallback())
-
-class gettextFallback(gettext.NullTranslations):
-    """
-    translation fallback to reuse existing translated strings
-    """
-    def gettext(self, msg):
-        if msg == "Close":
-            if  gettext.find("gtk30", "/usr/share/locale" ) is not None:
-                msg = gettext.translation("gtk30", "/usr/share/locale").gettext(msg)
-            elif gettext.find("okular", "/usr/share/locale" ) is not None:
-                msg = gettext.translation('okular', '/usr/share/locale').gettext(msg)
-        return msg
+_ = gettext.gettext
 
 
 class AptNotifierXlate:
     """
     apt-notifier helper class to provide a common place for translations
     """
-    import gettext
-
-    locale, _data = locale.getdefaultlocale()
-    translation = gettext.translation("apt-notifier", "/usr/share/locale",
-                  [locale], class_=gettextTranslations, fallback=True)
-    translation.install()
-    _ = translation.gettext
 
     def __init__(self):
         global conf

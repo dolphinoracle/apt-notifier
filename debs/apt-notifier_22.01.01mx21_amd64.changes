@@ -1,0 +1,55 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Thu, 27 Jan 2022 17:09:15 -0400
+Source: apt-notifier
+Binary: apt-notifier
+Architecture: source all
+Version: 22.01.01mx21
+Distribution: mx
+Urgency: medium
+Maintainer: Kent Mathern <maintainer@mepiscommunity.org>
+Changed-By: fehlix <fehlix@mxlinux.org>
+Description:
+ apt-notifier - tray applet to notify of system and application updates
+Changes:
+ apt-notifier (22.01.01mx21) mx; urgency=medium
+ .
+   * adjust icons and translations build
+   * adjust lock check, min./max. update check interval
+   * adjust gettext translation class and fallback handling
+   * rework desktop entry and policy translations handling
+Checksums-Sha1:
+ 6ee677063359897c428e4958f49746ae25a12354 1561 apt-notifier_22.01.01mx21.dsc
+ b361b777541da5e7ad7d51d4f75e24602aa1070a 599076 apt-notifier_22.01.01mx21.tar.xz
+ 52ad4a4e9a460f770c45d934db027ab4fc4294ef 226892 apt-notifier_22.01.01mx21_all.deb
+ 2a765a8d1e0524ee413e22dc1ac47999f8299f12 13518 apt-notifier_22.01.01mx21_amd64.buildinfo
+Checksums-Sha256:
+ bde46e46d46f4233fe478e8167a2b21b6739780ffb4223b3ef5bdcc4ed225a68 1561 apt-notifier_22.01.01mx21.dsc
+ a4e4c1807899956b4a50a438918114d043380219998e64baedb6528b13da06da 599076 apt-notifier_22.01.01mx21.tar.xz
+ ab4cbf6a670472b617930e1c7ae07c5a97687fed7d5fc9f79650403868353f23 226892 apt-notifier_22.01.01mx21_all.deb
+ bf9b2e4a1da4357ed5edb8e1e0725d86e934468a9404102262013c035b5fe22a 13518 apt-notifier_22.01.01mx21_amd64.buildinfo
+Files:
+ 8e65602b9165d4121c3edd2c2b0c7f60 1561 admin optional apt-notifier_22.01.01mx21.dsc
+ 22473b9272727c8da44231d8af223b2d 599076 admin optional apt-notifier_22.01.01mx21.tar.xz
+ 4d94a6ae67e618eac1c4f112364e0540 226892 admin optional apt-notifier_22.01.01mx21_all.deb
+ b07d54df5c5e7f4413b56dc6806e90f7 13518 admin optional apt-notifier_22.01.01mx21_amd64.buildinfo
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJHBAEBCgAxFiEEgRnC8/wKXRM2S0xLL1ePG6ydm+kFAmHzSZYTHGZlaGxpeEBt
+eGxpbnV4Lm9yZwAKCRAvV48brJ2b6UCdEACQJ0SSXUEMKZm0sjkdmI4HQMonyOZv
+tWxSaq/sYpHPgtyi1qNg6RBIA6/O8LE25Ffea5NULwyZYcAkYra+vuf9skmPYTCx
+l74dk8JjYYs/+4zHmkZ75Aw83/SDlrbsnOkd1DFr8FrUYz72LUZKkb7BCecVv5fN
+rA3DfQDQ24CdA7ya+qye98CN7pO/SDe/Ez4hvkcGUL2Ii/EL5iANJSFnhuWh43IP
+AZl2MxR4WaTsyVF/Z7m4nVsB/di9zB7jr+f72equuMkZt0FMrkOIILHX+65riOyK
+wopbDUVVQXwn+7UI1JyF0W9F9Xuk0+Ux2xAzAGCyWy0v8UkfjsH/Ce+NgFoClr8M
+HqdhulJrmdlXqlxDaY1TXQfow8ArE8GvhSEYS3ceZJMr+6D8IimCdC64mrun1/X3
+lDQnXO/DLSZkEW8ARa31RcMg2roNsL6f2vpi0HzlWcvG1379lv8uQA8pNvYr9bDW
+bOnMc5IubkoK5OZ+M2LVLxk4WC3/qtpayUBNhiExFpK9vh2Lf8vv6DLlD0LJNMun
+mIpzVpRvWpZHT5zgn/tFp9z7nzCRqnIO0fDSqkLcWTqlZjmAzZExx+LpAViHNMGX
+DqOv0ej/yQxgAePoaIzjh6TSWXqc+Jfh4fYsCpfjOCFMSoz2Gn5B/QBDaaUenck3
+JSJ9xpqlOM+vSA==
+=k9p9
+-----END PGP SIGNATURE-----

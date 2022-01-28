@@ -1,7 +1,7 @@
 #! /usr/bin/python3
 # -*- coding: utf-8 -*-
 
-BUILD_VERSION='21.07.01mx21'
+BUILD_VERSION='22.01.01mx21'
 MODULES = "/usr/lib/apt-notifier/modules"
 
 import subprocess
@@ -23,12 +23,12 @@ from time import sleep
 from string import Template # for simple string substitution (popup_msg...)
 
 import gettext
-translation = gettext.translation(
-            'apt-notifier', '/usr/share/locale', fallback=True)
+gettext.bindtextdomain('apt-notifier', '/usr/share/locale')
+gettext.textdomain('apt-notifier')
 
-_ = translation.gettext
-ngettext = translation.ngettext
+_ = gettext.gettext
 
+ngettext = gettext.ngettext
 
 def set_package_manager():
     global package_manager
@@ -264,8 +264,8 @@ def set_globals():
     check_for_updates_interval = int(check_for_updates_interval)
     if check_for_updates_interval < 15:
         check_for_updates_interval = 15
-    elif check_for_updates_interval > 600:
-        check_for_updates_interval = 600 
+    elif check_for_updates_interval > 21600:
+        check_for_updates_interval = 21600 
     
 
     if check_for_updates_force_counter is None:
@@ -408,17 +408,6 @@ def check_updates():
         return
 
     """
-    Don't bother checking for updates if processes for other package management tools
-    appear to be runninng. For unattended-upgrade, use '/usr/bin/unattended-upgrade'
-    to avoid getting a hit on /usr/share/unattended-upgrades/unattended-upgrade-shutdown
-    which appears to be started automatically when using systemd as init.
-    """
-    if apt_dpkg_is_locked():
-        Force_Check_Counter = check_for_updates_force_counter
-        Check_for_Updates_by_User = False
-        return
-
-    """
     Get a hash of files and directories we are watching
     """
     WatchedFilesAndDirsHashNow = get_stat_hash_of_watched_files_and_dirs()
@@ -443,6 +432,17 @@ def check_updates():
         hash_changed = True
     
     WatchedFilesAndDirsHashPrevious = WatchedFilesAndDirsHashNow
+
+    """
+    Don't bother checking for updates if processes for other package management tools
+    appear to be runninng. For unattended-upgrade, use '/usr/bin/unattended-upgrade'
+    to avoid getting a hit on /usr/share/unattended-upgrades/unattended-upgrade-shutdown
+    which appears to be started automatically when using systemd as init.
+    """
+    if apt_dpkg_is_locked():
+        Force_Check_Counter = check_for_updates_force_counter
+        Check_for_Updates_by_User = False
+        return
 
     if Check_for_Updates_by_User or hash_changed:
         short_run = False
@@ -1885,9 +1885,7 @@ def main():
 
     global check_for_updates_interval
 
-    # Timer.start(60000)
-    # Timer.start(int(check_for_updates_interval)*1000)
-    Timer.start(15000)
+    Timer.start(int(check_for_updates_interval)*1000)
     if AptNotify.isSessionRestored():
         sys.exit(1)
     sys.exit(AptNotify.exec_())

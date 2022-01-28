@@ -122,10 +122,11 @@ reload_auto_close_timeout    = 6
 upgrade_auto_close_timeout   = 10
 
 # check for updates:
-# check_for_updates_interval in seconds min 15 max 600
-check_for_updates_interval        = 60
+# check_for_updates_interval in seconds: min. 15 max. 21600 (= 6h )
+check_for_updates_interval        = 15
 # forced check even if packages cache has not changed, disable 0, max 60  
-check_for_updates_force_counter   = 5
+# defaults to 20, which is 20 * 15s = 5min
+check_for_updates_force_counter   = 20
 
 # desktop notifications by dbus not by qt-applet
 use_dbus_notifications             = true

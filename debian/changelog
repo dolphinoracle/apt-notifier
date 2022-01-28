@@ -1,3 +1,12 @@
+apt-notifier (22.01.01mx21) mx; urgency=medium
+
+  * adjust icons and translations build
+  * adjust lock check, min./max. update check interval
+  * adjust gettext translation class and fallback handling
+  * rework desktop entry and policy translations handling
+
+ -- fehlix <fehlix@mxlinux.org>  Thu, 27 Jan 2022 17:09:15 -0400
+
 apt-notifier (21.09.01mx21+1) mx; urgency=medium
 
   * fresh builds 
