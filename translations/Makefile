@@ -2,7 +2,7 @@
 
 PKGNAM := apt-notifier
 
-BUILD  := ./build
+BUILD  := ././build
 PO_DIR := ./po
 XDGDIR := ../xdg
 
@@ -24,8 +24,6 @@ endif
 
 LOCALE := $(addprefix $(BUILD)/locale/,$(addsuffix /$(LCMSGS),$(LINGUAS)))
 
-.PHONY: all clean locale desktop
-
 all: clean locale desktop
 
 locale: $(LOCALE)
@@ -40,8 +38,11 @@ desktop: $(DESKTOP)
 $(BUILD)/xdg/%.desktop: $(XDGDIR)/%.desktop.in
 	@mkdir -p $(BUILD)/xdg
 	@echo "  " $@ 
-	@msgfmt --desktop --template $< -d $(PO_DIR) -o $@ 
+	msgfmt --desktop --template $< -d $(PO_DIR) -o $@ 
+	@sed -i '/^#/d' $@ 
 
 clean:
 	-@rm  -f $(DESKTOP)
 	-@rm -rf $(BUILD)
+
+.PHONY: all clean locale desktop

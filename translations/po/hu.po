@@ -2,42 +2,185 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the apt-notifier package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 # Translators:
 # James Bowlin <BitJam@gmail.com>, 2018
 # Tamas Szarvas <szarvy@gmail.com>, 2018
 # Gabor Drot <gdrot.judo@gmail.com>, 2019
 # anticapitalista <anticapitalista@riseup.net>, 2021
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: apt-notifier\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-19 17:30+0100\n"
+"POT-Creation-Date: 2022-01-28 02:38+0100\n"
 "PO-Revision-Date: 2017-05-11 01:14+0000\n"
 "Last-Translator: anticapitalista <anticapitalista@riseup.net>, 2021\n"
 "Language-Team: Hungarian (https://www.transifex.com/anticapitalista/teams/10162/hu/)\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "$count new updates available"
+msgstr "$count frissítés érhető el"
+
+msgid "0 updates available"
+msgstr "0 elérhető frissítés"
+
+msgid "1 new update available"
+msgstr "1 frissítés érhető el"
+
+msgid "About"
+msgstr ""
+
+msgid "About MX Updater"
+msgstr ""
+
+msgid "Auto-update"
+msgstr ""
+
+msgid "Auto-update dpkg log(s)"
+msgstr ""
+
+msgid "Auto-update log(s)"
+msgstr ""
+
+msgid "Automatically answer 'yes' to all prompts during full/basic upgrade"
+msgstr ""
+
+msgid "Automatically answer 'yes' to all prompts during upgrade"
+msgstr ""
+
+msgid "Cancel"
+msgstr "Mégsem"
+
+msgid "Changelog"
+msgstr "Változásbejegyzés"
+
+msgid "Check for Updates"
+msgstr "Frissítések keresése"
+
+msgid "Close"
+msgstr "Bezárás"
+
+msgid "For a less detailed view see 'Auto-update dpkg log(s)' or 'History'."
+msgstr ""
+
+msgid "Hide until updates available"
+msgstr "Elrejtés, amíg lesz elérhető frissítés"
+
+msgid "History"
+msgstr "Történet"
+
+msgid "Icons"
+msgstr "Ikonok"
+
+msgid "Left-click behaviour   (when updates are available)"
+msgstr "Bal klikk viselkedése (mikor elérhetőek frissítések)"
+
+msgid "License"
+msgstr "Liszensz"
+
+msgid "MX Auto-update  --  unattended-upgrades dpkg log viewer"
+msgstr ""
+
+msgid "MX Auto-update  --  unattended-upgrades log viewer"
+msgstr ""
+
+msgid "MX Package Installer"
+msgstr ""
+
+#. The autostart desktop entry name will be shown within the list of autostart entries.
+#. The desktop entry name will be displayed within the menu.
+msgid "MX Updater"
+msgstr "MX frissítő"
+
+msgid "MX Updater Help"
+msgstr "MX frissítő súgó"
+
+msgid "MX Updater preferences"
+msgstr "MX frissítő tulajdonságai"
+
+msgid "MX Updater--View and Upgrade, previewing: basic upgrade"
+msgstr ""
+
+msgid "MX Updater--View and Upgrade, previewing: full upgrade"
+msgstr ""
+
+msgid "No logs found."
+msgstr ""
+
+msgid "No unattended-upgrades dpkg log(s) found."
+msgstr ""
 
 msgid "No updates available"
 msgstr ""
 
-#. TRANSLATORS: Fill in all plural forms. The parenthesized expression '{num}'
-#. is replaced by the actual number of updates available at runtime.
-#. For the singular form, you can replace '{num}' with 'one'.
-#. Example with 2 plural forms:
-#. msgstr[0] -> singular form: use 'one new update' or '{num} new update'.
-#. msgstr[1] -> plural form: use '{num} new updates'.
-#, python-brace-format
-msgid "{num} new update available"
-msgid_plural "{num} new updates available"
-msgstr[0] ""
-msgstr[1] ""
+msgid "Other options"
+msgstr "Egyéb beállítások"
+
+msgid "Preferences"
+msgstr "Tulajdonságok"
+
+msgid "Press 'h' for help, 'q' to quit"
+msgstr ""
+
+msgid "Quit"
+msgstr "Kilépés"
+
+msgid "Reload"
+msgstr "Újratöltés"
+
+msgid "Reload the package information to become informed about new, removed or upgraded software packages. (apt-get update)"
+msgstr "Csomaginformációk újratöltése, annak érdekében, hogy meggyőződjünk róla, vannak-e új, eltávolított vagy frissített csomagok. (apt-get update)"
+
+msgid "Restart MX Updater"
+msgstr ""
+
+msgid "Running apt-get autoremove, if you are unsure type 'n'."
+msgstr "apt-get autroremove fut, ha nem biztos benne, nyomja meg az 'n'-t."
+
+msgid "Switches the type of Upgrade that will be performed, alternating back and forth between 'full upgrade' and 'basic upgrade'."
+msgstr ""
+
+msgid "Synaptic Help"
+msgstr "Synaptic súgó"
+
+msgid "Tray applet to notify of system and application updates"
+msgstr ""
+
+msgid "Unattended-upgrades"
+msgstr ""
+
+msgid "Unneeded packages are installed that can be removed."
+msgstr "Szükségtelen telepített csomagok eltávolíthatók."
+
+msgid "Updates"
+msgstr "Frissítések"
+
+msgid "Upgrade mode"
+msgstr ""
+
+msgid "Upgrade using Synaptic"
+msgstr "Frissítés Synaptic használatával"
+
+msgid "Using basic upgrade (not recommended)"
+msgstr ""
+
+msgid "Using full upgrade"
+msgstr ""
+
+msgid "View and Upgrade"
+msgstr "Megtekintés és frissítés"
+
+msgid "You have $count new updates available"
+msgstr "$count új elérhető frissítése van"
+
+msgid "You have 1 new update available"
+msgstr "1 új elérhető frissítése van"
 
 #. TRANSLATORS: Fill in all plural forms. The parenthesized expression '{num}'
 #. is replaced by the actual number of updates available at runtime.
@@ -51,83 +194,23 @@ msgid_plural "You have {num} new updates available"
 msgstr[0] ""
 msgstr[1] ""
 
-msgid "MX Updater"
-msgstr ""
-
-msgid "About"
-msgstr ""
-
-msgid "About MX Updater"
-msgstr ""
-
-msgid "History"
-msgstr "Történet"
-
-msgid "MX Updater Help"
-msgstr "MX frissítő súgó"
-
-msgid "Preferences"
-msgstr "Tulajdonságok"
-
 msgid "automatically close terminal window when full/basic upgrade complete"
 msgstr ""
 
 msgid "automatically close terminal window when upgrade complete"
 msgstr ""
 
-msgid "Unneeded packages are installed that can be removed."
-msgstr "Szükségtelen telepített csomagok eltávolíthatók."
-
-msgid "Running apt-get autoremove, if you are unsure type 'n'."
-msgstr "apt-get autroremove fut, ha nem biztos benne, nyomja meg az 'n'-t."
-
-msgid "update automatically   (will not add new or remove existing packages)"
-msgstr ""
-
-msgid "Tray applet to notify of system and application updates"
-msgstr ""
-
 msgid "basic upgrade"
 msgstr ""
-
-msgid "Cancel"
-msgstr "Mégsem"
-
-msgid "Changelog"
-msgstr "Változásbejegyzés"
-
-msgid "check for autoremovable packages after full/basic upgrade"
-msgstr ""
-
-msgid "Check for Updates"
-msgstr "Frissítések keresése"
-
-msgid "Close"
-msgstr "Bezárás"
 
 msgid "basic upgrade complete (or was canceled)"
 msgstr ""
 
-msgid "full upgrade complete (or was canceled)"
+msgid "check for autoremovable packages after full/basic upgrade"
 msgstr ""
 
-msgid "this terminal window can now be closed"
-msgstr "Ez a terminálablak már bezárható."
-
-msgid "Auto-update"
-msgstr ""
-
-msgid "Icons"
-msgstr "Ikonok"
-
-msgid "Left-click behaviour   (when updates are available)"
-msgstr "Bal klikk viselkedése (mikor elérhetőek frissítések)"
-
-msgid "Other options"
-msgstr "Egyéb beállítások"
-
-msgid "Upgrade mode"
-msgstr ""
+msgid "classic"
+msgstr "klasszikus"
 
 msgid "full upgrade"
 msgstr ""
@@ -135,83 +218,25 @@ msgstr ""
 msgid "full upgrade   (recommended)"
 msgstr ""
 
-msgid "Hide until updates available"
-msgstr "Elrejtés, amíg lesz elérhető frissítés"
-
-msgid "start MX Updater at login"
+msgid "full upgrade complete (or was canceled)"
 msgstr ""
 
-msgid "classic"
-msgstr "klasszikus"
+msgid "opens MX Updater 'View and Upgrade' window"
+msgstr "MX frissítő 'Nézet és frissítés' ablakának megnyitása"
 
-msgid "use desktop notifications"
+msgid "opens Synaptic"
+msgstr "Synaptic megnyitása"
+
+msgid "press any key to close"
+msgstr "Nyomja meg bármely billentyűt a bezáráshoz!"
+
+msgid "press any key to stop automatic closing"
 msgstr ""
 
 msgid "pulse"
 msgstr "pulse"
 
-msgid "use transparent interior for no-updates wireframe"
-msgstr ""
-
-msgid "wireframe"
-msgstr "wireframe"
-
-msgid "opens Synaptic"
-msgstr "Synaptic megnyitása"
-
-msgid "opens MX Updater 'View and Upgrade' window"
-msgstr "MX frissítő 'Nézet és frissítés' ablakának megnyitása"
-
-msgid "Press 'h' for help, 'q' to quit"
-msgstr ""
-
-msgid "License"
-msgstr "Liszensz"
-
-msgid "MX Package Installer"
-msgstr ""
-
-msgid "No logs found."
-msgstr ""
-
-msgid "No unattended-upgrades dpkg log(s) found."
-msgstr ""
-
-msgid "Synaptic Help"
-msgstr "Synaptic súgó"
-
-msgid "You have 1 new update available"
-msgstr "1 új elérhető frissítése van"
-
-msgid "You have $count new updates available"
-msgstr "$count új elérhető frissítése van"
-
-msgid "Updates"
-msgstr "Frissítések"
-
-msgid "press any key to stop automatic closing"
-msgstr ""
-
-msgid "press any key to close"
-msgstr "Nyomja meg bármely billentyűt a bezáráshoz!"
-
-msgid "Quit"
-msgstr "Kilépés"
-
-msgid "Restart MX Updater"
-msgstr ""
-
-msgid "Reload"
-msgstr "Újratöltés"
-
-msgid ""
-"Reload the package information to become informed about new, removed or "
-"upgraded software packages. (apt-get update)"
-msgstr ""
-"Csomaginformációk újratöltése, annak érdekében, hogy meggyőződjünk róla, "
-"vannak-e új, eltávolított vagy frissített csomagok. (apt-get update)"
-
-msgid "For a less detailed view see 'Auto-update dpkg log(s)' or 'History'."
+msgid "start MX Updater at login"
 msgstr ""
 
 msgid "switch to basic upgrade"
@@ -220,61 +245,48 @@ msgstr ""
 msgid "switch to full upgrade"
 msgstr ""
 
-msgid ""
-"Switches the type of Upgrade that will be performed, alternating back and "
-"forth between 'full upgrade' and 'basic upgrade'."
-msgstr ""
+msgid "this terminal window can now be closed"
+msgstr "Ez a terminálablak már bezárható."
 
-msgid "MX Auto-update  --  unattended-upgrades log viewer"
-msgstr ""
-
-msgid "MX Auto-update  --  unattended-upgrades dpkg log viewer"
-msgstr ""
-
-msgid "0 updates available"
-msgstr "0 elérhető frissítés"
-
-msgid "1 new update available"
-msgstr "1 frissítés érhető el"
-
-msgid "$count new updates available"
-msgstr "$count frissítés érhető el"
-
-msgid "Unattended-upgrades"
-msgstr ""
-
-msgid "Using basic upgrade (not recommended)"
-msgstr ""
-
-msgid "Using full upgrade"
+msgid "update automatically   (will not add new or remove existing packages)"
 msgstr ""
 
 msgid "upgrade"
 msgstr ""
 
-msgid "Upgrade using Synaptic"
-msgstr "Frissítés Synaptic használatával"
-
-msgid "Automatically answer 'yes' to all prompts during full/basic upgrade"
+msgid "use desktop notifications"
 msgstr ""
 
-msgid "Automatically answer 'yes' to all prompts during upgrade"
+msgid "use transparent interior for no-updates wireframe"
 msgstr ""
 
-msgid "View and Upgrade"
-msgstr "Megtekintés és frissítés"
+msgid "wireframe"
+msgstr "wireframe"
 
-msgid "Auto-update dpkg log(s)"
+#. TRANSLATORS: Fill in all plural forms. The parenthesized expression '{num}'
+#. is replaced by the actual number of updates available at runtime.
+#. For the singular form, you can replace '{num}' with 'one'.
+#. Example with 2 plural forms:
+#. msgstr[0] -> singular form: use 'one new update' or '{num} new update'.
+#. msgstr[1] -> plural form: use '{num} new updates'.
+#, python-brace-format
+msgid "{num} new update available"
+msgid_plural "{num} new updates available"
+msgstr[0] ""
+msgstr[1] ""
+
+#. TRANSLATORS:
+#. The autostart desktop entry comment will be shown within 'Session and Startup' (Autosart).
+msgid "An applet to show updates"
+msgstr "Frissítésjelző minialkalmazás"
+
+#. TRANSLATORS:
+#. The desktop entry comment will be shown within the menu.
+msgid "Re-enable MX Updater icon even if no updates available"
+msgstr "Újból bekapcsolja az MX frissítő ikont, még akkor is, ha jelenleg nincs elérhető frissítés"
+
+msgid "Enable Auto-update"
 msgstr ""
 
-msgid "Auto-update log(s)"
+msgid "Disable Auto-update"
 msgstr ""
-
-msgid "MX Updater--View and Upgrade, previewing: basic upgrade"
-msgstr ""
-
-msgid "MX Updater--View and Upgrade, previewing: full upgrade"
-msgstr ""
-
-msgid "MX Updater preferences"
-msgstr "MX frissítő tulajdonságai"

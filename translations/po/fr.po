@@ -2,7 +2,7 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the apt-notifier package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 # Translators:
 # Geoff Gigg <geoffgigg@hotmail.com>, 2017
 # David D, 2018
@@ -11,36 +11,179 @@
 # cyril cottet <cyrilusber2001@yahoo.fr>, 2020
 # anticapitalista <anticapitalista@riseup.net>, 2021
 # Wallon Wallon, 2021
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: apt-notifier\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-19 17:30+0100\n"
+"POT-Creation-Date: 2022-01-28 02:38+0100\n"
 "PO-Revision-Date: 2017-05-11 01:14+0000\n"
 "Last-Translator: Wallon Wallon, 2021\n"
 "Language-Team: French (https://www.transifex.com/anticapitalista/teams/10162/fr/)\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "$count new updates available"
+msgstr "$count nouvelles mises à jour disponibles"
+
+msgid "0 updates available"
+msgstr "0 mises à jour disponibles"
+
+msgid "1 new update available"
+msgstr "1 nouvelle mise à jour disponible"
+
+msgid "About"
+msgstr "À propos"
+
+msgid "About MX Updater"
+msgstr "À propos de MX Mise à jour"
+
+msgid "Auto-update"
+msgstr "Mise à jour automatique"
+
+msgid "Auto-update dpkg log(s)"
+msgstr "Journ(al/aux) de mise-à-jour-auto de dpkg"
+
+msgid "Auto-update log(s)"
+msgstr "Journ(al/aux) de mise-à-jour-auto"
+
+msgid "Automatically answer 'yes' to all prompts during full/basic upgrade"
+msgstr "Répondre automatiquement 'oui' à tous les messages lors de la mise à jour complète ou basique"
+
+msgid "Automatically answer 'yes' to all prompts during upgrade"
+msgstr "Répondre 'oui' à toutes les demandes au cours de la mise à niveau complète ou basique"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "Changelog"
+msgstr "Journal des modifications"
+
+msgid "Check for Updates"
+msgstr "Vérifier les mises à jour"
+
+msgid "Close"
+msgstr "Fermer"
+
+msgid "For a less detailed view see 'Auto-update dpkg log(s)' or 'History'."
+msgstr "Pour une vue moins détaillée utilisez 'Journaux de mise-à-jour-auto de dpkg' ou 'Historique'"
+
+msgid "Hide until updates available"
+msgstr "Cacher jusqu'à ce que des mises à niveau soient disponibles"
+
+msgid "History"
+msgstr "Historique"
+
+msgid "Icons"
+msgstr "Icônes"
+
+msgid "Left-click behaviour   (when updates are available)"
+msgstr "Comportement du clic gauche (quand des mises à jour sont disponibles)"
+
+msgid "License"
+msgstr "Licence"
+
+msgid "MX Auto-update  --  unattended-upgrades dpkg log viewer"
+msgstr "MX Mise-à-jour-auto -- visionneuse des journaux de mise-à-niveau silencieuse de dpkg"
+
+msgid "MX Auto-update  --  unattended-upgrades log viewer"
+msgstr "MX Mise-à-jour-auto -- visionneuse des journaux de mise-à-niveau silencieuse"
+
+msgid "MX Package Installer"
+msgstr "MX Installateur de paquets"
+
+#. The autostart desktop entry name will be shown within the list of autostart entries.
+#. The desktop entry name will be displayed within the menu.
+msgid "MX Updater"
+msgstr "Mise à jour de MX"
+
+msgid "MX Updater Help"
+msgstr "Aide de MX Mise à jour"
+
+msgid "MX Updater preferences"
+msgstr "Préférences de MX Mise à jour"
+
+msgid "MX Updater--View and Upgrade, previewing: basic upgrade"
+msgstr "MX Mise à jour--Voir et mettre à niveau, prévisualisation : mise à niveau basique"
+
+msgid "MX Updater--View and Upgrade, previewing: full upgrade"
+msgstr "MX Mise à jour--Voir et mettre à niveau, prévisualisation : mise à niveau complète"
+
+msgid "No logs found."
+msgstr "Aucun journal trouvé."
+
+msgid "No unattended-upgrades dpkg log(s) found."
+msgstr "Aucun journal de mise-à-niveau silencieuse de dpkg trouvé."
 
 msgid "No updates available"
 msgstr "Aucune mise à jour disponible"
 
-#. TRANSLATORS: Fill in all plural forms. The parenthesized expression '{num}'
-#. is replaced by the actual number of updates available at runtime.
-#. For the singular form, you can replace '{num}' with 'one'.
-#. Example with 2 plural forms:
-#. msgstr[0] -> singular form: use 'one new update' or '{num} new update'.
-#. msgstr[1] -> plural form: use '{num} new updates'.
-#, python-brace-format
-msgid "{num} new update available"
-msgid_plural "{num} new updates available"
-msgstr[0] "{num} nouvelle mise à jour disponible"
-msgstr[1] "{num} nouvelles mise à jour disponibles"
+msgid "Other options"
+msgstr "Autres options"
+
+msgid "Preferences"
+msgstr "Préférences"
+
+msgid "Press 'h' for help, 'q' to quit"
+msgstr "Appuyez 'h' pour obtenir de l'aide, 'q' pour quitter"
+
+msgid "Quit"
+msgstr "Quitter"
+
+msgid "Reload"
+msgstr "Recharger"
+
+msgid "Reload the package information to become informed about new, removed or upgraded software packages. (apt-get update)"
+msgstr "Recharger les informations des paquets pour être informé des nouveaux paquets, des suppressions de paquets ou des paquets mis à jour. (apt-get update)"
+
+msgid "Restart MX Updater"
+msgstr "Relancer MX Mise à jour"
+
+msgid "Running apt-get autoremove, if you are unsure type 'n'."
+msgstr "Lancement de apt-get autoremove; si vous n'êtes pas sûr de vous, entrez 'n'."
+
+msgid "Switches the type of Upgrade that will be performed, alternating back and forth between 'full upgrade' and 'basic upgrade'."
+msgstr "Modifie le type de mise à niveau réalisée, alternativement 'complète' ou 'basique'."
+
+msgid "Synaptic Help"
+msgstr "Aide Synaptic"
+
+msgid "Tray applet to notify of system and application updates"
+msgstr "Applet en zone de notification, destinée à vous notifier des mises à jour concernant le système et les applications"
+
+msgid "Unattended-upgrades"
+msgstr "Unattended-upgrades Mises à jour automatiques"
+
+msgid "Unneeded packages are installed that can be removed."
+msgstr "Il existe des paquets installés superflus pouvant être supprimés."
+
+msgid "Updates"
+msgstr "Mises à jour"
+
+msgid "Upgrade mode"
+msgstr "Type de mise à niveau"
+
+msgid "Upgrade using Synaptic"
+msgstr "Mettre à niveau avec Synaptic"
+
+msgid "Using basic upgrade (not recommended)"
+msgstr "En utilisant la mise à niveau basique (non recommandée)"
+
+msgid "Using full upgrade"
+msgstr "En utilisant la mise à niveau complète"
+
+msgid "View and Upgrade"
+msgstr "Voir et mettre à niveau"
+
+msgid "You have $count new updates available"
+msgstr "Vous avez $count nouvelles mises à jour disponibles"
+
+msgid "You have 1 new update available"
+msgstr "Vous avez 1 nouvelle mise à jour disponible"
 
 #. TRANSLATORS: Fill in all plural forms. The parenthesized expression '{num}'
 #. is replaced by the actual number of updates available at runtime.
@@ -54,92 +197,23 @@ msgid_plural "You have {num} new updates available"
 msgstr[0] "Vous avez {num} nouvelle mise à jour disponible"
 msgstr[1] "Vous avez {num} nouvelles mises à jour disponibles"
 
-msgid "MX Updater"
-msgstr "MX Mise à jour"
-
-msgid "About"
-msgstr "À propos"
-
-msgid "About MX Updater"
-msgstr "À propos de MX Mise à jour"
-
-msgid "History"
-msgstr "Historique"
-
-msgid "MX Updater Help"
-msgstr "Aide de MX Mise à jour"
-
-msgid "Preferences"
-msgstr "Préférences"
-
 msgid "automatically close terminal window when full/basic upgrade complete"
-msgstr ""
-"fermer automatiquement le terminal après la mise à niveau complète ou "
-"basique"
+msgstr "fermer automatiquement le terminal après la mise à niveau complète ou basique"
 
 msgid "automatically close terminal window when upgrade complete"
-msgstr ""
-"Fermer automatiquement le terminal à la fin de la mise à niveau complète ou "
-"basique"
-
-msgid "Unneeded packages are installed that can be removed."
-msgstr "Il existe des paquets installés superflus pouvant être supprimés."
-
-msgid "Running apt-get autoremove, if you are unsure type 'n'."
-msgstr ""
-"Lancement de apt-get autoremove; si vous n'êtes pas sûr de vous, entrez 'n'."
-
-msgid "update automatically   (will not add new or remove existing packages)"
-msgstr "Mettre automatiquement à jour (sans ajouter ou supprimer de paquets)"
-
-msgid "Tray applet to notify of system and application updates"
-msgstr ""
-"Applet en zone de notification, destinée à vous notifier des mises à jour "
-"concernant le système et les applications"
+msgstr "Fermer automatiquement le terminal à la fin de la mise à niveau complète ou basique"
 
 msgid "basic upgrade"
 msgstr "Mise à jour basique"
 
-msgid "Cancel"
-msgstr "Annuler"
-
-msgid "Changelog"
-msgstr "Journal des modifications"
-
-msgid "check for autoremovable packages after full/basic upgrade"
-msgstr ""
-"Vérifier les paquets autosuppressibles après une mise à niveau complète ou "
-"basique"
-
-msgid "Check for Updates"
-msgstr "Vérifier les mises à jour"
-
-msgid "Close"
-msgstr "Fermer"
-
 msgid "basic upgrade complete (or was canceled)"
 msgstr "mise à jour basique terminée (ou annulée)"
 
-msgid "full upgrade complete (or was canceled)"
-msgstr "mise à jour complète terminée (ou annulée)"
+msgid "check for autoremovable packages after full/basic upgrade"
+msgstr "Vérifier les paquets autosuppressibles après une mise à niveau complète ou basique"
 
-msgid "this terminal window can now be closed"
-msgstr "cette fenêtre de terminal peut maintenant être fermée"
-
-msgid "Auto-update"
-msgstr "Mise à jour automatique"
-
-msgid "Icons"
-msgstr "Icônes"
-
-msgid "Left-click behaviour   (when updates are available)"
-msgstr "Comportement du clic gauche (quand des mises à jour sont disponibles)"
-
-msgid "Other options"
-msgstr "Autres options"
-
-msgid "Upgrade mode"
-msgstr "Type de mise à niveau"
+msgid "classic"
+msgstr "classique"
 
 msgid "full upgrade"
 msgstr "Mise à jour complète"
@@ -147,89 +221,26 @@ msgstr "Mise à jour complète"
 msgid "full upgrade   (recommended)"
 msgstr "Mise à niveau complète (recommandée)"
 
-msgid "Hide until updates available"
-msgstr "Cacher jusqu'à ce que des mises à niveau soient disponibles"
-
-msgid "start MX Updater at login"
-msgstr "lancer MX Mise à jour au démarrage"
-
-msgid "classic"
-msgstr "classique"
-
-msgid "use desktop notifications"
-msgstr "utiliser les notifications du bureau"
-
-msgid "pulse"
-msgstr "pulsation"
-
-msgid "use transparent interior for no-updates wireframe"
-msgstr ""
-"utiliser un intérieur transparent pour la boîte filaire (cas où il n'y a pas"
-" de mise à niveau disponible)"
-
-msgid "wireframe"
-msgstr "boîte filaire"
-
-msgid "opens Synaptic"
-msgstr "lance Synaptic"
+msgid "full upgrade complete (or was canceled)"
+msgstr "mise à jour complète terminée (ou annulée)"
 
 msgid "opens MX Updater 'View and Upgrade' window"
 msgstr "ouvre la fenêtre 'Voir et mettre à niveau' de MX Mise à jour"
 
-msgid "Press 'h' for help, 'q' to quit"
-msgstr "Appuyez 'h' pour obtenir de l'aide, 'q' pour quitter"
-
-msgid "License"
-msgstr "Licence"
-
-msgid "MX Package Installer"
-msgstr "MX Installateur de paquets"
-
-msgid "No logs found."
-msgstr "Aucun journal trouvé."
-
-msgid "No unattended-upgrades dpkg log(s) found."
-msgstr "Aucun journal de mise-à-niveau silencieuse de dpkg trouvé."
-
-msgid "Synaptic Help"
-msgstr "Aide Synaptic"
-
-msgid "You have 1 new update available"
-msgstr "Vous avez 1 nouvelle mise à jour disponible"
-
-msgid "You have $count new updates available"
-msgstr "Vous avez $count nouvelles mises à jour disponibles"
-
-msgid "Updates"
-msgstr "Mises à jour"
-
-msgid "press any key to stop automatic closing"
-msgstr "appuyer sur une touche pour arrêter la fermeture automatique"
+msgid "opens Synaptic"
+msgstr "lance Synaptic"
 
 msgid "press any key to close"
 msgstr "appuyez sur une touche pour fermer"
 
-msgid "Quit"
-msgstr "Quitter"
+msgid "press any key to stop automatic closing"
+msgstr "appuyer sur une touche pour arrêter la fermeture automatique"
 
-msgid "Restart MX Updater"
-msgstr "Relancer MX Mise à jour"
+msgid "pulse"
+msgstr "pulsation"
 
-msgid "Reload"
-msgstr "Recharger"
-
-msgid ""
-"Reload the package information to become informed about new, removed or "
-"upgraded software packages. (apt-get update)"
-msgstr ""
-"Recharger les informations des paquets pour être informé des nouveaux "
-"paquets, des suppressions de paquets ou des paquets mis à jour. (apt-get "
-"update)"
-
-msgid "For a less detailed view see 'Auto-update dpkg log(s)' or 'History'."
-msgstr ""
-"Pour une vue moins détaillée utilisez 'Journaux de mise-à-jour-auto de dpkg'"
-" ou 'Historique'"
+msgid "start MX Updater at login"
+msgstr "lancer MX Mise à jour au démarrage"
 
 msgid "switch to basic upgrade"
 msgstr "Basculer vers à la mise à jour basique"
@@ -237,74 +248,48 @@ msgstr "Basculer vers à la mise à jour basique"
 msgid "switch to full upgrade"
 msgstr "Basculer vers à la mise à jour complète"
 
-msgid ""
-"Switches the type of Upgrade that will be performed, alternating back and "
-"forth between 'full upgrade' and 'basic upgrade'."
-msgstr ""
-"Modifie le type de mise à niveau réalisée, alternativement 'complète' ou "
-"'basique'."
+msgid "this terminal window can now be closed"
+msgstr "cette fenêtre de terminal peut maintenant être fermée"
 
-msgid "MX Auto-update  --  unattended-upgrades log viewer"
-msgstr ""
-"MX Mise-à-jour-auto -- visionneuse des journaux de mise-à-niveau silencieuse"
-
-msgid "MX Auto-update  --  unattended-upgrades dpkg log viewer"
-msgstr ""
-"MX Mise-à-jour-auto -- visionneuse des journaux de mise-à-niveau silencieuse"
-" de dpkg"
-
-msgid "0 updates available"
-msgstr "0 mises à jour disponibles"
-
-msgid "1 new update available"
-msgstr "1 nouvelle mise à jour disponible"
-
-msgid "$count new updates available"
-msgstr "$count nouvelles mises à jour disponibles"
-
-msgid "Unattended-upgrades"
-msgstr "Unattended-upgrades Mises à jour automatiques"
-
-msgid "Using basic upgrade (not recommended)"
-msgstr "En utilisant la mise à niveau basique (non recommandée)"
-
-msgid "Using full upgrade"
-msgstr "En utilisant la mise à niveau complète"
+msgid "update automatically   (will not add new or remove existing packages)"
+msgstr "Mettre automatiquement à jour (sans ajouter ou supprimer de paquets)"
 
 msgid "upgrade"
 msgstr "Mettre à niveau"
 
-msgid "Upgrade using Synaptic"
-msgstr "Mettre à niveau avec Synaptic"
+msgid "use desktop notifications"
+msgstr "utiliser les notifications du bureau"
 
-msgid "Automatically answer 'yes' to all prompts during full/basic upgrade"
-msgstr ""
-"Répondre automatiquement 'oui' à tous les messages lors de la mise à jour "
-"complète ou basique"
+msgid "use transparent interior for no-updates wireframe"
+msgstr "utiliser un intérieur transparent pour la boîte filaire (cas où il n'y a pas de mise à niveau disponible)"
 
-msgid "Automatically answer 'yes' to all prompts during upgrade"
-msgstr ""
-"Répondre 'oui' à toutes les demandes au cours de la mise à niveau complète "
-"ou basique"
+msgid "wireframe"
+msgstr "boîte filaire"
 
-msgid "View and Upgrade"
-msgstr "Voir et mettre à niveau"
+#. TRANSLATORS: Fill in all plural forms. The parenthesized expression '{num}'
+#. is replaced by the actual number of updates available at runtime.
+#. For the singular form, you can replace '{num}' with 'one'.
+#. Example with 2 plural forms:
+#. msgstr[0] -> singular form: use 'one new update' or '{num} new update'.
+#. msgstr[1] -> plural form: use '{num} new updates'.
+#, python-brace-format
+msgid "{num} new update available"
+msgid_plural "{num} new updates available"
+msgstr[0] "{num} nouvelle mise à jour disponible"
+msgstr[1] "{num} nouvelles mise à jour disponibles"
 
-msgid "Auto-update dpkg log(s)"
-msgstr "Journ(al/aux) de mise-à-jour-auto de dpkg"
+#. TRANSLATORS:
+#. The autostart desktop entry comment will be shown within 'Session and Startup' (Autosart).
+msgid "An applet to show updates"
+msgstr "Un applet affichant les mises à jour"
 
-msgid "Auto-update log(s)"
-msgstr "Journ(al/aux) de mise-à-jour-auto"
+#. TRANSLATORS:
+#. The desktop entry comment will be shown within the menu.
+msgid "Re-enable MX Updater icon even if no updates available"
+msgstr "Réaffiche l'icône de MX Mise à jour même si aucune mise à jour n'est disponible"
 
-msgid "MX Updater--View and Upgrade, previewing: basic upgrade"
-msgstr ""
-"MX Mise à jour--Voir et mettre à niveau, prévisualisation : mise à niveau "
-"basique"
+msgid "Enable Auto-update"
+msgstr "Activer mise à jour automatique"
 
-msgid "MX Updater--View and Upgrade, previewing: full upgrade"
-msgstr ""
-"MX Mise à jour--Voir et mettre à niveau, prévisualisation : mise à niveau "
-"complète"
-
-msgid "MX Updater preferences"
-msgstr "Préférences de MX Mise à jour"
+msgid "Disable Auto-update"
+msgstr "Désactiver mise à jour automatique"

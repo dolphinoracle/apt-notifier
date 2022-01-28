@@ -6,26 +6,26 @@ echodo() {
 }
 
 # prepare transifex 
-if [ ! -s  .tx/config ]; then
+#if [ ! -s  .tx/config ]; then
    mkdir -p .tx
    cat <<EOF > .tx/config
 [main]
 host = https://www.transifex.com
 
 [antix-development.apt-notifier]
-file_filter = po/<lang>/apt-notifier.po
+file_filter = po/<lang>.po
 minimum_perc = 0
 source_file = apt-notifier.pot
 source_lang = en
 type = PO
 EOF
-fi    
+#fi    
 
 # backup existing
 [ -d po ] && echodo mv po po_$(date '+%Y-%m-%d_%H%M%S').bak
 
 # get all translations
 if command -v tx >/dev/null; then
-   echodo tx pull --all
+   echodo tx pull -r antix-development.apt-notifier  --all
 fi
 

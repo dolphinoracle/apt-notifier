@@ -1,0 +1,43 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the apt-notifier package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# Geoff Gigg <geoffgigg@hotmail.com>, 2017
+# David D, 2018
+# Emmanuel Brun <brun.manu@gmail.com>, 2018
+# d4150ce1d189cce467e7f661b4839a18, 2019
+# cyril cottet <cyrilusber2001@yahoo.fr>, 2020
+# anticapitalista <anticapitalista@riseup.net>, 2021
+# Wallon Wallon, 2021
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: apt-notifier\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-03-19 17:30+0100\n"
+"PO-Revision-Date: 2017-05-11 01:14+0000\n"
+"Last-Translator: Wallon Wallon, 2021\n"
+"Language-Team: French (https://www.transifex.com/anticapitalista/teams/10162/fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "MX Updater"
+msgstr "Mise à jour de MX"
+
+msgid "An applet to show updates"
+msgstr "Un applet affichant les mises à jour"
+
+msgid "Re-enable MX Updater icon even if no updates available"
+msgstr "Réaffiche l'icône de MX Mise à jour même si aucune mise à jour n'est disponible"
+
+msgid "Disable Auto-update"
+msgstr "Désactiver mise à jour automatique"
+
+msgid "Enable Auto-update"
+msgstr "Activer mise à jour automatique"

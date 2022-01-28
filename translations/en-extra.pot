@@ -8,20 +8,27 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apt-notifier\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-23 01:26+0100\n"
+"POT-Creation-Date: 2022-01-28 02:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#. TRANSLATORS:
+#. The autostart desktop entry comment will be shown within 'Session and Startup' (Autosart).
 msgid "An applet to show updates"
 msgstr ""
 
-msgid "MX Updater"
+#. TRANSLATORS:
+#. The desktop entry comment will be shown within the menu.
+msgid "Re-enable MX Updater icon even if no updates available"
 msgstr ""
 
-msgid "Re-enable MX Updater icon even if no updates available"
+msgid "Enable Auto-update"
+msgstr ""
+
+msgid "Disable Auto-update"
 msgstr ""
