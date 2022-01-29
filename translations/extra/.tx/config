@@ -7,3 +7,10 @@ minimum_perc = 0
 source_file = EN.TXT
 source_lang = en
 type = txt
+
+[antix-development.apt-notifier]
+file_filter = <lang>.po
+minimum_perc = 0
+source_file = en.pot
+source_lang = en
+type = PO
