@@ -6,7 +6,7 @@ echodo() {
 }
 
 # prepare transifex 
-#if [ ! -s  .tx/config ]; then
+if [ ! -s  .tx/config ]; then
    mkdir -p .tx
    cat <<EOF > .tx/config
 [main]
@@ -19,7 +19,7 @@ source_file = EN.TXT
 source_lang = en
 type = txt
 EOF
-#fi    
+fi    
 
 
 # remove existing
