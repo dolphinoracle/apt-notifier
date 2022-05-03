@@ -1,3 +1,9 @@
+apt-notifier (22.05.01mx21) mx; urgency=medium
+
+  * add check of free space at /boot with cleanup-notifier-mx 
+
+ -- fehlix <fehlix@mxlinux.org>  Tue, 03 May 2022 19:42:09 -0400
+
 apt-notifier (22.01.01mx21) mx; urgency=medium
 
   * adjust icons and translations build
