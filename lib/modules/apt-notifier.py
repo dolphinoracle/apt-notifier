@@ -1,7 +1,7 @@
 #! /usr/bin/python3
 # -*- coding: utf-8 -*-
 
-BUILD_VERSION='22.01.01mx21'
+BUILD_VERSION='22.05.01mx21'
 MODULES = "/usr/lib/apt-notifier/modules"
 
 import subprocess
@@ -606,6 +606,9 @@ def start_package_manager():
 def start_viewandupgrade(action=None):
     notification_close()
     global Check_for_Updates_by_User
+    
+    cleanup_notifier_run()
+    
     systray_icon_hide()
     initialize_aptnotifier_prefs()
 
@@ -1816,6 +1819,12 @@ def apt_dpkg_is_locked():
     else:
         return False
 
+def cleanup_notifier_run():
+    import os
+    from subprocess import Popen, DEVNULL
+    cleanup_notifier = "/usr/bin/cleanup-notifier-mx"
+    if os.path.exists(cleanup_notifier):
+        ret = Popen(f"sleep 2; {cleanup_notifier} & disown", shell=True, executable="/usr/bin/bash", stdout=DEVNULL, stderr=DEVNULL)
 
 #### main #######
 def main():
