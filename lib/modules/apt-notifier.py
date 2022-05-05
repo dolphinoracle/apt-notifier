@@ -592,6 +592,8 @@ def start_package_manager():
     global package_manager_available
     global version_at_start
 
+    cleanup_notifier_run()
+
     debug_p(f"run_with_restart({package_manager_exec})")
     if not package_manager_available:
         return
@@ -891,6 +893,8 @@ def start_package_installer():
     global Check_for_Updates_by_User
     global version_at_start
     systray_icon_hide()
+
+    cleanup_notifier_run()
 
     # find usable package installer
     pl = "mx-packageinstaller packageinstaller"
@@ -1824,7 +1828,7 @@ def cleanup_notifier_run():
     from subprocess import Popen, DEVNULL
     cleanup_notifier = "/usr/bin/cleanup-notifier-mx"
     if os.path.exists(cleanup_notifier):
-        ret = Popen(f"sleep 2; {cleanup_notifier} & disown", shell=True, executable="/usr/bin/bash", stdout=DEVNULL, stderr=DEVNULL)
+        ret = Popen(f"sleep 1; {cleanup_notifier} & disown", shell=True, executable="/usr/bin/bash", stdout=DEVNULL, stderr=DEVNULL)
 
 #### main #######
 def main():
