@@ -18,35 +18,35 @@ Changes:
  .
    * add dependency python3-notify2, python3-distutils
 Checksums-Sha1:
- 86c3d81cc9b8b6911d1ba3f77ab7f3a037416971 1561 apt-notifier_22.05.03mx21.dsc
- f3c9c5b90f54acb4c953c82b6cc43ebb3beed0b0 130060 apt-notifier_22.05.03mx21.tar.xz
- 937f25dcc7fe774287ec1278eec703d8cde1ba37 227100 apt-notifier_22.05.03mx21_all.deb
- 546572b31265aaf5bdc3b20dcdfcbcbf18c58663 14000 apt-notifier_22.05.03mx21_amd64.buildinfo
+ 8d2f3e4d42922879ae5bc24b2d60b56cf8a54ebb 1561 apt-notifier_22.05.03mx21.dsc
+ e0c46084c5117dd0f207cd751c09d0dfa2fd4128 130056 apt-notifier_22.05.03mx21.tar.xz
+ 297101bd34b16e499fdba723ef0762096065efe2 227116 apt-notifier_22.05.03mx21_all.deb
+ 4d457fefd8fa6b2361275fe0df43d9a30cb9a5e0 14000 apt-notifier_22.05.03mx21_amd64.buildinfo
 Checksums-Sha256:
- 8b817eda1f8e1d59ec009759c9fc55b17e59fbf524be5e5b3785f86a1ff98139 1561 apt-notifier_22.05.03mx21.dsc
- 85791a3500048706baa9d1b65a30e87a072e6dfdec47b719742bec774d221203 130060 apt-notifier_22.05.03mx21.tar.xz
- d5904de422056d7f356e71baa70f5fc2703ea1b1047519c44634aaf191c2e62d 227100 apt-notifier_22.05.03mx21_all.deb
- 049ce30294ae3d6260ffd07aa376573f1b92eedf0dbb8709d03b3dda8c3a9912 14000 apt-notifier_22.05.03mx21_amd64.buildinfo
+ 31dad076c8341c7447b1eaf0168e76e3f13e4d5525fc66bd4773aa32c605512a 1561 apt-notifier_22.05.03mx21.dsc
+ 6b7f52b44b3a393d01e9eb94443e8c774f39dfbdc0440f5d9626b218ef187d2d 130056 apt-notifier_22.05.03mx21.tar.xz
+ 2df160d01e39fd2f0a8ea8dc4f1a18384a4e9034cbb4439da50c834f4c5b1055 227116 apt-notifier_22.05.03mx21_all.deb
+ d2bee1361e0057979df6128c075cbf10c7c45cd02e6e773c4ce97a12d2095407 14000 apt-notifier_22.05.03mx21_amd64.buildinfo
 Files:
- 5c2c176ef2fbee59e7e6bd34830c548f 1561 admin optional apt-notifier_22.05.03mx21.dsc
- c827e2490f864ee25d361e8c6322545a 130060 admin optional apt-notifier_22.05.03mx21.tar.xz
- 9e79b002664b1eeac48ae89bd5249076 227100 admin optional apt-notifier_22.05.03mx21_all.deb
- f68a4f5a8ce5157b405dbffd14b24bd4 14000 admin optional apt-notifier_22.05.03mx21_amd64.buildinfo
+ 70deaf4c791155e0db841581dc16098d 1561 admin optional apt-notifier_22.05.03mx21.dsc
+ e84592af0b01b7d559fe3a311ab705f7 130056 admin optional apt-notifier_22.05.03mx21.tar.xz
+ 6ed188d5d683ee02e94ed0e83b6a49dd 227116 admin optional apt-notifier_22.05.03mx21_all.deb
+ 2852f55a40eadb9e7dbb4de6e455a809 14000 admin optional apt-notifier_22.05.03mx21_amd64.buildinfo
 
 -----BEGIN PGP SIGNATURE-----
 
-iQJHBAEBCgAxFiEEgRnC8/wKXRM2S0xLL1ePG6ydm+kFAmKBfgMTHGZlaGxpeEBt
-eGxpbnV4Lm9yZwAKCRAvV48brJ2b6RG1D/9oHFHRxTa78wRV/DQ4YNBCS5YOWKzH
-O8mDLOLjmO+/Op5P6oR8X9BzE7G4WnugZWHFRoXH6cU6aS4/n9EIcqh044kvhQ4+
-/pQ/DwSPsfWgi/i6zO/5TF1PLUYnB1czmllMnbfp8YKkjzkPiUoVv2MGSUUi150i
-4VF1jRgMg9jCWDrUEQIF2FmHO9qCmChe4EUsPYskGn6LgwHleeqKnFks343xOKMZ
-3VlMYydTYFqqn6DCJRK8jXRJ02ELBBplNbgEvm8NLCYciuWmxP6yYODDbRevXGZ7
-jE9pBDELvtvKvWuy+3Fr3rXA5W/Khg0yTO51Sl7NeF4/K++UmTFeXKCKwiLX+/u/
-qwUV6LpTxXycl/q483IdAhnG6TrdHYIAodNLdGYStvkmMig0pWqSfmrKUuZqeOrL
-pf9YbUF8cC06YIjquUSzfT2mNZ+TXqzPlgtjks3LVMZaGIwENAMWFGpbH1QCkLwQ
-RYST306SN+nwwEuw1VhYLNCAEd58O38SBcol2BfVymAp8iyo0pvXPuqlNn8acFe+
-yIotuALV7oorXKhKmyWQwZkmJBE1R3Cm5yXZ95DpoMZHjV7jl/BrpzyFup4U/G+Y
-HtEdRWSgveNpjw7WwvKwvCV1FeRlQ9CnkeZhP4r3Xy/S6o75xlIHwv4bJxK2Ej7O
-IREhv5QjUHrr/A==
-=NGFA
+iQJHBAEBCgAxFiEEgRnC8/wKXRM2S0xLL1ePG6ydm+kFAmKBkbQTHGZlaGxpeEBt
+eGxpbnV4Lm9yZwAKCRAvV48brJ2b6WeoD/4oCHOoOUOIEMffJiauF6AoEIX66FOp
+W9/UqiVoQN/SJ4/wBfOo3m8SVTXBaXh9muhwt9VKuIpFl3mKZBlo2Zp6hdxUdmaX
+DAvtaYvBMmbFrOwEOpo+DU/gKuc/N9jm7s9jX09u6/bHQrZllee8QcbbG/mq12YG
+MVj9/lcps2BoYSVul1NoYvBvwefYV4FcksRuyviDANAOBhHgyoQadJ9GExpKOvNY
+363xEqXG7TUwCYBUDh5JOHWNo+jUecy4EAsQlfvOpBg9gvxc5CzXa1qKHXoM6Gf7
++AWxIDFrs5Xe3c//pOQ05JIGejwDZYb3JxezHz6CNRoE0b1R+IN0yASpoNTzZeXY
+xCCkC6XgKVe2lRmkmiBWP3RoS8n2PxIauRYRiL6Y61q3zJjDD3fQlKGGc4fbnarn
+VJ3/bQc9O+B7ZS6gBAnNMgM+hTv/S+IIaI39dFbA53LqqV4t9CnunMWZeEEC48Fa
+YOxCBN+Iw4Xe6yfCG3h7O/Nl+2pdqrz6IB/fGxX2FNCFrGC5q+f5oWRLbpdK42SD
+P7+IouShyiTlVq8NrUkJmZU/Gsu4vnW1C5SAdT43i6ikvlBD8+IIZjxcuVk/5f6t
+qdGrOFzcw6EW3iAj9fHo/5xFDB85GP+fdtkxEU2RnXsL7NomBxWOyAPYBP1amxDa
+kh/cWPNtEhmqQg==
+=61wD
 -----END PGP SIGNATURE-----
