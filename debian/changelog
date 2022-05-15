@@ -1,3 +1,9 @@
+apt-notifier (22.05.03mx21) mx; urgency=medium
+
+  * add dependency python3-notify2, python3-distutils
+
+ -- fehlix <fehlix@mxlinux.org>  Sun, 15 May 2022 18:17:28 -0400
+
 apt-notifier (22.05.02mx21) mx; urgency=medium
 
   * add /boot-space check run to left-click, synaptic and mxpi 
