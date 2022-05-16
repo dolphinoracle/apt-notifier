@@ -1,3 +1,9 @@
+apt-notifier (22.05.04mx21) mx; urgency=medium
+
+  * addjust control file
+
+ -- fehlix <fehlix@mxlinux.org>  Sun, 15 May 2022 20:15:31 -0400
+
 apt-notifier (22.05.03mx21) mx; urgency=medium
 
   * add dependency python3-notify2, python3-distutils
