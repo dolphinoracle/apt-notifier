@@ -3,7 +3,7 @@
 # script to upgrade packages with user's preferred upgrade type
 # this script is part of apt-notifier package
 
-# translations are defined within apt-notifier python modules 
+# translations are defined within apt-notifier python modules
 # define a function to make xgettext ignore translations used here
 mygettext() { gettext "$@"; }
 
@@ -14,10 +14,10 @@ if [ $(id -u) != 0 ]; then
     exit 1
 fi
 
-if [ ! -e /etc/apt/sources.list ]; then 
+if [ ! -e /etc/apt/sources.list ]; then
     cat <<EOF > /etc/apt/sources.list
-#This sources.list is empty by default and is only included 
-#to avoid error messages from some package install scripts that expect 
+#This sources.list is empty by default and is only included
+#to avoid error messages from some package install scripts that expect
 #to find it.
 #Sources are under /etc/apt/sources.list.d
 EOF
@@ -71,14 +71,20 @@ if [ -x "${UPDATER_CONFIG}" ]; then
 fi
 # auto close timeout
 AUTO_CLOSE_TIMEOUT="${APT_NOTIFIER_CONFIG_ITEMS[upgrade_auto_close_timeout]}"
-: ${AUTO_CLOSE_TIMEOUT:=10}
+default_timeout=10
+if [ -z "${AUTO_CLOSE_TIMEOUT}" ]; then
+    AUTO_CLOSE_TIMEOUT=$default_timeout
+fi
+if [ -n "${AUTO_CLOSE_TIMEOUT//[0-9]/}" ]; then
+    AUTO_CLOSE_TIMEOUT=$default_timeout
+fi
 
 UPDATER_SHLIB=/usr/lib/apt-notifier/shlib/updater_shlib
 if [ -f "$UPDATER_SHLIB" ]; then
       . "$UPDATER_SHLIB"
 fi
 echo
-mygettext "this terminal window can now be closed" 
+mygettext "this terminal window can now be closed"
 echo
 echo
 if [ "$UpgradeAutoClose" = "true" ]; then

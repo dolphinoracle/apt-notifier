@@ -32,7 +32,15 @@ if [ -x "${UPDATER_CONFIG}" ]; then
 fi
 # auto close timeout
 AUTO_CLOSE_TIMEOUT="${APT_NOTIFIER_CONFIG_ITEMS[reload_auto_close_timeout]}"
-: ${AUTO_CLOSE_TIMEOUT:=6}
+#: ${AUTO_CLOSE_TIMEOUT:=6}
+
+default_timeout=6
+if [ -z "${AUTO_CLOSE_TIMEOUT}" ]; then
+    AUTO_CLOSE_TIMEOUT=$default_timeout
+fi
+if [ -n "${AUTO_CLOSE_TIMEOUT//[0-9]/}" ]; then
+    AUTO_CLOSE_TIMEOUT=$default_timeout
+fi
 
 UPDATER_SHLIB=/usr/lib/apt-notifier/shlib/updater_shlib
 if [ -f "$UPDATER_SHLIB" ]; then
