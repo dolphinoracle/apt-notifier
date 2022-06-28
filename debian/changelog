@@ -1,3 +1,10 @@
+apt-notifier (22.06.01mx21) mx; urgency=medium
+
+  * create timeout defaults in ~/.config/MX-Linux/apt-notifier.conf
+  * enhance sanity check of config items
+
+ -- fehlix <fehlix@mxlinux.org>  Tue, 28 Jun 2022 13:17:39 -0400
+
 apt-notifier (22.05.04mx21) mx; urgency=medium
 
   * addjust control file

@@ -3,6 +3,7 @@
 import subprocess
 from subprocess import run, PIPE
 import getpass
+from string import whitespace
 import sys
 
 MODULES = "/usr/lib/apt-notifier/modules"
@@ -207,7 +208,14 @@ domain                   = antiX
         except:
             res = default
         #res = dict(list((k.lower(), v) for (k,v) in res.items()))
-        res = { k.lower():res[k] for k in res.keys() }
+        #res = { k.lower():res[k] for k in res.keys() }
+        single_quote = "'"
+        double_quote = '"'
+        strip_chars = f"{whitespace}{single_quote}{double_quote}"
+        dollar_sign = "$"
+        back_quote = "`"
+        
+        res = { k.lower():res[k].split('#')[0].strip(strip_chars).replace(dollar_sign,'').replace(back_quote,'') for k in res.keys() }
 
         res = dict(filter( lambda i: i[0] in default.keys(), res.items()))
         for k,v in res.items():

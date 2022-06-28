@@ -12,15 +12,15 @@
 
 press_any_key_stop_auto_close() {
 
-    local default_timout=10
+    local default_timeout=10
     if [ -z "${AUTO_CLOSE_TIMEOUT}" ]; then
-        AUTO_CLOSE_TIMEOUT=$default_timout
+        AUTO_CLOSE_TIMEOUT=$default_timeout
     fi
     if [ -n "${AUTO_CLOSE_TIMEOUT//[0-9]/}" ]; then
-        AUTO_CLOSE_TIMEOUT=$default_timout
+        AUTO_CLOSE_TIMEOUT=$default_timeout
     fi
 
-    local count_timeout=${AUTO_CLOSE_TIMEOUT}
+    local count_timeout=${AUTO_CLOSE_TIMEOUT:0:9}
 
     local length_timeout=${#count_timeout}
     local count_str='<'
@@ -39,8 +39,10 @@ press_any_key_stop_auto_close() {
     local count_down=$count_timeout
     local cntd_line
     local cntd_space_line
-    for i in $(eval echo {1..$((count_timeout+1))}); do
 
+    i=0
+    (( count_timeout < 1 )) &&  count_timeout=1
+    while (( i++ <  count_timeout+1)); do
         (( count_str_len = count_len - ( (i-1) * count_len) /count_timeout ))
         (( spc_len = count_len - count_str_len ))
         cntd_line="${count_line:0:$count_str_len}";
@@ -100,9 +102,9 @@ updater_show() {
     fi
     TH=$((DH*2/3))  # desired terminal hight
     if ((DW <= 1440)); then
-		TW=$((DW*4/5))  # desired terminal width
+        TW=$((DW*4/5))  # desired terminal width
     else
-		TW=$((DW*2/3))  # desired terminal width
+        TW=$((DW*2/3))  # desired terminal width
     fi
 
     read -r XOFF YOFF < <(xrandr | sed -n -r '/connected primary/{/.*[0-9]+x[0-9]+\+([0-9]+)\+([0-9]+).*/{s::\1 \2:p;q}}')
@@ -113,7 +115,7 @@ updater_show() {
     TX=$(((DW-TW)/2 + XOFF))
     TY=$(((DH-TH)/2 + YOFF))
 
-    
+
     XSEARCH="xdotool sleep 0.2 search --onlyvisible --name '$T'"
     XSIZE="windowsize $TW $TH"
     XMOVE="windowmove $TX $TY"
@@ -167,5 +169,5 @@ updater_show() {
 }
 
 mygettext() {
-	gettext "$@"
+    gettext "$@"
 }
