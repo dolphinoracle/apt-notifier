@@ -68,7 +68,9 @@ RELOAD=$(translate "Reload")
 
 TITLE="${UPDATER}: $RELOAD"
 RUN=/usr/lib/apt-notifier/actions/updater_reload_action
-MSG="apt-get update"
+#MSG="apt-get update"
+#MSG="$RELOAD"
+MSG="$TITLE"
 updater_show  "$MSG" "$RUN" "$TITLE" "$ICON" "$ICON_KDE"
 
 exit

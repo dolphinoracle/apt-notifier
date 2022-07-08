@@ -1,7 +1,7 @@
 #! /usr/bin/python3
 # -*- coding: utf-8 -*-
 
-BUILD_VERSION='22.06.01mx21'
+BUILD_VERSION='22.07.01mx21'
 MODULES = "/usr/lib/apt-notifier/modules"
 
 import subprocess
@@ -408,6 +408,20 @@ def check_updates():
         return
 
     """
+    Check package manager changed 
+    """
+    package_manager_changed = False
+    if package_manager_path and show_package_manager and not os.path.exists(package_manager_path):
+        debug_p(f"[455] set_package_manager(): {package_manager_path}")
+        package_manager_changed = True
+    elif not package_manager_path and ( show_muon or show_synaptic) and package_manager_is_available():
+        debug_p(f"[457] set_package_manager(): {package_manager_path}")
+        package_manager_changed = True
+    debug_p(f"[495] package_manager_changed: {package_manager_changed}  ************")
+    debug_p(f"[495] package_manager_path: {package_manager_path}  ************")
+    debug_p(f"[495] show_package_manager: {show_package_manager}  ************")
+
+    """
     Get a hash of files and directories we are watching
     """
     WatchedFilesAndDirsHashNow = get_stat_hash_of_watched_files_and_dirs()
@@ -418,7 +432,7 @@ def check_updates():
         the call to check_updates wasn't initiated by user
     then don't bother checking for updates.
     """
-    debug_p(f"Hash: {WatchedFilesAndDirsHashNow} == {WatchedFilesAndDirsHashPrevious}")
+    debug_p(f"[435] Hash: {WatchedFilesAndDirsHashNow} == {WatchedFilesAndDirsHashPrevious}")
     if WatchedFilesAndDirsHashNow == WatchedFilesAndDirsHashPrevious:
         hash_changed = False
         if not Check_for_Updates_by_User:
@@ -427,7 +441,8 @@ def check_updates():
                 if AvailableUpdates == '':
                     AvailableUpdates = '0'
                 Check_for_Updates_by_User = False
-                return
+                if not package_manager_changed:
+                    return
     else:
         hash_changed = True
     
@@ -457,7 +472,7 @@ def check_updates():
     # if Unattended-Upgrades are enabled
     # AND apt-get upgrade & dist-upgrade output are the same
 
-    debug_p(f"unattended_upgrade_enabled(): {unattended_upgrade_enabled()}")
+    debug_p(f"[475] unattended_upgrade_enabled(): {unattended_upgrade_enabled()}")
     if unattended_upgrade_enabled():
         if not short_run:
             AvailableUpdates = apt.available_updates(['-d','-u']).split(':')
@@ -472,8 +487,7 @@ def check_updates():
             AvailableUpdates = apt.available_updates(['-c'])
     AvailableUpdates = str(AvailableUpdates)
     
-    debug_p(f"check_updates AvailableUpdates {AvailableUpdates}")
-    debug_p(f"check_updates AvailableUpdates {AvailableUpdatesPrevious} -> {AvailableUpdates}")
+    """
     package_manager_changed = False
     if package_manager_path and show_package_manager and not os.path.exists(package_manager_path):
         debug_p(f"[455] set_package_manager(): {package_manager_path}")
@@ -481,6 +495,7 @@ def check_updates():
     elif not package_manager_path and ( show_muon or show_synaptic) and package_manager_is_available():
         debug_p(f"[457] set_package_manager(): {package_manager_path}")
         package_manager_changed = True
+    """
 
     """
     elif AvailableUpdates == AvailableUpdatesPrevious:
@@ -492,6 +507,26 @@ def check_updates():
         AvailableUpdatesPrevious = AvailableUpdates
         return
     """
+    
+    debug_p(f"[511] check_updates AvailableUpdates {AvailableUpdatesPrevious} -> {AvailableUpdates}")
+    debug_p(f"[512] package_manager_changed: {package_manager_changed}  ************")
+    debug_p(f"[513] vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv")
+
+    if AvailableUpdates == AvailableUpdatesPrevious:
+        # don't  change icon and tooltip if previous availables have not changed
+        # or available updates are still avaialble
+        AvailableUpdatesPrevious = AvailableUpdates
+        if not package_manager_changed:
+            return
+        # FEHLER WAR HERE
+    #elif AvailableUpdates != "0" and AvailableUpdatesPrevious != "0" and AvailableUpdatesPrevious != "":
+    #    AvailableUpdatesPrevious = AvailableUpdates
+    #    if not package_manager_changed:
+    #        return
+
+    debug_p(f"[525]check_updates AvailableUpdates {AvailableUpdates}")
+    debug_p(f"[526]check_updates AvailableUpdates {AvailableUpdatesPrevious} -> {AvailableUpdates}")
+    debug_p(f"[527] package_manager_changed: {package_manager_changed}  ************")
     
     # Alter both Icon and Tooltip, depending on updates available or not
     if AvailableUpdates == "":
@@ -731,6 +766,7 @@ def aptnotifier_prefs():
 
     initialize_aptnotifier_prefs()
     global use_dbus_notifications
+    global use_dbus_notifications_pref
     debug_p(f"*** use_dbus_notifications={use_dbus_notifications}")
 
     sys.path.append("/usr/lib/apt-notifier/modules")
@@ -775,7 +811,9 @@ def aptnotifier_prefs():
 
     if show_switch_desktop_notifications:
         form.use_dbus_notifications = use_dbus_notifications
-
+    
+    use_dbus_notifications_pref = use_dbus_notifications
+    
     form.icon_look                = apt_notifier_rc.icon_look
     form.left_click               = apt_notifier_rc.left_click
     form.upgrade_assume_yes       = apt_notifier_rc.upgrade_assume_yes
@@ -863,6 +901,8 @@ def aptnotifier_prefs():
 
     Check_for_Updates_by_User = True
     systray_icon_show()
+    if use_dbus_notifications_pref != use_dbus_notifications:
+         restart_apt_notifier()
 
 
 def apt_history():
@@ -1029,6 +1069,7 @@ def add_rightclick_actions():
         if show_package_manager and package_manager_enabled:
             if package_manager_path:
                 ActionsMenu.addSeparator()
+                debug_p(f"ActionsMenu.addAction(Upgrade_using_package_manager).triggered.connect( start_package_manager0 )")
                 ActionsMenu.addAction(Upgrade_using_package_manager).triggered.connect( start_package_manager0 )
     else:
         if show_package_manager and package_manager_enabled:
@@ -1055,6 +1096,7 @@ def add_rightclick_actions():
 
     if show_package_manager_help and package_manager_enabled:
         if package_manager_path:
+            debug_p(f"add_package_manager_help_action()")
             add_package_manager_help_action()
 
     add_aptnotifier_prefs_action()
@@ -1868,7 +1910,7 @@ def main():
 
     set_globals()
     set_package_manager()
-    debug_p(f"set_package_manager() : {package_manager}")
+    debug_p(f"main: set_package_manager() : {package_manager}")
     initialize_aptnotifier_prefs()
     AptNotify = QtWidgets.QApplication(sys.argv)
     AptIcon = QtWidgets.QSystemTrayIcon()

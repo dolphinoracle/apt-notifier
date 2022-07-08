@@ -1,3 +1,11 @@
+apt-notifier (22.07.01mx21) mx; urgency=medium
+
+  * add nala support
+  * enhance sanity check of config items
+  * support alternative icon sets
+
+ -- fehlix <fehlix@mxlinux.org>  Fri, 08 Jul 2022 17:02:59 -0400
+
 apt-notifier (22.06.01mx21) mx; urgency=medium
 
   * create timeout defaults in ~/.config/MX-Linux/apt-notifier.conf

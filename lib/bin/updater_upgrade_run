@@ -71,8 +71,11 @@ else
     RUN=/usr/lib/apt-notifier/actions/updater_full-upgrade_action
 fi
 
+#MSG="$UPGRADE"
 
 TITLE="${UPDATER}: $UPGRADE"
+MSG="$TITLE"
+
 updater_show  "$MSG" "$RUN" "$TITLE" "$ICON" "$ICON_KDE"
 
 exit

@@ -36,6 +36,7 @@ class AptNotifierConfig:
         logname = run([ "/usr/bin/logname" ], capture_output=True, text=True).stdout.strip()
         logid   = run([ "/usr/bin/id", "-u", logname ], capture_output=True, text=True).stdout.strip()
         home = pwd.getpwuid(int(logid))[5]
+        self.__home = home
 
         for dist in [ "antiX", "MX-Linux" ]:
             self.__conf_files += f"{home}/.config/{dist}/apt-notifier.conf\n"
@@ -141,6 +142,9 @@ show_package-manager-help          = true
 show_apt_notifier_help             = true
 display_domain_in_menu_and_title   = true
 
+# use nala disabled by default
+use_nala  = false
+
 #---------------------------------
 # MX Linux section
 #---------------------------------
@@ -207,22 +211,36 @@ domain                   = antiX
             res = dict(list((k.replace('-','_'), v) for (k,v) in conpar[self.__config_domain].items()))
         except:
             res = default
+        
         #res = dict(list((k.lower(), v) for (k,v) in res.items()))
         #res = { k.lower():res[k] for k in res.keys() }
+        
+        home = self.__home
+        
         single_quote = "'"
         double_quote = '"'
         strip_chars = f"{whitespace}{single_quote}{double_quote}"
         dollar_sign = "$"
         back_quote = "`"
         
-        res = { k.lower():res[k].split('#')[0].strip(strip_chars).replace(dollar_sign,'').replace(back_quote,'') for k in res.keys() }
+        # sanity check
+        #res = { k.lower():res[k].split('#')[0].strip(strip_chars).replace(dollar_sign,'').replace(back_quote,'').replace(double_quote,'').replace(single_quote,'') for k in res.keys() }
+        res = { k.lower():res[k].split('#')[0].strip(strip_chars).replace(back_quote,'').replace(double_quote,'').replace(single_quote,'') for k in res.keys() }
 
         res = dict(filter( lambda i: i[0] in default.keys(), res.items()))
         for k,v in res.items():
-            if v == 'true':
-                res[k] = True
-            elif v == 'false':
-                res[k] = False
+            rv = v
+            if v.startswith("$HOME"):
+                rv = v.replace("$HOME/", f"{home}/")
+            elif v.startswith("~/"):
+                rv = v.replace("~/", f"{home}/")
+            rv = rv.replace(dollar_sign, "")     
+            if v.lower() in ['true', 'yes']:
+                rv = True
+            elif v.lower() in ['false', 'no']:
+                rv = False
+            res[k] = rv
+        
         self.__config = res
         return self.__config
 

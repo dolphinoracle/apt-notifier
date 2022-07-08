@@ -14,22 +14,48 @@ if [ $(id -u) != 0 ]; then
     exit 1
 fi
 
-apt-get update
-working="...$(mygettext -d apt ' [Working]')..."
-printf "${working}"
-
-UPDATER_COUNTS=$(/usr/lib/apt-notifier/bin/updater_count)
-
-printf $'\r'"$(printf '%*s' ${#working})"
-echo
-echo "$UPDATER_COUNTS"
-echo
 unset APT_NOTIFIER_CONFIG_ITEMS
 declare -A APT_NOTIFIER_CONFIG_ITEMS
 UPDATER_CONFIG="/usr/lib/apt-notifier/bin/updater_config"
 if [ -x "${UPDATER_CONFIG}" ]; then
     eval "APT_NOTIFIER_CONFIG_ITEMS=$(${UPDATER_CONFIG} --shell)"
 fi
+
+
+# use nala if desired and available
+: ${APT_NOTIFIER_USE_NALA:=false}
+export APT_NOTIFIER_USE_NALA
+if [ x"${APT_NOTIFIER_CONFIG_ITEMS[use_nala]}" = x"true" ]; then
+    APT_NOTIFIER_USE_NALA=true
+    if ! which nala >/dev/null; then
+        APT_NOTIFIER_USE_NALA=false
+    fi
+fi
+
+
+if [ x"$APT_NOTIFIER_USE_NALA" = x"true" ]; then
+	UPDATER_APTPREF=/usr/lib/apt-notifier/shlib/updater_aptpref
+	AptPref_Opts=""
+	if [ -f "$UPDATER_APTPREF" ]; then
+		  . "$UPDATER_APTPREF"
+    fi
+	echo "nala update"
+	nala update $AptPref_Opts
+	echo
+else	
+	echo "apt-get update"
+	apt-get update
+	working="...$(mygettext -d apt ' [Working]')..."
+	printf "${working}"
+	
+	UPDATER_COUNTS=$(/usr/lib/apt-notifier/bin/updater_count)
+	
+	printf $'\r'"$(printf '%*s' ${#working})"
+	echo
+	echo "$UPDATER_COUNTS"
+	echo
+fi
+
 # auto close timeout
 AUTO_CLOSE_TIMEOUT="${APT_NOTIFIER_CONFIG_ITEMS[reload_auto_close_timeout]}"
 #: ${AUTO_CLOSE_TIMEOUT:=6}
