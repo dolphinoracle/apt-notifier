@@ -5,19 +5,19 @@ Format: 1.0
 Source: apt-notifier
 Binary: apt-notifier
 Architecture: all source
-Version: 22.06.01mx21
+Version: 22.07.01mx21
 Checksums-Md5:
- a146201ea82c673a678da27a9da71d2c 1561 apt-notifier_22.06.01mx21.dsc
- e603f688a085e1f5fa38c0ab1d1bc3e5 227508 apt-notifier_22.06.01mx21_all.deb
+ ecfc49c46dee635a526081aac0f14e69 1561 apt-notifier_22.07.01mx21.dsc
+ 91016e010c4cf636824bd49b5c83274b 228588 apt-notifier_22.07.01mx21_all.deb
 Checksums-Sha1:
- 97ee747c926ce06190cd82d7a3166780804ddd39 1561 apt-notifier_22.06.01mx21.dsc
- 8dd7d46ff0c9ab722b30b0eb67c085874e35b7b9 227508 apt-notifier_22.06.01mx21_all.deb
+ e5bd146b3bcfbfbd18d28b8ad0fe0dda29b928cf 1561 apt-notifier_22.07.01mx21.dsc
+ 79c8160ff89a1ab748f71d6d7fa4be998b10763e 228588 apt-notifier_22.07.01mx21_all.deb
 Checksums-Sha256:
- b6782f162f947716598c0c0a5191557c5d001c25e81dae0dd100675fcec45092 1561 apt-notifier_22.06.01mx21.dsc
- 95567e850bf4599ada15eced92d41a2c544c45984275297064450dfba717e1f2 227508 apt-notifier_22.06.01mx21_all.deb
+ 6683226c87a488c55a87904f9a74035273f5cd20c077b114da25547dfa7702ce 1561 apt-notifier_22.07.01mx21.dsc
+ caadeac701b6bc616a57387f0114fe1ca639e2c711b63cbc36e757a06f9eb791 228588 apt-notifier_22.07.01mx21_all.deb
 Build-Origin: Debian
 Build-Architecture: amd64
-Build-Date: Tue, 28 Jun 2022 19:56:18 +0200
+Build-Date: Sun, 10 Jul 2022 02:23:31 +0200
 Build-Tainted-By:
  merged-usr-via-aliased-dirs
  usr-local-has-libraries
@@ -63,7 +63,7 @@ Installed-Build-Depends:
  diffutils (= 1:3.7-5),
  dmsetup (= 2:1.02.175-2.1),
  dpkg (= 1.20.10),
- dpkg-dev (= 1.20.10),
+ dpkg-dev (= 1.20.11),
  dwz (= 0.13+20210201-1),
  emacsen-common (= 3.0.4),
  fig2dev (= 1:3.2.8-3+b1),
@@ -167,7 +167,7 @@ Installed-Build-Depends:
  libdeflate0 (= 1.7-1),
  libdevmapper1.02.1 (= 2:1.02.175-2.1),
  libdouble-conversion3 (= 3.1.5-6.1),
- libdpkg-perl (= 1.20.10),
+ libdpkg-perl (= 1.20.11),
  libedit2 (= 3.1-20191231-2+b1),
  libelf1 (= 0.183-1),
  libemf1 (= 1.0.13-2),
@@ -434,22 +434,22 @@ Installed-Build-Depends:
 Environment:
  DEB_BUILD_OPTIONS="parallel=4"
  LANG="en_US.UTF-8"
- SOURCE_DATE_EPOCH="1656436659"
+ SOURCE_DATE_EPOCH="1657314179"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQJHBAEBCgAxFiEEgRnC8/wKXRM2S0xLL1ePG6ydm+kFAmK7QM8THGZlaGxpeEBt
-eGxpbnV4Lm9yZwAKCRAvV48brJ2b6Qz+EACc43CPh/9JnbMCGXpeM65fcmhKGJ0j
-R6C2RZlp/fzJS4kJApZEwnKFULxONr4/a91PdQWitawtc/2dDEpMC+rUJBhphUJ5
-3gqTJ67vKJrxtkN0Dwt+oweHbuCLMpWLyiJQHmZsd13lOKZv1MRUvQXMFiqx8H6r
-Ljp4gLLgvaGt1lFo8lPN4kgXc1Mu0W5EuvqW5NIzQIWO1otlj/0ZpDWA9qkg+qEI
-NdgAjgXuuBEZrUG1HlTnzb4MflHJNSg0JzUalaKwjbsj2dfskArckYkTQCsIU4/t
-9qDlNM3AW52BMM8JXGuMzy/0E90rtL7HrHCEwWsMCXPtG3Ijj0HDdC/zCRFqhkAj
-EAcfT7eUEzRFnV+ij2JbZRb28aslKY4AKnYG/BCAevTf1l8B/UiLVBFZU7uSxTx+
-369bS01gu8eotCw1wulkdYLiBGxt9bHiYzcqax12nUDKj68tHYHOYzOZBDuWPS2D
-uKuHAZDnLaCQ7njWG/zlnEkhIyaOeF6rqho/+vvvqLX1huZVp7DKmtoT2p8lxhT/
-DVxwfA6B+ZAucGhVOF3ZSqdSFe7pJp+d0sneJzjIth8tnh2/LpuyEDvoMh8y6nuO
-gQocEaRYDywrWUkRdX5XVUqrdTn8ebPL6axnYjH/c+K0Ug1hZGLI0zU7heiBEEQk
-I4FVehhEMn1RLw==
-=aBv5
+iQJHBAEBCgAxFiEEgRnC8/wKXRM2S0xLL1ePG6ydm+kFAmLKHAwTHGZlaGxpeEBt
+eGxpbnV4Lm9yZwAKCRAvV48brJ2b6da3D/9hCRvEF5cm1uXaIttBGUquNPUQpUMZ
+JyjScsCkv+AYkwwZRbMhnxhgaoMk3mE4nO99GfXmJO9cIzg8aWf3KOxG4NcbW+70
+uOSDaeEMFBSWmRBWDDZoCw2aw072P1FzDZG8MCbhfrhW2wVaq8p956g9K4iSp9TM
+7y7mZiQLy13ONOx+Eo3pU7IoqxOjWBZJPBAEkarPYE7sobtR+ikaIcLhH0zqhdj2
+67xWGyYvYf3YPN0/9+pHpw442srY4a2NajM70d1cq/Yl+Wl70fkDwFpzpkAaurN8
+TI/yZUGi8SIgm7uCEN/I4zlKys+LwGkLyX0DQvKhhDe8JcglKl0QSKe+jGc99gMY
+KayVf3KAVlaIo78aPk5z6exOL50jeQgKJDoGuzGDf2wsRrCQbIxOUbLf5IFMfYE1
+faZfpciQFHw2EBhrl/BiALeQmS/64bmF5hEAeqbNr4uXwB7da9bUePmWb+ooWD/N
+Q1WXVIbqwzJ5GCikO9W8/alqpU9Nwt+0z7K0bID3sxXn+buYtQxJBIgh0lBiBDYF
+AJU0BYUmqFfqBFC1DPgYBUSBHVvIBWjdUdXn0Zjmvkz85M9xJQHIm8crluadnxUt
+XZgKp96UxhVtntXjE3NMBzQvRcHNkZez3kSRv0/5AeWtK1GtpPjRggVmsh2kT1rd
+gRjLFBI1+GFFRw==
+=+s7V
 -----END PGP SIGNATURE-----

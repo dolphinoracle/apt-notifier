@@ -1,3 +1,13 @@
+apt-notifier (22.07.01mx21) mx; urgency=medium
+
+  * enhance sanity check of config items
+  * remove double notification after Esc
+  * speedup counting of upgradable packages
+  * support alternative icon sets in config items
+  * allow use of nala with default disabled autoremove 
+
+ -- fehlix <fehlix@mxlinux.org>  Fri, 08 Jul 2022 17:02:59 -0400
+
 apt-notifier (22.06.01mx21) mx; urgency=medium
 
   * create timeout defaults in ~/.config/MX-Linux/apt-notifier.conf

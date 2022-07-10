@@ -89,8 +89,18 @@ class Form:
             'label_wireframe_transparent'           : xlate.get('label_wireframe_transparent'),
             'label_notifications_with_actions'      : xlate.get('label_notifications_with_actions'),
 
-            'window_icon_name'                      : conf.config['window_icon'],
+            'window_icon'                           : conf.config['window_icon'],
             'window_icon_name'                      : conf.config['window_icon_name'],
+
+            'classic_none'                       : conf.config['classic_none'],
+            'classic_some'                       : conf.config['classic_some'],
+            'pulse_none'                         : conf.config['pulse_none'],
+            'pulse_some'                         : conf.config['pulse_some'],
+            'wireframe_none_dark'                : conf.config['wireframe_none_dark'],
+            'wireframe_none_dark_transparent'    : conf.config['wireframe_none_dark_transparent'],
+            'wireframe_none_light'               : conf.config['wireframe_none_light'],
+            'wireframe_none_light_transparent'   : conf.config['wireframe_none_light_transparent'],
+            'wireframe_some'                     : conf.config['wireframe_some']
         }
 
         self.__filled_values = {
@@ -167,14 +177,14 @@ class Form:
         if Form.is_valid(self):
             fill =  self.__filled_token
             fill.update(self.__filled_values)
-            
+
             #form = self.__raw_form.replace("{","{fill['")
             #form = form.replace("}","']}")
             #self.__filled_form = eval('f"""' + form + '"""')
 
             # replace eval with form.format(**fill)
             self.__filled_form = self.__raw_form.format(**fill)
-            
+
             self.__form_is_filled = True
         return self.__filled_form
 
@@ -182,7 +192,7 @@ class Form:
         with open(self.__form_file, 'r') as f:
             self.__loaded_form = f.read()
         self.prepare_form()
-        
+
     def prepare_form(self):
         s = self.__loaded_form
         if self.show_left_click_behaviour_frame:
@@ -321,7 +331,7 @@ class Form:
         if x.lower() == 'muon':
             y = self.__filled_token['left_click_package_manager']
             self.__filled_token['left_click_package_manager'] = y.replace('Synaptic', 'Muon')
-        
+
         return self.left_click_package_manager
 
     """
@@ -530,7 +540,7 @@ class Form:
         return self.__form_is_filled
 
     def dialog(self):
-        
+
         if not self.is_valid() or not self.is_filled():
             print("Error[514]: form not valid or not filled")
             return
@@ -543,7 +553,7 @@ class Form:
             print("Error[423]: form not valid or not filled")
             return False
         else:
-            title = self.__filled_token['window_title_preferences']     
+            title = self.__filled_token['window_title_preferences']
             class_name = "apt-notifier"
             def set_class_name(title=title, class_name_new=class_name):
                 class_name_old = "gtkdialog"
@@ -553,19 +563,19 @@ class Form:
                     'title': title,
                 }
 
-                clx = """xdotool sleep 0.2 
-                    search --onlyvisible --classname {class_name_old}  
-                    search --onlyvisible --class {class_name_old}  
-                    search --name  {title}  
-                    set_window  --classname {class_name_new} 
+                clx = """xdotool sleep 0.2
+                    search --onlyvisible --classname {class_name_old}
+                    search --onlyvisible --class {class_name_old}
+                    search --name  {title}
+                    set_window  --classname {class_name_new}
                                 --class {class_name_new}
                     """
                 y = [ x.strip() for x in clx.strip().split('\n') ]
                 clx = [ x.format(**clx_filler) for x in ' '.join(y).split() ]
                 r = Popen(clx)
-            
+
             set_class_name(title, class_name)
-            
+
             d = run(['/usr/bin/gtkdialog', '-c', '-s'],
                 capture_output=True,
                 text=True,
@@ -622,7 +632,7 @@ class Form:
                 self.left_click = 'PackageManager'
         except KeyError:
             pass
-            
+
         if dialog['IconLook_wireframe_dark'] == 'true':
             self.icon_look = 'wireframe-dark'
         elif dialog['IconLook_wireframe_light'] == 'true':

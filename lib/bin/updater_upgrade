@@ -23,6 +23,9 @@ if [ ! -e /etc/apt/sources.list ]; then
 EOF
 fi
 
+# use nala if needed
+#
+
 APT_NOTIFIERRC="/home/$(logname)/.config/apt-notifierrc"
 
 UpgradeType=$(     grep -oP '^UpgradeType=\K.*'      "$APT_NOTIFIERRC" 2>/dev/null)
@@ -33,9 +36,10 @@ UpgradeAutoClose=$(grep -oP '^UpgradeAutoClose=\K.*' "$APT_NOTIFIERRC" 2>/dev/nu
 export TEXTDOMAIN=apt-notifier
 if [ "$UpgradeType" = "upgrade" ]
   then
-    mygettext "basic upgrade"; echo
+    :
+    #mygettext "basic upgrade"; echo
   else
-    mygettext "full upgrade" ; echo
+    #mygettext "full upgrade" ; echo
     UpgradeType='dist-upgrade'
 fi
 
@@ -53,7 +57,47 @@ if [ -f "$UPDATER_APTPREF" ]; then
       . "$UPDATER_APTPREF"
 fi
 
-apt-get -V $AssumeYes $AptPref_Opts $UpgradeType
+unset APT_NOTIFIER_CONFIG_ITEMS
+declare -A APT_NOTIFIER_CONFIG_ITEMS
+UPDATER_CONFIG="/usr/lib/apt-notifier/bin/updater_config"
+if [ -x "${UPDATER_CONFIG}" ]; then
+    eval "APT_NOTIFIER_CONFIG_ITEMS=$(${UPDATER_CONFIG} --shell)"
+fi
+
+# use nala if desired and available
+
+: ${APT_NOTIFIER_USE_NALA:=false}
+export APT_NOTIFIER_USE_NALA
+if [ x"${APT_NOTIFIER_CONFIG_ITEMS[use_nala]}" = x"true" ]; then
+    APT_NOTIFIER_USE_NALA=true
+    if ! which nala >/dev/null; then
+       APT_NOTIFIER_USE_NALA=false
+    fi
+fi
+
+
+if [ x"$APT_NOTIFIER_USE_NALA" = x"true" ]; then
+	Nala_Pref=""
+	#Nala_Pref+=" --update"
+	Nala_Pref+=" --no-autoremove"
+	if [ "$UpgradeType" = "upgrade" ]; then
+	    Nala_UpgradeType="--no-full"
+	else
+	    Nala_UpgradeType="--full" # default
+	fi
+
+	#echo "DEBUG: nala upgrade $Nala_Pref $AssumeYes $AptPref_Opts $Nala_UpgradeType"
+	#DEBUG_APT_NOTIFIER
+
+    [ y"${DEBUG_APT_NOTIFIER/true/es}" = "yes" ] &&  echo nala upgrade $AptPref_Opts $Nala_UpgradeType $Nala_Pref $AssumeYes 
+    echo nala upgrade $Nala_Pref $Nala_UpgradeType 
+	nala upgrade $AptPref_Opts $Nala_UpgradeType $Nala_Pref $AssumeYes 
+else
+
+	echo apt-get $UpgradeType
+	apt-get -V $AssumeYes $AptPref_Opts $UpgradeType
+
+fi
 
 echo ""
 
@@ -63,12 +107,6 @@ else
     mygettext "full upgrade complete (or was canceled)"; echo
 fi
 
-unset APT_NOTIFIER_CONFIG_ITEMS
-declare -A APT_NOTIFIER_CONFIG_ITEMS
-UPDATER_CONFIG="/usr/lib/apt-notifier/bin/updater_config"
-if [ -x "${UPDATER_CONFIG}" ]; then
-    eval "APT_NOTIFIER_CONFIG_ITEMS=$(${UPDATER_CONFIG} --shell)"
-fi
 # auto close timeout
 AUTO_CLOSE_TIMEOUT="${APT_NOTIFIER_CONFIG_ITEMS[upgrade_auto_close_timeout]}"
 default_timeout=10

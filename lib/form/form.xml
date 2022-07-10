@@ -1,3 +1,4 @@
+
 <window title="{window_title_preferences}" icon-name="{window_icon_name}">
   <vbox>
     <frame {frame_upgrade_behaviour}>
@@ -47,16 +48,16 @@
           </radiobutton>
         </vbox>
         <vbox>
-          <pixmap icon_size="2"><input file>/usr/share/icons/mnotify-some-wireframe.png</input></pixmap>
-          <pixmap icon_size="2"><input file>/usr/share/icons/mnotify-some-wireframe.png</input></pixmap>
-          <pixmap icon_size="2"><input file>/usr/share/icons/mnotify-some-classic.png</input></pixmap>
-          <pixmap icon_size="2"><input file>/usr/share/icons/mnotify-some-pulse.png</input></pixmap>
+          <pixmap icon_size="2"><input file>{wireframe_some}</input></pixmap>
+          <pixmap icon_size="2"><input file>{wireframe_some}</input></pixmap>
+          <pixmap icon_size="2"><input file>{classic_some}</input></pixmap>
+          <pixmap icon_size="2"><input file>{pulse_some}</input></pixmap>
         </vbox>
         <vbox>
-          <pixmap icon_size="2"><input file>/usr/share/icons/mnotify-none-wireframe-dark.png</input></pixmap>
-          <pixmap icon_size="2"><input file>/usr/share/icons/mnotify-none-wireframe-light.png</input></pixmap>
-          <pixmap icon_size="2"><input file>/usr/share/icons/mnotify-none-classic.png</input></pixmap>
-          <pixmap icon_size="2"><input file>/usr/share/icons/mnotify-none-pulse.png</input></pixmap>
+          <pixmap icon_size="2"><input file>{wireframe_none_dark}</input></pixmap>
+          <pixmap icon_size="2"><input file>{wireframe_none_light}</input></pixmap>
+          <pixmap icon_size="2"><input file>{classic_none}</input></pixmap>
+          <pixmap icon_size="2"><input file>{pulse_none}</input></pixmap>
         </vbox>
       </hbox>
       <checkbox active="{WireframeTransparent}">

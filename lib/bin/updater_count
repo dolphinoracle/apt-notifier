@@ -44,9 +44,8 @@ exit 1
 
 # translations are defined within apt-notifier python modules 
 # define functions to make xgettext ignore translations used here
-mygettext()  { gettext "$@"; }
-myngettext() { ngettext "$@"; }
-
+mygettext()  { gettext  -d apt-notifier "$@"; }
+myngettext() { ngettext -d apt-notifier "$@"; }
 
 D="" ; C="" ; U=""
 CheckType=""
@@ -109,79 +108,102 @@ Count=""
 
 case "$CheckType" in
     upgrade|dist-upgrade)
-        APT_MSG=$(apt-get -s $AptPref_Opts $CheckType)
-        Count=$(grep -c  '^Inst '<<<$APT_MSG)
+        # orig
+        #APT_MSG=$(apt-get -s $AptPref_Opts $CheckType)
+        # Count=$(grep -c  '^Inst '<<<$APT_MSG)
+        
+        # new
+        APT_MSG=$(apt-get $AptPref_Opts -o Debug::NoLocking=true --trivial-only -V $CheckType 2>/dev/null | sed -nr '/^[[:space:]]/d; /[[:space:]][0-9]+[[:space:]]/{p;q}')
+        up=0 new=0 x=""
+        read up new x < <(echo ${APT_MSG} | tr -c '[:digit:]' ' ');
+        Count=$((up+new))
+
         if [ -z "$C" ]; then
-            CountLine=$(grep -E '^[0-9]| [0-9]+ '<<<$APT_MSG)
+            CountLine="$APT_MSG"
+            ## orig: 
+            ## CountLine=$(grep -E '^[0-9]| [0-9]+ '<<<$APT_MSG)
         fi
         ;;
     both)
         Count=""
-        APT_MSG=$(apt-get -s $AptPref_Opts dist-upgrade)
-        DistUpgradeCount=$(grep -c  '^Inst '<<<$APT_MSG)
-        APT_MSG=$(apt-get -s $AptPref_Opts upgrade)
-        UpgradeCount=$(grep -c  '^Inst '<<<$APT_MSG)
+        # orig
+        #APT_MSG=$(apt-get -s $AptPref_Opts dist-upgrade)
+        #DistUpgradeCount=$(grep -c  '^Inst '<<<$APT_MSG)
+        #APT_MSG=$(apt-get -s $AptPref_Opts upgrade)
+        #UpgradeCount=$(grep -c  '^Inst '<<<$APT_MSG)
+        # new
+        APT_MSG=$(LC_ALL=C.UTF-8 apt-get $AptPref_Opts -o Debug::NoLocking=true --trivial-only -V dist-upgrade 2>/dev/null | sed -nr '/^[[:space:]]/d; /[[:space:]][0-9]+[[:space:]]/{p;q}')
+        up=0 new=0 x=""
+        read up new x < <(echo ${APT_MSG} | tr -c '[:digit:]' ' ');
+        DistUpgradeCount=$((up+new))
+
+        APT_MSG=$(LC_ALL=C.UTF-8 apt-get $AptPref_Opts -o Debug::NoLocking=true --trivial-only -V upgrade 2>/dev/null | sed -nr '/^[[:space:]]/d; /[[:space:]][0-9]+[[:space:]]/{p;q}')
+        up=0 new=0 x=""
+        read up new x < <(echo ${APT_MSG} | tr -c '[:digit:]' ' ');
+        UpgradeCount=$((up+new))
+
         ;;
             
 esac
 
-case $Count in
-    0)  # untranslated old non-plurals msg
-        umsg="0 updates available"
-        # translated old non-plurals msg
-        tmsg=$(mygettext -d apt-notifier "$umsg")
-        
-        numsg='No updates available'
-        nmsg=$(mygettext -d apt-notifier "$numsg")
-        ;;
-    1)  # untranslated old non-plurals msg
-        umsg='1 new update available'
-        # translated old non-plurals msg
-        tmsg=$(mygettext -d apt-notifier "$umsg")
-
-        numsg='{num} new update available'
-        nmsg=$(myngettext '{num} new update available'  '{num} new updates available' $Count)
-        nmsg="${nmsg/\{num\}/$Count}"
-        numsg="${nmsg/\{num\}/$Count}"
-        ;;
-    *)  # untranslated old non-plurals msg
-        umsg='$count new updates available'
-        # translated old non-plurals msg
-        tmsg=$(mygettext -d apt-notifier "$umsg")
-        tmsg="${tmsg/\$count/$Count}"
-
-        numsg='{num} new updates available'
-        nmsg=$(myngettext '{num} new update available'  '{num} new updates available' $Count)
-        nmsg="${nmsg/\{num\}/$Count}"
-        numsg="${numsg/\{num\}/$Count}"
-        ;;
-esac
-
-# check we have translations of the plurals msg
-if [ "$nmsg" != "$numsg" ]; then
-    # yep, translated - we take the new plurals msg
-    msg="$nmsg"
-else
-    # check we have translated old non-plurals msg  
-    if [ "$tmsg" != "$umsg" ]; then
-        # yep, so we take the old translated one
-        msg=$tmsg
-    else
-        # neither old non-plurals nor new plurals are translated
-        # se we take the new plurals msg
-        msg=$nmsg
-    fi
-fi
-
-UpdatesMsg=$msg
 
 if [ "$DISPLAY_COUNT_NUMBER_ONLY" == "true" ]; then
     case "$CheckType" in
         both)  echo "${DistUpgradeCount}:${UpgradeCount}:${UpgradeType}" ;;
            *)  echo "$Count" ;;
     esac
-           
 else
+	case $Count in
+	    "") : 
+	        ;;
+	    0)  # untranslated old non-plurals msg
+	        umsg="0 updates available"
+	        # translated old non-plurals msg
+	        tmsg=$(mygettext "$umsg")
+	        
+	        numsg='No updates available'
+	        nmsg=$(mygettext "$numsg")
+	        ;;
+	    1)  # untranslated old non-plurals msg
+	        umsg='1 new update available'
+	        # translated old non-plurals msg
+	        tmsg=$(mygettext "$umsg")
+	
+	        numsg='{num} new update available'
+	        nmsg=$(myngettext '{num} new update available'  '{num} new updates available' $Count)
+	        nmsg="${nmsg/\{num\}/$Count}"
+	        numsg="${nmsg/\{num\}/$Count}"
+	        ;;
+	    *)  # untranslated old non-plurals msg
+	        umsg='$count new updates available'
+	        # translated old non-plurals msg
+	        tmsg=$(mygettext "$umsg")
+	        tmsg="${tmsg/\$count/$Count}"
+	
+	        numsg='{num} new updates available'
+	        nmsg=$(myngettext '{num} new update available'  '{num} new updates available' $Count)
+	        nmsg="${nmsg/\{num\}/$Count}"
+	        numsg="${numsg/\{num\}/$Count}"
+	        ;;
+	esac
+
+
+	# check we have translations of the plurals msg
+	if [ "$nmsg" != "$numsg" ]; then
+	    # yep, translated - we take the new plurals msg
+	    msg="$nmsg"
+	else
+	    # check we have translated old non-plurals msg  
+	    if [ "$tmsg" != "$umsg" ]; then
+	        # yep, so we take the old translated one
+	        msg=$tmsg
+	    else
+	        # neither old non-plurals nor new plurals are translated
+	        # se we take the new plurals msg
+	        msg=$nmsg
+	    fi
+	fi
+	UpdatesMsg=$msg
     echo "$UpdatesMsg"
     echo "($CountLine)";
 fi
