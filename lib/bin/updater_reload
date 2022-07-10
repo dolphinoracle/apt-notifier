@@ -34,27 +34,26 @@ fi
 
 
 if [ x"$APT_NOTIFIER_USE_NALA" = x"true" ]; then
-	UPDATER_APTPREF=/usr/lib/apt-notifier/shlib/updater_aptpref
-	AptPref_Opts=""
-	if [ -f "$UPDATER_APTPREF" ]; then
-		  . "$UPDATER_APTPREF"
-    fi
-	echo "nala update"
-	nala update $AptPref_Opts
-	echo
-else	
-	echo "apt-get update"
-	apt-get update
-	working="...$(mygettext -d apt ' [Working]')..."
-	printf "${working}"
-	
-	UPDATER_COUNTS=$(/usr/lib/apt-notifier/bin/updater_count)
-	
-	printf $'\r'"$(printf '%*s' ${#working})"
-	echo
-	echo "$UPDATER_COUNTS"
-	echo
+        UPDATER_APTPREF=/usr/lib/apt-notifier/shlib/updater_aptpref
+        AptPref_Opts=""
+        if [ -f "$UPDATER_APTPREF" ]; then
+                  . "$UPDATER_APTPREF"
+        fi
+        echo "nala update"
+        nala update $AptPref_Opts
+else
+        echo "apt-get update"
+        apt-get update
 fi
+working="...$(mygettext -d apt ' [Working]')..."
+printf "${working}"
+
+UPDATER_COUNTS=$(/usr/lib/apt-notifier/bin/updater_count)
+
+printf $'\r'"$(printf '%*s' ${#working})"
+echo
+echo "$UPDATER_COUNTS"
+echo
 
 # auto close timeout
 AUTO_CLOSE_TIMEOUT="${APT_NOTIFIER_CONFIG_ITEMS[reload_auto_close_timeout]}"

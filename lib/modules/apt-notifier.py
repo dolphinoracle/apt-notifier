@@ -11,6 +11,7 @@ if MODULES not in sys.path:
 
 import os
 import dbus
+import pwd
 import tempfile
 from os import environ
 
@@ -29,6 +30,25 @@ gettext.textdomain('apt-notifier')
 _ = gettext.gettext
 
 ngettext = gettext.ngettext
+
+HOME   = os.environ['HOME']
+UID    = os.getuid()
+UNAME  = pwd.getpwuid(UID)[0]
+
+NOTIFICATION_DISMISS_CHECK = "apt-notifier-dismiss"
+#-----------------------------------------------------------------------
+# notification dismiss check: don't notify if restart through dbus-callback
+try:
+    runtime_dir = os.environ['XDG_RUNTIME_DIR']
+except KeyError:
+    runtime_dir = f"/run/user/{UID}"
+
+if os.path.isdir(runtime_dir):
+    DISMISS_CHECK = f"{runtime_dir}/{NOTIFICATION_DISMISS_CHECK}.chk"
+else:
+    DISMISS_CHECK = f"/tmp/{NOTIFICATION_DISMISS_CHECK}-{UNAME}.chk"
+
+
 
 def set_package_manager():
     global package_manager
@@ -208,7 +228,7 @@ def set_globals():
     global check_for_updates_force_counter
     global unattended_upgrades
     global debug_p
-    
+
     # check version_at_start
     global version_at_start
     version_at_start = version_installed()
@@ -258,20 +278,20 @@ def set_globals():
 
     check_for_updates_interval        = conf.get('check_for_updates_interval')
     check_for_updates_force_counter   = conf.get('check_for_updates_force_counter')
-    
+
     if check_for_updates_interval is None:
         check_for_updates_interval        = 60
     check_for_updates_interval = int(check_for_updates_interval)
     if check_for_updates_interval < 15:
         check_for_updates_interval = 15
     elif check_for_updates_interval > 21600:
-        check_for_updates_interval = 21600 
-    
+        check_for_updates_interval = 21600
+
 
     if check_for_updates_force_counter is None:
         check_for_updates_force_counter   = 15
     check_for_updates_force_counter = int(check_for_updates_force_counter)
-   
+
     if check_for_updates_force_counter == 0:
         # disabled
         pass
@@ -279,7 +299,7 @@ def set_globals():
         check_for_updates_force_counter = 60
     elif check_for_updates_force_counter < 5:
         check_for_updates_force_counter = 5
-    
+
     global show_apt_notifier_help
     show_apt_notifier_help = conf.get('show_apt_notifier_help')
 
@@ -324,20 +344,20 @@ def check_updates():
     except: AvailableUpdatesPrevious=""
 
     global unattatended_upgrade_last
-    try: 
+    try:
         unattatended_upgrade_last
-    except: 
+    except:
         unattatended_upgrade_last = unattended_upgrade_enabled()
-    
+
     if unattatended_upgrade_last == unattended_upgrade_enabled():
         unattatended_upgrade_changed = False
     else:
         unattatended_upgrade_changed = True
-    unattatended_upgrade_last = unattended_upgrade_enabled()        
+    unattatended_upgrade_last = unattended_upgrade_enabled()
 
     global package_manager_path
     global show_package_manager
-    
+
     global WatchedFilesAndDirsHashNow
     global WatchedFilesAndDirsHashPrevious
     global Check_for_Updates_by_User
@@ -349,32 +369,32 @@ def check_updates():
 
     import datetime
     now = datetime.datetime.now().strftime("%Y-%m-%d  %H:%M:%S")
-  
-    import time 
+
+    import time
     # seconds since epoch
     check_updates_now_run = int(time.time())
-    
-    try: 
+
+    try:
         check_updates_last_run
     except NameError:
         check_updates_last_run = check_updates_now_run - check_for_updates_interval - 2
-    
+
     delta = check_updates_now_run - check_updates_last_run
     debug_p(f"delta = {check_updates_now_run} - {check_updates_last_run} by User {Check_for_Updates_by_User}")
-    
+
     debug_p(f"check_updates at {now} rep {check_for_updates_interval} last: {delta}")
     if delta >=  check_for_updates_interval or unattatended_upgrade_changed:
         short_run = False
         check_updates_last_run = check_updates_now_run
     else:
         short_run = True
-    
+
     if Check_for_Updates_by_User:
         short_run = False
         check_updates_last_run = check_updates_now_run
-         
+
     debug_p(f"short_run : {short_run}")
-    
+
     now = datetime.datetime.now().strftime("%Y-%m-%d  %H:%M:%S")
     debug_p(f"Start check_updates by user {Check_for_Updates_by_User} with {AvailableUpdates} updates at {now}")
 
@@ -408,7 +428,7 @@ def check_updates():
         return
 
     """
-    Check package manager changed 
+    Check package manager changed
     """
     package_manager_changed = False
     if package_manager_path and show_package_manager and not os.path.exists(package_manager_path):
@@ -445,7 +465,7 @@ def check_updates():
                     return
     else:
         hash_changed = True
-    
+
     WatchedFilesAndDirsHashPrevious = WatchedFilesAndDirsHashNow
 
     """
@@ -464,10 +484,10 @@ def check_updates():
 
     Force_Check_Counter = 1
 
-    
+
     from aptnotifier_apt import Apt
     apt = Apt()
-    
+
     # Suppress 'updates available' notification
     # if Unattended-Upgrades are enabled
     # AND apt-get upgrade & dist-upgrade output are the same
@@ -486,7 +506,7 @@ def check_updates():
         if not short_run:
             AvailableUpdates = apt.available_updates(['-c'])
     AvailableUpdates = str(AvailableUpdates)
-    
+
     """
     package_manager_changed = False
     if package_manager_path and show_package_manager and not os.path.exists(package_manager_path):
@@ -507,7 +527,7 @@ def check_updates():
         AvailableUpdatesPrevious = AvailableUpdates
         return
     """
-    
+
     debug_p(f"[511] check_updates AvailableUpdates {AvailableUpdatesPrevious} -> {AvailableUpdates}")
     debug_p(f"[512] package_manager_changed: {package_manager_changed}  ************")
     debug_p(f"[513] vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv")
@@ -527,11 +547,11 @@ def check_updates():
     debug_p(f"[525]check_updates AvailableUpdates {AvailableUpdates}")
     debug_p(f"[526]check_updates AvailableUpdates {AvailableUpdatesPrevious} -> {AvailableUpdates}")
     debug_p(f"[527] package_manager_changed: {package_manager_changed}  ************")
-    
+
     # Alter both Icon and Tooltip, depending on updates available or not
     if AvailableUpdates == "":
         AvailableUpdates = "0"
-  
+
     if AvailableUpdates == "0":
         debug_p(f'if AvailableUpdates == "0":')
         message_status = "not displayed"  # Resets flag once there are no more updates
@@ -643,9 +663,9 @@ def start_package_manager():
 def start_viewandupgrade(action=None):
     notification_close()
     global Check_for_Updates_by_User
-    
+
     cleanup_notifier_run()
-    
+
     systray_icon_hide()
     initialize_aptnotifier_prefs()
 
@@ -811,9 +831,9 @@ def aptnotifier_prefs():
 
     if show_switch_desktop_notifications:
         form.use_dbus_notifications = use_dbus_notifications
-    
+
     use_dbus_notifications_pref = use_dbus_notifications
-    
+
     form.icon_look                = apt_notifier_rc.icon_look
     form.left_click               = apt_notifier_rc.left_click
     form.upgrade_assume_yes       = apt_notifier_rc.upgrade_assume_yes
@@ -1158,7 +1178,7 @@ def add_hide_action():
     cmd+= 'deartifact-xfce-systray-icons 1 &'
     subprocess.run(cmd, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     """
-    
+
 def add_restart_action():
     ActionsMenu.addSeparator()
     restart_action = ActionsMenu.addAction(Restart_Apt_Notifier)
@@ -1406,7 +1426,7 @@ def systray_icon_show():
 def dbus_closed():
     global AptIcon
     global dbus_callback_closed
-    #global tool_tip    
+    #global tool_tip
     #try: tool_tip
     #except: tool_tip = ""
     dbus_callback_closed = True
@@ -1423,6 +1443,11 @@ def upgrade_cb(n, action):
     #cmd = "apt-notifier-unhide-Icon"
     #run = subprocess.Popen(cmd,shell=True)
     AptIcon.hide()
+    try:
+        with open(DISMISS_CHECK, "w") as x:
+            pass
+    except:
+        pass
     start_viewandupgrade(action)
     restart_apt_notifier()
     n.close()
@@ -1445,7 +1470,7 @@ def closed_cb(n):
 def notification_close():
     global notification
     global dbus_callback_closed
-    try: 
+    try:
         dbus_callback_closed
     except:
         dbus_callback_closed = True
@@ -1520,6 +1545,13 @@ def show_popup(popup_title, popup_msg, popup_icon):
     #print( "UseNotifier:" + UseNotifier)
 
     if not UseNotifier.startswith("qt"):
+        if os.path.exists(DISMISS_CHECK):
+            try:
+                os.remove(DISMISS_CHECK)
+                return True
+            except:
+                pass
+
         if desktop_notification(popup_title, popup_msg, popup_icon):
             return True
         else:
@@ -1736,7 +1768,7 @@ def tooltip_msg(num):
             tmsg = _(umsg).replace('$count', str(num))
             # polpulate with the number
             umsg  = umsg.replace('$count', str(num))
-        
+
         # TRANSLATORS: Fill in all plural forms. The parenthesized expression '{num}'
         # is replaced by the actual number of updates available at runtime.
         # For the singular form, you can replace '{num}' with 'one'.
@@ -1744,7 +1776,7 @@ def tooltip_msg(num):
         # msgstr[0] -> singular form: use 'one new update' or '{num} new update'.
         # msgstr[1] -> plural form: use '{num} new updates'.
         nmsg = ngettext('{num} new update available', '{num} new updates available', num)
-        
+
         # new translated plurals msg
         nmsg = nmsg.format(num=num)
         # new untranslated plurals msg
@@ -1752,13 +1784,13 @@ def tooltip_msg(num):
             numsg = '{num} new update available'.format(num=num)
         else:
             numsg = '{num} new updates available'.format(num=num)
-        
+
     # check we have translations of the plurals msg
     if nmsg not in numsg:
         # yep, translated - we take the new plurals msg
         msg = nmsg
     else:
-        # check we have translated old non-plurals msg  
+        # check we have translated old non-plurals msg
         if tmsg not in umsg:
             # yep, so we take the old translated one
             msg = tmsg
@@ -1768,7 +1800,7 @@ def tooltip_msg(num):
             msg = nmsg
     return msg
 
-    
+
 def popup_msg(num):
     num = int(num)
     if num == 0:
@@ -1801,7 +1833,7 @@ def popup_msg(num):
             tmsg = _(umsg).replace('$count', str(num))
             # polpulate with the number
             umsg  = umsg.replace('$count', str(num))
-        
+
         # TRANSLATORS: Fill in all plural forms. The parenthesized expression '{num}'
         # is replaced by the actual number of updates available at runtime.
         # For the singular form, you can replace '{num}' with 'one'.
@@ -1809,7 +1841,7 @@ def popup_msg(num):
         # msgstr[0] -> singular form: use 'one new update' or '{num} new update'.
         # msgstr[1] -> plural form: use '{num} new updates'.
         nmsg = ngettext('You have {num} new update available', 'You have {num} new updates available', num)
-        
+
         # new translated plurals msg
         nmsg = nmsg.format(num=num)
         # new untranslated plurals msg
@@ -1817,13 +1849,13 @@ def popup_msg(num):
             numsg = 'You have {num} new update available'.format(num=num)
         else:
             numsg = 'You have {num} new updates available'.format(num=num)
-        
+
     # check we have translations of the plurals msg
     if nmsg not in numsg:
         # yep, translated - we take the new plurals msg
         msg = nmsg
     else:
-        # check we have translated old non-plurals msg  
+        # check we have translated old non-plurals msg
         if tmsg not in umsg:
             # yep, so we take the old translated one
             msg = tmsg
@@ -1846,16 +1878,16 @@ def apt_dpkg_is_locked():
             """
 
     locks = locks.strip().split()
-    
+
     from shutil import which
     path = which("pkexec")
     if path:
         sudo = "pkexec"
     else:
         sudo = "sudo"
-    
+
     cmd = f"{sudo} /usr/bin/lslocks --noheadings --notruncate --output PATH".split()
-    
+
     lslocks = subprocess.run(cmd, capture_output=True, text=True).stdout
     lslocks = lslocks.strip().split()
 
