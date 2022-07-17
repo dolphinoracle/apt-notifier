@@ -38,9 +38,11 @@ class AptNotifierConfig:
         home = pwd.getpwuid(int(logid))[5]
         self.__home = home
 
+        self.__user_conf_file = {}
         for dist in [ "antiX", "MX-Linux" ]:
-            self.__conf_files += f"{home}/.config/{dist}/apt-notifier.conf\n"
-        
+            #self.__conf_files += f"{home}/.config/{dist}/apt-notifier.conf\n"
+            self.__user_conf_file[dist] = f"{home}/.config/{dist}/apt-notifier.conf"
+
         self.__config_defaults="""
 #---------------------------------
 # default section (build-in)
@@ -126,7 +128,7 @@ upgrade_auto_close_timeout   = 10
 # check for updates:
 # check_for_updates_interval in seconds: min. 15 max. 21600 (= 6h )
 check_for_updates_interval        = 15
-# forced check even if packages cache has not changed, disable 0, max 60  
+# forced check even if packages cache has not changed, disable 0, max 60
 # defaults to 20, which is 20 * 15s = 5min
 check_for_updates_force_counter   = 20
 
@@ -166,7 +168,7 @@ domain                   = antiX
                 g = glob(x)
                 g.sort()
                 self.__config_file_list.extend(g)
-                
+
         self.__config_domain = self.config_domain()
         self.__config = self.config_parser()
 
@@ -183,14 +185,17 @@ domain                   = antiX
     def config_domain(self):
         if os.path.isfile('/etc/mx-version'):
             self.__config_domain='MX'
+            self.__config_dist='MX-Linux'
         elif os.path.isfile('/etc/antix-version'):
             self.__config_domain='antiX'
+            self.__config_dist='antiX'
         elif os.path.isfile('/etc/lsb-release'):
             try:
                 with open('/etc/lsb-release', 'r') as f:
                     lines  = f.read().splitlines()
                     line   = list(map(lambda x: x.strip(), filter(lambda x: 'DISTRIB_ID=' in x, lines)))
                     self.__config_domain = list(map(lambda x: (x.split('=')), line))[0][1]
+                    self.__config_dist = self.__config_domain
             except:
                 self.__config_domain = 'DEFAULT'
         else:
@@ -202,27 +207,49 @@ domain                   = antiX
         conpar.read_string(self.__config_defaults)
         default = dict(list((k.replace('-','_'), v) for (k,v) in conpar['DEFAULT'].items()))
         default = dict(list((k.lower(), v) for (k,v) in default.items()))
+
         try:
             conpar.read(self.__config_file_list)
             conpar.read_string(self.__config_defaults)
         except Exception as e:
             print(e, file = sys.stderr)
+
+        home = self.__home
+        dist = self.__config_dist
+        domain = self.__config_domain
+
+        user_config_file = f"{home}/.config/{dist}/apt-notifier.conf"
+        user_config = f"[{domain}]\n"
+        if os.path.exists(user_config_file):
+            try:
+                with open(user_config_file, 'r') as f:
+                    user_config += f.read()
+            except:
+                pass
+
+        try:
+            conpar.read_string(user_config)
+        except Exception as e:
+            print(f"Error: In user config file '{user_config_file}'")
+            print(f">>>: Config items ignored!")
+            print(e, file = sys.stderr)
+            pass
+
         try:
             res = dict(list((k.replace('-','_'), v) for (k,v) in conpar[self.__config_domain].items()))
         except:
             res = default
-        
+
         #res = dict(list((k.lower(), v) for (k,v) in res.items()))
         #res = { k.lower():res[k] for k in res.keys() }
-        
-        home = self.__home
-        
+
+
         single_quote = "'"
         double_quote = '"'
         strip_chars = f"{whitespace}{single_quote}{double_quote}"
         dollar_sign = "$"
         back_quote = "`"
-        
+
         # sanity check
         #res = { k.lower():res[k].split('#')[0].strip(strip_chars).replace(dollar_sign,'').replace(back_quote,'').replace(double_quote,'').replace(single_quote,'') for k in res.keys() }
         res = { k.lower():res[k].split('#')[0].strip(strip_chars).replace(back_quote,'').replace(double_quote,'').replace(single_quote,'') for k in res.keys() }
@@ -234,13 +261,13 @@ domain                   = antiX
                 rv = v.replace("$HOME/", f"{home}/")
             elif v.startswith("~/"):
                 rv = v.replace("~/", f"{home}/")
-            rv = rv.replace(dollar_sign, "")     
+            rv = rv.replace(dollar_sign, "")
             if v.lower() in ['true', 'yes']:
                 rv = True
             elif v.lower() in ['false', 'no']:
                 rv = False
             res[k] = rv
-        
+
         self.__config = res
         return self.__config
 
