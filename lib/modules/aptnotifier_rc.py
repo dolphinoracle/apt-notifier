@@ -14,6 +14,8 @@ class AptNotifierRC:
     """
     def __init__(self):
         self.__changed = False
+        self.__dont_show = False
+        self.__dont_show_line = "[DontShowIcon] #Remove this entry if you want the apt-notify icon to show even when there are no upgrades available"
         self.__rc_file = environ.get('HOME') + '/.config/apt-notifierrc'
         self.__default_settings = {
             'LeftClick': 'ViewAndUpgrade',
@@ -57,6 +59,7 @@ class AptNotifierRC:
             with open(self.rc_file, 'r') as f:
                 apt_notifier_rc =  f.read()
                 if '[DontShowIcon]' in apt_notifier_rc:
+                    self.__dont_show = True
                     update_rc = True
                 import string
                 if any(w in apt_notifier_rc for w in string.whitespace):
@@ -109,6 +112,8 @@ class AptNotifierRC:
         settings =  self.__settings
         debug_p(f"write settings: {settings}")
         outlist=list(map(lambda x: x + '=' + settings[x], sorted(settings)))
+        if self.__dont_show:
+            outlist = [ self.__dont_show_line ] + outlist
         out = '\n'.join(outlist)
         out += '\n'
         with open(self.rc_file, 'w') as f:

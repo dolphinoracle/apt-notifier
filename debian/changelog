@@ -1,3 +1,12 @@
+apt-notifier (22.07.02mx21) mx; urgency=medium
+
+  * add icon-set defaults to user config items with example section
+  * re-enable "hide until updates available" feature after reboot/logout
+  * reduce number of monitored files to trigger update check
+  * use mxpi-launcher to start mx-packageinstaller
+
+ -- fehlix <fehlix@mxlinux.org>  Sun, 17 Jul 2022 18:58:09 -0400
+
 apt-notifier (22.07.01mx21) mx; urgency=medium
 
   * enhance sanity check of config items

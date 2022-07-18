@@ -5,6 +5,12 @@
 
 ME=${0##*/}
 
+if [ "${DEBUG_APT_NOTIFIER-false}" = "true" ]; then
+	LOG=/tmp/apt_notifier_debug_${ME}_$(logname).log
+	echo "$(date -R) : $0 $@" >> $LOG
+	exec > >( tee -a "$LOG") 2>&1  
+fi
+
 usage() {
     cat<<USAGE
     

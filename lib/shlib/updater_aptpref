@@ -40,7 +40,7 @@ if [ -n "$PinnedPreferences" ]; then
        # placed into a temporary directory
        # ckeck we have a standard xdg-runtime-dir
        # owned by the user and read/writable
-       EUID=$(id -u)
+       : ${EUID:=$(id -u)}
        _TD=/run/user/${EUID}
        if [ -d $_TD ] && [ -O $_TD ] && [ -r $_TD ] && [ -w $_TD ]; then
            tmpdir_apt_pref=$_TD

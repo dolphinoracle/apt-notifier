@@ -1,6 +1,6 @@
  dpkg-buildpackage -us -uc -ui -sa
 dpkg-buildpackage: info: source package apt-notifier
-dpkg-buildpackage: info: source version 22.07.01mx21
+dpkg-buildpackage: info: source version 22.07.02mx21
 dpkg-buildpackage: info: source distribution mx
 dpkg-buildpackage: info: source changed by fehlix <fehlix@mxlinux.org>
  dpkg-source --before-build .
@@ -20,8 +20,8 @@ make[1]: Leaving directory '/tmpdir/BUILD/apt-notifier'
    dh_clean
  dpkg-source -b .
 dpkg-source: info: using source format '3.0 (native)'
-dpkg-source: info: building apt-notifier in apt-notifier_22.07.01mx21.tar.xz
-dpkg-source: info: building apt-notifier in apt-notifier_22.07.01mx21.dsc
+dpkg-source: info: building apt-notifier in apt-notifier_22.07.02mx21.tar.xz
+dpkg-source: info: building apt-notifier in apt-notifier_22.07.02mx21.dsc
  debian/rules build
 dh build 
    dh_update_autotools_config
@@ -29,7 +29,7 @@ dh build
    debian/rules override_dh_auto_build
 make[1]: Entering directory '/tmpdir/BUILD/apt-notifier'
 bash scripts/build_version
-BUILD_VERSION=22.07.01mx21
+BUILD_VERSION=22.07.02mx21
 /usr/bin/make -C icons
 make[2]: Entering directory '/tmpdir/BUILD/apt-notifier/icons'
 make icons ...
@@ -216,21 +216,21 @@ make[1]: Leaving directory '/tmpdir/BUILD/apt-notifier'
    debian/rules override_dh_builddeb
 make[1]: Entering directory '/tmpdir/BUILD/apt-notifier'
 dh_builddeb -- -Z xz
-dpkg-deb: building package 'apt-notifier' in '../apt-notifier_22.07.01mx21_all.deb'.
+dpkg-deb: building package 'apt-notifier' in '../apt-notifier_22.07.02mx21_all.deb'.
 make[1]: Leaving directory '/tmpdir/BUILD/apt-notifier'
  dpkg-genbuildinfo
- dpkg-genchanges -sa >../apt-notifier_22.07.01mx21_amd64.changes
+ dpkg-genchanges -sa >../apt-notifier_22.07.02mx21_amd64.changes
 dpkg-genchanges: info: including full source code in upload
  dpkg-source --after-build .
 dpkg-buildpackage: info: full upload; Debian-native package (full source is included)
 Now signing changes and any dsc files...
- signfile dsc apt-notifier_22.07.01mx21.dsc fehlix <fehlix@mxlinux.org>
+ signfile dsc apt-notifier_22.07.02mx21.dsc fehlix <fehlix@mxlinux.org>
 
- fixup_buildinfo apt-notifier_22.07.01mx21.dsc apt-notifier_22.07.01mx21_amd64.buildinfo
- signfile buildinfo apt-notifier_22.07.01mx21_amd64.buildinfo fehlix <fehlix@mxlinux.org>
+ fixup_buildinfo apt-notifier_22.07.02mx21.dsc apt-notifier_22.07.02mx21_amd64.buildinfo
+ signfile buildinfo apt-notifier_22.07.02mx21_amd64.buildinfo fehlix <fehlix@mxlinux.org>
 
- fixup_changes dsc apt-notifier_22.07.01mx21.dsc apt-notifier_22.07.01mx21_amd64.changes
- fixup_changes buildinfo apt-notifier_22.07.01mx21_amd64.buildinfo apt-notifier_22.07.01mx21_amd64.changes
- signfile changes apt-notifier_22.07.01mx21_amd64.changes fehlix <fehlix@mxlinux.org>
+ fixup_changes dsc apt-notifier_22.07.02mx21.dsc apt-notifier_22.07.02mx21_amd64.changes
+ fixup_changes buildinfo apt-notifier_22.07.02mx21_amd64.buildinfo apt-notifier_22.07.02mx21_amd64.changes
+ signfile changes apt-notifier_22.07.02mx21_amd64.changes fehlix <fehlix@mxlinux.org>
 
 Successfully signed dsc, buildinfo, changes files

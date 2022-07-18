@@ -1,7 +1,7 @@
 #! /usr/bin/python3
 # -*- coding: utf-8 -*-
 
-BUILD_VERSION='22.07.01mx21'
+BUILD_VERSION='22.07.02mx21'
 MODULES = "/usr/lib/apt-notifier/modules"
 
 import subprocess
@@ -22,6 +22,8 @@ from PyQt5 import QtWidgets
 from distutils import spawn
 from time import sleep
 from string import Template # for simple string substitution (popup_msg...)
+
+import datetime
 
 import gettext
 gettext.bindtextdomain('apt-notifier', '/usr/share/locale')
@@ -47,7 +49,6 @@ if os.path.isdir(runtime_dir):
     DISMISS_CHECK = f"{runtime_dir}/{NOTIFICATION_DISMISS_CHECK}.chk"
 else:
     DISMISS_CHECK = f"/tmp/{NOTIFICATION_DISMISS_CHECK}-{UNAME}.chk"
-
 
 
 def set_package_manager():
@@ -330,6 +331,7 @@ def set_globals():
         use_dbus_notifications = False
     debug_p(f"set_globals(): UseNotifier: {UseNotifier}")
     debug_p(f"set_globals(): use_dbus_notifications: {use_dbus_notifications}")
+    notification_icon = conf.get('notify_icon')
 
 # Check for updates, using subprocess.Popen
 def check_updates():
@@ -428,20 +430,6 @@ def check_updates():
         return
 
     """
-    Check package manager changed
-    """
-    package_manager_changed = False
-    if package_manager_path and show_package_manager and not os.path.exists(package_manager_path):
-        debug_p(f"[455] set_package_manager(): {package_manager_path}")
-        package_manager_changed = True
-    elif not package_manager_path and ( show_muon or show_synaptic) and package_manager_is_available():
-        debug_p(f"[457] set_package_manager(): {package_manager_path}")
-        package_manager_changed = True
-    debug_p(f"[495] package_manager_changed: {package_manager_changed}  ************")
-    debug_p(f"[495] package_manager_path: {package_manager_path}  ************")
-    debug_p(f"[495] show_package_manager: {show_package_manager}  ************")
-
-    """
     Get a hash of files and directories we are watching
     """
     WatchedFilesAndDirsHashNow = get_stat_hash_of_watched_files_and_dirs()
@@ -452,7 +440,7 @@ def check_updates():
         the call to check_updates wasn't initiated by user
     then don't bother checking for updates.
     """
-    debug_p(f"[435] Hash: {WatchedFilesAndDirsHashNow} == {WatchedFilesAndDirsHashPrevious}")
+    debug_p(f"Hash: {WatchedFilesAndDirsHashNow} == {WatchedFilesAndDirsHashPrevious}")
     if WatchedFilesAndDirsHashNow == WatchedFilesAndDirsHashPrevious:
         hash_changed = False
         if not Check_for_Updates_by_User:
@@ -461,8 +449,7 @@ def check_updates():
                 if AvailableUpdates == '':
                     AvailableUpdates = '0'
                 Check_for_Updates_by_User = False
-                if not package_manager_changed:
-                    return
+                return
     else:
         hash_changed = True
 
@@ -484,7 +471,6 @@ def check_updates():
 
     Force_Check_Counter = 1
 
-
     from aptnotifier_apt import Apt
     apt = Apt()
 
@@ -492,7 +478,7 @@ def check_updates():
     # if Unattended-Upgrades are enabled
     # AND apt-get upgrade & dist-upgrade output are the same
 
-    debug_p(f"[475] unattended_upgrade_enabled(): {unattended_upgrade_enabled()}")
+    debug_p(f"unattended_upgrade_enabled(): {unattended_upgrade_enabled()}")
     if unattended_upgrade_enabled():
         if not short_run:
             AvailableUpdates = apt.available_updates(['-d','-u']).split(':')
@@ -507,7 +493,8 @@ def check_updates():
             AvailableUpdates = apt.available_updates(['-c'])
     AvailableUpdates = str(AvailableUpdates)
 
-    """
+    debug_p(f"check_updates AvailableUpdates {AvailableUpdates}")
+    debug_p(f"check_updates AvailableUpdates {AvailableUpdatesPrevious} -> {AvailableUpdates}")
     package_manager_changed = False
     if package_manager_path and show_package_manager and not os.path.exists(package_manager_path):
         debug_p(f"[455] set_package_manager(): {package_manager_path}")
@@ -515,7 +502,6 @@ def check_updates():
     elif not package_manager_path and ( show_muon or show_synaptic) and package_manager_is_available():
         debug_p(f"[457] set_package_manager(): {package_manager_path}")
         package_manager_changed = True
-    """
 
     """
     elif AvailableUpdates == AvailableUpdatesPrevious:
@@ -527,26 +513,6 @@ def check_updates():
         AvailableUpdatesPrevious = AvailableUpdates
         return
     """
-
-    debug_p(f"[511] check_updates AvailableUpdates {AvailableUpdatesPrevious} -> {AvailableUpdates}")
-    debug_p(f"[512] package_manager_changed: {package_manager_changed}  ************")
-    debug_p(f"[513] vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv")
-
-    if AvailableUpdates == AvailableUpdatesPrevious:
-        # don't  change icon and tooltip if previous availables have not changed
-        # or available updates are still avaialble
-        AvailableUpdatesPrevious = AvailableUpdates
-        if not package_manager_changed:
-            return
-        # FEHLER WAR HERE
-    #elif AvailableUpdates != "0" and AvailableUpdatesPrevious != "0" and AvailableUpdatesPrevious != "":
-    #    AvailableUpdatesPrevious = AvailableUpdates
-    #    if not package_manager_changed:
-    #        return
-
-    debug_p(f"[525]check_updates AvailableUpdates {AvailableUpdates}")
-    debug_p(f"[526]check_updates AvailableUpdates {AvailableUpdatesPrevious} -> {AvailableUpdates}")
-    debug_p(f"[527] package_manager_changed: {package_manager_changed}  ************")
 
     # Alter both Icon and Tooltip, depending on updates available or not
     if AvailableUpdates == "":
@@ -569,6 +535,7 @@ def check_updates():
                 #tool_tip = tooltip_0_updates_available
                 AptIcon.setToolTip(tooltip_msg(0))
     else:
+        set_icon_show()
         if AvailableUpdates == "1" and ( AvailableUpdates != AvailableUpdatesPrevious or  package_manager_changed):
             debug_p(f'if AvailableUpdates == "1":')
             AptIcon.setIcon(NewUpdatesIcon)
@@ -786,7 +753,6 @@ def aptnotifier_prefs():
 
     initialize_aptnotifier_prefs()
     global use_dbus_notifications
-    global use_dbus_notifications_pref
     debug_p(f"*** use_dbus_notifications={use_dbus_notifications}")
 
     sys.path.append("/usr/lib/apt-notifier/modules")
@@ -831,8 +797,6 @@ def aptnotifier_prefs():
 
     if show_switch_desktop_notifications:
         form.use_dbus_notifications = use_dbus_notifications
-
-    use_dbus_notifications_pref = use_dbus_notifications
 
     form.icon_look                = apt_notifier_rc.icon_look
     form.left_click               = apt_notifier_rc.left_click
@@ -921,8 +885,6 @@ def aptnotifier_prefs():
 
     Check_for_Updates_by_User = True
     systray_icon_show()
-    if use_dbus_notifications_pref != use_dbus_notifications:
-         restart_apt_notifier()
 
 
 def apt_history():
@@ -957,12 +919,15 @@ def start_package_installer():
     cleanup_notifier_run()
 
     # find usable package installer
-    pl = "mx-packageinstaller packageinstaller"
+    pl = "mxpi-launcher mx-packageinstaller packageinstaller"
     from shutil import which
     package_installer = list(filter( lambda x: which(x), pl.split()))[0]
     if not package_installer:
         return
-    cmd = f"su-to-root -X -c {package_installer}"
+    if "mxpi-launcher" in package_installer:
+        cmd = package_installer
+    else:
+        cmd = f"su-to-root -X -c {package_installer}"
     debug_p(f"start_package_installer(): {cmd}")
     ret = run_with_restart(cmd)
     debug_p(f"start_package_installer(): run_with_restart{cmd}: {ret}")
@@ -1067,6 +1032,14 @@ def set_noicon():
     AptIcon.hide()
     icon_config = "donot show"
 
+def set_icon_show():
+    """Remove a '[DontShowIcon]' line into  ~/.config/apt-notifierrc."""
+    #cmd = "sed -i -e '/[[]DontShowIcon[]]/d'
+    cmd = ['sed', '-i', '-e', '/[[]DontShowIcon[]]/d', rc_file_name]
+    run = subprocess.run(cmd)
+    global icon_config
+    icon_config = "show"
+
 def add_rightclick_actions():
     global show_package_manager
     global package_manager_enabled
@@ -1089,7 +1062,6 @@ def add_rightclick_actions():
         if show_package_manager and package_manager_enabled:
             if package_manager_path:
                 ActionsMenu.addSeparator()
-                debug_p(f"ActionsMenu.addAction(Upgrade_using_package_manager).triggered.connect( start_package_manager0 )")
                 ActionsMenu.addAction(Upgrade_using_package_manager).triggered.connect( start_package_manager0 )
     else:
         if show_package_manager and package_manager_enabled:
@@ -1116,7 +1088,6 @@ def add_rightclick_actions():
 
     if show_package_manager_help and package_manager_enabled:
         if package_manager_path:
-            debug_p(f"add_package_manager_help_action()")
             add_package_manager_help_action()
 
     add_aptnotifier_prefs_action()
@@ -1436,7 +1407,6 @@ def dbus_closed():
     except: return
     #AptIcon.setToolTip(tool_tip)
 
-
 def upgrade_cb(n, action):
     assert action == "upgrade"
     #print("You clicked 'View and Upgrade'")
@@ -1539,7 +1509,6 @@ def use_notifier():
     debug_p(f"use_notifier(): UseNotifier: {UseNotifier}")
     return UseNotifier
 
-#-----------
 def show_popup(popup_title, popup_msg, popup_icon):
     UseNotifier = use_notifier()
     #print( "UseNotifier:" + UseNotifier)
@@ -1577,7 +1546,7 @@ def another_apt_notifer_is_running():
     # python3
     # count running apt-notifier processes of current user
 
-    cmd = [ 'pgrep', '-u' , euid , '-c', '-f',  '/usr/bin/python3 /usr/lib/apt-notifier/modules/apt-notifier.py' ]
+    cmd = [ 'pgrep', '-u' , euid , '-c', '-f',  'python3 /usr/lib/apt-notifier/modules/apt-notifier.py' ]
     # check max n times whether another apt-notifer is running
     N=3
     delay = 0.7
@@ -1676,7 +1645,6 @@ def unattended_upgrade_enabled():
     else:
         return False
 
-
 def get_stat_hash_of_watched_files_and_dirs():
     import os
     import hashlib
@@ -1684,29 +1652,53 @@ def get_stat_hash_of_watched_files_and_dirs():
     WatchedFiles = """
         /etc/apt/apt.conf
         /etc/apt/preferences
-        /var/lib/apt/lists/partial
+        /etc/apt/sources.list
         /var/cache/apt/pkgcache.bin
+        /var/lib/dpkg/status
         /var/lib/synaptic/preferences
     """
+    watched_files = [ x for x in WatchedFiles.split() if os.path.isfile(x) ]
 
+    '''
+    # changed to reduced list below
     WatchedDirs = """
         /etc/apt/apt.conf.d
         /etc/apt/preferences.d
+        /etc/apt/sources.list.d
         /var/lib/apt
         /var/lib/apt/lists
+        /var/lib/apt/lists/partial
         /var/lib/dpkg
         /var/cache/apt
     """
+    '''
 
-    dirs = WatchedDirs.split()
-    files = WatchedFiles.split()
+    '''
+    # not used
+    conf_dirs = """
+        /etc/apt/apt.conf.d
+    """
+    conf_files = [ f"{d}/{x}" for d in conf_dirs.split() for x in sorted(os.listdir(d)) if os.path.isfile(f"{d}/{x}") ]
+    '''
 
-    files_in_dirs = [ dir + '/' + x for dir  in dirs for x in os.listdir(dir) ]
+    pref_dirs = """
+        /etc/apt/preferences.d
+    """
+    pref_files = [ f"{d}/{x}" for d in pref_dirs.split() for x in sorted(os.listdir(d)) if os.path.isfile(f"{d}/{x}") ]
 
-    all_files = dirs + files + files_in_dirs
+    sources_list_dir = "/etc/apt/sources.list.d"
+    sources_list_files = sorted([ f"{sources_list_dir}/{x}" for x in os.listdir(sources_list_dir) if x.endswith((".list", ".sources"))])
 
-    list_of_files = sorted(all_files)
+    apt_lists_dir = "/var/lib/apt/lists"
+    release_files = sorted([ f"{apt_lists_dir}/{x}" for x in os.listdir(apt_lists_dir) if x.endswith("Release") ])
 
+    #list_of_files =  watched_files + sources_list_files + release_files + pref_files
+    list_of_files =  watched_files + sources_list_files + pref_files
+
+    strings_of_times = list( map( lambda c : f"{c.st_mtime}:{c.st_ctime}", [ os.stat(x) for x in list_of_files ]))
+
+    """
+    # orig:
     tuples_of_times = [ ( os.stat(x).st_mtime, os.stat(x).st_ctime )
                         for x in list_of_files if os.path.exists(x)]
 
@@ -1714,11 +1706,22 @@ def get_stat_hash_of_watched_files_and_dirs():
     list_of_times = [ str(time)
                       for tuple in tuples_of_times
                       for time in tuple ]
+    """
 
-    msg = '\n'.join(list_of_times)
+    msg = '\n'.join(strings_of_times)
 
     md5 = hashlib.md5(msg.encode(encoding='ascii')).hexdigest()
+    now = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
 
+    # hash_debug
+    try:
+        if os.environ['DEBUG_APT_NOTIFIER'] == "true":
+            with open(f"/tmp/apt_notifier_debug_updater_count_{UNAME}.log", "a") as f:
+                f.write(f"Debug[{now}] timestamp hash of {len(strings_of_times)} files: {md5} \n")
+                lof =  "\n".join(list_of_files)
+                f.write(f"{lof}\n")
+    except:
+        pass
     return md5
 
 def set_debug():
@@ -1942,7 +1945,7 @@ def main():
 
     set_globals()
     set_package_manager()
-    debug_p(f"main: set_package_manager() : {package_manager}")
+    debug_p(f"set_package_manager() : {package_manager}")
     initialize_aptnotifier_prefs()
     AptNotify = QtWidgets.QApplication(sys.argv)
     AptIcon = QtWidgets.QSystemTrayIcon()
