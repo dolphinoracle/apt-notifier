@@ -5,19 +5,19 @@ Format: 1.0
 Source: apt-notifier
 Binary: apt-notifier
 Architecture: all source
-Version: 22.07.01mx21
+Version: 22.07.02mx21
 Checksums-Md5:
- ecfc49c46dee635a526081aac0f14e69 1561 apt-notifier_22.07.01mx21.dsc
- 91016e010c4cf636824bd49b5c83274b 228588 apt-notifier_22.07.01mx21_all.deb
+ f061af17b69aa8b4b24c981126f54200 1561 apt-notifier_22.07.02mx21.dsc
+ 1cfcf9b47f9d5742c3cb36e2b2828f0d 229672 apt-notifier_22.07.02mx21_all.deb
 Checksums-Sha1:
- e5bd146b3bcfbfbd18d28b8ad0fe0dda29b928cf 1561 apt-notifier_22.07.01mx21.dsc
- 79c8160ff89a1ab748f71d6d7fa4be998b10763e 228588 apt-notifier_22.07.01mx21_all.deb
+ 995214275f6f60f7e3ac57d2d2a0114f01ee067a 1561 apt-notifier_22.07.02mx21.dsc
+ 8b16e2af00d27d1263f77accd062ffd7f6bebe80 229672 apt-notifier_22.07.02mx21_all.deb
 Checksums-Sha256:
- 6683226c87a488c55a87904f9a74035273f5cd20c077b114da25547dfa7702ce 1561 apt-notifier_22.07.01mx21.dsc
- caadeac701b6bc616a57387f0114fe1ca639e2c711b63cbc36e757a06f9eb791 228588 apt-notifier_22.07.01mx21_all.deb
+ 404c6d121b2ae05f08042e963c14bafa0c48dd2c9de3b3ad297cb8ea20f7735e 1561 apt-notifier_22.07.02mx21.dsc
+ 8acb43e30069672d08e8a4c2c076c5617993e8cba324c184405ae0e1afc92362 229672 apt-notifier_22.07.02mx21_all.deb
 Build-Origin: Debian
 Build-Architecture: amd64
-Build-Date: Sun, 10 Jul 2022 02:23:31 +0200
+Build-Date: Mon, 18 Jul 2022 01:50:58 +0200
 Build-Tainted-By:
  merged-usr-via-aliased-dirs
  usr-local-has-libraries
@@ -31,9 +31,9 @@ Installed-Build-Depends:
  automake (= 1:1.16.3-2),
  autopoint (= 0.21-4),
  autotools-dev (= 20180224.1+nmu1),
- base-files (= 11.1+deb11u3),
+ base-files (= 11.1+deb11u4),
  base-passwd (= 3.5.51),
- bash (= 5.1-2+b3),
+ bash (= 5.1-2+deb11u1),
  binutils (= 2.35.2-2),
  binutils-common (= 2.35.2-2),
  binutils-x86-64-linux-gnu (= 2.35.2-2),
@@ -62,7 +62,7 @@ Installed-Build-Depends:
  dictionaries-common (= 1.28.4),
  diffutils (= 1:3.7-5),
  dmsetup (= 2:1.02.175-2.1),
- dpkg (= 1.20.10),
+ dpkg (= 1.20.11),
  dpkg-dev (= 1.20.11),
  dwz (= 0.13+20210201-1),
  emacsen-common (= 3.0.4),
@@ -178,8 +178,8 @@ Installed-Build-Depends:
  libfftw3-double3 (= 3.3.8-2),
  libfile-stripnondeterminism-perl (= 1.12.0-1),
  libfontconfig1 (= 2.13.1-4.2),
- libfreetype6 (= 2.10.4+dfsg-1),
- libfribidi0 (= 1.0.8-2),
+ libfreetype6 (= 2.10.4+dfsg-1+deb11u1),
+ libfribidi0 (= 1.0.8-2+deb11u1),
  libgc1 (= 1:8.0.4-3),
  libgcc-10-dev (= 10.2.1-6),
  libgcc-s1 (= 10.2.1-6),
@@ -192,7 +192,7 @@ Installed-Build-Depends:
  libglib2.0-0 (= 2.66.8-1),
  libglibmm-2.4-1v5 (= 2.64.2-2),
  libgmp10 (= 2:6.2.1+dfsg-1+deb11u1),
- libgnutls30 (= 3.7.1-5),
+ libgnutls30 (= 3.7.1-5+deb11u1),
  libgomp1 (= 10.2.1-6),
  libgpg-error0 (= 1.38-2),
  libgraphite2-3 (= 1.3.14-1),
@@ -308,7 +308,7 @@ Installed-Build-Depends:
  libsoup-gnome2.4-1 (= 2.72.0-2),
  libsoup2.4-1 (= 2.72.0-2),
  libsqlite3-0 (= 3.34.1-3),
- libssl1.1 (= 1.1.1n-0+deb11u2),
+ libssl1.1 (= 1.1.1n-0+deb11u3),
  libstdc++-10-dev (= 10.2.1-6),
  libstdc++6 (= 10.2.1-6),
  libsub-override-perl (= 0.09-2),
@@ -369,7 +369,7 @@ Installed-Build-Depends:
  libz3-4 (= 4.8.10-1),
  libzip4 (= 1.7.3-1),
  libzstd1 (= 1.4.8+dfsg-2.1),
- linux-libc-dev (= 5.10.120-1),
+ linux-libc-dev (= 5.10.127-1),
  login (= 1:4.8.1-1),
  lsb-base (= 11.1.0),
  m4 (= 1.4.18-5),
@@ -386,7 +386,7 @@ Installed-Build-Depends:
  netbase (= 6.3),
  netpbm (= 2:10.0-15.4),
  ntpsec (= 1.2.0+dfsg1-4),
- openssl (= 1.1.1n-0+deb11u2),
+ openssl (= 1.1.1n-0+deb11u3),
  passwd (= 1:4.8.1-1),
  patch (= 2.7.6-7),
  perl (= 5.32.1-4+deb11u2),
@@ -434,22 +434,22 @@ Installed-Build-Depends:
 Environment:
  DEB_BUILD_OPTIONS="parallel=4"
  LANG="en_US.UTF-8"
- SOURCE_DATE_EPOCH="1657314179"
+ SOURCE_DATE_EPOCH="1658098689"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQJHBAEBCgAxFiEEgRnC8/wKXRM2S0xLL1ePG6ydm+kFAmLKHAwTHGZlaGxpeEBt
-eGxpbnV4Lm9yZwAKCRAvV48brJ2b6da3D/9hCRvEF5cm1uXaIttBGUquNPUQpUMZ
-JyjScsCkv+AYkwwZRbMhnxhgaoMk3mE4nO99GfXmJO9cIzg8aWf3KOxG4NcbW+70
-uOSDaeEMFBSWmRBWDDZoCw2aw072P1FzDZG8MCbhfrhW2wVaq8p956g9K4iSp9TM
-7y7mZiQLy13ONOx+Eo3pU7IoqxOjWBZJPBAEkarPYE7sobtR+ikaIcLhH0zqhdj2
-67xWGyYvYf3YPN0/9+pHpw442srY4a2NajM70d1cq/Yl+Wl70fkDwFpzpkAaurN8
-TI/yZUGi8SIgm7uCEN/I4zlKys+LwGkLyX0DQvKhhDe8JcglKl0QSKe+jGc99gMY
-KayVf3KAVlaIo78aPk5z6exOL50jeQgKJDoGuzGDf2wsRrCQbIxOUbLf5IFMfYE1
-faZfpciQFHw2EBhrl/BiALeQmS/64bmF5hEAeqbNr4uXwB7da9bUePmWb+ooWD/N
-Q1WXVIbqwzJ5GCikO9W8/alqpU9Nwt+0z7K0bID3sxXn+buYtQxJBIgh0lBiBDYF
-AJU0BYUmqFfqBFC1DPgYBUSBHVvIBWjdUdXn0Zjmvkz85M9xJQHIm8crluadnxUt
-XZgKp96UxhVtntXjE3NMBzQvRcHNkZez3kSRv0/5AeWtK1GtpPjRggVmsh2kT1rd
-gRjLFBI1+GFFRw==
-=+s7V
+iQJHBAEBCgAxFiEEgRnC8/wKXRM2S0xLL1ePG6ydm+kFAmLUoGMTHGZlaGxpeEBt
+eGxpbnV4Lm9yZwAKCRAvV48brJ2b6Ud6D/9bG2JFAhUWVhNWmLr99ZbtlAbekILy
+x5ecygwC4vuev3Brn9mlcWVKyg46WWQaJJ/gWxqn+Fff598gUPUm4qOnAxZfaRlh
+uR283hHUUCfGv4UtImi26mp+TzCzDJpy8/CehxMYCS3Zio36J7dDkHR2DjxcoAKs
+/ieoKWqU1lysMTbyufSSnpSGbv+GNJuKpmlIoHiOe4ybdgb/JxOxX6UfUlUpCfrf
+9JG4e/BL3rv/wqLJ9cM6aE9nupXkguNwm1Y/g+STLZ8ZOYXsSj/BeY3+bOJTmtXG
+OFrd7rRxT2s4b0nr/rAeUEGDskxfuOL8/+ivV1lQJEB6Jg+h4jrbsXxON4tPCFpK
+4l4dC5fDkV9NH/TvW/FkmmYcMc3+wJPYBryiGW7fV/4j9ZeXFsVj/ieZLSgDEkKE
+v5cIRiC3XsOr9sRQ5UKk//jw+lNZT+Cd5yFCWjTY4VBxxGj4Upxkj0zH/08vtisi
+FQu18GjCKzpLxj40feKFHAczyZ+xTldepflMYjtbShT+SbT1Ka4xn/8R6gtlVV6U
+q3j6thbTkyTGJLwdXR8ZYqDflROWD3RhWGSsWyZp+3RcEjDuuhEksd4MI2S5n+hp
+oSpQlWdyJDp5SYxQSp/BQag3z24tMUFyKgLMXXchJQffLGx7Ph+Ydg8TXkvADSTW
+kxDklsrmQXxV4Q==
+=OsPm
 -----END PGP SIGNATURE-----
