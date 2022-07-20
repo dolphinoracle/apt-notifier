@@ -173,7 +173,7 @@ msgstr "Dieses Shellfenster darf jetzt geschlossen werden"
 
 #: apt-notifier.py:324 apt-notifier.py:330 apt-notifier.py:1282
 msgid "press any key to close"
-msgstr "drücken Sie eine beliebige Taste um zu schliessen"
+msgstr "drücken Sie eine beliebige Taste um zu schließen"
 
 #: apt-notifier.py:325
 msgid "Unneeded packages are installed that can be removed."
