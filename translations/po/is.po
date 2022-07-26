@@ -2,11 +2,11 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the apt-notifier package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 # Translators:
-# anticapitalista <anticapitalista@riseup.net>, 2017
-# Sveinn í Felli <sv1@fellsnet.is>, 2021
-#
+# Sveinn í Felli <sv1@fellsnet.is>, 2022
+# Dolphin Oracle <dolphinoracle@gmail.com>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
@@ -14,12 +14,12 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-28 02:38+0100\n"
 "PO-Revision-Date: 2017-05-11 01:14+0000\n"
-"Last-Translator: Sveinn í Felli <sv1@fellsnet.is>, 2021\n"
+"Last-Translator: Dolphin Oracle <dolphinoracle@gmail.com>, 2022\n"
 "Language-Team: Icelandic (https://www.transifex.com/anticapitalista/teams/10162/is/)\n"
-"Language: is\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: is\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
 
 msgid "$count new updates available"
@@ -91,7 +91,8 @@ msgstr ""
 msgid "MX Package Installer"
 msgstr ""
 
-#. The autostart desktop entry name will be shown within the list of autostart entries.
+#. The autostart desktop entry name will be shown within the list of autostart
+#. entries.
 #. The desktop entry name will be displayed within the menu.
 msgid "MX Updater"
 msgstr "Uppfæra MX"
@@ -132,7 +133,9 @@ msgstr "Hætta"
 msgid "Reload"
 msgstr ""
 
-msgid "Reload the package information to become informed about new, removed or upgraded software packages. (apt-get update)"
+msgid ""
+"Reload the package information to become informed about new, removed or "
+"upgraded software packages. (apt-get update)"
 msgstr ""
 
 msgid "Restart MX Updater"
@@ -141,7 +144,9 @@ msgstr ""
 msgid "Running apt-get autoremove, if you are unsure type 'n'."
 msgstr ""
 
-msgid "Switches the type of Upgrade that will be performed, alternating back and forth between 'full upgrade' and 'basic upgrade'."
+msgid ""
+"Switches the type of Upgrade that will be performed, alternating back and "
+"forth between 'full upgrade' and 'basic upgrade'."
 msgstr ""
 
 msgid "Synaptic Help"
@@ -274,12 +279,13 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANSLATORS:
-#. The autostart desktop entry comment will be shown within 'Session and Startup' (Autosart).
+#. This autostart desktop entry comment will be shown within 'Session and
+#. Startup' (Autostart).
 msgid "An applet to show updates"
 msgstr ""
 
 #. TRANSLATORS:
-#. The desktop entry comment will be shown within the menu.
+#. This desktop entry comment will be shown within the menu.
 msgid "Re-enable MX Updater icon even if no updates available"
 msgstr ""
 

@@ -2,13 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the apt-notifier package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 # Translators:
-# James Bowlin <BitJam@gmail.com>, 2018
-# xmaus <49bolgen@gmail.com>, 2018
-# anticapitalista <anticapitalista@riseup.net>, 2021
-# heskjestad <cato@heskjestad.xyz>, 2021
-#
+# James Bowlin <BitJam@gmail.com>, 2022
+# anticapitalista <anticapitalista@riseup.net>, 2022
+# xmaus <49bolgen@gmail.com>, 2022
+# heskjestad <cato@heskjestad.xyz>, 2022
+# Dolphin Oracle <dolphinoracle@gmail.com>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
@@ -16,12 +17,12 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-28 02:38+0100\n"
 "PO-Revision-Date: 2017-05-11 01:14+0000\n"
-"Last-Translator: heskjestad <cato@heskjestad.xyz>, 2021\n"
+"Last-Translator: Dolphin Oracle <dolphinoracle@gmail.com>, 2022\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/anticapitalista/teams/10162/nb/)\n"
-"Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "$count new updates available"
@@ -49,7 +50,8 @@ msgid "Auto-update log(s)"
 msgstr "Loggfil(er) for auto-oppdatering"
 
 msgid "Automatically answer 'yes' to all prompts during full/basic upgrade"
-msgstr "Svar automatisk «ja» til alle forespørsler under full/enkel oppgradering"
+msgstr ""
+"Svar automatisk «ja» til alle forespørsler under full/enkel oppgradering"
 
 msgid "Automatically answer 'yes' to all prompts during upgrade"
 msgstr "Svar automatisk «ja» til alle forespørsler under oppgraderingen "
@@ -67,7 +69,9 @@ msgid "Close"
 msgstr "Lukk"
 
 msgid "For a less detailed view see 'Auto-update dpkg log(s)' or 'History'."
-msgstr "Se «dpkgs loggfil(er) for auto-oppdatering» eller «Historikk» for mindre detaljert visning."
+msgstr ""
+"Se «dpkgs loggfil(er) for auto-oppdatering» eller «Historikk» for mindre "
+"detaljert visning."
 
 msgid "Hide until updates available"
 msgstr "Skjul fram til oppdateringer blir tilgjengelige"
@@ -79,7 +83,8 @@ msgid "Icons"
 msgstr "Ikoner"
 
 msgid "Left-click behaviour   (when updates are available)"
-msgstr "Hva skal skje ved venstreklikk   (når oppgraderinger er tilgjengelige)"
+msgstr ""
+"Hva skal skje ved venstreklikk   (når oppgraderinger er tilgjengelige)"
 
 msgid "License"
 msgstr "Lisens"
@@ -93,7 +98,8 @@ msgstr "MX Auto-oppdatering – loggede oppgraderinger"
 msgid "MX Package Installer"
 msgstr "MX Verktøy for pakkeinstallering"
 
-#. The autostart desktop entry name will be shown within the list of autostart entries.
+#. The autostart desktop entry name will be shown within the list of autostart
+#. entries.
 #. The desktop entry name will be displayed within the menu.
 msgid "MX Updater"
 msgstr "MX Oppdateringsverktøy"
@@ -105,10 +111,12 @@ msgid "MX Updater preferences"
 msgstr "Innstillinger for MX Oppdateringsverktøy"
 
 msgid "MX Updater--View and Upgrade, previewing: basic upgrade"
-msgstr "MX Oppdateringsverktøy – vis og oppgrader, forhåndsviser enkel oppgradering"
+msgstr ""
+"MX Oppdateringsverktøy – vis og oppgrader, forhåndsviser enkel oppgradering"
 
 msgid "MX Updater--View and Upgrade, previewing: full upgrade"
-msgstr "MX Oppdateringsverktøy – vis og oppgrader, forhåndsviser full oppgradering"
+msgstr ""
+"MX Oppdateringsverktøy – vis og oppgrader, forhåndsviser full oppgradering"
 
 msgid "No logs found."
 msgstr "Fant ingen logger."
@@ -134,8 +142,12 @@ msgstr "Avslutt"
 msgid "Reload"
 msgstr "Last inn på nytt"
 
-msgid "Reload the package information to become informed about new, removed or upgraded software packages. (apt-get update)"
-msgstr "Last inn pakkeinformasjonen på nytt for å få info om nye, fjernede eller oppgraderte programvarepakker (apt-get update)"
+msgid ""
+"Reload the package information to become informed about new, removed or "
+"upgraded software packages. (apt-get update)"
+msgstr ""
+"Last inn pakkeinformasjonen på nytt for å få info om nye, fjernede eller "
+"oppgraderte programvarepakker (apt-get update)"
 
 msgid "Restart MX Updater"
 msgstr "Start MX Oppdateringsverktøy på nytt"
@@ -143,14 +155,19 @@ msgstr "Start MX Oppdateringsverktøy på nytt"
 msgid "Running apt-get autoremove, if you are unsure type 'n'."
 msgstr "Kjører apt-get autoremove. Trykk «n» hvis du er usikker."
 
-msgid "Switches the type of Upgrade that will be performed, alternating back and forth between 'full upgrade' and 'basic upgrade'."
-msgstr "Endrer type oppgradering som skal utføres. Velg mellom full og enkel oppgradering."
+msgid ""
+"Switches the type of Upgrade that will be performed, alternating back and "
+"forth between 'full upgrade' and 'basic upgrade'."
+msgstr ""
+"Endrer type oppgradering som skal utføres. Velg mellom full og enkel "
+"oppgradering."
 
 msgid "Synaptic Help"
 msgstr "Hjelpetekst for Synaptic"
 
 msgid "Tray applet to notify of system and application updates"
-msgstr "Program i systemkurven som varsler om oppdatering av system og programvare"
+msgstr ""
+"Program i systemkurven som varsler om oppdatering av system og programvare"
 
 msgid "Unattended-upgrades"
 msgstr "Oppgradering uten tilstedeværelse"
@@ -195,7 +212,8 @@ msgstr[0] "Det er {num} ny oppdatering tilgjengelig"
 msgstr[1] "Det er {num} nye oppdateringer tilgjengelige"
 
 msgid "automatically close terminal window when full/basic upgrade complete"
-msgstr "lukk automatisk terminalvinduet etter at full/enkel oppgradering er fullført"
+msgstr ""
+"lukk automatisk terminalvinduet etter at full/enkel oppgradering er fullført"
 
 msgid "automatically close terminal window when upgrade complete"
 msgstr "lukk automatisk terminalvinduet etter at oppgraderingen er fullført"
@@ -249,7 +267,9 @@ msgid "this terminal window can now be closed"
 msgstr "dette terminalvinduet kan nå lukkes"
 
 msgid "update automatically   (will not add new or remove existing packages)"
-msgstr "automatisk oppdatering   (legger ikke til nye pakker eller fjerner eksisterende)"
+msgstr ""
+"automatisk oppdatering   (legger ikke til nye pakker eller fjerner "
+"eksisterende)"
 
 msgid "upgrade"
 msgstr "oppgrader"
@@ -276,17 +296,20 @@ msgstr[0] "{num} ny oppdatering tilgjengelig"
 msgstr[1] "{num} nye oppdateringer tilgjengelige"
 
 #. TRANSLATORS:
-#. The autostart desktop entry comment will be shown within 'Session and Startup' (Autosart).
+#. This autostart desktop entry comment will be shown within 'Session and
+#. Startup' (Autostart).
 msgid "An applet to show updates"
 msgstr "Et panelprogram som viser oppdateringer"
 
 #. TRANSLATORS:
-#. The desktop entry comment will be shown within the menu.
+#. This desktop entry comment will be shown within the menu.
 msgid "Re-enable MX Updater icon even if no updates available"
-msgstr "Aktiver ikonet til MX Oppdateringsverktøyet selv om det ikke er tilgjengelig noen oppdateringer"
+msgstr ""
+"Aktiver ikonet til MX Oppdateringsverktøyet selv om det ikke er tilgjengelig"
+" noen oppdateringer"
 
 msgid "Enable Auto-update"
-msgstr ""
+msgstr "Slå på automatisk oppdatering"
 
 msgid "Disable Auto-update"
-msgstr ""
+msgstr "Slå av automatisk oppdatering"

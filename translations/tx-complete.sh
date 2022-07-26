@@ -1,12 +1,18 @@
 #!/bin/bash
 
-LOG=tx-complete.log
-LINGUAS=po/LINGUAS
+#-----------------------------------
+PODIR=po
+
+LOG=$PODIR/TX-COMPLETE.LOG
+LINGUAS=$PODIR/LINGUAS
+
+EN_POT=apt-notifier.pot
+#-----------------------------------
 
 printf '%6s\t\t%4s\t%7s\t\t%s\t\t%s\n' "Nr." "Cnt." "Compl." "Code" "Language" | tee $LOG
 printf '%6s\t\t%4s\t%7s\t\t%s\t\t%s\n' "---" "----" "------" "----" "--------" | tee -a $LOG
 
-for P in po/*.po ; do 
+for P in $PODIR/*.po ; do 
     L=${P##*/}; 
     L=${L%.po};
     ll=${L%%_*}
@@ -15,7 +21,7 @@ for P in po/*.po ; do
     L="$(printf '%-8s' ${L})";
 
     Z=$(msggrep --no-wrap -T -e '..' $P  | grep -c msgid); 
-    T=$(grep -c msgid en.pot) ; 
+    T=$(grep -c msgid $EN_POT) ; 
     ((T--))
     ((Z>0)) && ((Z--))
     printf '\t%4d\t%6d%%    \t%s\t%s%s\n' $Z $((Z*100/T)) "$L" \

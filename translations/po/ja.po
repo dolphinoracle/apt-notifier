@@ -2,13 +2,15 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the apt-notifier package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 # Translators:
-# night1ynx <night1ynxd@gmail.com>, 2017
-# Geoff Gigg <geoffgigg@hotmail.com>, 2020
-# ふうせん Fu-sen. | BALLOON a.k.a. Fu-sen., 2021
-# Green, 2021
-#
+# BALLOON | FU-SEN, 2022
+# night1ynx <night1ynxd@gmail.com>, 2022
+# Transifex Bot <>, 2022
+# Geoff Gigg <geoffgigg@hotmail.com>, 2022
+# Green, 2022
+# Dolphin Oracle <dolphinoracle@gmail.com>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
@@ -16,12 +18,12 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-28 02:38+0100\n"
 "PO-Revision-Date: 2017-05-11 01:14+0000\n"
-"Last-Translator: Green, 2021\n"
+"Last-Translator: Dolphin Oracle <dolphinoracle@gmail.com>, 2022\n"
 "Language-Team: Japanese (https://www.transifex.com/anticapitalista/teams/10162/ja/)\n"
-"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "$count new updates available"
@@ -93,7 +95,8 @@ msgstr "MX 自動更新 -- 自動更新ログビューア"
 msgid "MX Package Installer"
 msgstr "MX パッケージ・インストーラー"
 
-#. The autostart desktop entry name will be shown within the list of autostart entries.
+#. The autostart desktop entry name will be shown within the list of autostart
+#. entries.
 #. The desktop entry name will be displayed within the menu.
 msgid "MX Updater"
 msgstr "MX アップデーター"
@@ -134,8 +137,11 @@ msgstr "終了"
 msgid "Reload"
 msgstr "再読込"
 
-msgid "Reload the package information to become informed about new, removed or upgraded software packages. (apt-get update)"
-msgstr "新規、削除あるいはアップグレードされたパッケージについて情報が得られるように、パッケージ情報を再読込してください。(apt-get update)"
+msgid ""
+"Reload the package information to become informed about new, removed or "
+"upgraded software packages. (apt-get update)"
+msgstr ""
+"新規、削除あるいはアップグレードされたパッケージについて情報が得られるように、パッケージ情報を再読込してください。(apt-get update)"
 
 msgid "Restart MX Updater"
 msgstr "MX アップデーターの再起動"
@@ -143,7 +149,9 @@ msgstr "MX アップデーターの再起動"
 msgid "Running apt-get autoremove, if you are unsure type 'n'."
 msgstr "APT 自動削除を実行しますが、よく分からないのなら 'n' をタイプしてください。"
 
-msgid "Switches the type of Upgrade that will be performed, alternating back and forth between 'full upgrade' and 'basic upgrade'."
+msgid ""
+"Switches the type of Upgrade that will be performed, alternating back and "
+"forth between 'full upgrade' and 'basic upgrade'."
 msgstr "実行するアップグレードのタイプを切り替えます。基本アップグレードとフルアップグレードを交互に切り替えられます。"
 
 msgid "Synaptic Help"
@@ -274,17 +282,18 @@ msgid_plural "{num} new updates available"
 msgstr[0] "{num} 新しい更新が利用可能です"
 
 #. TRANSLATORS:
-#. The autostart desktop entry comment will be shown within 'Session and Startup' (Autosart).
+#. This autostart desktop entry comment will be shown within 'Session and
+#. Startup' (Autostart).
 msgid "An applet to show updates"
 msgstr "アップデート通知アプリ"
 
 #. TRANSLATORS:
-#. The desktop entry comment will be shown within the menu.
+#. This desktop entry comment will be shown within the menu.
 msgid "Re-enable MX Updater icon even if no updates available"
 msgstr "アップデートがなくてもMXアップデーターのアイコンを再有効化"
 
 msgid "Enable Auto-update"
-msgstr ""
+msgstr "自動更新を有効"
 
 msgid "Disable Auto-update"
-msgstr ""
+msgstr "自動更新を無効"

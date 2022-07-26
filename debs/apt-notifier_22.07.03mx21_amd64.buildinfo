@@ -5,19 +5,19 @@ Format: 1.0
 Source: apt-notifier
 Binary: apt-notifier
 Architecture: all source
-Version: 22.07.02mx21
+Version: 22.07.03mx21
 Checksums-Md5:
- f061af17b69aa8b4b24c981126f54200 1561 apt-notifier_22.07.02mx21.dsc
- 1cfcf9b47f9d5742c3cb36e2b2828f0d 229672 apt-notifier_22.07.02mx21_all.deb
+ 48a44eb10f17cec13281d708cc06682c 1561 apt-notifier_22.07.03mx21.dsc
+ cd8f9de5b79e5c5c5234cd8c5e8fb0cf 230472 apt-notifier_22.07.03mx21_all.deb
 Checksums-Sha1:
- 995214275f6f60f7e3ac57d2d2a0114f01ee067a 1561 apt-notifier_22.07.02mx21.dsc
- 8b16e2af00d27d1263f77accd062ffd7f6bebe80 229672 apt-notifier_22.07.02mx21_all.deb
+ 19974ac913e999c9d8a3f66e89fdb9804d21d365 1561 apt-notifier_22.07.03mx21.dsc
+ 472b468bc60d69df8f60274a47ebaa141f2e4726 230472 apt-notifier_22.07.03mx21_all.deb
 Checksums-Sha256:
- 404c6d121b2ae05f08042e963c14bafa0c48dd2c9de3b3ad297cb8ea20f7735e 1561 apt-notifier_22.07.02mx21.dsc
- 8acb43e30069672d08e8a4c2c076c5617993e8cba324c184405ae0e1afc92362 229672 apt-notifier_22.07.02mx21_all.deb
+ 38d87446e1a614bf002eded81ac5b386084c8e8b03e62956a53b6ca09ea14ffa 1561 apt-notifier_22.07.03mx21.dsc
+ 378c0913d36b06ff0a24beb357b2b5bb7bc5e813c5e0558e90ce42b1bc532392 230472 apt-notifier_22.07.03mx21_all.deb
 Build-Origin: Debian
 Build-Architecture: amd64
-Build-Date: Mon, 18 Jul 2022 01:50:58 +0200
+Build-Date: Tue, 26 Jul 2022 02:57:47 +0200
 Build-Tainted-By:
  merged-usr-via-aliased-dirs
  usr-local-has-libraries
@@ -434,22 +434,22 @@ Installed-Build-Depends:
 Environment:
  DEB_BUILD_OPTIONS="parallel=4"
  LANG="en_US.UTF-8"
- SOURCE_DATE_EPOCH="1658098689"
+ SOURCE_DATE_EPOCH="1658786464"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQJHBAEBCgAxFiEEgRnC8/wKXRM2S0xLL1ePG6ydm+kFAmLUoGMTHGZlaGxpeEBt
-eGxpbnV4Lm9yZwAKCRAvV48brJ2b6Ud6D/9bG2JFAhUWVhNWmLr99ZbtlAbekILy
-x5ecygwC4vuev3Brn9mlcWVKyg46WWQaJJ/gWxqn+Fff598gUPUm4qOnAxZfaRlh
-uR283hHUUCfGv4UtImi26mp+TzCzDJpy8/CehxMYCS3Zio36J7dDkHR2DjxcoAKs
-/ieoKWqU1lysMTbyufSSnpSGbv+GNJuKpmlIoHiOe4ybdgb/JxOxX6UfUlUpCfrf
-9JG4e/BL3rv/wqLJ9cM6aE9nupXkguNwm1Y/g+STLZ8ZOYXsSj/BeY3+bOJTmtXG
-OFrd7rRxT2s4b0nr/rAeUEGDskxfuOL8/+ivV1lQJEB6Jg+h4jrbsXxON4tPCFpK
-4l4dC5fDkV9NH/TvW/FkmmYcMc3+wJPYBryiGW7fV/4j9ZeXFsVj/ieZLSgDEkKE
-v5cIRiC3XsOr9sRQ5UKk//jw+lNZT+Cd5yFCWjTY4VBxxGj4Upxkj0zH/08vtisi
-FQu18GjCKzpLxj40feKFHAczyZ+xTldepflMYjtbShT+SbT1Ka4xn/8R6gtlVV6U
-q3j6thbTkyTGJLwdXR8ZYqDflROWD3RhWGSsWyZp+3RcEjDuuhEksd4MI2S5n+hp
-oSpQlWdyJDp5SYxQSp/BQag3z24tMUFyKgLMXXchJQffLGx7Ph+Ydg8TXkvADSTW
-kxDklsrmQXxV4Q==
-=OsPm
+iQJHBAEBCgAxFiEEgRnC8/wKXRM2S0xLL1ePG6ydm+kFAmLfPAwTHGZlaGxpeEBt
+eGxpbnV4Lm9yZwAKCRAvV48brJ2b6XvnD/9jStciwibv8lQyl7iNrC0EO/G7ZX6J
+OVKhpd15n7K7AcHPwKcocXYYh+JmBmbHxUr5nE2NtYgYtZQ5+AofTojfidCGGsND
+1s4lbZLHUN2WhhElnc/Ipbi2MCDlGsiePTwB3MBRVtj8c/Fj6r0ngZUqDFY2NLBE
+yYYKmBr5347zGdpBh/SH34Tw4oNdgKW+7SPqa6i3fmA88ZvUAtH0k3uOdTjAF4gD
+r/9uZK/o26u4cht8621VURjz30HTJGuOg+T6O4iWwceh+Bej3EhqYrMtE9rCIqPS
+UNXPFtL8PkBx1ICqCt+k1FIEQgGS1+gkvyJ5MmSnIlqSt9zlRU0zFBmnwKdzJjUV
+OnhTH8+zJIcHCg0uqGlS8jkEQGNX33vuY974dTfZFWntD9rq3nRhI/twRtGdk4UL
+CY3RLjtYIDIuqGNFKeRd3kaCTdUxl3FCzv+HGU7WEJVdymQITGyZte7ePXPfpYSQ
+W7bzOGWnP8NWn+viGUxzhaZUg5kGsVgfIuLybLHH4143lKs89IyzUr8X2roWZv9Q
+Bv6eyPcD5FoqIXeYCrjwpHMVzqq+kfqAeDUUvtn/gtVOrRkP26caTgfOiER//+45
+0uPS9jYdr8exyYLb955BsyRyNEXItw4q9oipoHkyGN+0r79AatkD2rCoQ1EmviyH
+S+U72Qh9SVG78w==
+=bm9K
 -----END PGP SIGNATURE-----

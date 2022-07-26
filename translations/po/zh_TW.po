@@ -2,12 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the apt-notifier package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 # Translators:
-# anticapitalista <anticapitalista@riseup.net>, 2018
-# Ivan <personal@live.hk>, 2020
-# 51a7f875c7adb3c4cb4a6f61503cfd15_7a37073 <f7fcf63a7b49480fab3c45eae0d471e7_672708>, 2021
-#
+# anticapitalista <anticapitalista@riseup.net>, 2022
+# Ivan <personal@live.hk>, 2022
+# 51a7f875c7adb3c4cb4a6f61503cfd15_7a37073 <f7fcf63a7b49480fab3c45eae0d471e7_672708>, 2022
+# Dolphin Oracle <dolphinoracle@gmail.com>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
@@ -15,12 +16,12 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-28 02:38+0100\n"
 "PO-Revision-Date: 2017-05-11 01:14+0000\n"
-"Last-Translator: 51a7f875c7adb3c4cb4a6f61503cfd15_7a37073 <f7fcf63a7b49480fab3c45eae0d471e7_672708>, 2021\n"
+"Last-Translator: Dolphin Oracle <dolphinoracle@gmail.com>, 2022\n"
 "Language-Team: Chinese (Taiwan) (https://www.transifex.com/anticapitalista/teams/10162/zh_TW/)\n"
-"Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh_TW\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "$count new updates available"
@@ -92,7 +93,8 @@ msgstr ""
 msgid "MX Package Installer"
 msgstr "MX 軟體安裝工具"
 
-#. The autostart desktop entry name will be shown within the list of autostart entries.
+#. The autostart desktop entry name will be shown within the list of autostart
+#. entries.
 #. The desktop entry name will be displayed within the menu.
 msgid "MX Updater"
 msgstr "MX 更新"
@@ -133,7 +135,9 @@ msgstr "退出"
 msgid "Reload"
 msgstr ""
 
-msgid "Reload the package information to become informed about new, removed or upgraded software packages. (apt-get update)"
+msgid ""
+"Reload the package information to become informed about new, removed or "
+"upgraded software packages. (apt-get update)"
 msgstr ""
 
 msgid "Restart MX Updater"
@@ -142,7 +146,9 @@ msgstr ""
 msgid "Running apt-get autoremove, if you are unsure type 'n'."
 msgstr ""
 
-msgid "Switches the type of Upgrade that will be performed, alternating back and forth between 'full upgrade' and 'basic upgrade'."
+msgid ""
+"Switches the type of Upgrade that will be performed, alternating back and "
+"forth between 'full upgrade' and 'basic upgrade'."
 msgstr ""
 
 msgid "Synaptic Help"
@@ -273,12 +279,13 @@ msgid_plural "{num} new updates available"
 msgstr[0] ""
 
 #. TRANSLATORS:
-#. The autostart desktop entry comment will be shown within 'Session and Startup' (Autosart).
+#. This autostart desktop entry comment will be shown within 'Session and
+#. Startup' (Autostart).
 msgid "An applet to show updates"
 msgstr "顯示更新訊息的小程式"
 
 #. TRANSLATORS:
-#. The desktop entry comment will be shown within the menu.
+#. This desktop entry comment will be shown within the menu.
 msgid "Re-enable MX Updater icon even if no updates available"
 msgstr "即便目前沒有更新，仍然讓 MX 更新的圖示顯示出來"
 

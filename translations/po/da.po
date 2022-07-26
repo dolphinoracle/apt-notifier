@@ -2,10 +2,11 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the apt-notifier package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 # Translators:
-# scootergrisen, 2021
-#
+# scootergrisen, 2022
+# Dolphin Oracle <dolphinoracle@gmail.com>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
@@ -13,12 +14,12 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-28 02:38+0100\n"
 "PO-Revision-Date: 2017-05-11 01:14+0000\n"
-"Last-Translator: scootergrisen, 2021\n"
+"Last-Translator: Dolphin Oracle <dolphinoracle@gmail.com>, 2022\n"
 "Language-Team: Danish (https://www.transifex.com/anticapitalista/teams/10162/da/)\n"
-"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "$count new updates available"
@@ -46,7 +47,8 @@ msgid "Auto-update log(s)"
 msgstr "Automatisk opdatering-log(ge)"
 
 msgid "Automatically answer 'yes' to all prompts during full/basic upgrade"
-msgstr "Svar automatisk 'ja' til alle spørgsmål under fuld/grundlæggende opgradering"
+msgstr ""
+"Svar automatisk 'ja' til alle spørgsmål under fuld/grundlæggende opgradering"
 
 msgid "Automatically answer 'yes' to all prompts during upgrade"
 msgstr "Svar automatisk 'ja' til alle spørgsmål under opgradering"
@@ -64,7 +66,9 @@ msgid "Close"
 msgstr "Luk"
 
 msgid "For a less detailed view see 'Auto-update dpkg log(s)' or 'History'."
-msgstr "Se 'Automatisk opdatering dpkg-log(ge)' eller 'Historik' for en mindre detaljeret visning."
+msgstr ""
+"Se 'Automatisk opdatering dpkg-log(ge)' eller 'Historik' for en mindre "
+"detaljeret visning."
 
 msgid "Hide until updates available"
 msgstr "Skjul indtil der findes opdateringer"
@@ -90,7 +94,8 @@ msgstr "MX Automatisk opdatering  --  unattended-upgrades-logfremviser"
 msgid "MX Package Installer"
 msgstr "MX Pakkeinstallationsprogram"
 
-#. The autostart desktop entry name will be shown within the list of autostart entries.
+#. The autostart desktop entry name will be shown within the list of autostart
+#. entries.
 #. The desktop entry name will be displayed within the menu.
 msgid "MX Updater"
 msgstr "MX Opdatering"
@@ -102,7 +107,8 @@ msgid "MX Updater preferences"
 msgstr "Præferencer for MX Opdatering"
 
 msgid "MX Updater--View and Upgrade, previewing: basic upgrade"
-msgstr "MX Opdatering--Vis og opdater, forhåndsvisning: grundlæggende opgradering"
+msgstr ""
+"MX Opdatering--Vis og opdater, forhåndsvisning: grundlæggende opgradering"
 
 msgid "MX Updater--View and Upgrade, previewing: full upgrade"
 msgstr "MX Opdatering--Vis og opdater, forhåndsvisning: fuld opgradering"
@@ -131,8 +137,12 @@ msgstr "Afslut"
 msgid "Reload"
 msgstr "Genindlæs"
 
-msgid "Reload the package information to become informed about new, removed or upgraded software packages. (apt-get update)"
-msgstr "Genindlæs pakkeinformationen for information om nye, fjernet og opgraderede softwarepakker. (apt-get update)"
+msgid ""
+"Reload the package information to become informed about new, removed or "
+"upgraded software packages. (apt-get update)"
+msgstr ""
+"Genindlæs pakkeinformationen for information om nye, fjernet og opgraderede "
+"softwarepakker. (apt-get update)"
 
 msgid "Restart MX Updater"
 msgstr ""
@@ -140,8 +150,12 @@ msgstr ""
 msgid "Running apt-get autoremove, if you are unsure type 'n'."
 msgstr "Kører apt-get autoremove, tryk 'n' hvis du er i tvivl."
 
-msgid "Switches the type of Upgrade that will be performed, alternating back and forth between 'full upgrade' and 'basic upgrade'."
-msgstr "Skifter den opgraderingstype der skal udføres, skifter frem og tilbage mellem 'fuld opgradering' og 'grundlæggende opgradering'."
+msgid ""
+"Switches the type of Upgrade that will be performed, alternating back and "
+"forth between 'full upgrade' and 'basic upgrade'."
+msgstr ""
+"Skifter den opgraderingstype der skal udføres, skifter frem og tilbage "
+"mellem 'fuld opgradering' og 'grundlæggende opgradering'."
 
 msgid "Synaptic Help"
 msgstr "Synaptic-hjælp"
@@ -192,7 +206,9 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "automatically close terminal window when full/basic upgrade complete"
-msgstr "luk automatisk terminalvinduet når fuld/grundlæggende opgraderingen er gennemført"
+msgstr ""
+"luk automatisk terminalvinduet når fuld/grundlæggende opgraderingen er "
+"gennemført"
 
 msgid "automatically close terminal window when upgrade complete"
 msgstr "luk automatisk terminalvinduet når opgraderingen er gennemført"
@@ -273,14 +289,17 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANSLATORS:
-#. The autostart desktop entry comment will be shown within 'Session and Startup' (Autosart).
+#. This autostart desktop entry comment will be shown within 'Session and
+#. Startup' (Autostart).
 msgid "An applet to show updates"
 msgstr "En applet til at vise opdateringer"
 
 #. TRANSLATORS:
-#. The desktop entry comment will be shown within the menu.
+#. This desktop entry comment will be shown within the menu.
 msgid "Re-enable MX Updater icon even if no updates available"
-msgstr "Genaktivér MX Opdatering-ikonet, selv hvis der ikke findes nogen opdateringer"
+msgstr ""
+"Genaktivér MX Opdatering-ikonet, selv hvis der ikke findes nogen "
+"opdateringer"
 
 msgid "Enable Auto-update"
 msgstr "Aktivér automatisk opdatering"
