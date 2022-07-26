@@ -2,11 +2,12 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the apt-notifier package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 # Translators:
-# Geoff Gigg <geoffgigg@hotmail.com>, 2017
-# Henry Oquist <henryoquist@nomalm.se>, 2021
-#
+# Geoff Gigg <geoffgigg@hotmail.com>, 2022
+# Henry Oquist <henryoquist@nomalm.se>, 2022
+# Dolphin Oracle <dolphinoracle@gmail.com>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
@@ -14,12 +15,12 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-28 02:38+0100\n"
 "PO-Revision-Date: 2017-05-11 01:14+0000\n"
-"Last-Translator: Henry Oquist <henryoquist@nomalm.se>, 2021\n"
+"Last-Translator: Dolphin Oracle <dolphinoracle@gmail.com>, 2022\n"
 "Language-Team: Swedish (https://www.transifex.com/anticapitalista/teams/10162/sv/)\n"
-"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "$count new updates available"
@@ -65,7 +66,9 @@ msgid "Close"
 msgstr "Stäng"
 
 msgid "For a less detailed view see 'Auto-update dpkg log(s)' or 'History'."
-msgstr "För en mindre detaljerad vy se 'Auto-updatering dpkg logg(ar)' eller 'Historik'."
+msgstr ""
+"För en mindre detaljerad vy se 'Auto-updatering dpkg logg(ar)' eller "
+"'Historik'."
 
 msgid "Hide until updates available"
 msgstr "Göm tills uppdateringar är tillgängliga"
@@ -91,7 +94,8 @@ msgstr "MX Auto-update -- obevakade-uppgraderingar loggvisare"
 msgid "MX Package Installer"
 msgstr "MX Paket-installerare"
 
-#. The autostart desktop entry name will be shown within the list of autostart entries.
+#. The autostart desktop entry name will be shown within the list of autostart
+#. entries.
 #. The desktop entry name will be displayed within the menu.
 msgid "MX Updater"
 msgstr "MX Uppdaterare"
@@ -103,10 +107,12 @@ msgid "MX Updater preferences"
 msgstr "MX Uppdaterare preferenser "
 
 msgid "MX Updater--View and Upgrade, previewing: basic upgrade"
-msgstr "MX Uppdaterare--Se och Uppgradera, förhandsgranskning: enkel uppgradering"
+msgstr ""
+"MX Uppdaterare--Se och Uppgradera, förhandsgranskning: enkel uppgradering"
 
 msgid "MX Updater--View and Upgrade, previewing: full upgrade"
-msgstr "MX Uppdaterare--Se och Uppgradera, förhandsgranskning: full uppgradering"
+msgstr ""
+"MX Uppdaterare--Se och Uppgradera, förhandsgranskning: full uppgradering"
 
 msgid "No logs found."
 msgstr "Inga loggar hittade."
@@ -132,8 +138,12 @@ msgstr "Avsluta"
 msgid "Reload"
 msgstr "Läs om"
 
-msgid "Reload the package information to become informed about new, removed or upgraded software packages. (apt-get update)"
-msgstr "Läs om paketinformationen för att få information om nya, borttagna eller uppgraderade programpaket. (apt-get update)"
+msgid ""
+"Reload the package information to become informed about new, removed or "
+"upgraded software packages. (apt-get update)"
+msgstr ""
+"Läs om paketinformationen för att få information om nya, borttagna eller "
+"uppgraderade programpaket. (apt-get update)"
 
 msgid "Restart MX Updater"
 msgstr "Starta om MX Uppdaterare"
@@ -141,14 +151,19 @@ msgstr "Starta om MX Uppdaterare"
 msgid "Running apt-get autoremove, if you are unsure type 'n'."
 msgstr "Kör apt-get autoremove, om du är osäker skriv 'n'."
 
-msgid "Switches the type of Upgrade that will be performed, alternating back and forth between 'full upgrade' and 'basic upgrade'."
-msgstr "Byter typ av Uppgradering som kommer att utföras, fram och tillbaka mellan 'full uppgradering' och 'enkel uppgradering'."
+msgid ""
+"Switches the type of Upgrade that will be performed, alternating back and "
+"forth between 'full upgrade' and 'basic upgrade'."
+msgstr ""
+"Byter typ av Uppgradering som kommer att utföras, fram och tillbaka mellan "
+"'full uppgradering' och 'enkel uppgradering'."
 
 msgid "Synaptic Help"
 msgstr "Synaptic Hjälp"
 
 msgid "Tray applet to notify of system and application updates"
-msgstr "Brickans miniprogram för att meddela om system och program-uppdateringar"
+msgstr ""
+"Brickans miniprogram för att meddela om system och program-uppdateringar"
 
 msgid "Unattended-upgrades"
 msgstr "Oövervakade uppgraderngar"
@@ -193,7 +208,8 @@ msgstr[0] "Du har {num} nya uppdateringar tillgängliga"
 msgstr[1] "Du har {en} ny uppdatering tillgänglig"
 
 msgid "automatically close terminal window when full/basic upgrade complete"
-msgstr "stäng terminalfönster automatiskt när full/enkel uppgradering är färdig"
+msgstr ""
+"stäng terminalfönster automatiskt när full/enkel uppgradering är färdig"
 
 msgid "automatically close terminal window when upgrade complete"
 msgstr "stäng terminalfönster automatiskt när uppgradering är färdig"
@@ -247,7 +263,9 @@ msgid "this terminal window can now be closed"
 msgstr "detta terminalfönster kan nu stängas"
 
 msgid "update automatically   (will not add new or remove existing packages)"
-msgstr "uppdatera automatiskt   (kommer inte att lägga till eller ta bort nuvarande paket)"
+msgstr ""
+"uppdatera automatiskt   (kommer inte att lägga till eller ta bort nuvarande "
+"paket)"
 
 msgid "upgrade"
 msgstr "uppgradera"
@@ -274,14 +292,17 @@ msgstr[0] "{num} nya uppdateringar tillgängliga"
 msgstr[1] "{en} ny uppdatering tillgänglig"
 
 #. TRANSLATORS:
-#. The autostart desktop entry comment will be shown within 'Session and Startup' (Autosart).
+#. This autostart desktop entry comment will be shown within 'Session and
+#. Startup' (Autostart).
 msgid "An applet to show updates"
 msgstr "Ett miniprogram för att visa uppdateringar"
 
 #. TRANSLATORS:
-#. The desktop entry comment will be shown within the menu.
+#. This desktop entry comment will be shown within the menu.
 msgid "Re-enable MX Updater icon even if no updates available"
-msgstr "Återaktivera MX Uppdaterare ikonen även om det inte finns några uppdateringar"
+msgstr ""
+"Återaktivera MX Uppdaterare ikonen även om det inte finns några "
+"uppdateringar"
 
 msgid "Enable Auto-update"
 msgstr "Aktivera Auto-uppdatering"

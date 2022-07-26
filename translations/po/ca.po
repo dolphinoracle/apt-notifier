@@ -2,11 +2,12 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the apt-notifier package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 # Translators:
-# Geoff Gigg <geoffgigg@hotmail.com>, 2017
-# Eduard Selma <selma@tinet.cat>, 2021
-#
+# Geoff Gigg <geoffgigg@hotmail.com>, 2022
+# Eduard Selma <selma@tinet.cat>, 2022
+# Dolphin Oracle <dolphinoracle@gmail.com>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
@@ -14,12 +15,12 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-28 02:38+0100\n"
 "PO-Revision-Date: 2017-05-11 01:14+0000\n"
-"Last-Translator: Eduard Selma <selma@tinet.cat>, 2021\n"
+"Last-Translator: Dolphin Oracle <dolphinoracle@gmail.com>, 2022\n"
 "Language-Team: Catalan (https://www.transifex.com/anticapitalista/teams/10162/ca/)\n"
-"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "$count new updates available"
@@ -47,7 +48,8 @@ msgid "Auto-update log(s)"
 msgstr "Registre(s) d'Auto-update"
 
 msgid "Automatically answer 'yes' to all prompts during full/basic upgrade"
-msgstr "Respon automàticament 'si' a totes les peticions durant l'actualització"
+msgstr ""
+"Respon automàticament 'si' a totes les peticions durant l'actualització"
 
 msgid "Automatically answer 'yes' to all prompts during upgrade"
 msgstr "Respon automàticament 'sí' a totes les qüestions mentre s'actualitza"
@@ -65,7 +67,9 @@ msgid "Close"
 msgstr "Tanca"
 
 msgid "For a less detailed view see 'Auto-update dpkg log(s)' or 'History'."
-msgstr "Per una visualització menys detallada, vegeu 'Registre(s) d'auto-update dpkg' o 'Història'."
+msgstr ""
+"Per una visualització menys detallada, vegeu 'Registre(s) d'auto-update "
+"dpkg' o 'Història'."
 
 msgid "Hide until updates available"
 msgstr "Amaga fins que hi hagi actualitzacions disponibles"
@@ -83,15 +87,19 @@ msgid "License"
 msgstr "Llicència"
 
 msgid "MX Auto-update  --  unattended-upgrades dpkg log viewer"
-msgstr "MX Auto-update - Visualitzador dels registres d'actualitzacions dpkg automàtiques"
+msgstr ""
+"MX Auto-update - Visualitzador dels registres d'actualitzacions dpkg "
+"automàtiques"
 
 msgid "MX Auto-update  --  unattended-upgrades log viewer"
-msgstr "MX Auto-update  Visualitzador dels registres d'actualitzacions automàtiques"
+msgstr ""
+"MX Auto-update  Visualitzador dels registres d'actualitzacions automàtiques"
 
 msgid "MX Package Installer"
 msgstr "MX Package Installer"
 
-#. The autostart desktop entry name will be shown within the list of autostart entries.
+#. The autostart desktop entry name will be shown within the list of autostart
+#. entries.
 #. The desktop entry name will be displayed within the menu.
 msgid "MX Updater"
 msgstr "MX Updater"
@@ -106,7 +114,8 @@ msgid "MX Updater--View and Upgrade, previewing: basic upgrade"
 msgstr "MX Updater--View and Upgrade, previsualització: actualització bàsica"
 
 msgid "MX Updater--View and Upgrade, previewing: full upgrade"
-msgstr "MX Updater--View and Upgrade, previsualització: actualització completa"
+msgstr ""
+"MX Updater--View and Upgrade, previsualització: actualització completa"
 
 msgid "No logs found."
 msgstr "No he trobat registres."
@@ -132,8 +141,12 @@ msgstr "Surt"
 msgid "Reload"
 msgstr "Refresca"
 
-msgid "Reload the package information to become informed about new, removed or upgraded software packages. (apt-get update)"
-msgstr "Refresqueu la informació dels paquets per a informar-vos de paquets de programari nous, eliminats o actualitzats. (apt-get update)"
+msgid ""
+"Reload the package information to become informed about new, removed or "
+"upgraded software packages. (apt-get update)"
+msgstr ""
+"Refresqueu la informació dels paquets per a informar-vos de paquets de "
+"programari nous, eliminats o actualitzats. (apt-get update)"
 
 msgid "Restart MX Updater"
 msgstr "Torna a iniciar MX Updater"
@@ -141,14 +154,20 @@ msgstr "Torna a iniciar MX Updater"
 msgid "Running apt-get autoremove, if you are unsure type 'n'."
 msgstr "Executant apt-get autoremove, si no esteu segurs entreu 'n'."
 
-msgid "Switches the type of Upgrade that will be performed, alternating back and forth between 'full upgrade' and 'basic upgrade'."
-msgstr "Commuta el tipus d'actualització que es farà, alternant entre 'actualització bàsica' i 'actualització completa'."
+msgid ""
+"Switches the type of Upgrade that will be performed, alternating back and "
+"forth between 'full upgrade' and 'basic upgrade'."
+msgstr ""
+"Commuta el tipus d'actualització que es farà, alternant entre 'actualització"
+" bàsica' i 'actualització completa'."
 
 msgid "Synaptic Help"
 msgstr "Ajuda de Synaptic"
 
 msgid "Tray applet to notify of system and application updates"
-msgstr "Miniaplicació de plafó per notificar d'actualitzacions d'aplicacions i sistema."
+msgstr ""
+"Miniaplicació de plafó per notificar d'actualitzacions d'aplicacions i "
+"sistema."
 
 msgid "Unattended-upgrades"
 msgstr "Actualitzacions desateses"
@@ -193,10 +212,13 @@ msgstr[0] "Teniu (num) noves actualitzacions disponible(s)"
 msgstr[1] "Teniu (num) actualitzacions disponibles"
 
 msgid "automatically close terminal window when full/basic upgrade complete"
-msgstr "tanca el terminal automàticament quan s'acaba l'actualització bàsica/completa"
+msgstr ""
+"tanca el terminal automàticament quan s'acaba l'actualització "
+"bàsica/completa"
 
 msgid "automatically close terminal window when upgrade complete"
-msgstr "tanca automàticament la finestra del terminal en acabar l'actualització"
+msgstr ""
+"tanca automàticament la finestra del terminal en acabar l'actualització"
 
 msgid "basic upgrade"
 msgstr "actualització bàsica"
@@ -205,7 +227,8 @@ msgid "basic upgrade complete (or was canceled)"
 msgstr "s'ha acabat l'actualització bàsica (o s'ha cancel·lat)"
 
 msgid "check for autoremovable packages after full/basic upgrade"
-msgstr "cerca paquets autoeliminables després de l'actualització bàsica/completa"
+msgstr ""
+"cerca paquets autoeliminables després de l'actualització bàsica/completa"
 
 msgid "classic"
 msgstr "clàssic"
@@ -247,7 +270,9 @@ msgid "this terminal window can now be closed"
 msgstr "ara podeu tancar la finestra"
 
 msgid "update automatically   (will not add new or remove existing packages)"
-msgstr "actualitza automàticament (no afegirà paquets nous ni n'eliminarà els existents)"
+msgstr ""
+"actualitza automàticament (no afegirà paquets nous ni n'eliminarà els "
+"existents)"
 
 msgid "upgrade"
 msgstr "actualitza"
@@ -274,14 +299,17 @@ msgstr[0] "{num} actualitzacions disponibles"
 msgstr[1] "{num} actualitzacions disponibles"
 
 #. TRANSLATORS:
-#. The autostart desktop entry comment will be shown within 'Session and Startup' (Autosart).
+#. This autostart desktop entry comment will be shown within 'Session and
+#. Startup' (Autostart).
 msgid "An applet to show updates"
 msgstr "Una aplicació per mostrar les actualitzacions"
 
 #. TRANSLATORS:
-#. The desktop entry comment will be shown within the menu.
+#. This desktop entry comment will be shown within the menu.
 msgid "Re-enable MX Updater icon even if no updates available"
-msgstr "Reactiva la icona de MX Updater encara que no hi hagi actualitzacions disponibles"
+msgstr ""
+"Reactiva la icona de MX Updater encara que no hi hagi actualitzacions "
+"disponibles"
 
 msgid "Enable Auto-update"
 msgstr "Activa l'actualització automàtica"

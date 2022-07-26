@@ -2,14 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the apt-notifier package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 # Translators:
-# Geoff Gigg <geoffgigg@hotmail.com>, 2017
-# anticapitalista <anticapitalista@riseup.net>, 2018
-# Marcin Karpezo <marcin@karpezo.pl>, 2018
-# Przemek P <ppjg@dami.pl>, 2019
-# MX Linux Polska <mxlinuxpl@gmail.com>, 2021
-#
+# Przemek P <ppjg@dami.pl>, 2022
+# Marcin Karpezo <marcin@karpezo.pl>, 2022
+# Geoff Gigg <geoffgigg@hotmail.com>, 2022
+# MX Linux Polska <mxlinuxpl@gmail.com>, 2022
+# Dolphin Oracle <dolphinoracle@gmail.com>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
@@ -17,12 +17,12 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-28 02:38+0100\n"
 "PO-Revision-Date: 2017-05-11 01:14+0000\n"
-"Last-Translator: MX Linux Polska <mxlinuxpl@gmail.com>, 2021\n"
+"Last-Translator: Dolphin Oracle <dolphinoracle@gmail.com>, 2022\n"
 "Language-Team: Polish (https://www.transifex.com/anticapitalista/teams/10162/pl/)\n"
-"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: pl\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 msgid "$count new updates available"
@@ -50,10 +50,13 @@ msgid "Auto-update log(s)"
 msgstr "Dziennik(i) automatycznej aktualizacji"
 
 msgid "Automatically answer 'yes' to all prompts during full/basic upgrade"
-msgstr "automatycznie odpowiedz 'tak' na wszystkie monity podczas pełnej/podstawowej aktualizacji"
+msgstr ""
+"automatycznie odpowiedz 'tak' na wszystkie monity podczas pełnej/podstawowej"
+" aktualizacji"
 
 msgid "Automatically answer 'yes' to all prompts during upgrade"
-msgstr "Automatycznie odpowiedz 'tak' na wszystkie monity podczas aktualizacji"
+msgstr ""
+"Automatycznie odpowiedz 'tak' na wszystkie monity podczas aktualizacji"
 
 msgid "Cancel"
 msgstr "Anuluj"
@@ -68,7 +71,9 @@ msgid "Close"
 msgstr "Zamknij"
 
 msgid "For a less detailed view see 'Auto-update dpkg log(s)' or 'History'."
-msgstr "Aby uzyskać mniej szczegółowy widok, wybierz \"Dziennik(i) automatycznej aktualizacji dpkg\" lub \"Historia\"."
+msgstr ""
+"Aby uzyskać mniej szczegółowy widok, wybierz \"Dziennik(i) automatycznej "
+"aktualizacji dpkg\" lub \"Historia\"."
 
 msgid "Hide until updates available"
 msgstr "Ukryj, dopóki aktualizacje nie będą dostępne"
@@ -80,21 +85,27 @@ msgid "Icons"
 msgstr "Ikony"
 
 msgid "Left-click behaviour   (when updates are available)"
-msgstr "Zachowanie lewego przycisku myszy   (gdy dostępne są nowe aktualizacje)"
+msgstr ""
+"Zachowanie lewego przycisku myszy   (gdy dostępne są nowe aktualizacje)"
 
 msgid "License"
 msgstr "Licencja"
 
 msgid "MX Auto-update  --  unattended-upgrades dpkg log viewer"
-msgstr "Automatyczna aktualizacja MX - przeglądarka dziennika aktualizacji bez nadzoru dpkg"
+msgstr ""
+"Automatyczna aktualizacja MX - przeglądarka dziennika aktualizacji bez "
+"nadzoru dpkg"
 
 msgid "MX Auto-update  --  unattended-upgrades log viewer"
-msgstr "Automatyczna aktualizacja MX - przeglądarka dziennika aktualizacji bez nadzoru"
+msgstr ""
+"Automatyczna aktualizacja MX - przeglądarka dziennika aktualizacji bez "
+"nadzoru"
 
 msgid "MX Package Installer"
 msgstr "MX Instalator pakietów"
 
-#. The autostart desktop entry name will be shown within the list of autostart entries.
+#. The autostart desktop entry name will be shown within the list of autostart
+#. entries.
 #. The desktop entry name will be displayed within the menu.
 msgid "MX Updater"
 msgstr "MX Aktualizacje"
@@ -106,7 +117,8 @@ msgid "MX Updater preferences"
 msgstr "Ustawienia MX Aktualizacje"
 
 msgid "MX Updater--View and Upgrade, previewing: basic upgrade"
-msgstr "MX Aktualizacje--Wyświetl i zaktualizuj, podgląd: podstawowa aktualizacja"
+msgstr ""
+"MX Aktualizacje--Wyświetl i zaktualizuj, podgląd: podstawowa aktualizacja"
 
 msgid "MX Updater--View and Upgrade, previewing: full upgrade"
 msgstr "MX Aktualizacje--Wyświetl i zaktualizuj, podgląd: pełna aktualizacja"
@@ -135,8 +147,12 @@ msgstr "Zakończ"
 msgid "Reload"
 msgstr "Odśwież"
 
-msgid "Reload the package information to become informed about new, removed or upgraded software packages. (apt-get update)"
-msgstr "Odśwież bazę informacji o pakietach, aby uzyskać informacje o nowych, usuniętych lub zaktualizowanych pakietach oprogramowania. (apt-get update)"
+msgid ""
+"Reload the package information to become informed about new, removed or "
+"upgraded software packages. (apt-get update)"
+msgstr ""
+"Odśwież bazę informacji o pakietach, aby uzyskać informacje o nowych, "
+"usuniętych lub zaktualizowanych pakietach oprogramowania. (apt-get update)"
 
 msgid "Restart MX Updater"
 msgstr "Uruchom ponownie MX Aktualizacje"
@@ -144,8 +160,12 @@ msgstr "Uruchom ponownie MX Aktualizacje"
 msgid "Running apt-get autoremove, if you are unsure type 'n'."
 msgstr "Uruchamianie apt-get autoremove, jeśli nie jesteś pewien, wpisz 'n'."
 
-msgid "Switches the type of Upgrade that will be performed, alternating back and forth between 'full upgrade' and 'basic upgrade'."
-msgstr "Przełącza rodzaj aktualizacji, która będzie wykonywana, na przemian pomiędzy \"pełną aktualizacją\" i \"podstawową aktualizacją\"."
+msgid ""
+"Switches the type of Upgrade that will be performed, alternating back and "
+"forth between 'full upgrade' and 'basic upgrade'."
+msgstr ""
+"Przełącza rodzaj aktualizacji, która będzie wykonywana, na przemian pomiędzy"
+" \"pełną aktualizacją\" i \"podstawową aktualizacją\"."
 
 msgid "Synaptic Help"
 msgstr "Pomoc Synaptic"
@@ -198,7 +218,9 @@ msgstr[2] "Masz {num} nowych dostępnych aktualizacji."
 msgstr[3] "Masz {num} nowych dostępnych aktualizacji."
 
 msgid "automatically close terminal window when full/basic upgrade complete"
-msgstr "automatycznie zamyka okno terminala po zakończeniu pełnej/podstawowej aktualizacji"
+msgstr ""
+"automatycznie zamyka okno terminala po zakończeniu pełnej/podstawowej "
+"aktualizacji"
 
 msgid "automatically close terminal window when upgrade complete"
 msgstr "Automatycznie zamyka okno terminala po zakończeniu aktualizacji"
@@ -210,7 +232,9 @@ msgid "basic upgrade complete (or was canceled)"
 msgstr "Podstawowa aktualizacja została zakończona (lub została anulowana)."
 
 msgid "check for autoremovable packages after full/basic upgrade"
-msgstr "sprawdź pakiety do automatycznego usunięcia po pełnej/podstawowej aktualizacji"
+msgstr ""
+"sprawdź pakiety do automatycznego usunięcia po pełnej/podstawowej "
+"aktualizacji"
 
 msgid "classic"
 msgstr "klasyczne"
@@ -252,7 +276,9 @@ msgid "this terminal window can now be closed"
 msgstr "To okno terminala można teraz zamknąć"
 
 msgid "update automatically   (will not add new or remove existing packages)"
-msgstr "aktualizuj automatycznie   (nie doda nowych lub nie usunie istniejących pakietów)"
+msgstr ""
+"aktualizuj automatycznie   (nie doda nowych lub nie usunie istniejących "
+"pakietów)"
 
 msgid "upgrade"
 msgstr "Aktualizuj"
@@ -281,14 +307,17 @@ msgstr[2] "{num} nowych dostępnych aktualizacji"
 msgstr[3] "{num} nowych dostępnych aktualizacji"
 
 #. TRANSLATORS:
-#. The autostart desktop entry comment will be shown within 'Session and Startup' (Autosart).
+#. This autostart desktop entry comment will be shown within 'Session and
+#. Startup' (Autostart).
 msgid "An applet to show updates"
 msgstr "Aplet do pokazywania aktualizacji"
 
 #. TRANSLATORS:
-#. The desktop entry comment will be shown within the menu.
+#. This desktop entry comment will be shown within the menu.
 msgid "Re-enable MX Updater icon even if no updates available"
-msgstr "Włącz ponownie ikonę MX Aktualizacje, nawet jeśli nie ma dostępnych aktualizacji"
+msgstr ""
+"Włącz ponownie ikonę MX Aktualizacje, nawet jeśli nie ma dostępnych "
+"aktualizacji"
 
 msgid "Enable Auto-update"
 msgstr "Włącz automatyczną aktualizację"

@@ -2,10 +2,11 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the apt-notifier package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 # Translators:
-# Panwar108 <caspian7pena@gmail.com>, 2021
-#
+# Panwar108 <caspian7pena@gmail.com>, 2022
+# Dolphin Oracle <dolphinoracle@gmail.com>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
@@ -13,12 +14,12 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-28 02:38+0100\n"
 "PO-Revision-Date: 2017-05-11 01:14+0000\n"
-"Last-Translator: Panwar108 <caspian7pena@gmail.com>, 2021\n"
+"Last-Translator: Dolphin Oracle <dolphinoracle@gmail.com>, 2022\n"
 "Language-Team: Hindi (https://www.transifex.com/anticapitalista/teams/10162/hi/)\n"
-"Language: hi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: hi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "$count new updates available"
@@ -90,7 +91,8 @@ msgstr "एमएक्स स्वतः अपडेट  --  unattended-upgra
 msgid "MX Package Installer"
 msgstr "एमएक्स पैकेज इंस्टॉलर"
 
-#. The autostart desktop entry name will be shown within the list of autostart entries.
+#. The autostart desktop entry name will be shown within the list of autostart
+#. entries.
 #. The desktop entry name will be displayed within the menu.
 msgid "MX Updater"
 msgstr "एमएक्स अपडेट साधन"
@@ -131,17 +133,27 @@ msgstr "बंद करें"
 msgid "Reload"
 msgstr "पुनः लोड करें"
 
-msgid "Reload the package information to become informed about new, removed or upgraded software packages. (apt-get update)"
-msgstr "नवीन, हटाए गए या अपग्रेड किए गए सॉफ्टवेयर पैकेज समाचार हेतु पैकेज सूचना पुनः लोड करें। (apt-get update)"
+msgid ""
+"Reload the package information to become informed about new, removed or "
+"upgraded software packages. (apt-get update)"
+msgstr ""
+"नवीन, हटाए गए या अपग्रेड किए गए सॉफ्टवेयर पैकेज समाचार हेतु पैकेज सूचना पुनः"
+" लोड करें। (apt-get update)"
 
 msgid "Restart MX Updater"
 msgstr "एमएक्स अपडेट साधन पुनः आरंभ करें"
 
 msgid "Running apt-get autoremove, if you are unsure type 'n'."
-msgstr "apt-get autoremove निष्पादित होगा, अनिश्चित होने की स्थिति में 'n' दर्ज करें।"
+msgstr ""
+"apt-get autoremove निष्पादित होगा, अनिश्चित होने की स्थिति में 'n' दर्ज "
+"करें।"
 
-msgid "Switches the type of Upgrade that will be performed, alternating back and forth between 'full upgrade' and 'basic upgrade'."
-msgstr "अपग्रेड प्रकार हेतु परिवर्तन, विकल्प हैं 'पूर्ण अपग्रेड' व 'सामान्य अपग्रेड'।"
+msgid ""
+"Switches the type of Upgrade that will be performed, alternating back and "
+"forth between 'full upgrade' and 'basic upgrade'."
+msgstr ""
+"अपग्रेड प्रकार हेतु परिवर्तन, विकल्प हैं 'पूर्ण अपग्रेड' व 'सामान्य "
+"अपग्रेड'।"
 
 msgid "Synaptic Help"
 msgstr "सिनैप्टिक सहायता"
@@ -192,7 +204,8 @@ msgstr[0] "सिस्टम हेतु {num} नवीन अपडेट �
 msgstr[1] "सिस्टम हेतु {num} नवीन अपडेट उपलब्ध हैं"
 
 msgid "automatically close terminal window when full/basic upgrade complete"
-msgstr "पूर्ण/सामान्य अपग्रेड पूर्ण होने के उपरांत टर्मिनल विंडो स्वतः बंद करें"
+msgstr ""
+"पूर्ण/सामान्य अपग्रेड पूर्ण होने के उपरांत टर्मिनल विंडो स्वतः बंद करें"
 
 msgid "automatically close terminal window when upgrade complete"
 msgstr "अपग्रेड पूर्ण होने के उपरांत टर्मिनल विंडो स्वतः बंद करें"
@@ -273,12 +286,13 @@ msgstr[0] "{num} नवीन अपडेट उपलब्ध है"
 msgstr[1] "{num} नवीन अपडेट उपलब्ध हैं"
 
 #. TRANSLATORS:
-#. The autostart desktop entry comment will be shown within 'Session and Startup' (Autosart).
+#. This autostart desktop entry comment will be shown within 'Session and
+#. Startup' (Autostart).
 msgid "An applet to show updates"
 msgstr "अपडेट हेतु एप्लेट"
 
 #. TRANSLATORS:
-#. The desktop entry comment will be shown within the menu.
+#. This desktop entry comment will be shown within the menu.
 msgid "Re-enable MX Updater icon even if no updates available"
 msgstr "अपडेट उपलब्ध न होने पर हेतु एमएक्स अपडेट आइकन पुनः सक्रिय"
 

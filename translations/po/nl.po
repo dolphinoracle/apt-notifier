@@ -2,11 +2,12 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the apt-notifier package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 # Translators:
-# Geoff Gigg <geoffgigg@hotmail.com>, 2017
-# Eadwine Rose, 2021
-#
+# Geoff Gigg <geoffgigg@hotmail.com>, 2022
+# Eadwine Rose, 2022
+# Dolphin Oracle <dolphinoracle@gmail.com>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
@@ -14,12 +15,12 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-28 02:38+0100\n"
 "PO-Revision-Date: 2017-05-11 01:14+0000\n"
-"Last-Translator: Eadwine Rose, 2021\n"
+"Last-Translator: Dolphin Oracle <dolphinoracle@gmail.com>, 2022\n"
 "Language-Team: Dutch (https://www.transifex.com/anticapitalista/teams/10162/nl/)\n"
-"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "$count new updates available"
@@ -47,7 +48,9 @@ msgid "Auto-update log(s)"
 msgstr "Auto-opwaarderen log(s)"
 
 msgid "Automatically answer 'yes' to all prompts during full/basic upgrade"
-msgstr "Automatisch 'ja' antwoorden op alle vragen gedurende volle/basis opwaardering"
+msgstr ""
+"Automatisch 'ja' antwoorden op alle vragen gedurende volle/basis "
+"opwaardering"
 
 msgid "Automatically answer 'yes' to all prompts during upgrade"
 msgstr "Automatisch 'ja' antwoorden op alle vragen gedurende opwaardering"
@@ -65,7 +68,9 @@ msgid "Close"
 msgstr "Sluiten"
 
 msgid "For a less detailed view see 'Auto-update dpkg log(s)' or 'History'."
-msgstr "Voor een minder gedetailleerd overzicht zie 'Auto-opwaarderen dpkg log(s)' or 'Geschiedenis'."
+msgstr ""
+"Voor een minder gedetailleerd overzicht zie 'Auto-opwaarderen dpkg log(s)' "
+"or 'Geschiedenis'."
 
 msgid "Hide until updates available"
 msgstr "Verberg tot updates beschikbaar"
@@ -91,7 +96,8 @@ msgstr "MX Auto-opwaarderen  --  onbewaakte opwaarderingen log bekijken"
 msgid "MX Package Installer"
 msgstr "MX Pakket Installeerder"
 
-#. The autostart desktop entry name will be shown within the list of autostart entries.
+#. The autostart desktop entry name will be shown within the list of autostart
+#. entries.
 #. The desktop entry name will be displayed within the menu.
 msgid "MX Updater"
 msgstr "MX Updater"
@@ -132,8 +138,12 @@ msgstr "Stop"
 msgid "Reload"
 msgstr "Herladen"
 
-msgid "Reload the package information to become informed about new, removed or upgraded software packages. (apt-get update)"
-msgstr "Herlaad de pakketinformatie om te weten of er nieuwe, verwijderde op opgewaardeerde softwarepakketten zijn. (apt-get update)"
+msgid ""
+"Reload the package information to become informed about new, removed or "
+"upgraded software packages. (apt-get update)"
+msgstr ""
+"Herlaad de pakketinformatie om te weten of er nieuwe, verwijderde op "
+"opgewaardeerde softwarepakketten zijn. (apt-get update)"
 
 msgid "Restart MX Updater"
 msgstr "Herstart MX Updater"
@@ -141,14 +151,19 @@ msgstr "Herstart MX Updater"
 msgid "Running apt-get autoremove, if you are unsure type 'n'."
 msgstr "Uitvoeren apt-get autoremove, als u niet zeker bent type 'n'."
 
-msgid "Switches the type of Upgrade that will be performed, alternating back and forth between 'full upgrade' and 'basic upgrade'."
-msgstr "Wisselt het Opwaardeertype dat toegepast wordt, heen en weer gaand tussen 'volle opwaardering' en 'basis opwaardering'."
+msgid ""
+"Switches the type of Upgrade that will be performed, alternating back and "
+"forth between 'full upgrade' and 'basic upgrade'."
+msgstr ""
+"Wisselt het Opwaardeertype dat toegepast wordt, heen en weer gaand tussen "
+"'volle opwaardering' en 'basis opwaardering'."
 
 msgid "Synaptic Help"
 msgstr "Synaptic Help"
 
 msgid "Tray applet to notify of system and application updates"
-msgstr "Tray applet om te laten weten dat er systeem en applicatie updates zijn"
+msgstr ""
+"Tray applet om te laten weten dat er systeem en applicatie updates zijn"
 
 msgid "Unattended-upgrades"
 msgstr "Onbeheerde-upgrades"
@@ -193,7 +208,9 @@ msgstr[0] "U heeft {num} nieuwe update beschikbaar"
 msgstr[1] "U heeft {num} nieuwe updates beschikbaar"
 
 msgid "automatically close terminal window when full/basic upgrade complete"
-msgstr "automatisch terminal scherm sluiten wanneer /vollebasis opwaardering compleet is"
+msgstr ""
+"automatisch terminal scherm sluiten wanneer /vollebasis opwaardering "
+"compleet is"
 
 msgid "automatically close terminal window when upgrade complete"
 msgstr "automatisch terminal scherm sluiten wanneer opwaardering compleet is"
@@ -205,7 +222,9 @@ msgid "basic upgrade complete (or was canceled)"
 msgstr "basis opwaardering compleet (of was geannuleerd)"
 
 msgid "check for autoremovable packages after full/basic upgrade"
-msgstr "controleer voor automatisch verwijderbare pakketten na volle/basis opwaardering"
+msgstr ""
+"controleer voor automatisch verwijderbare pakketten na volle/basis "
+"opwaardering"
 
 msgid "classic"
 msgstr "klassiek"
@@ -247,7 +266,9 @@ msgid "this terminal window can now be closed"
 msgstr "dit terminal scherm kan nu gesloten worden"
 
 msgid "update automatically   (will not add new or remove existing packages)"
-msgstr "automatisch opwaarderen    (zal geen nieuwe of bestaande pakketten toevoegen of verwijderen)"
+msgstr ""
+"automatisch opwaarderen    (zal geen nieuwe of bestaande pakketten toevoegen"
+" of verwijderen)"
 
 msgid "upgrade"
 msgstr "opwaardering"
@@ -274,14 +295,16 @@ msgstr[0] "{num} nieuwe update beschikbaar"
 msgstr[1] "{num} nieuwe updates beschikbaar"
 
 #. TRANSLATORS:
-#. The autostart desktop entry comment will be shown within 'Session and Startup' (Autosart).
+#. This autostart desktop entry comment will be shown within 'Session and
+#. Startup' (Autostart).
 msgid "An applet to show updates"
 msgstr "Een applet om updates te laten zien"
 
 #. TRANSLATORS:
-#. The desktop entry comment will be shown within the menu.
+#. This desktop entry comment will be shown within the menu.
 msgid "Re-enable MX Updater icon even if no updates available"
-msgstr "Schakel MX Updater icoon opnieuw in, ook al zijn er geen updates beschikbaar"
+msgstr ""
+"Schakel MX Updater icoon opnieuw in, ook al zijn er geen updates beschikbaar"
 
 msgid "Enable Auto-update"
 msgstr "Auto-opwaarderen Inschakelen"
