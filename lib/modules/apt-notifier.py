@@ -1073,9 +1073,13 @@ def add_rightclick_actions():
     # check we have a package installer
     pl = "mx-packageinstaller packageinstaller"
 
-    package_installer = list(filter( lambda x: which(x), pl.split()))[0]
-    if package_installer:
-        add_Package_Installer_action()
+    package_installer = None
+    try:
+        package_installer = list(filter( lambda x: which(x), pl.split()))[0]
+        if package_installer:
+            add_Package_Installer_action()
+    except IndexError:
+        pass
 
     add_apt_history_action()
 
@@ -1123,9 +1127,13 @@ def add_hide_action():
     # check we have a package installer
     pl = "mx-packageinstaller packageinstaller"
     from shutil import which
-    package_installer = list(filter( lambda x: which(x), pl.split()))[0]
-    if package_installer:
-        add_Package_Installer_action()
+    package_installer = None
+    try:
+        package_installer = list(filter( lambda x: which(x), pl.split()))[0]
+        if package_installer:
+            add_Package_Installer_action()
+    except IndexError:
+        pass
 
     add_apt_history_action()
 
