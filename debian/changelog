@@ -1,3 +1,10 @@
+apt-notifier (22.07.03mx21) mx; urgency=medium
+
+  * fix checking mx-packageinstaller is available
+  * translation refresh
+
+ -- fehlix <fehlix@mxlinux.org>  Mon, 25 Jul 2022 18:01:04 -0400
+
 apt-notifier (22.07.02mx21) mx; urgency=medium
 
   * add icon-set defaults to user config items with example section
