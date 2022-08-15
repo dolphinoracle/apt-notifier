@@ -1,0 +1,54 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Mon, 15 Aug 2022 15:44:53 -0400
+Source: apt-notifier
+Binary: apt-notifier
+Architecture: source all
+Version: 22.08.01mx21
+Distribution: mx
+Urgency: medium
+Maintainer: Kent Mathern <maintainer@mepiscommunity.org>
+Changed-By: fehlix <fehlix@mxlinux.org>
+Description:
+ apt-notifier - tray applet to notify of system and application updates
+Changes:
+ apt-notifier (22.08.01mx21) mx; urgency=medium
+ .
+   * add mnotify-none-pulse-white.png icon
+   * adjust user's apt-notifier.conf with addded icon
+   * translation refresh
+Checksums-Sha1:
+ 97f9e5954c81f61e084c395e2136234ed49762e2 1561 apt-notifier_22.08.01mx21.dsc
+ c709ec0fbb588041eb244cfc5e7a2391d7ec9a6b 132816 apt-notifier_22.08.01mx21.tar.xz
+ 8b29376a4ff248b342095e3ad22121403a411591 231736 apt-notifier_22.08.01mx21_all.deb
+ d6ae42a3c234782eb1e5b30bffe563b6e14a2441 13749 apt-notifier_22.08.01mx21_amd64.buildinfo
+Checksums-Sha256:
+ bbe2a19f308e94d9b28de36458ed54953fe199e1dd3a8710b9d63d94d16d0f81 1561 apt-notifier_22.08.01mx21.dsc
+ 1f91c66cd0115b83c2f2515c3c00a809ec4bdcae99d3826ecec40e8552d53a9d 132816 apt-notifier_22.08.01mx21.tar.xz
+ 4c4d909b87ff4ed0ab27e736549c3fa4ae67c9c14efcd0ac45b68aa2aa257005 231736 apt-notifier_22.08.01mx21_all.deb
+ b451eae9f520f08db0375ced9f82e33be83189482e93cd920f1e3b206876b744 13749 apt-notifier_22.08.01mx21_amd64.buildinfo
+Files:
+ 6bff650e2362f99aa07a6d0c3ae621f9 1561 admin optional apt-notifier_22.08.01mx21.dsc
+ 10f56034874e38c8a7f8830cff6ab305 132816 admin optional apt-notifier_22.08.01mx21.tar.xz
+ bc68dc9fdfa6f3c91e156f412d2e2330 231736 admin optional apt-notifier_22.08.01mx21_all.deb
+ 2e41584eaad2c3bf324669354c0612ab 13749 admin optional apt-notifier_22.08.01mx21_amd64.buildinfo
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJHBAEBCgAxFiEEgRnC8/wKXRM2S0xLL1ePG6ydm+kFAmL6vUcTHGZlaGxpeEBt
+eGxpbnV4Lm9yZwAKCRAvV48brJ2b6S5VD/45O0XlSZwc0KM7/oqPpPgIEhW8UAGN
+Wa7mOIuWw/1VyVl3BfJ/NZYZ2ZFVXUMcsj4gPw2hmATLYKjcidkCj9gR1dcscTGC
+qPBXJg3W8x2sAEJ9Z+/ORmHUSitV5gX4Awej4mbTyL487ASxKjRYu9ZQio25/if+
+lhMutOsVRKgyF0/bvenTDIWVzvrQz/Dm+4Jzr6s4sIFyTJI7OyKU2tWJx7sJIo4C
+Ogu0uSITY8TH4KwEm4avrnYuY9GVsNbPNS7BA2I2tRpC6crFnm38cnbSzmAFZrGK
+OkMb/y3K5QQG+rBOGYeUHDEVqz2qLBGSMfCQjIpEv7zKtSdX9jsrplhCmGpK7R/D
+A6QBfRmSyrO3HrzKXQLhMBpfYDqFla32U2U5lvQmiXWLqIgKAEMLJ03Vh9yNUTZ1
+OeuCzsGDE7RDbnqVzMhHsMXwWCufkqR2kzfvNW2t1tBNQfDX24wlSxB3wOCPHe3A
+kq5xfKQUqzGawfYRnVE4YDpDL3l8xIe9PsY5Utif+SqFDl5+ZXe+9NiuQK4mimwL
+K8DSYUJaH36Jv1+3oF0mX3b3LCUpxTe16kXR6NwdKxqo19AO4pfyaSYI8KVxLDgq
+PQ7F4+m1j3uBgXBLSzbMvHqjgP8E5b0MSQhaPhRCdOUWB9uUb5QlF1aimjcqgyVx
+NaDZ5AJehsPSLw==
+=4tlj
+-----END PGP SIGNATURE-----
