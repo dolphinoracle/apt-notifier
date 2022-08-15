@@ -20,35 +20,35 @@ Changes:
    * adjust user's apt-notifier.conf with addded icon
    * translation refresh
 Checksums-Sha1:
- 97f9e5954c81f61e084c395e2136234ed49762e2 1561 apt-notifier_22.08.01mx21.dsc
- c709ec0fbb588041eb244cfc5e7a2391d7ec9a6b 132816 apt-notifier_22.08.01mx21.tar.xz
- 8b29376a4ff248b342095e3ad22121403a411591 231736 apt-notifier_22.08.01mx21_all.deb
- d6ae42a3c234782eb1e5b30bffe563b6e14a2441 13749 apt-notifier_22.08.01mx21_amd64.buildinfo
+ a658c8a30b0f97c557b09a87350d0b27b7090075 1561 apt-notifier_22.08.01mx21.dsc
+ b136918dc3cec3701263b59dc242b6d78b0257b8 132832 apt-notifier_22.08.01mx21.tar.xz
+ fe9d217eb050b5754b4e75916ea9d5e6ce958287 231744 apt-notifier_22.08.01mx21_all.deb
+ 00e92203a3a29dd8b0716a23fa2d9dcebfe74561 13725 apt-notifier_22.08.01mx21_amd64.buildinfo
 Checksums-Sha256:
- bbe2a19f308e94d9b28de36458ed54953fe199e1dd3a8710b9d63d94d16d0f81 1561 apt-notifier_22.08.01mx21.dsc
- 1f91c66cd0115b83c2f2515c3c00a809ec4bdcae99d3826ecec40e8552d53a9d 132816 apt-notifier_22.08.01mx21.tar.xz
- 4c4d909b87ff4ed0ab27e736549c3fa4ae67c9c14efcd0ac45b68aa2aa257005 231736 apt-notifier_22.08.01mx21_all.deb
- b451eae9f520f08db0375ced9f82e33be83189482e93cd920f1e3b206876b744 13749 apt-notifier_22.08.01mx21_amd64.buildinfo
+ 30747dfa4191c9a69a54888ccaa776d9d8e6e24e0da2fb2013a08fb40f730900 1561 apt-notifier_22.08.01mx21.dsc
+ 0e2aa9908b67af54d0b1ee3158ad1060825ba403a6a01ab59d8ef7f42b4a077d 132832 apt-notifier_22.08.01mx21.tar.xz
+ 1442ea0edbd79c4af4170c977abd2e53f09cf5fc2fed87d60be70f49cf2eabe2 231744 apt-notifier_22.08.01mx21_all.deb
+ 52f18d5faf0b412a4286fd1d9be6bec971f5ca00bb83a615f57b16596c1481ee 13725 apt-notifier_22.08.01mx21_amd64.buildinfo
 Files:
- 6bff650e2362f99aa07a6d0c3ae621f9 1561 admin optional apt-notifier_22.08.01mx21.dsc
- 10f56034874e38c8a7f8830cff6ab305 132816 admin optional apt-notifier_22.08.01mx21.tar.xz
- bc68dc9fdfa6f3c91e156f412d2e2330 231736 admin optional apt-notifier_22.08.01mx21_all.deb
- 2e41584eaad2c3bf324669354c0612ab 13749 admin optional apt-notifier_22.08.01mx21_amd64.buildinfo
+ 43927cb7040fb5feb271e980030a657a 1561 admin optional apt-notifier_22.08.01mx21.dsc
+ 8007ffc18d5fe755b8d3461b83da80d2 132832 admin optional apt-notifier_22.08.01mx21.tar.xz
+ c0e71b05a6bd98c80ca1d169410f08c9 231744 admin optional apt-notifier_22.08.01mx21_all.deb
+ 4cf57d31b7f9a868cb7f4aa6290c1801 13725 admin optional apt-notifier_22.08.01mx21_amd64.buildinfo
 
 -----BEGIN PGP SIGNATURE-----
 
-iQJHBAEBCgAxFiEEgRnC8/wKXRM2S0xLL1ePG6ydm+kFAmL6vUcTHGZlaGxpeEBt
-eGxpbnV4Lm9yZwAKCRAvV48brJ2b6S5VD/45O0XlSZwc0KM7/oqPpPgIEhW8UAGN
-Wa7mOIuWw/1VyVl3BfJ/NZYZ2ZFVXUMcsj4gPw2hmATLYKjcidkCj9gR1dcscTGC
-qPBXJg3W8x2sAEJ9Z+/ORmHUSitV5gX4Awej4mbTyL487ASxKjRYu9ZQio25/if+
-lhMutOsVRKgyF0/bvenTDIWVzvrQz/Dm+4Jzr6s4sIFyTJI7OyKU2tWJx7sJIo4C
-Ogu0uSITY8TH4KwEm4avrnYuY9GVsNbPNS7BA2I2tRpC6crFnm38cnbSzmAFZrGK
-OkMb/y3K5QQG+rBOGYeUHDEVqz2qLBGSMfCQjIpEv7zKtSdX9jsrplhCmGpK7R/D
-A6QBfRmSyrO3HrzKXQLhMBpfYDqFla32U2U5lvQmiXWLqIgKAEMLJ03Vh9yNUTZ1
-OeuCzsGDE7RDbnqVzMhHsMXwWCufkqR2kzfvNW2t1tBNQfDX24wlSxB3wOCPHe3A
-kq5xfKQUqzGawfYRnVE4YDpDL3l8xIe9PsY5Utif+SqFDl5+ZXe+9NiuQK4mimwL
-K8DSYUJaH36Jv1+3oF0mX3b3LCUpxTe16kXR6NwdKxqo19AO4pfyaSYI8KVxLDgq
-PQ7F4+m1j3uBgXBLSzbMvHqjgP8E5b0MSQhaPhRCdOUWB9uUb5QlF1aimjcqgyVx
-NaDZ5AJehsPSLw==
-=4tlj
+iQJHBAEBCgAxFiEEgRnC8/wKXRM2S0xLL1ePG6ydm+kFAmL60LsTHGZlaGxpeEBt
+eGxpbnV4Lm9yZwAKCRAvV48brJ2b6XE0D/4jLQ0NAYv+E23gbSRfUTAxb2Y0Xcw5
+ipsDzcvSB1AyPI753BHjgggILZ2MzScrV1yRj3Je+2ICGGhdgJC/CIu3fJJD0dmo
+UeoVKTgRMns+kOBKLXYtPYqG3+yvVdYISkKjwIlmRi1EkC+ifxzPUjNRJujysk8+
+5pzrU4s6saiFLoMUASP+sHqykWLHThPpP0+4JyPnG6HlkEGAw9x1XC+ff5DzJau0
+B9QrXwcz3/4whs1LpDNfGHmxfGvoJKbLuHVMh/RIclDBZwMRmds0oRJ3ga6/vwYp
+8sLqx5qVUTFUgZGuObIeOztLK7tszlybmbsuWze9k7THmLVn+Q4Jo8N3VXDheL/H
+jeq4yY+NUpZ0XRAw+8e87BFnuk4nL+5+ENhY32sIJI/Ju/pRqKU968PM3qR8FwIx
+vNOFhwVGYBTjAN7AYDpHlqKlhD+gM3N9inYEts8olTqz4A+eblOxmRWu6aWV6Yra
+oIFxjm6W/JMusveIx6n95LtFdAvi1EZle2xGeQdWBHhYirArznPpqUQ3PTJ2ZbV7
+Ut5AcCOJVu7aFmK+lLG3rBCfONepm5rJ0osI5KqBMbYIx4aHXXZup5coVK/lDJ3/
+KpDeicrAvKb1+kEBluS89MHqFLa3r6IHOABv66/rHDRJFEL92NBXem330C9vLHHh
+hGkz4EZ5zZVzmA==
+=pyQ0
 -----END PGP SIGNATURE-----
