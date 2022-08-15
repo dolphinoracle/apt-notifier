@@ -246,6 +246,11 @@ DEFAULTS
   fi
 fi
 
+# strip leading spaces 
+if [ -e "$CONF_FILE" ]; then
+   sed -i -r "s/^[[:space:]]+//" "$CONF_FILE"
+fi
+
 # start the notifier (nicely)
 ionice -c3 nice -n19 /usr/bin/python3 /usr/lib/apt-notifier/modules/apt-notifier.py & disown -h 1>/dev/null 2>&1
 

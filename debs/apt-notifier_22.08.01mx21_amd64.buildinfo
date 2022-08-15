@@ -7,17 +7,17 @@ Binary: apt-notifier
 Architecture: all source
 Version: 22.08.01mx21
 Checksums-Md5:
- 6bff650e2362f99aa07a6d0c3ae621f9 1561 apt-notifier_22.08.01mx21.dsc
- bc68dc9fdfa6f3c91e156f412d2e2330 231736 apt-notifier_22.08.01mx21_all.deb
+ 43927cb7040fb5feb271e980030a657a 1561 apt-notifier_22.08.01mx21.dsc
+ c0e71b05a6bd98c80ca1d169410f08c9 231744 apt-notifier_22.08.01mx21_all.deb
 Checksums-Sha1:
- 97f9e5954c81f61e084c395e2136234ed49762e2 1561 apt-notifier_22.08.01mx21.dsc
- 8b29376a4ff248b342095e3ad22121403a411591 231736 apt-notifier_22.08.01mx21_all.deb
+ a658c8a30b0f97c557b09a87350d0b27b7090075 1561 apt-notifier_22.08.01mx21.dsc
+ fe9d217eb050b5754b4e75916ea9d5e6ce958287 231744 apt-notifier_22.08.01mx21_all.deb
 Checksums-Sha256:
- bbe2a19f308e94d9b28de36458ed54953fe199e1dd3a8710b9d63d94d16d0f81 1561 apt-notifier_22.08.01mx21.dsc
- 4c4d909b87ff4ed0ab27e736549c3fa4ae67c9c14efcd0ac45b68aa2aa257005 231736 apt-notifier_22.08.01mx21_all.deb
+ 30747dfa4191c9a69a54888ccaa776d9d8e6e24e0da2fb2013a08fb40f730900 1561 apt-notifier_22.08.01mx21.dsc
+ 1442ea0edbd79c4af4170c977abd2e53f09cf5fc2fed87d60be70f49cf2eabe2 231744 apt-notifier_22.08.01mx21_all.deb
 Build-Origin: Debian
 Build-Architecture: amd64
-Build-Date: Mon, 15 Aug 2022 23:40:22 +0200
+Build-Date: Tue, 16 Aug 2022 01:03:10 +0200
 Build-Tainted-By:
  merged-usr-via-aliased-dirs
  usr-local-has-libraries
@@ -192,7 +192,7 @@ Installed-Build-Depends:
  libglib2.0-0 (= 2.66.8-1),
  libglibmm-2.4-1v5 (= 2.64.2-2),
  libgmp10 (= 2:6.2.1+dfsg-1+deb11u1),
- libgnutls30 (= 3.7.1-5+deb11u2),
+ libgnutls30 (= 3.7.1-5+deb11u1),
  libgomp1 (= 10.2.1-6),
  libgpg-error0 (= 1.38-2),
  libgraphite2-3 (= 1.3.14-1),
@@ -320,9 +320,9 @@ Installed-Build-Depends:
  libthai0 (= 0.1.28-3),
  libtiff5 (= 4.2.0-1+deb11u1),
  libtinfo6 (= 6.2+20201114-2),
- libtirpc-common (= 1.3.1-1+deb11u1),
- libtirpc-dev (= 1.3.1-1+deb11u1),
- libtirpc3 (= 1.3.1-1+deb11u1),
+ libtirpc-common (= 1.3.1-1),
+ libtirpc-dev (= 1.3.1-1),
+ libtirpc3 (= 1.3.1-1),
  libtool (= 2.4.6-15),
  libtsan0 (= 10.2.1-6),
  libubsan1 (= 10.2.1-6),
@@ -369,7 +369,7 @@ Installed-Build-Depends:
  libz3-4 (= 4.8.10-1),
  libzip4 (= 1.7.3-1),
  libzstd1 (= 1.4.8+dfsg-2.1),
- linux-libc-dev (= 5.10.127-2),
+ linux-libc-dev (= 5.10.127-1),
  login (= 1:4.8.1-1),
  lsb-base (= 11.1.0),
  m4 (= 1.4.18-5),
@@ -433,23 +433,23 @@ Installed-Build-Depends:
  zlib1g (= 1:1.2.11.dfsg-2+deb11u1)
 Environment:
  DEB_BUILD_OPTIONS="parallel=4"
- LANG="en_US.UTF-8"
+ LANG="de_DE.UTF-8"
  SOURCE_DATE_EPOCH="1660592693"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQJHBAEBCgAxFiEEgRnC8/wKXRM2S0xLL1ePG6ydm+kFAmL6vUcTHGZlaGxpeEBt
-eGxpbnV4Lm9yZwAKCRAvV48brJ2b6buqEACh6GbmGXZjjxZLu1jGZoOghP8keZ9p
-5KKn4vki1HjwfU9J8G4zWhnYco4IHeMUcD08LdoXijs0fVyRCxwb3kyMhqXDG+/b
-DdtjLIFnQ+hKhNEGgkAHa/HLrsY0d29jauv76A0G7ohTVp6RGnT7c199Mr7gL7PD
-OmU6gqn1MBQRVfjHlWWpQHM5yiim9pGKqAJtScFBRH6rgUl2AjXC6CJUW/9MG8+S
-Vbtmr42LcOGOQky9Dhm9RkEVhGcjE6/OYL7LbhtZUHIDknB/mbhDHKLbjrYHYqhQ
-O6XQXljqTTbtNblggI4pGq/ChFXttFTY2S6jiok63PxOXxKvAdPpKoSUOK13yaZx
-izwwTc+7URdtOXyrVT6cL/eR6RGvPQqYYK7dsstVIergjciOPWWnfSsGbVR5HL9l
-aw95kiBSQFPKdk6VKiwRUYcc/bZzBkwtaUv99rJTv5h1etPmyrnSoZHhKyAGPwnx
-QWhmCZt2y3y9pk0Gw8K4LF0+GeI/ZBhBPPg29NklWmE4khqxOwfTXChe69Vh3cYS
-7W7IUss761ag65Nwo/XBdUe9+kDOIjV+cwVSJPT/9546LdxawOjCPJLQaAPpJZ6j
-jOO0/gHYaiyc+n0VQPxweWaQV0sOrEjk9GEDBm6qbeSqBbW6cGA+9WR8UCQHQ+Fw
-CnzSkFr5rnTz/Q==
-=lHvt
+iQJHBAEBCgAxFiEEgRnC8/wKXRM2S0xLL1ePG6ydm+kFAmL60LoTHGZlaGxpeEBt
+eGxpbnV4Lm9yZwAKCRAvV48brJ2b6bgoEACSDMqW44TfWrx06nQmOl0ImL7jDiQS
+edBmswrteZGWazbC0tXimOwI3B2vDQ4aJ1jWsfzYYSbSH4livHyoRhXy6OrmcugV
+LyoI1Em3FRKi1lSBKEU0Zge3FPwJl4zz52vjKTvTXCEXN/7RTk7DL9np86ELYd6t
+z9ZBwgU4eNZp3evADCFpw39E6JnTQitCozeDRk3tt8TjrdPliuX9uOYSuiLPXLV/
++NSSVVHznRTMFSo0k1dN7QkxPkNVuUsAenPAZ5jLbCeQ/Q7I6FpdJ2S7GZPU9bMV
+pVgtwBQFc4GSHtu+AcXm5JHgA609hnOYEJTkjofKTcGU2kLuefevmfiOnCtUxzWy
+nUIuypTKPXfJBEHh/AnA5tsKJP1SiJiz5HYYLwftebJKxXBMaiVYxVLqpk+IGnOt
+PzUP71YujPYsNcYLW6w3vw/WCwdb6tMdPIUYIWPVWq3v9jBQJbSzoQW3oQYEGN4u
+rC/Ua6oWYwO2efBn0I5Z1NBARzaFfV9vA2NDdfKeX+YH2cE8LAMTxFiT3BLrU/XW
+DlWrpWpjWR08FQjruO0vtlFRRkTlyqZy0aiqn2PuYpNh8HxXT9qdppCU90YFGxT9
+RBW7fEb3ERNwUaE654/EaPJb3Fcrce5sNPLNaSE9AfGFmNA8QOgxEztcqMBqNqRp
+lGdrOoikzIMfAg==
+=ToAP
 -----END PGP SIGNATURE-----
