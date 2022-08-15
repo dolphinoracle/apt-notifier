@@ -1,3 +1,11 @@
+apt-notifier (22.08.01mx21) mx; urgency=medium
+
+  * add mnotify-none-pulse-white.png icon
+  * adjust user's apt-notifier.conf with addded icon
+  * translation refresh
+
+ -- fehlix <fehlix@mxlinux.org>  Mon, 15 Aug 2022 15:44:53 -0400
+
 apt-notifier (22.07.03mx21) mx; urgency=medium
 
   * fix checking mx-packageinstaller is available
