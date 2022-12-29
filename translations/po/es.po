@@ -313,7 +313,7 @@ msgstr "Un applet para mostrar actualizaciones."
 #. This desktop entry comment will be shown within the menu.
 msgid "Re-enable MX Updater icon even if no updates available"
 msgstr ""
-"Rehabilitar el ícono MX Updater incluso si no hay actualizaciones "
+"Rehabilitar el icono MX Updater incluso si no hay actualizaciones "
 "disponibles"
 
 msgid "Enable Auto-update"

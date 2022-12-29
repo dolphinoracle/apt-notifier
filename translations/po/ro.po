@@ -5,7 +5,7 @@
 # 
 # Translators:
 # anticapitalista <anticapitalista@riseup.net>, 2022
-# AdrianTM <adilecu@gmail.com>, 2022
+# Adrian, 2022
 # Dolphin Oracle <dolphinoracle@gmail.com>, 2022
 # 
 #, fuzzy

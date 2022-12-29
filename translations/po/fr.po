@@ -40,7 +40,7 @@ msgid "About"
 msgstr "À propos"
 
 msgid "About MX Updater"
-msgstr "À propos de MX Mise à jour"
+msgstr "À propos de MX Mise à jour apt-notifier"
 
 msgid "Auto-update"
 msgstr "Mise à jour automatique"
@@ -109,13 +109,13 @@ msgstr "MX Installateur de paquets"
 #. entries.
 #. The desktop entry name will be displayed within the menu.
 msgid "MX Updater"
-msgstr "MX Mise à jour"
+msgstr "MX Mise à jour apt-notifier"
 
 msgid "MX Updater Help"
-msgstr "Aide pour MX Mise à jour"
+msgstr "Aide pour MX Mise à jour apt-notifier"
 
 msgid "MX Updater preferences"
-msgstr "Préférences de MX Mise à jour"
+msgstr "Préférences de MX Mise à jour apt-notifier"
 
 msgid "MX Updater--View and Upgrade, previewing: basic upgrade"
 msgstr ""
@@ -160,7 +160,7 @@ msgstr ""
 "update)"
 
 msgid "Restart MX Updater"
-msgstr "Relancer MX Mise à jour"
+msgstr "Relancer MX Mise à jour apt-notifier"
 
 msgid "Running apt-get autoremove, if you are unsure type 'n'."
 msgstr ""
@@ -271,7 +271,7 @@ msgid "pulse"
 msgstr "pulsation"
 
 msgid "start MX Updater at login"
-msgstr "lancer MX Mise à jour au démarrage"
+msgstr "lancer MX Mise à jour apt-notifier au démarrage"
 
 msgid "switch to basic upgrade"
 msgstr "Basculer vers à la mise à jour basique"
