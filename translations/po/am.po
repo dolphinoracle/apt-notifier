@@ -89,7 +89,7 @@ msgid "MX Auto-update  --  unattended-upgrades log viewer"
 msgstr ""
 
 msgid "MX Package Installer"
-msgstr ""
+msgstr "MX ጥቅል መግጠሚያ"
 
 #. The autostart desktop entry name will be shown within the list of autostart
 #. entries.

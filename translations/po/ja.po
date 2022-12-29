@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# BALLOON | FU-SEN, 2022
+# 🎈 BALLOON | FU-SEN, 2022
 # night1ynx <night1ynxd@gmail.com>, 2022
 # Transifex Bot <>, 2022
 # Geoff Gigg <geoffgigg@hotmail.com>, 2022

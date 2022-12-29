@@ -5,27 +5,32 @@ echodo() {
   ${@}
 }
 
+[ -x tx_bin/tx ] && TXBIN=tx_bin/tx
+: ${TXBIN:=$(which tx)}
+
+[ ! -x "$TXBIN" ] && echo "Error: transifex client not found!" && exit 1
+
 # prepare transifex 
-#if [ ! -s  .tx/config ]; then
-   mkdir -p .tx
-   cat <<EOF > .tx/config
+mkdir -p .tx
+cat <<EOF > .tx/config
 [main]
 host = https://www.transifex.com
 
-[antix-development.apt-notifier]
+[o:anticapitalista:p:antix-development:r:apt-notifier]
+
 file_filter = po/<lang>.po
 minimum_perc = 0
 source_file = apt-notifier.pot
 source_lang = en
 type = PO
+
 EOF
-#fi    
 
 # backup existing
 [ -d po ] && echodo mv po po_$(date '+%Y-%m-%d_%H%M%S').bak
+mkdir po
 
 # get all translations
-if command -v tx >/dev/null; then
-   echodo tx pull -r antix-development.apt-notifier  --all
-fi
+RESOURCE="antix-development.apt-notifier"
+echodo ${TXBIN} pull --force  --all "$RESOURCE"
 
