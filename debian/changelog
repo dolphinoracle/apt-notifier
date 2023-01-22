@@ -1,3 +1,9 @@
+apt-notifier (23.01.01mx21) mx; urgency=medium
+
+  * get adjusted {num} placeholder from transifex for sv_SE locale
+
+ -- fehlix <fehlix@mxlinux.org>  Sun, 22 Jan 2023 16:03:03 -0500
+
 apt-notifier (22.12.01mx21) mx; urgency=medium
 
   * translation refresh
