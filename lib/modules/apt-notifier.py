@@ -1,7 +1,7 @@
 #! /usr/bin/python3
 # -*- coding: utf-8 -*-
 
-BUILD_VERSION='22.08.01mx21'
+BUILD_VERSION='23.3'
 MODULES = "/usr/lib/apt-notifier/modules"
 
 import subprocess
@@ -19,7 +19,7 @@ from PyQt5 import QtCore
 from PyQt5 import QtGui
 from PyQt5 import QtWidgets
 
-from distutils import spawn
+from shutil import which
 from time import sleep
 from string import Template # for simple string substitution (popup_msg...)
 
@@ -288,16 +288,15 @@ def set_globals():
     elif check_for_updates_interval > 21600:
         check_for_updates_interval = 21600
 
-
     if check_for_updates_force_counter is None:
-        check_for_updates_force_counter   = 15
+        check_for_updates_force_counter   = 720
     check_for_updates_force_counter = int(check_for_updates_force_counter)
 
     if check_for_updates_force_counter == 0:
         # disabled
         pass
-    elif check_for_updates_force_counter > 60:
-        check_for_updates_force_counter = 60
+    elif check_for_updates_force_counter > 720:
+        check_for_updates_force_counter = 720
     elif check_for_updates_force_counter < 5:
         check_for_updates_force_counter = 5
 
@@ -1275,12 +1274,11 @@ def displayAbout():
     got those known and not yet fixed error messages:
     qt.qpa.xcb: QXcbConnection: XCB error: 3 (BadWindow), sequence: 1069,
     resource id: 19379270, major code: 40 (TranslateCoords), minor code: 0
-
-    so will run  subprocess with stderr to DEVNULL
+    Silenced with:
+    os.environ["QT_LOGGING_RULES"] = "qt.qpa.xcb.warning=false"
     """
-    from subprocess import run, DEVNULL
-    run(['/usr/bin/python3', '/usr/lib/apt-notifier/modules/aptnotifier_about.py'],
-        stderr=DEVNULL, stdout=DEVNULL)
+    from subprocess import run
+    run(['/usr/bin/python3', '/usr/lib/apt-notifier/modules/aptnotifier_about.py'])
 
 def view_unattended_upgrades_logs():
     notification_close()
@@ -1333,7 +1331,7 @@ def systray_icon_hide():
     if not run_in_plasma():
        return
 
-    if not spawn.find_executable("qdbus"):
+    if not which("qdbus"):
        return
 
     Script='''
@@ -1368,7 +1366,7 @@ def systray_icon_show():
     if not run_in_plasma():
        return
 
-    if not spawn.find_executable("qdbus"):
+    if not which("qdbus"):
        return
 
     Script='''

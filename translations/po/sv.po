@@ -205,8 +205,8 @@ msgstr "Du har 1 ny uppdatering tillgänglig"
 #, python-brace-format
 msgid "You have {num} new update available"
 msgid_plural "You have {num} new updates available"
-msgstr[0] "Du har {num} nya uppdateringar tillgängliga"
-msgstr[1] "Du har {num} ny uppdatering tillgänglig"
+msgstr[0] "Du har {num} ny uppdatering tillgänglig"
+msgstr[1] "Du har {num} nya uppdateringar tillgängliga"
 
 msgid "automatically close terminal window when full/basic upgrade complete"
 msgstr ""
@@ -289,8 +289,8 @@ msgstr "trådram"
 #, python-brace-format
 msgid "{num} new update available"
 msgid_plural "{num} new updates available"
-msgstr[0] "{num} nya uppdateringar tillgängliga"
-msgstr[1] "{num} ny uppdatering tillgänglig"
+msgstr[0] "{num} ny uppdatering tillgänglig"
+msgstr[1] "{num} nya uppdateringar tillgängliga"
 
 #. TRANSLATORS:
 #. This autostart desktop entry comment will be shown within 'Session and

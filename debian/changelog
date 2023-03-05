@@ -1,3 +1,14 @@
+apt-notifier (23.03) mx; urgency=medium
+
+  * add check for last apt update run
+  * add 03apt-notifier-update-stamp
+  * add debhelper-compat (= 13) to build-depends
+  * adjust forced check to 3 hours
+  * use shutil.which instead of distutils.spawn.find_executable
+  * remove python3-distutils from build-depends
+
+ -- fehlix <fehlix@mxlinux.org>  Wed, 01 Mar 2023 18:59:05 -0500
+
 apt-notifier (23.01.01mx21) mx; urgency=medium
 
   * get adjusted {num} placeholder from transifex for sv_SE locale
