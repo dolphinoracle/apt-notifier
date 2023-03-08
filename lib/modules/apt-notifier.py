@@ -1,7 +1,7 @@
 #! /usr/bin/python3
 # -*- coding: utf-8 -*-
 
-BUILD_VERSION='23.3'
+BUILD_VERSION='23.03.01'
 MODULES = "/usr/lib/apt-notifier/modules"
 
 import subprocess
@@ -412,20 +412,6 @@ def check_updates():
     update_stamp = os.path.isfile('/var/lib/apt/periodic/update-stamp')
     lock = os.path.isfile('/var/lib/apt/lists/lock')
     if not update_stamp and not lock:
-        if AvailableUpdates == "":
-            AvailableUpdates = "0"
-        if AvailableUpdates == "0":
-            message_status = "not displayed"  # Resets flag once there are no more updates
-            add_hide_action()
-        if icon_config != "show":
-            AptIcon.hide()
-        else:
-            AptIcon.setIcon(NoUpdatesIcon)
-            if unattended_upgrade_enabled():
-                AptIcon.setToolTip(unattended_upgrades)
-            else:
-                AptIcon.setToolTip(tooltip_msg(0))
-        Check_for_Updates_by_User = False
         return
 
     """
@@ -544,9 +530,12 @@ def check_updates():
             add_rightclick_actions()
             # Shows the pop up message only if not displayed before
             if message_status == "not displayed":
+                """
                 cmd = "for WID in $(wmctrl -l | cut -d' ' -f1); do xprop -id $WID | grep 'NET_WM_STATE(ATOM)'; done | grep -sq _NET_WM_STATE_FULLSCREEN"
                 run = subprocess.run(cmd, shell=True)
                 if run.returncode == 1:
+                """
+                if not fullscreen():
                     show_popup(popup_title, popup_msg(1), notification_icon)
                     message_status = "displayed"
                 """
@@ -570,9 +559,12 @@ def check_updates():
             add_rightclick_actions()
             # Shows the pop up message only if not displayed before
             if message_status == "not displayed":
+                """
                 cmd = "for WID in $(wmctrl -l | cut -d' ' -f1); do xprop -id $WID | grep 'NET_WM_STATE(ATOM)'; done | grep -sq _NET_WM_STATE_FULLSCREEN"
                 run = subprocess.run(cmd, shell=True)
                 if run.returncode == 1:
+                """
+                if not fullscreen():
                     # ~~~ Localize 1b ~~~
                     # Use embedded count placeholder.
                     #popup_template=Template(popup_msg_multiple_new_updates_available)
@@ -1913,11 +1905,21 @@ def cleanup_notifier_run():
     if os.path.exists(cleanup_notifier):
         ret = Popen(f"sleep 1; {cleanup_notifier} & disown", shell=True, executable="/usr/bin/bash", stdout=DEVNULL, stderr=DEVNULL)
 
+def fullscreen():
+    from ewmh import EWMH
+    check = False
+    for w in EWMH().getClientList():
+        if '_NET_WM_STATE_FULLSCREEN' in EWMH().getWmState(w, True):
+            check = True
+            break
+    return check
+
 #### main #######
 def main():
     # Define Core objects, Tray icon and QTimer
     global AptNotify
     global AptIcon
+    global AvailableUpdates
     global QuitIcon
     global icon_config
     global quit_action
@@ -1958,7 +1960,6 @@ def main():
     Timer = QtCore.QTimer()
     icon_config = read_icon_config()
 
-
     # Define the icons:
     global NoUpdatesIcon
     global NewUpdatesIcon
@@ -1973,8 +1974,25 @@ def main():
     Timer.timeout.connect( check_updates )
     # Integrate it together,apply checking of updated packages and set timer to every 1 minute(s) (1 second = 1000)
     AptIcon.setIcon(NoUpdatesIcon)
-    check_updates()
     AptIcon.setContextMenu(ActionsMenu)
+    update_stamp = os.path.isfile('/var/lib/apt/periodic/update-stamp')
+    lock = os.path.isfile('/var/lib/apt/lists/lock')
+    if not update_stamp and not lock:
+        AvailableUpdates = "0"
+        if AvailableUpdates == "0":
+            message_status = "not displayed"  # Resets flag once there are no more updates
+            add_hide_action()
+        if icon_config != "show":
+            AptIcon.hide()
+        else:
+            AptIcon.setIcon(NoUpdatesIcon)
+            if unattended_upgrade_enabled():
+                AptIcon.setToolTip(unattended_upgrades)
+            else:
+                AptIcon.setToolTip(tooltip_msg(0))
+    else:
+        check_updates()
+
     if icon_config == "show":
         systray_icon_show()
         AptIcon.show()

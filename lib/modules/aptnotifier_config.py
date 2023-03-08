@@ -77,12 +77,12 @@ notify_icon             = /usr/share/icons/hicolor/scalable/apt-notifier.svg
 # license file
 license_file            = /usr/share/doc/apt-notifier/license.html
 # about
-about_box_url           = http://mxlinux.org
+about_box_url           = https://mxlinux.org
 about_copyright         = Copyright (c) MX Linux
 
 # changelog
 changelog_file          = /usr/share/doc/apt-notifier/changelog.gz
-changelog_url           = http://mxrepo.com/mx/repo/pool/main/a/apt-notifier/current.{debian_codename}
+changelog_url           = https://mxrepo.com/mx/repo/pool/main/a/apt-notifier/current.{debian_codename}
 
 # apt-notifier help
 apt_notifier_help_url       = https://mxlinux.org/wiki/help-files/help-mx-apt-notifier

@@ -81,8 +81,8 @@ if [ x"${APT_NOTIFIER_CONFIG_ITEMS[use_nala]}" = x"true" ]; then
     fi
 fi
 
-# check if the last apt update run was less than 2 minutes ago
-update_stamp=$(find /var/lib/apt/periodic/update-stamp -mmin -2 2>/dev/null)
+# check if the last apt update run was less than 3 minutes ago
+update_stamp=$(find /var/lib/apt/periodic/update-stamp -mmin -3 2>/dev/null)
 
 if [ x"$APT_NOTIFIER_USE_NALA" = x"true" ]; then
     Nala_Pref="--no-autoremove"

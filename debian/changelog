@@ -1,13 +1,16 @@
-apt-notifier (23.03) mx; urgency=medium
+apt-notifier (23.03.01) mx; urgency=medium
 
+  * fix quick-live-update
   * add check for last apt update run
   * add 03apt-notifier-update-stamp
-  * add debhelper-compat (= 13) to build-depends
   * adjust forced check to 3 hours
+  * add debhelper-compat (= 13) to build-depends
   * use shutil.which instead of distutils.spawn.find_executable
+  * add python3-ewmh as depends to detect fullscreen
   * remove python3-distutils from build-depends
+  * translations refresh
 
- -- fehlix <fehlix@mxlinux.org>  Wed, 01 Mar 2023 18:59:05 -0500
+ -- fehlix <fehlix@mxlinux.org>  Wed, 08 Mar 2023 14:35:52 -0500
 
 apt-notifier (23.01.01mx21) mx; urgency=medium
 
