@@ -133,7 +133,7 @@ upgrade_auto_close_timeout   = 10
 # wireframe_none_light_transparent = /usr/share/icons/mnotify-none-wireframe-light-transparent.png
 
 # Alternative apt/apt-get command line package manager
-# use_nala = false
+use_nala = true
 
 # Example section - will be ignored
 #
