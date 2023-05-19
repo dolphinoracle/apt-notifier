@@ -144,8 +144,8 @@ show_package-manager-help          = true
 show_apt_notifier_help             = true
 display_domain_in_menu_and_title   = true
 
-# use nala disabled by default
-use_nala  = false
+# use nala enabled by default
+use_nala  = true
 
 #---------------------------------
 # MX Linux section
