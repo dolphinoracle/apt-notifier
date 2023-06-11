@@ -133,9 +133,9 @@ upgrade_auto_close_timeout   = 10
 # wireframe_none_light_transparent = /usr/share/icons/mnotify-none-wireframe-light-transparent.png
 
 # Alternative apt/apt-get command line package manager
-use_nala = true
+# use_nala = false
 
-# Example section below - will be ignored
+# Example section - will be ignored
 #
 [Example]
 # comment out the section header line above to make it active
@@ -145,7 +145,7 @@ classic_none  = $HOME/.local/share/icons/apt-notifier-tickok_32.png
 classic_some  = $HOME/.local/share/icons/apt-notifier-reload_32.png
 #
 # Use alternative apt/apt-get command line package manager
-use_nala = false
+use_nala = true
 EOF
 )"
 
@@ -223,9 +223,9 @@ if [ -e /etc/mx-version ]; then
         # wireframe_none_light_transparent = ${APT_NOTIFIER_DEFAULTS[wireframe_none_light_transparent]}
 
         # Alternative apt/apt-get command line package manager
-        use_nala = true
+        # use_nala = true
 
-        # Example section below - will be ignored
+        # Example section below will be ignored
         #
         [Example]
         # comment out the section header line above to make it active
@@ -235,7 +235,7 @@ if [ -e /etc/mx-version ]; then
         classic_some  = \$HOME/.local/share/icons/apt-notifier-reload_32.png
         #
         # Use alternative apt/apt-get command line package manager
-        use_nala = false
+        use_nala = true
 DEFAULTS
 )
     CONF_NEW="$CONF_NEW_DEFAULTS"
