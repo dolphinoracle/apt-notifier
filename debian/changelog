@@ -1,3 +1,10 @@
+apt-notifier (23.07.01) mx; urgency=medium
+
+  * set max size for yad and terminal window
+  * fix nala's --raw-dpkg switch for kernel- and dkms-upgrades
+
+ -- fehlix <fehlix@mxlinux.org>  Sat, 01 Jul 2023 19:54:12 -0500
+
 apt-notifier (23.06.01) mx; urgency=medium
 
   * set apt as default

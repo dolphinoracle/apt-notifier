@@ -118,7 +118,7 @@ if [ x"$APT_NOTIFIER_USE_NALA" = x"true" ]; then
 
     [ y"${DEBUG_APT_NOTIFIER/true/es}" = "yes" ] &&  echo nala upgrade $AptPref_Opts $Nala_UpgradeType $Nala_Pref $AssumeYes
     echo "nala upgrade $Nala_UpgradeType $Nala_Pref $Nala_Update_Pref_Raw"
-    nala upgrade $AptPref_Opts $Nala_UpgradeType $Nala_Pref $Nala_Update_Pref $AssumeYes
+    nala upgrade $AptPref_Opts $Nala_UpgradeType $Nala_Pref $Nala_Update_Pref $Nala_Update_Pref_Raw $AssumeYes
     if [ "$Nala_Update_Pref" = "--update" ]; then
        [ -d /var/lib/apt/periodic ] || mkdir -p /var/lib/apt/periodic
        touch /var/lib/apt/periodic/update-stamp
