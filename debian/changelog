@@ -1,3 +1,9 @@
+apt-notifier (23.07.02) mx; urgency=medium
+
+  * update pulse icons [MelBer]
+
+ -- fehlix <fehlix@mxlinux.org>  Mon, 10 Jul 2023 05:40:06 -0500
+
 apt-notifier (23.07.01) mx; urgency=medium
 
   * set max size for yad and terminal window
