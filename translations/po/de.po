@@ -4,7 +4,6 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# alfredmale <maledora4@googlemail.com>, 2022
 # Geoff Gigg <geoffgigg@hotmail.com>, 2022
 # Jerry Bond, 2022
 # Vinzenz Vietzke <vinz@vinzv.de>, 2022
@@ -103,7 +102,7 @@ msgstr ""
 "MX Auto-Update  --  Protokollanzeige der unbeaufsichtigten Aktualisierungen"
 
 msgid "MX Package Installer"
-msgstr "MX Paket-Installer"
+msgstr "MX-Paketinstallation"
 
 #. The autostart desktop entry name will be shown within the list of autostart
 #. entries.
