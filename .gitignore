@@ -1,0 +1,12 @@
+mesonbuild/
+.tx/
+*.bak/
+*.orig/
+*~/
+*.bak
+*.orig
+*~
+debian/.debhelper/
+debian/debhelper-build-stamp
+debian/files
+debian/*.substvars
